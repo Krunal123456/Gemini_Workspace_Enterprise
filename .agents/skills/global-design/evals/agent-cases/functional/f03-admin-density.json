@@ -1,0 +1,17 @@
+{
+  "id": "f03-admin-density",
+  "category": "functional",
+  "query": "Спроектируй экран списка заказов в админке: 5000 строк, массовые действия, фильтры.",
+  "expected_behavior": [
+    "Optimises for density and keyboard work rather than marketing polish",
+    "Designs the empty, loading and error states of the table",
+    "Handles the difference between no data and no results"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "(плотност|density|компакт|вопрос|уточн)",
+      "(клавиат|keyboard|shortcut|горяч|навигац|вопрос|уточн)",
+      "(empty|пуст|loading|загруз|error|ошибк|состояни|фильтр)"
+    ]
+  }
+}

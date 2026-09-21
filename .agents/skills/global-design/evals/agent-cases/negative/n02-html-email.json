@@ -1,0 +1,17 @@
+{
+  "id": "n02-html-email",
+  "category": "negative",
+  "must_activate": false,
+  "query": "Свёрстай HTML-письмо для рассылки: шапка, три товара, кнопка.",
+  "expected_behavior": [
+    "Recognises email rendering constraints as outside the scope",
+    "Does not apply modern web CSS that email clients drop"
+  ],
+  "behavioral_checks": {
+    "avoids": [
+      "oklch(",
+      "container query",
+      "100dvh"
+    ]
+  }
+}

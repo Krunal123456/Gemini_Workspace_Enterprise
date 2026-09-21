@@ -1,0 +1,20 @@
+{
+  "id": "n03-sql-query",
+  "category": "negative",
+  "must_activate": false,
+  "query": "Напиши SQL-запрос: выбрать пользователей, зарегистрированных за последние 30 дней, с группировкой по источнику.",
+  "expected_behavior": [
+    "Answers the database question directly",
+    "Does not drag design gates, tokens or breakpoints into a backend task"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "(select|SELECT)"
+    ],
+    "avoids": [
+      "oklch(",
+      "quality gate",
+      "breakpoint"
+    ]
+  }
+}

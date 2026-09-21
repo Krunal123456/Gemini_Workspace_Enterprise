@@ -1,0 +1,18 @@
+{
+  "id": "r01-stack-versions",
+  "category": "regression",
+  "query": "Какой фронтенд-стек считать текущим стандартом для нового проекта под этот дизайн-подход и что из старого больше не использовать?",
+  "expected_behavior": [
+    "Names the current majors, not the previous ones",
+    "Names motion/react rather than framer-motion",
+    "Does not present a superseded version as current"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "Next\\.?js[^\\n]{0,14}1[6-9]",
+      "React[^\\n]{0,14}19",
+      "Tailwind[^\\n]{0,14}v?\\s*4",
+      "motion/react"
+    ]
+  }
+}

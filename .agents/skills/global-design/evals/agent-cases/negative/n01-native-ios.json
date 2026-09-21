@@ -1,0 +1,17 @@
+{
+  "id": "n01-native-ios",
+  "category": "negative",
+  "must_activate": false,
+  "query": "Спроектируй экран настроек для нашего iOS-приложения на SwiftUI по Human Interface Guidelines.",
+  "expected_behavior": [
+    "Recognises native mobile UI as outside the web design scope",
+    "Does not answer with web tokens, CSS or breakpoints"
+  ],
+  "behavioral_checks": {
+    "avoids": [
+      "oklch(",
+      "@media (hover: hover)",
+      "390px"
+    ]
+  }
+}

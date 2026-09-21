@@ -1,0 +1,17 @@
+{
+  "id": "d02-contrast-audit",
+  "category": "discovery",
+  "query": "Тёмная тема на сайте: заголовки в секции с градиентом почти не читаются. Разбери, что не так и как чинить.",
+  "expected_behavior": [
+    "Treats contrast over a gradient surface as a distinct problem from contrast over a flat colour",
+    "Names a contrast ratio target rather than saying 'make it darker'",
+    "Says the fix has to be checked on the rendered page, not in the source"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "(4\\.5|3:1|контраст|contrast)",
+      "(градиент|gradient)",
+      "(отрендер|rendered|в браузере|devtools|проверить на странице|живой странице)"
+    ]
+  }
+}

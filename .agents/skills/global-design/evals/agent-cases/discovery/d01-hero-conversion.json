@@ -1,0 +1,17 @@
+{
+  "id": "d01-hero-conversion",
+  "category": "discovery",
+  "query": "Лендинг не конвертит. Герой — centered H1, подзаголовок и две одинаковые кнопки. Что менять?",
+  "expected_behavior": [
+    "Recognises the centered-H1-plus-two-equal-CTAs hero as a banned pattern rather than a style preference",
+    "Names a concrete replacement structure instead of generic advice",
+    "Ties the change to a business outcome, not to taste"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "(дефолтн|шаблон|типов|запрет|антипаттерн|anti-pattern|анти-слоп|anti-slop)",
+      "(CTA|кнопк|призыв)",
+      "(конверс|conversion|цел|outcome|действ)"
+    ]
+  }
+}

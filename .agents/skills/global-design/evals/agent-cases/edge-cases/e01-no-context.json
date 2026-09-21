@@ -1,0 +1,16 @@
+{
+  "id": "e01-no-context",
+  "category": "edge-cases",
+  "query": "Сделай красиво.",
+  "expected_behavior": [
+    "Does not silently invent a brief",
+    "Either asks one targeted question or states explicit assumptions and proceeds",
+    "Names what it needs: interface type, user, business goal"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "(предполож|допущен|assum|уточн|вопрос|какой|что именно)",
+      "(тип интерфейс|лендинг|SaaS|админ|кто пользу|цел|страниц|интерфейс|продукт|задач)"
+    ]
+  }
+}

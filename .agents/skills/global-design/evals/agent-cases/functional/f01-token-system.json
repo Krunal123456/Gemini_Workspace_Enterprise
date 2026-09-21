@@ -1,0 +1,24 @@
+{
+  "id": "f01-token-system",
+  "category": "functional",
+  "query": "Собери базовую цветовую систему для B2B SaaS-дашборда: акцент, нейтрали, статусы. Отдай CSS.",
+  "expected_behavior": [
+    "Returns colours in OKLCH, not hex or rgb()",
+    "Separates primitive values from semantic tokens",
+    "Includes status colours distinguishable from the accent"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "oklch\\(",
+      "(--[a-z][a-z0-9-]*\\s*:|\\.css)",
+      "(success|error|warning|danger|статус|успех|ошибк|предупрежд)"
+    ],
+    "avoids": [
+      ": #ffffff",
+      ": #000000",
+      ":#ffffff",
+      ":#000000"
+    ]
+  },
+  "notes": ""
+}

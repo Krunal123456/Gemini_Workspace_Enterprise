@@ -1,0 +1,146 @@
+[
+  {
+    "id": "t01",
+    "query": "улучши hero секцию SaaS лендинга, сейчас она выглядит как шаблонный блок с H1, текстом и двумя кнопками",
+    "should_trigger": true,
+    "reason": "UI/UX redesign task — hero section improvement"
+  },
+  {
+    "id": "t02",
+    "query": "redesign this SaaS hero section, it looks generic — H1, subtitle, two equal buttons",
+    "should_trigger": true,
+    "reason": "UI/UX redesign task — hero section improvement"
+  },
+  {
+    "id": "t03",
+    "query": "сделай админку для CRM: таблица клиентов, фильтры, массовые действия, пустые состояния",
+    "should_trigger": true,
+    "reason": "Admin UI architecture — full admin panel design"
+  },
+  {
+    "id": "t04",
+    "query": "audit this landing page and find the top 10 design problems",
+    "should_trigger": true,
+    "reason": "Design audit task"
+  },
+  {
+    "id": "t05",
+    "query": "create a frontend handoff spec for the checkout flow, include all states and ARIA",
+    "should_trigger": true,
+    "reason": "Developer handoff specification"
+  },
+  {
+    "id": "t06",
+    "query": "add WCAG 2.2 AA accessibility to this form: labels, error states, focus indicators",
+    "should_trigger": true,
+    "reason": "Accessibility review — form component"
+  },
+  {
+    "id": "t07",
+    "query": "design a pricing page with 3 tiers, annual/monthly toggle, and highlighted recommended plan",
+    "should_trigger": true,
+    "reason": "Pricing page construction"
+  },
+  {
+    "id": "t08",
+    "query": "improve the loading states in this app — currently just a spinner",
+    "should_trigger": true,
+    "reason": "UI state improvement — loading/skeleton"
+  },
+  {
+    "id": "t09",
+    "query": "add dark mode to this project using CSS custom properties",
+    "should_trigger": true,
+    "reason": "Token layer and dark mode implementation"
+  },
+  {
+    "id": "t10",
+    "query": "create a wow landing page with grain texture, mesh gradient, and scroll animations",
+    "should_trigger": true,
+    "reason": "Interactive landing page with effects stack"
+  },
+  {
+    "id": "t11",
+    "query": "напиши SQL-запрос для выборки пользователей по дате регистрации",
+    "should_trigger": false,
+    "reason": "Pure SQL — no design work"
+  },
+  {
+    "id": "t12",
+    "query": "set up a Redis cluster with 3 shards and replication",
+    "should_trigger": false,
+    "reason": "Backend infrastructure — no UI/UX"
+  },
+  {
+    "id": "t13",
+    "query": "write a Python function to parse CSV files",
+    "should_trigger": false,
+    "reason": "Pure code task — no design output"
+  },
+  {
+    "id": "t14",
+    "query": "design a B2B industrial equipment catalog: product grid, spec comparison, lead capture",
+    "should_trigger": true,
+    "reason": "Industry-specific design — b2b-products sector"
+  },
+  {
+    "id": "t15",
+    "query": "design a healthcare booking flow: appointment calendar, provider selection, trust signals",
+    "should_trigger": true,
+    "reason": "Industry-specific design — health sector"
+  },
+  {
+    "id": "t16",
+    "query": "сделай сайт для студии ремонта, вопросов не задавай, просто собери",
+    "should_trigger": true,
+    "reason": "One-shot autonomous build — routes to rules/21-one-shot-build.md, no dialogue"
+  },
+  {
+    "id": "t17",
+    "query": "build the product listing and product detail pages for an online store, plus cart and checkout",
+    "should_trigger": true,
+    "reason": "E-commerce build — routes to blueprints/ecommerce-from-scratch.md"
+  },
+  {
+    "id": "t18",
+    "query": "the contrast fix passes in the CSS but the live page still looks washed out — check what actually renders",
+    "should_trigger": true,
+    "reason": "Rendered verification — routes to rules/20-rendered-verification.md, not a source-only read"
+  },
+  {
+    "id": "t19",
+    "query": "make it look like this screenshot — pull out the palette, type scale and spacing as a design system",
+    "should_trigger": true,
+    "reason": "Reference extraction — routes to recipes/extract-design-from-reference.md"
+  },
+  {
+    "id": "t20",
+    "query": "add a scroll-pinned horizontal gallery that scrubs through six frames",
+    "should_trigger": true,
+    "reason": "GSAP tier motion — routes to references/gsap-patterns.md via the Effects Decision Block"
+  },
+  {
+    "id": "t21",
+    "query": "design the settings screen for our iOS app in SwiftUI, following Apple's Human Interface Guidelines",
+    "should_trigger": false,
+    "reason": "Hard negative — native mobile UI is an explicit scope boundary, despite reading as a design task"
+  },
+  {
+    "id": "t22",
+    "query": "build a responsive HTML email template for our product newsletter",
+    "should_trigger": false,
+    "reason": "Hard negative — email rendering constraints are out of scope, despite 'responsive' and 'template'"
+  },
+  {
+    "id": "t23",
+    "query": "design a logo and pick brand colors for a new coffee roastery",
+    "should_trigger": false,
+    "reason": "Hard negative — brand identity and logo design are out of scope, despite 'design' and 'colors'"
+  },
+  {
+    "id": "t24",
+    "query": "lay out a two-sided A4 print flyer for a conference",
+    "should_trigger": false,
+    "reason": "Hard negative — print design is out of scope, despite being a layout task"
+  }
+]

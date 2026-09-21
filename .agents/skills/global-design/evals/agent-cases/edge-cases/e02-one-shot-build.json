@@ -1,0 +1,16 @@
+{
+  "id": "e02-one-shot-build",
+  "category": "edge-cases",
+  "query": "Сделай сайт для студии интерьерного ремонта. Вопросов не задавай, просто собери.",
+  "expected_behavior": [
+    "Skips the interview and proceeds, as instructed",
+    "Records the assumptions it had to make instead of hiding them",
+    "Still self-verifies against its own quality bar"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "(допущен|предполож|assumption|ledger)",
+      "(структур|секц|блок|IA|страниц)"
+    ]
+  }
+}

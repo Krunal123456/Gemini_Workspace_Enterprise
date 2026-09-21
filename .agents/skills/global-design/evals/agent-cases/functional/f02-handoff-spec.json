@@ -1,0 +1,17 @@
+{
+  "id": "f02-handoff-spec",
+  "category": "functional",
+  "query": "Напиши фронтендеру ТЗ на карточку тарифа: три тарифа, средний выделен, есть переключатель месяц/год.",
+  "expected_behavior": [
+    "Specifies every interactive state, not only the default look",
+    "Gives acceptance criteria a developer can check",
+    "States what is prohibited, so the developer does not invent it"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "(hover|focus|disabled|состояни)",
+      "(критери|acceptance|проверк)",
+      "(запрещ|prohibit|не использов|нельзя)"
+    ]
+  }
+}

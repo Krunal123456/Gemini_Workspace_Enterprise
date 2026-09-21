@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>clean fixture</title>
+<style>
+  :root { --bg: oklch(100% 0.002 258); --text: oklch(15% 0.013 258); --accent: oklch(65% 0.22 258); }
+  body { margin: 0; font-family: system-ui; background: var(--bg); color: var(--text); }
+  .hero { min-height: 100dvh; padding: 1rem; box-sizing: border-box; }
+  .cta { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center;
+         justify-content: center; background: var(--accent); color: var(--bg); border: 0; }
+</style>
+</head>
+<body>
+  <main class="hero">
+    <h1>Visible heading</h1>
+    <button class="cta">Book a slot</button>
+    <img width="1" height="1" alt="pixel"
+         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+  </main>
+</body>
+</html>

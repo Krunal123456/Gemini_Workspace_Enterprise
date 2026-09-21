@@ -1,0 +1,17 @@
+{
+  "id": "f04-motion-budget",
+  "category": "functional",
+  "query": "Хочу анимацию появления секций при скролле на маркетинговом сайте. Как сделать правильно?",
+  "expected_behavior": [
+    "Picks the cheapest technique that does the job instead of reaching for a library",
+    "Requires prefers-reduced-motion support",
+    "Animates only composited properties"
+  ],
+  "behavioral_checks": {
+    "output_contract": [
+      "prefers-reduced-motion",
+      "(transform|opacity)",
+      "(IntersectionObserver|scroll-driven|animation-timeline|ScrollTrigger)"
+    ]
+  }
+}
