@@ -20,23 +20,23 @@ export default function ConnectorDetectorPage() {
         </div>
       </div>
 
-      <section className="border-b border-border/60 bg-dark-bg py-20 text-white">
+      <section className="border-b border-border bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(6,182,212,0.12),transparent_70%)] py-20 text-foreground">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-gemini-cyan/20 bg-gemini-cyan/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-gemini-cyan">
               <Building2 className="h-3.5 w-3.5" /> Gemini Enterprise readiness
             </div>
-            <h1 className="fluid-h1 mb-6 font-extrabold tracking-tight">
+            <h1 className="fluid-h1 mb-6 font-extrabold tracking-tight text-foreground">
               Are you ready to deploy <span className="gradient-text">Gemini Enterprise?</span>
             </h1>
-            <p className="fluid-body max-w-2xl leading-relaxed text-gray-400">
+            <p className="fluid-body max-w-2xl leading-relaxed text-muted-foreground">
               Match the tools your team uses to Gemini Enterprise connectors for an instant readiness check.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-background">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <ConnectorDetector />
         </div>

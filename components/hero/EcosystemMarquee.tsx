@@ -14,18 +14,23 @@ import {
   Cloud,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { GeminiLogo } from "@/components/logos/GeminiLogo";
+import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
+import { GoogleWorkspaceLogo } from "@/components/logos/GoogleWorkspaceLogo";
+import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
 
 interface MarqueeItem {
   name: string;
   type: string;
-  icon: React.ElementType;
+  icon?: React.ElementType;
+  logo?: React.ComponentType<{ className?: string }>;
 }
 
 const ITEMS: MarqueeItem[] = [
-  { name: "Google Workspace", type: "Native", icon: Database },
-  { name: "Gemini Enterprise", type: "Native", icon: Zap },
-  { name: "Google Cloud", type: "Cloud", icon: Cloud },
-  { name: "MarketStar", type: "Partner", icon: Briefcase },
+  { name: "Google Workspace", type: "Native", logo: GoogleWorkspaceLogo },
+  { name: "Gemini Enterprise", type: "Native", logo: GeminiLogo },
+  { name: "Google Cloud", type: "Cloud", logo: GoogleCloudLogo },
+  { name: "MarketStar", type: "Partner", logo: MarketStarLogo },
   { name: "Salesforce", type: "MCP Ready", icon: Link2 },
   { name: "Jira", type: "MCP Ready", icon: Code },
   { name: "Confluence", type: "MCP Ready", icon: Share2 },
@@ -62,9 +67,13 @@ export function EcosystemMarquee({ className }: { className?: string }) {
               key={`${item.name}-${idx}`}
               className="flex-shrink-0 bg-muted/30 backdrop-blur-sm border border-border/60 group-hover:border-gemini-purple/30 px-5 py-2.5 rounded-full flex items-center gap-3 transition-colors duration-300 hover:!border-gemini-purple/60 hover:bg-muted/50 cursor-default"
             >
-              <div className="p-1.5 bg-background rounded-full shadow-sm border border-border/50">
-                <item.icon className="w-4 h-4 text-foreground/80" />
-              </div>
+              {item.logo ? (
+                <item.logo className="h-6 w-auto max-w-[72px] object-contain" />
+              ) : item.icon ? (
+                <div className="rounded-full border border-border/50 bg-background p-1.5">
+                  <item.icon className="h-4 w-4 text-foreground/80" />
+                </div>
+              ) : null}
               <div className="flex flex-col">
                 <span className="text-sm font-medium leading-none">{item.name}</span>
                 <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold mt-1">

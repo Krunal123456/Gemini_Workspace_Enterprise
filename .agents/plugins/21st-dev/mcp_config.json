@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "21st": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@latest"],
+      "serverUrl": "https://21st.dev/api/mcp",
+      "env": {
+        "API_KEY_21ST": "${API_KEY_21ST}"
+      }
+    }
+  }
+}

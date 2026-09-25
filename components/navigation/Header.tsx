@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
 import {
   Search,
   Menu,
@@ -88,23 +89,18 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-4 inset-x-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-4 z-50 transition-all duration-300",
         scrolled ? "opacity-100" : "opacity-100"
       )}
       onKeyDown={handleKeyDown}
     >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className={cn(
-          "relative flex items-center justify-between gap-4 rounded-full border border-slate-200/70 bg-white/75 px-4 py-3 shadow-[0_18px_45px_-25px_rgba(59,130,246,0.35)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-slate-950/55",
-          scrolled && "border-blue-300/80 bg-white/85 dark:border-blue-400/20 dark:bg-slate-950/70"
+          "relative flex items-center justify-between gap-4 rounded-full border border-slate-200/80 bg-white/75 px-4 py-3 shadow-[0_20px_50px_-25px_rgba(30,64,175,0.28)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-slate-950/70",
+          scrolled && "border-blue-200/90 bg-white/85 dark:border-blue-500/20 dark:bg-slate-950/80"
         )}>
           <Link href="/" className="flex items-center gap-3 outline-none focus-visible:ring-2 ring-primary rounded-full">
-            <img
-              src="https://www.marketstar.com/hs-fs/hubfs/MS-Wlogo23.gif?width=956&height=144&name=MS-Wlogo23.gif"
-              alt="MarketStar"
-              className="h-6 w-auto object-contain transition-all brightness-0 dark:brightness-0 dark:invert"
-              style={{ maxWidth: 150 }}
-            />
+            <MarketStarLogo className="h-6 w-auto text-slate-900 dark:text-white" />
             <div className="hidden h-5 w-px bg-slate-300 dark:bg-white/10 sm:block" />
             <span className="hidden text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-600 dark:text-slate-300 md:block">
               Gemini Intelligence
@@ -112,25 +108,29 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 rounded-full border border-slate-200 bg-slate-50/80 p-1 lg:flex dark:border-white/10 dark:bg-white/[0.02]">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  "relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200",
-                  pathname === item.href ? "text-slate-900 dark:text-white" : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-                )}
-              >
-                {pathname === item.href && (
+            {navItems.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200",
+                    isActive ? "text-violet-800 dark:text-violet-200" : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                  )}
+                >
+                {isActive && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-slate-900/5 dark:bg-white/5"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                    className="absolute inset-0 rounded-full bg-violet-500/10 dark:bg-violet-300/10"
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                   />
                 )}
                 <span className="relative z-10">{item.name}</span>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
 
             <div className="relative" ref={dropdownRef}>
               <button
@@ -181,7 +181,7 @@ export function Header() {
             <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
               <Link
                 href="/compare"
-                className="inline-flex items-center justify-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition-all duration-300 hover:border-blue-400/30 hover:bg-blue-100 dark:border-blue-400/20 dark:bg-blue-500/10 dark:text-blue-200 dark:hover:bg-blue-500/15"
+                className="inline-flex items-center justify-center rounded-full border border-violet-800 bg-violet-700 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_25px_-12px_rgba(124,58,237,0.75)] transition-all duration-300 hover:translate-y-[-1px] hover:bg-violet-600 hover:shadow-[0_14px_28px_-12px_rgba(124,58,237,0.8)]"
               >
                 Launch Workspace
               </Link>

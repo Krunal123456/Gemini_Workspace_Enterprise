@@ -31,7 +31,7 @@ const applicationLinks = [
 
 export function Footer() {
   return (
-    <footer className="w-full bg-gray-50 dark:bg-dark-surface border-t border-border">
+    <footer className="w-full bg-muted/30 border-t border-border">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
         {/* Main content py-16, grid */}
         <div className="py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">

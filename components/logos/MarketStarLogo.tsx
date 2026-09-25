@@ -7,6 +7,7 @@ export function MarketStarLogo({ className = "h-5 w-auto" }: { className?: strin
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      role="img"
       aria-label="MarketStar Logo"
     >
       <text

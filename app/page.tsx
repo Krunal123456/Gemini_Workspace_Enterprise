@@ -2,10 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Hero } from "@/components/hero/Hero";
+import { SynapticConnectorBeam } from "@/components/hero/SynapticConnectorBeam";
 import ComparisonPreview from "@/components/home/ComparisonPreview";
 import EnterpriseSection from "@/components/home/EnterpriseSection";
 import SecurityPreview from "@/components/home/SecurityPreview";
 import ArticlesTeaser from "@/components/home/ArticlesTeaser";
+import { LatestModelShowcase } from "@/components/home/LatestModelShowcase";
 import { features } from "@/data/features";
 
 const featureCount = features.length;
@@ -40,54 +42,6 @@ export default function HomePage() {
       title: "Scale",
       description: "Roll out with measurable ROI, adoption metrics, and a deployment path designed for mature enterprise transformation.",
       accent: "from-[#FBBC04]/18 via-[#FBBC04]/8 to-transparent",
-    },
-  ];
-
-  const modelCards = [
-    {
-      name: "Gemini 2.5 Pro",
-      label: "Reasoning / coding",
-      strength: "Strongest",
-      description: "Google positions this as the most capable reasoning and coding model for complex, multi-step work.",
-      lane: "High complexity",
-      score: "A+",
-      accent: "from-blue-500/20 via-blue-400/10 to-transparent",
-    },
-    {
-      name: "Gemini 2.5 Flash",
-      label: "Speed / cost efficiency",
-      strength: "Balanced",
-      description: "Optimized for responsive workflows, lower latency, and practical enterprise throughput.",
-      lane: "Fast execution",
-      score: "A",
-      accent: "from-emerald-500/20 via-emerald-400/10 to-transparent",
-    },
-    {
-      name: "Gemini 2.0 Flash",
-      label: "Realtime / multimodal",
-      strength: "Low latency",
-      description: "Built for fast, interactive multimodal experiences and efficient enterprise automation.",
-      lane: "Realtime",
-      score: "A",
-      accent: "from-violet-500/20 via-violet-400/10 to-transparent",
-    },
-    {
-      name: "Gemini 1.5 Pro",
-      label: "Long context",
-      strength: "Context leader",
-      description: "Known for large context handling and source-heavy document analysis with workspace scale.",
-      lane: "Long context",
-      score: "A",
-      accent: "from-amber-500/20 via-amber-400/10 to-transparent",
-    },
-    {
-      name: "GPT-4.1 / rivals",
-      label: "Benchmark comparison",
-      strength: "Competitive",
-      description: "A useful benchmark reference point when comparing reasoning, coding, and multimodal performance.",
-      lane: "External benchmark",
-      score: "A/B",
-      accent: "from-rose-500/20 via-rose-400/10 to-transparent",
     },
   ];
 
@@ -132,83 +86,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-b border-border bg-background py-16 md:py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.12),_transparent_22%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.10),_transparent_25%)]" />
-        <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <span className="atlas-kicker">Model intelligence</span>
-              <h2 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-                Google model stack, benchmarked for enterprise work.
-              </h2>
-            </div>
-            <div className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-700 dark:border-blue-400/20 dark:bg-blue-500/10 dark:text-blue-200">
-              Google public benchmark framing
-            </div>
-          </div>
-
-          <div className="overflow-x-auto pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex min-w-max gap-4">
-              {modelCards.map((model, index) => (
-                <article
-                  key={model.name}
-                  className="group relative w-[290px] shrink-0 overflow-hidden rounded-[26px] border border-border bg-card/90 p-5 shadow-[0_28px_80px_-38px_rgba(59,130,246,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/30"
-                  style={{ animationDelay: `${index * 80}ms` }}
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${model.accent}`} />
-                  <div className="relative">
-                    <div className="mb-4 flex items-center justify-between gap-3">
-                      <span className="rounded-full border border-slate-200 bg-white/80 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">{model.label}</span>
-                      <span className="text-xl font-black tracking-[-0.08em] text-foreground">{model.score}</span>
-                    </div>
-
-                    <div className="mb-3 text-xl font-bold text-foreground">{model.name}</div>
-                    <div className="mb-3 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-300">
-                      {model.strength}
-                    </div>
-
-                    <p className="text-sm leading-6 text-muted-foreground">{model.description}</p>
-
-                    <div className="mt-5 rounded-2xl border border-slate-200 bg-white/80 p-3 dark:border-white/10 dark:bg-slate-950/60">
-                      <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                        <span>Best fit</span>
-                        <span>{model.lane}</span>
-                      </div>
-                      <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-                        <div className="h-full rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400" style={{ width: model.name.includes("Flash") ? "76%" : model.name.includes("Pro") ? "90%" : "68%" }} />
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              { title: "Reasoning", value: "Top-tier", detail: "Best for deep analysis and technical problem solving." },
-              { title: "Coding", value: "Leadership", detail: "Strong for agentic workflows and code generation." },
-              { title: "Latency", value: "Fast", detail: "Optimized for responsive enterprise automation." },
-            ].map((item) => (
-              <div key={item.title} className="rounded-[22px] border border-border bg-card/80 p-4">
-                <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{item.title}</div>
-                <div className="mt-2 text-2xl font-black tracking-[-0.06em] text-foreground">{item.value}</div>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.detail}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            <Link
-              href="/models"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 transition-all hover:border-blue-400/30 hover:text-blue-700 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:text-blue-200"
-            >
-              Explore model stack details
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      <LatestModelShowcase />
 
       <section className="relative overflow-hidden border-b border-border bg-background py-20 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(66,133,244,0.12),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(139,92,246,0.12),_transparent_30%)]" />

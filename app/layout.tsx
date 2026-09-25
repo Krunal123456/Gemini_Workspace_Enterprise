@@ -6,6 +6,7 @@ import { CommandPalette } from "@/components/search/CommandPalette";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { LenisProvider } from "@/components/ui/LenisProvider";
 import { CloudCursor } from "@/components/ui/CloudCursor";
+import { PageTransition } from "@/components/navigation/PageTransition";
 import { Geist, Outfit } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -48,9 +49,12 @@ export const viewport: Viewport = {
 const themeScript = `
   (function() {
     try {
-      var t = localStorage.getItem('theme');
+      var stored = localStorage.getItem('theme');
       var d = document.documentElement;
-      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      d.style.colorScheme = isDark ? 'dark' : 'light';
+      d.dataset.theme = isDark ? 'dark' : 'light';
+      if (isDark) {
         d.classList.add('dark');
       } else {
         d.classList.remove('dark');
@@ -71,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <CloudCursor />
             <Header />
             <main className="min-h-[calc(100vh-4rem)] bg-background text-foreground">
-              {children}
+              <PageTransition>{children}</PageTransition>
             </main>
             <Footer />
             <CommandPalette />

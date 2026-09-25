@@ -110,7 +110,7 @@ export default function EnterpriseSection() {
         </div>
 
         <div className="text-center">
-          <Link href="/enterprise" className="inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+          <Link href="/enterprise" className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-4 rounded-full font-semibold hover:opacity-90 transition-opacity">
             Explore the Deep Architectural Guide
             <ArrowRight className="w-5 h-5" />
           </Link>

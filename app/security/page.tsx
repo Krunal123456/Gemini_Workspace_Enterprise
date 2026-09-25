@@ -87,7 +87,7 @@ export const metadata: Metadata = {
 export default function SecurityPage() {
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">
-      <section className="relative overflow-hidden pt-28 pb-20 bg-background text-foreground border-b border-border dark:bg-dark-bg dark:text-white dark:border-dark-border">
+      <section className="relative overflow-hidden pt-28 pb-20 bg-background text-foreground border-b border-border">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-google-green/10 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 text-center">
@@ -95,20 +95,20 @@ export default function SecurityPage() {
             <ShieldCheck className="w-3.5 h-3.5" /> 7-Layer Defense in Depth
           </div>
 
-          <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground dark:text-white max-w-4xl mx-auto mb-6">
+          <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground max-w-4xl mx-auto mb-6">
             Enterprise security that never compromises on <span className="text-google-green">privacy</span>.
           </h1>
 
-          <p className="fluid-body text-muted-foreground dark:text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+          <p className="fluid-body text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
             Deploy Gemini Enterprise with total confidence. Backed by Google's global infrastructure, zero-trust context-aware access, automated DLP, Model Armor, and an ironclad contract guarantee.
           </p>
 
-          <div className="max-w-3xl mx-auto bg-muted/50 dark:bg-white/5 border border-google-green/40 rounded-2xl p-6 backdrop-blur-md shadow-2xl">
-            <div className="flex items-center justify-center gap-3 text-foreground dark:text-white font-semibold text-lg mb-2">
+          <div className="max-w-3xl mx-auto bg-muted/50 border border-google-green/40 rounded-2xl p-6 backdrop-blur-md shadow-2xl">
+            <div className="flex items-center justify-center gap-3 text-foreground font-semibold text-lg mb-2">
               <Lock className="w-5 h-5 text-google-green" />
               The Customer Data Privacy Guarantee
             </div>
-            <p className="text-muted-foreground dark:text-gray-300 text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               Google Workspace customer data (including prompt inputs, uploaded documents, generated drafts, and audio recordings) is <strong>NEVER used to train foundation models</strong> without your permission, nor is it shared across customer tenants. Your IP remains exclusively yours.
             </p>
           </div>
