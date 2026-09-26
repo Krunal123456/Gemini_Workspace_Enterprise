@@ -38,7 +38,8 @@ function RevealModelCard({ children, delay }: { children: ReactNode; delay: numb
       data-motion-ready={motionReady}
       data-visible={isVisible}
       style={{ transitionDelay: `${delay}ms` }}
-      className="model-reveal group flex min-h-[286px] flex-col border-t-2 border-violet-500/70 bg-white p-5 shadow-[0_16px_45px_-34px_rgba(43,26,75,0.42)] transition-shadow hover:shadow-[0_22px_54px_-34px_rgba(43,26,75,0.55)] dark:bg-white/[0.04]"
+      data-spotlight
+      className="model-reveal spotlight-surface group flex min-h-[286px] flex-col border-t-2 border-violet-500/70 bg-white p-5 shadow-[0_16px_45px_-34px_rgba(43,26,75,0.42)] transition-shadow hover:shadow-[0_22px_54px_-34px_rgba(43,26,75,0.55)] dark:bg-white/[0.04]"
     >
       {children}
     </article>

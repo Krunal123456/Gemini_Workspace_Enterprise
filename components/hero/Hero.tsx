@@ -1,38 +1,24 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Search, 
-  ArrowRight, 
-  Command, 
-  Sparkles, 
-  Layers, 
-  ShieldCheck, 
-  Database, 
-  Terminal,
-  Activity,
-  Cpu,
-  Boxes,
-  Zap,
-  CheckCircle2
-} from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Play, Sparkles } from "lucide-react";
 import { SynapseSessionAssembler } from "./SynapseSessionAssembler";
 import { EcosystemMarquee } from "./EcosystemMarquee";
 import { features } from "@/data/features";
 import { connectors } from "@/data/connectors";
 import { plans } from "@/data/plans";
-import { applications } from "@/data/apps";
+import { securityLayers } from "@/data/security";
+import { SynapseCanvas } from "@/components/canvas/SynapseCanvas";
 
 const featureCount = features.length;
 
 export function Hero() {
-  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const reduceMotion = useReducedMotion();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const quickSearches = [
     "Deep Research",
@@ -78,7 +64,8 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#090610] pt-28 pb-16 text-white synapse-ambient synapse-grid md:pt-32 md:pb-20">
+    <section className="synapse-stage relative w-full overflow-hidden bg-[#090610] pt-28 pb-16 text-white synapse-ambient synapse-grid md:pt-32 md:pb-20">
+      <SynapseCanvas />
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -top-64 left-[42%] h-[38rem] w-[48rem] -translate-x-1/2 rounded-full bg-violet-700/25 blur-[150px]" />
         <div className="absolute right-[-12rem] top-[28rem] h-[28rem] w-[28rem] rounded-full bg-fuchsia-700/10 blur-[140px]" />
@@ -94,20 +81,23 @@ export function Hero() {
             className="synapse-badge mb-7"
           >
             <span className="h-2 w-2 rounded-full bg-violet-300" />
-            <span className="font-bold">Enterprise intelligence</span>
+            <span className="font-bold">Google Workspace + Gemini Enterprise</span>
             <span className="opacity-40">✦</span>
             <span className="font-normal text-white/70">Grounded in your data</span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial={reduceMotion ? false : "hidden"}
+            animate="visible"
+            variants={{ hidden: {}, visible: { transition: { delayChildren: 0.08, staggerChildren: 0.075 } } }}
             className="text-5xl font-extrabold leading-[1.02] tracking-[-0.04em] text-balance sm:text-6xl lg:text-[3.75rem] xl:text-[4.5rem]"
           >
-            Systems that{" "}
-            <span className="block text-violet-300">
-              answer first.
+            <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">Google</motion.span>{" "}
+            <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">Workspace,</motion.span>
+            <span className="block gemini-spectrum">
+              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">reimagined</motion.span>{" "}
+              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">by</motion.span>{" "}
+              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">AI.</motion.span>
             </span>
           </motion.h1>
 
@@ -117,7 +107,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg"
           >
-            Search, compare, and connect Google&apos;s enterprise AI capabilities, with grounded answers and governance in view. Explore {featureCount} features, 11 plans, and enterprise connectors.
+            Bring Gemini into the flow of your work: grounded in Workspace context, connected to your tools, and governed for your organization. Explore {featureCount} capabilities, plans, models, and enterprise controls.
           </motion.p>
 
           <motion.div
@@ -128,6 +118,7 @@ export function Hero() {
           >
             <Link
               href="/compare"
+              data-magnetic
               className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-violet-300 px-6 py-3.5 text-sm font-semibold text-[#160c22] transition-colors hover:bg-white sm:w-auto"
             >
               <Sparkles className="h-4 w-4" />
@@ -136,16 +127,14 @@ export function Hero() {
             </Link>
 
             <button
-              onClick={handleOpenSearch}
+              onClick={() => document.querySelector("#playground")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" })}
+              data-magnetic
               className="group inline-flex min-h-12 items-center justify-between gap-3 rounded-full border border-white/20 bg-white/[0.04] px-5 py-3.5 text-sm font-medium text-white transition-colors hover:bg-white/10 sm:w-auto"
             >
               <span className="flex items-center gap-2 text-white/70 group-hover:text-white">
-                <Search className="h-4 w-4 text-violet-300" />
-                <span>Search {featureCount} features...</span>
+                <Play className="h-4 w-4 text-violet-300" />
+                <span>Try the interactive preview</span>
               </span>
-              <kbd className="hidden items-center gap-0.5 rounded border border-white/15 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-white/60 sm:inline-flex">
-                <Command className="h-3 w-3" />K
-              </kbd>
             </button>
           </motion.div>
 
@@ -176,7 +165,7 @@ export function Hero() {
             </div>
             <div>
               <div className="font-mono text-2xl font-bold tracking-tight text-violet-300 sm:text-3xl">
-                11
+                {plans.length}
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
                 Plans compared
@@ -192,10 +181,10 @@ export function Hero() {
             </div>
             <div>
               <div className="font-mono text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                0%
+                {securityLayers.length}
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
-                Customer data training
+                Security layers mapped
               </div>
             </div>
           </div>

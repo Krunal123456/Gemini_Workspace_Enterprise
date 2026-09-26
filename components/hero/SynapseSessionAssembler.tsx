@@ -45,36 +45,36 @@ const SCENARIOS: Scenario[] = [
   {
     id: "deep-research",
     tabLabel: "Deep Research Synthesis",
-    query: "Synthesize Q3 enterprise expansion trends across 14 Drive strategy docs, BigQuery customer cohorts, and Salesforce pipeline.",
+    query: "Summarize an account review using selected Drive notes, a BigQuery workbook, and CRM context.",
     model: "Gemini 3.1 Pro · Preview · 1M Context",
     sourceTags: [
-      { label: "Google Drive (14 files)", type: "drive" },
-      { label: "BigQuery (Cohort_ARR)", type: "bigquery" },
+      { label: "Google Drive notes", type: "drive" },
+      { label: "BigQuery workbook", type: "bigquery" },
       { label: "Salesforce CRM", type: "salesforce" },
     ],
     steps: [
-      { label: "Grounded ACL check passed (Sales & Exec OU)", status: "done", latency: "3ms" },
-      { label: "Cross-indexed 1.4M tokens across 14 PDF strategy briefs", status: "done", latency: "11ms" },
-      { label: "Queried BigQuery enterprise retention rates (98.4%)", status: "done", latency: "8ms" },
-      { label: "Synthesized executive briefing with verified citations", status: "done", latency: "14ms" },
+      { label: "Check access to the selected source material", status: "done", latency: "Demo" },
+      { label: "Compare relevant notes and CRM context", status: "done", latency: "Demo" },
+      { label: "Separate sourced facts from open questions", status: "done", latency: "Demo" },
+      { label: "Prepare a summary draft for human review", status: "done", latency: "Demo" },
     ],
-    output: "Enterprise pipeline expansion is up 42% YoY, primarily concentrated in multi-region cloud migrations. BigQuery analysis confirms net revenue retention of 118% among accounts utilizing native Workspace connectors. Zero data leakage detected; prompt inputs isolated from public model training.",
+    output: "This local simulation would summarize account themes, identify which source supports each finding, and surface gaps for review. Any numerical conclusion should be calculated from the organization's selected source data and checked before sharing.",
     citations: [
-      { id: "c1", name: "Q3_Strategic_Review_v4.gdoc", type: "Google Drive", metric: "99.4% confidence" },
-      { id: "c2", name: "bq_enterprise_cohort_2026.sql", type: "BigQuery", metric: "Verified source" },
-      { id: "c3", name: "SFDC_Opp_Stage4_Global.json", type: "Salesforce", metric: "$14.2M pipeline" },
+      { id: "c1", name: "account-review-notes.docx", type: "Google Drive", metric: "Example source" },
+      { id: "c2", name: "renewal-workbook.csv", type: "BigQuery", metric: "Example source" },
+      { id: "c3", name: "crm-account-summary.txt", type: "Salesforce", metric: "Example source" },
     ],
     telemetry: {
-      tokens: "2,840 tokens",
-      speed: "482 tok/sec",
-      ttft: "12ms",
-      compliance: "Model Armor Active · Zero-Training",
+      tokens: "Sample flow",
+      speed: "No API request",
+      ttft: "Local demo",
+      compliance: "No files uploaded",
     },
   },
   {
     id: "mcp-agent",
     tabLabel: "Autonomous MCP Tool Agent",
-    query: "Inspect Jira sprint blocker #ENG-4892, run database diagnostic via VPC MCP server, and alert engineering leads on Google Chat.",
+    query: "Preview a supervised workflow that reviews an issue, checks an approved data source, and drafts a team update.",
     model: "Gemini 3.8 Flash · GA · MCP Orchestrator",
     sourceTags: [
       { label: "Jira Software MCP", type: "mcp" },
@@ -82,28 +82,28 @@ const SCENARIOS: Scenario[] = [
       { label: "Google Chat API", type: "drive" },
     ],
     steps: [
-      { label: "Invoked Jira MCP server: retrieved ticket #ENG-4892 details", status: "done", latency: "5ms" },
-      { label: "Executed read-only PostgreSQL schema verification over TLS", status: "done", latency: "12ms" },
-      { label: "Identified index lock on partition customer_events_2026_q3", status: "done", latency: "7ms" },
-      { label: "Drafted remediation pull request & dispatched Chat notification", status: "done", latency: "9ms" },
+      { label: "Review the request and configured permissions", status: "done", latency: "Demo" },
+      { label: "Read from the approved connector scope", status: "done", latency: "Demo" },
+      { label: "Prepare a proposed action for review", status: "done", latency: "Demo" },
+      { label: "Wait for an authorized person to approve", status: "done", latency: "Demo" },
     ],
-    output: "Ticket #ENG-4892 resolved to a missing index on customer_events partition table during peak ingest. Generated safe migration patch `add_index_concurrently.sql`. Alert dispatched to #core-infra with zero-privilege service account credentials.",
+    output: "This local simulation previews a supervised workflow. In a configured deployment, connector scope, permissions, and human approval requirements must be set by the organization before any external action is enabled.",
     citations: [
-      { id: "c4", name: "jira://ticket/ENG-4892", type: "Jira MCP", metric: "Severity High" },
-      { id: "c5", name: "vpc-pg-internal.corp.local", type: "VPC Gateway", metric: "TLS 1.3 Verified" },
-      { id: "c6", name: "chat://space/core-infra", type: "Google Chat", metric: "Sent to 8 leads" },
+      { id: "c4", name: "issue-summary.txt", type: "Issue tracker", metric: "Example source" },
+      { id: "c5", name: "approved-data-source", type: "Connector", metric: "Example source" },
+      { id: "c6", name: "team-update-draft.docx", type: "Google Docs", metric: "Draft only" },
     ],
     telemetry: {
-      tokens: "1,920 tokens",
-      speed: "510 tok/sec",
-      ttft: "9ms",
-      compliance: "VPC-SC Enforced · Non-mutating default",
+      tokens: "Sample flow",
+      speed: "No API request",
+      ttft: "Local demo",
+      compliance: "No external actions",
     },
   },
   {
     id: "security-audit",
     tabLabel: "Model Armor & Guardrails",
-    query: "Audit external prompt submission for prompt injection, confidential PII leakage, and regulatory adherence.",
+    query: "Preview how a governed workflow can surface policy checks and questions for a reviewer.",
     model: "Gemini 3.8 Flash · Model Armor Stack",
     sourceTags: [
       { label: "Cloud DLP Ruleset", type: "drive" },
@@ -111,22 +111,22 @@ const SCENARIOS: Scenario[] = [
       { label: "Google Vault Audit", type: "salesforce" },
     ],
     steps: [
-      { label: "Scanned prompt with Model Armor heuristic sanitizer", status: "done", latency: "2ms" },
-      { label: "DLP policy checked: 0 social security numbers or API keys", status: "done", latency: "4ms" },
-      { label: "Verified zero-training contractual boundary for organization", status: "done", latency: "1ms" },
-      { label: "Immutable audit event written to BigQuery SIEM sink", status: "done", latency: "6ms" },
+      { label: "Inspect the configured policy scope", status: "done", latency: "Demo" },
+      { label: "Flag content for the configured review path", status: "done", latency: "Demo" },
+      { label: "Surface applicable admin controls", status: "done", latency: "Demo" },
+      { label: "Prepare an example audit summary", status: "done", latency: "Demo" },
     ],
-    output: "Prompt validated clean under ISO 27001, SOC 2 Type II, and HIPAA compliance policies. Model Armor suppressed 1 indirect jailbreak vector in attached PDF footnote. Query execution proceeded inside isolated customer tenant environment.",
+    output: "This local example is not a compliance assessment. Production safeguards depend on the Workspace edition, enabled services, organization policies, and applicable agreement. Have your administrator validate control coverage for the intended workflow.",
     citations: [
-      { id: "c7", name: "policy://dlp/global_strict_v2", type: "Cloud DLP", metric: "Zero Violations" },
-      { id: "c8", name: "vault://audit_events/20260925", type: "Google Vault", metric: "SHA-256 Hash Logged" },
-      { id: "c9", name: "modelarmor://telemetry/event_8921", type: "Model Armor", metric: "Jailbreak Neutralized" },
+      { id: "c7", name: "data-protection-policy", type: "Admin policy", metric: "Example source" },
+      { id: "c8", name: "retention-guidance.docx", type: "Workspace", metric: "Example source" },
+      { id: "c9", name: "review-summary.txt", type: "Audit preview", metric: "Example only" },
     ],
     telemetry: {
-      tokens: "840 tokens",
-      speed: "640 tok/sec",
-      ttft: "6ms",
-      compliance: "100% Data Isolation Guarantee",
+      tokens: "Sample flow",
+      speed: "No API request",
+      ttft: "Local demo",
+      compliance: "Admin review required",
     },
   },
 ];
@@ -195,7 +195,7 @@ export function SynapseSessionAssembler() {
             <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
             <span className="ml-2 font-mono text-[11px] text-muted-foreground hidden sm:inline-flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-ping" />
-              synapse-session://grounded.gemini.enterprise
+              local-preview://gemini-enterprise
             </span>
           </div>
 
@@ -204,9 +204,7 @@ export function SynapseSessionAssembler() {
               <Sparkles className="w-3 h-3" />
               {scenario.model}
             </span>
-            <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 font-bold hidden md:inline">
-              TTFT: {scenario.telemetry.ttft}
-            </span>
+            <span className="font-mono text-[10px] text-amber-700 dark:text-amber-300 font-semibold hidden md:inline">SIMULATED · NO MODEL CALL</span>
           </div>
         </div>
 
@@ -218,7 +216,7 @@ export function SynapseSessionAssembler() {
             </div>
             <div className="flex-1">
               <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-1">
-                Active Organization Prompt
+                Example Organization Prompt
               </p>
               <p className="text-base md:text-lg font-medium text-foreground tracking-tight leading-relaxed">
                 "{scenario.query}"
@@ -227,7 +225,7 @@ export function SynapseSessionAssembler() {
               {/* Source tags */}
               <div className="flex flex-wrap items-center gap-2 mt-3.5">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-                  Grounded in:
+                  Sample context:
                 </span>
                 {scenario.sourceTags.map((tag, i) => (
                   <span
@@ -250,7 +248,7 @@ export function SynapseSessionAssembler() {
             <div className="flex items-center justify-between mb-3.5">
               <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground flex items-center gap-2">
                 <GitBranch className="w-3.5 h-3.5 text-violet-500" />
-                Live Execution Steps
+                Workflow Preview Steps
               </p>
               <span className="text-[11px] font-mono text-violet-500 font-semibold">
                 {assembledStep}/4 steps compiled
@@ -283,8 +281,8 @@ export function SynapseSessionAssembler() {
                       <span className="leading-relaxed">{step.label}</span>
                     </div>
                     {isRevealed && (
-                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
-                        {step.latency}
+                      <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
+                        <CheckCircle2 className="h-3 w-3" /> Ready
                       </span>
                     )}
                   </motion.div>
@@ -306,10 +304,10 @@ export function SynapseSessionAssembler() {
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-violet-600 dark:text-violet-400 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5" />
-                  Synthesized Enterprise Intelligence
+                    Illustrative Response
                 </span>
                 <span className="text-[11px] font-mono text-muted-foreground">
-                  Grounded · ACL Filtered
+                    Example only · verify sources
                 </span>
               </div>
 
@@ -320,7 +318,7 @@ export function SynapseSessionAssembler() {
               {/* Verified Citations List */}
               <div className="pt-3.5 border-t border-border/70">
                 <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-2">
-                  Verified In-Tenant Citations
+                  Example source labels · not connected
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
                   {scenario.citations.map((cite) => (
@@ -342,9 +340,9 @@ export function SynapseSessionAssembler() {
         {/* Telemetry Status Bar */}
         <div className="px-5 py-3 border-t border-border/80 bg-muted/40 text-[11px] font-mono text-muted-foreground flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Live Stream Active
+              <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              Local simulation
             </span>
             <span>{scenario.telemetry.tokens}</span>
             <span className="hidden sm:inline">Speed: {scenario.telemetry.speed}</span>
