@@ -9,19 +9,15 @@ const seenFeatureIds = new Set();
 const seenFeatureSlugs = new Set();
 let errors = 0;
 
-console.log(`✓ Total Features: ${features.length} (Target: 89)`);
-if (features.length !== 89) {
-  console.warn(`⚠️ Warning: Found ${features.length} features, expected 89.`);
-}
+console.log(`✓ Total Features: ${features.length}`);
 
 const validPlanIds = new Set(plans.map((p) => p.id));
-console.log(`✓ Total Plans: ${plans.length} (Target: 11)`);
+console.log(`✓ Total Plans: ${plans.length}`);
 
 const validCategoryIds = new Set(categories.map((c) => c.id));
-console.log(`✓ Total Categories: ${categories.length} (Target: 14)`);
+console.log(`✓ Total Categories: ${categories.length}`);
 
-const validAppIds = new Set(applications.map((a) => a.id));
-console.log(`✓ Total Core Apps: ${applications.length} (Target: 9)`);
+console.log(`✓ Total Core Apps: ${applications.length}`);
 
 for (const feature of features) {
   if (!feature.id || seenFeatureIds.has(feature.id)) {

@@ -58,7 +58,7 @@ export function GeminiProductExplorer() {
                     <div className="mb-4 flex items-start justify-between gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-google-blue/10 text-google-blue"><Sparkles className="h-5 w-5" /></div>
                       <span className={included ? "rounded-full bg-google-green/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-google-green" : "rounded-full bg-muted px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground"}>
-                        {included ? (isLimited ? "Limited" : "Included") : "Not included"}
+                        {included ? (isLimited ? "Limited" : "Included") : availability ? "Not included" : "Not mapped"}
                       </span>
                     </div>
                     <h4 className="text-base font-bold text-foreground group-hover:text-google-blue">{feature.name}</h4>

@@ -68,8 +68,8 @@ export function PlanComparator() {
     {
       title: 'Overview & Pricing',
       rows: [
-        { label: 'Monthly Price', getValue: (p: (typeof plans)[number]) => p.monthlyPriceUSD ? `$${p.monthlyPriceUSD}` : 'Contact Sales' },
-        { label: 'Annual Price', getValue: (p: (typeof plans)[number]) => p.annualPriceUSD ? `$${p.annualPriceUSD}` : 'Contact Sales' },
+        { label: 'Flexible rate / user / month', getValue: (p: (typeof plans)[number]) => p.monthlyPriceUSD ? `$${p.monthlyPriceUSD} / user / mo` : p.startingPriceUSD ? `From $${p.startingPriceUSD} / user / mo` : p.pricingNote || 'Check current pricing' },
+        { label: 'Annual commitment rate / user / month', getValue: (p: (typeof plans)[number]) => p.annualPriceUSD ? `$${p.annualPriceUSD} / user / mo` : p.startingPriceUSD ? `From $${p.startingPriceUSD} / user / mo` : p.pricingNote || 'Check current pricing' },
         { label: 'Storage', getValue: (p: (typeof plans)[number]) => p.storage },
         { label: 'Meeting Size', getValue: (p: (typeof plans)[number]) => p.participantLimit ? `${p.participantLimit} participants` : 'N/A' },
       ]
@@ -96,9 +96,6 @@ export function PlanComparator() {
       title: 'Security & Governance',
       rows: [
         { label: 'Security level', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.securityLevel },
-        { label: 'Workspace governance', getValue: (p: (typeof plans)[number]) => p.id.includes('enterprise') || p.id.includes('business') || p.id.includes('frontline') ? 'Admin controls included' : 'Base plan controls' },
-        { label: 'Enterprise DLP / zero trust', getValue: (p: (typeof plans)[number]) => p.id.includes('enterprise-plus') || p.id.includes('gemini-enterprise') ? 'Yes' : p.id.includes('enterprise-standard') ? 'Standard' : 'Varies' },
-        { label: 'Compliance posture', getValue: (p: (typeof plans)[number]) => p.id.includes('enterprise-plus') || p.id.includes('gemini-enterprise-plus') ? 'Highest' : p.id.includes('enterprise') || p.id.includes('gemini-enterprise') ? 'Strong' : 'Standard' },
       ]
     }
   ];

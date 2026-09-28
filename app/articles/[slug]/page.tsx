@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { articles } from "@/data/articles";
 import { features } from "@/data/features";
+import { plans } from "@/data/plans";
 import { 
   ArrowLeft, 
   Clock, 
@@ -20,6 +21,26 @@ interface ArticlePageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+function renderCitations(text: string, sourceCount: number) {
+  return text.split(/\[(\d+)\]/g).map((part, index) => {
+    if (index % 2 === 0) return part;
+
+    const sourceNumber = Number(part);
+    if (!sourceNumber || sourceNumber > sourceCount) return `[${part}]`;
+
+    return (
+      <a
+        key={`${part}-${index}`}
+        href={`#source-${sourceNumber}`}
+        className="ml-0.5 align-super text-xs font-semibold text-google-blue hover:underline"
+        aria-label={`Jump to source ${sourceNumber}`}
+      >
+        [{sourceNumber}]
+      </a>
+    );
+  });
 }
 
 export async function generateStaticParams() {
@@ -138,24 +159,42 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
                   key={idx}
                   className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground pt-8 pb-2 border-b border-border/60"
                 >
-                  {paragraph.replace("### ", "")}
+                  {renderCitations(paragraph.replace("### ", ""), article.sources?.length ?? 0)}
                 </h3>
               );
             }
             if (paragraph.startsWith("- ")) {
               return (
                 <li key={idx} className="ml-6 list-disc text-muted-foreground leading-relaxed pl-1">
-                  {paragraph.replace("- ", "")}
+                  {renderCitations(paragraph.replace("- ", ""), article.sources?.length ?? 0)}
                 </li>
               );
             }
             return (
               <p key={idx} className="text-muted-foreground leading-relaxed">
-                {paragraph}
+                {renderCitations(paragraph, article.sources?.length ?? 0)}
               </p>
             );
           })}
         </div>
+
+        {article.sources && article.sources.length > 0 && (
+          <aside className="mt-14 rounded-2xl border border-border bg-muted/20 p-6" aria-labelledby="article-sources-heading">
+            <h2 id="article-sources-heading" className="text-lg font-bold text-foreground">Official sources</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Sources checked September 28, 2026. Product availability and terms can change; follow the linked Google pages for the latest details.</p>
+            <ol className="mt-4 space-y-2">
+              {article.sources.map((source, index) => (
+                <li key={source.url} id={`source-${index + 1}`} className="scroll-mt-24 text-sm text-muted-foreground">
+                  <span className="mr-2 font-semibold text-foreground">[{index + 1}]</span>
+                  <a href={source.url} target="_blank" rel="noreferrer" className="font-medium text-google-blue hover:underline">
+                    {source.title}
+                  </a>
+                  <span className="ml-2 text-xs">(Google)</span>
+                </li>
+              ))}
+            </ol>
+          </aside>
+        )}
 
         {/* Related Features Section */}
         {relatedFeatureItems.length > 0 && (
@@ -204,7 +243,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
             href="/compare"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-google-blue to-gemini-indigo text-white font-medium rounded-xl hover:shadow-lg transition-all text-sm"
           >
-            Compare All 11 Plans in Matrix
+            Compare all {plans.length} listed plans
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

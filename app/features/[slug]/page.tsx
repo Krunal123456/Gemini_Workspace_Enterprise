@@ -115,15 +115,15 @@ export default async function FeatureDetailPage({ params }: Props) {
           <section className="grid gap-4 rounded-2xl border border-border bg-muted/20 p-5 sm:grid-cols-2">
             <div className="flex items-start gap-3">
               <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-google-green" />
-              <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Source confidence</p><p className="mt-1 text-sm font-semibold text-foreground">{evidence.confidence}</p><p className="mt-1 text-xs text-muted-foreground">Verified {evidence.verifiedDate}</p></div>
+              <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Source coverage</p><p className="mt-1 text-sm font-semibold text-foreground">{evidence.sourceCoverage}</p><p className="mt-1 text-xs text-muted-foreground">{evidence.sourceNote}</p></div>
             </div>
             <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Availability notes</p>{evidence.availabilityNotes.length ? <ul className="mt-2 space-y-1 text-xs text-muted-foreground">{evidence.availabilityNotes.map((note) => <li key={note}>• {note}</li>)}</ul> : <p className="mt-1 text-sm text-muted-foreground">See the plan matrix for edition-specific limits.</p>}</div>
             {evidence.restrictions.length > 0 && <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Restrictions</p><p className="mt-1 text-sm text-muted-foreground">{evidence.restrictions.join(" · ")}</p></div>}
-            {evidence.sourceUrl && <a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-google-blue hover:underline"><ExternalLink className="h-4 w-4" /> Open primary Google source</a>}
+            {evidence.sourceUrl && <a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-google-blue hover:underline"><ExternalLink className="h-4 w-4" /> Open Google reference</a>}
           </section>
 
           <section className="rounded-2xl border border-border bg-background p-5">
-            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Official Google citations</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Google references</p>
             <ul className="mt-3 space-y-2">
               {evidence.officialSources.map((source) => (
                 <li key={source.url}>
@@ -144,9 +144,7 @@ export default async function FeatureDetailPage({ params }: Props) {
               {feature.description}
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-              <span className="rounded-full border border-border bg-muted/40 px-3 py-1.5 font-medium">Verified September 22, 2026</span>
               {feature.documentationUrl && <a href={feature.documentationUrl} target="_blank" rel="noreferrer" className="rounded-full border border-google-blue/20 bg-google-blue/5 px-3 py-1.5 font-semibold text-google-blue hover:underline">Official documentation</a>}
-              <span className="rounded-full border border-google-green/20 bg-google-green/5 px-3 py-1.5 font-medium text-google-green">Catalog confidence: curated</span>
             </div>
           </div>
 
@@ -251,11 +249,11 @@ export default async function FeatureDetailPage({ params }: Props) {
               )}
             </section>
 
-            {/* Section 2: Complete 11-Plan Availability Matrix */}
+            {/* Section 2: Plan Availability Matrix */}
             <section className="flex flex-col gap-6">
               <div>
                 <h2 className="text-2xl font-bold tracking-tight text-foreground">Plan Availability Matrix</h2>
-                <p className="mt-1 text-muted-foreground">See how this feature is supported across all Workspace and Gemini Enterprise plans.</p>
+                <p className="mt-1 text-muted-foreground">Cataloged availability across {plans.length} listed plans. Unmapped entries need source review.</p>
               </div>
 
               <div className="overflow-hidden rounded-3xl border border-border/50 bg-background">
@@ -272,7 +270,6 @@ export default async function FeatureDetailPage({ params }: Props) {
                     <tbody className="divide-y divide-border/50">
                       {plans.map(plan => {
                         const planAvailability = feature.plans[plan.id as PlanId];
-                        // fallback if data doesn't explicitly mention it
                         const isAvailable = planAvailability?.available ?? false;
                         const statusType = planAvailability?.status || (isAvailable ? "yes" : "no");
                         
@@ -292,17 +289,21 @@ export default async function FeatureDetailPage({ params }: Props) {
                                   </div>
                                   Available
                                 </div>
-                              ) : (
+                              ) : planAvailability ? (
                                 <div className="flex items-center gap-2 text-muted-foreground">
                                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-muted">
                                     <Minus className="h-3 w-3" />
                                   </div>
                                   Unavailable
                                 </div>
+                              ) : (
+                                <span className="text-xs font-medium text-amber-700 dark:text-amber-300">Not mapped</span>
                               )}
                             </td>
                             <td className="px-6 py-4">
-                              {statusType === "limited" || planAvailability?.limit ? (
+                              {!planAvailability ? (
+                                <span className="text-xs text-muted-foreground">Confirm with Google</span>
+                              ) : statusType === "limited" || planAvailability?.limit ? (
                                 <div className="flex items-center gap-2">
                                   <span className="inline-flex items-center rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-500 whitespace-nowrap">
                                     Limited: {planAvailability?.limit || "See terms"}

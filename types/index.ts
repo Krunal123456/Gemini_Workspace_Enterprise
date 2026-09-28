@@ -14,10 +14,10 @@ export type PlanId =
   | "enterprise-standard"
   | "enterprise-plus"
   | "ai-expanded"
-  | "ai-ultra"
   | "gemini-enterprise-business"
   | "gemini-enterprise-standard"
   | "gemini-enterprise-plus"
+  | "gemini-enterprise-payg"
   | "frontline";
 
 export interface FeatureCitation {
@@ -40,7 +40,7 @@ export interface Feature {
   useCases: string[];
   capabilities: string[];
   includedCapabilities?: string[];
-  plans: Record<PlanId, PlanAvailability>;
+  plans: Partial<Record<PlanId, PlanAvailability>>;
   enterpriseAvailability: "standard" | "plus" | "add-on" | "all" | "enterprise-only";
   enterpriseConsiderations?: string;
   securityConsiderations?: string;
@@ -63,10 +63,14 @@ export interface Plan {
   idealFor: string;
   monthlyPriceUSD?: number;
   annualPriceUSD?: number;
+  startingPriceUSD?: number;
+  pricingNote?: string;
+  pricingUrl?: string;
   currency: string;
   storage: string;
   participantLimit?: number;
   highlightedFeatures: string[];
+  officialSources?: FeatureCitation[];
   coreCapabilities: {
     generativeAI: string;
     modelAccess: string;
@@ -128,8 +132,7 @@ export interface SecurityLayer {
   capabilities: {
     name: string;
     description: string;
-    plansSupported: string[];
-    isEnterpriseOnly: boolean;
+    reviewQuestion: string;
   }[];
 }
 
@@ -148,6 +151,10 @@ export interface Article {
   };
   content: string[];
   keyTakeaways: string[];
+  sources?: {
+    title: string;
+    url: string;
+  }[];
   relatedFeatures?: string[];
   relatedArticles?: string[];
 }

@@ -62,7 +62,7 @@ export function ProductCapabilityHub({ title, description, filterKey, eyebrow }:
                 <Link key={feature.id} href={`/features/${feature.slug}`} className="group flex min-h-56 flex-col rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 hover:border-google-blue/50 hover:shadow-lg">
                   <div className="mb-5 flex items-start justify-between gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-google-blue/10 text-google-blue"><Sparkles className="h-5 w-5" /></div>
-                    <span className={included ? "rounded-full bg-google-green/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-google-green" : "rounded-full bg-muted px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground"}>{included ? (limited ? "Limited" : "Included") : "Not included"}</span>
+                    <span className={included ? "rounded-full bg-google-green/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-google-green" : "rounded-full bg-muted px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground"}>{included ? (limited ? "Limited" : "Included") : availability ? "Not included" : "Not mapped"}</span>
                   </div>
                   <h3 className="font-bold text-foreground group-hover:text-google-blue">{feature.name}</h3>
                   <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{feature.description}</p>

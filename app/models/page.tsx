@@ -178,7 +178,7 @@ function ModelCostCalculator() {
                     <td className="px-4 py-3 text-muted-foreground">{formatMoney(model.input)}</td>
                     <td className="px-4 py-3 text-muted-foreground">{formatMoney(model.output)}</td>
                     <td className="px-4 py-3 font-medium text-foreground">{formatMoney(model.total)}</td>
-                    <td className={`px-4 py-3 font-medium ${model.deltaVsGemini <= 0 ? "text-google-green" : "text-amber-600"}`}>
+                    <td className={`px-4 py-3 font-medium ${model.deltaVsGemini <= 0 ? "text-green-800 dark:text-green-300" : "text-amber-800 dark:text-amber-300"}`}>
                       {model.deltaVsGemini <= 0 ? `${formatMoney(Math.abs(model.deltaVsGemini))} cheaper` : `${formatMoney(model.deltaVsGemini)} higher`}
                     </td>
                   </tr>

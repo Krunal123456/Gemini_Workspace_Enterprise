@@ -57,14 +57,14 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+            className="fixed inset-0 z-[70] bg-background/80 backdrop-blur-sm"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed left-[50%] top-[50%] z-50 w-full max-w-3xl max-h-[90vh] translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-2xl border bg-background shadow-2xl outline-none sm:rounded-3xl flex flex-col"
+            className="fixed left-[50%] top-[50%] z-[70] w-full max-w-3xl max-h-[90vh] translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-2xl border bg-background shadow-2xl outline-none sm:rounded-3xl flex flex-col"
           >
             <div className="flex items-center justify-between border-b px-6 py-4">
               <div className="flex items-center gap-3">
@@ -147,14 +147,15 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                     <tbody className="divide-y">
                       {plans.map((plan) => {
                         const availability = feature.plans[plan.id];
-                        if (!availability) return null;
                         
                         return (
                           <tr key={plan.id} className="hover:bg-muted/20">
                             <td className="px-4 py-3 font-medium">{plan.name}</td>
                             <td className="px-4 py-3">
                               <div className="flex items-center gap-2">
-                                {availability.available ? (
+                                {!availability ? (
+                                  <AlertCircle className="h-4 w-4 text-amber-500" />
+                                ) : availability.available ? (
                                   availability.status === "limited" ? (
                                     <AlertCircle className="h-4 w-4 text-amber-500" />
                                   ) : (
@@ -165,14 +166,14 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                                 )}
                                 <span className={cn(
                                   "capitalize",
-                                  !availability.available && "text-muted-foreground/70"
+                                  availability && !availability.available && "text-muted-foreground/70"
                                 )}>
-                                  {availability.status.replace("_", " ")}
+                                  {availability ? availability.status.replace("_", " ") : "not mapped"}
                                 </span>
                               </div>
                             </td>
                             <td className="px-4 py-3 text-muted-foreground">
-                              {availability.limit || availability.note || "-"}
+                              {availability?.limit || availability?.note || (availability ? "-" : "Confirm in Google edition guide")}
                             </td>
                           </tr>
                         );

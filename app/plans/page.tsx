@@ -16,8 +16,8 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Google Workspace & Gemini Enterprise Plans | 11 Editions Compared",
-  description: "Explore all 11 commercial editions across Google Workspace, AI Add-ons (Expanded, Ultra), and standalone Gemini Enterprise (Business, Standard, Plus, Frontline).",
+  title: `Google Workspace & Gemini Enterprise Plans | ${plans.length} Options Compared`,
+  description: `Explore ${plans.length} listed Google Workspace and Gemini Enterprise plan options, including usage-based and add-on offerings.`,
 };
 
 export default function PlansPage() {
@@ -40,7 +40,7 @@ export default function PlansPage() {
               Every plan, edition & tier <span className="gradient-text">clearly structured</span>.
             </h1>
             <p className="fluid-body text-muted-foreground leading-relaxed">
-              Understand the pricing, storage allowances, Deep Research quotas, and enterprise connector rights across all 11 Google Workspace and Gemini Enterprise editions.
+              Compare listed plan options, storage allowances, and connector access. Prices and feature limits can vary by region, subscription, and edition; confirm current terms with Google.
             </p>
           </div>
         </div>
@@ -107,11 +107,20 @@ export default function PlansPage() {
                                 Annual commitment ({formatCurrency(plan.monthlyPriceUSD || plan.annualPriceUSD)} billed monthly)
                               </span>
                             </div>
+                          ) : plan.startingPriceUSD ? (
+                            <div>
+                              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Starting at</span>
+                              <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-extrabold text-foreground">{formatCurrency(plan.startingPriceUSD)}</span>
+                                <span className="text-xs text-muted-foreground">/ seat / month</span>
+                              </div>
+                              <span className="text-[11px] text-muted-foreground">{plan.pricingNote}</span>
+                            </div>
                           ) : (
                             <div>
-                              <span className="text-2xl font-bold text-foreground">Enterprise Pricing</span>
+                              <span className="text-xl font-bold text-foreground">{plan.id === "gemini-enterprise-payg" ? "$0 seat fee" : "See current pricing"}</span>
                               <span className="text-[11px] text-muted-foreground block">
-                                Custom contract sizing & volume tiering
+                                {plan.pricingNote || "Contact Google for current pricing."}
                               </span>
                             </div>
                           )}

@@ -4,13 +4,14 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Minus, Plus, Sparkles } from "lucide-react";
 import { plans } from "@/data/plans";
+import { latestGeminiModels } from "@/data/geminiModels";
 import { cn, formatCurrency } from "@/lib/utils";
 
 type PricingMode = "workspace" | "standalone";
 
 const modePlans: Record<PricingMode, string[]> = {
-  workspace: ["ai-expanded", "ai-ultra"],
-  standalone: ["gemini-enterprise-business", "gemini-enterprise-standard", "gemini-enterprise-plus"],
+  workspace: ["business-standard", "business-plus", "ai-expanded"],
+  standalone: ["gemini-enterprise-business", "gemini-enterprise-standard", "gemini-enterprise-plus", "gemini-enterprise-payg"],
 };
 
 export function PricingOverview() {
@@ -90,7 +91,7 @@ export function PricingOverview() {
           </div>
           <Link href="/compare" className="hidden items-center gap-2 text-sm font-semibold text-google-blue hover:underline sm:inline-flex">Compare all plans <ArrowRight className="h-4 w-4" /></Link>
         </div>
-        <div className={cn("grid gap-6", visiblePlans.length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3")}>
+        <div className={cn("grid gap-6", visiblePlans.length === 2 ? "lg:grid-cols-2" : visiblePlans.length > 3 ? "lg:grid-cols-2 xl:grid-cols-4" : "lg:grid-cols-3")}>
           {visiblePlans.map((plan, index) => {
             if (!plan) return null;
             const price = getPrice(plan);
@@ -102,11 +103,10 @@ export function PricingOverview() {
                     <p className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">{plan.shortName}</p>
                     <h3 className="text-xl font-bold text-foreground">{plan.name}</h3>
                   </div>
-                  {index === 0 && <span className="rounded-full bg-google-blue/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-google-blue">Popular</span>}
                 </div>
                 <p className="mt-3 min-h-12 text-sm leading-relaxed text-muted-foreground">{plan.tagline}</p>
                 <div className="my-6 border-y border-border py-5">
-                  {price ? <><div className="flex items-baseline gap-1"><span className="text-4xl font-extrabold text-foreground">{formatCurrency(price)}</span><span className="text-xs text-muted-foreground">/ user / month</span></div><p className="mt-1 text-xs text-muted-foreground">{isAnnual ? "Annual commitment, billed annually" : "Flexible monthly billing"}</p><p className="mt-3 text-sm font-semibold text-foreground">Total: {formatCurrency(total || 0)} / month</p></> : <><span className="text-2xl font-bold text-foreground">Contact us</span><p className="mt-1 text-xs text-muted-foreground">Custom contract sizing and volume pricing</p></>}
+                  {price ? <><div className="flex items-baseline gap-1"><span className="text-4xl font-extrabold text-foreground">{formatCurrency(price)}</span><span className="text-xs text-muted-foreground">/ user / month</span></div><p className="mt-1 text-xs text-muted-foreground">{isAnnual ? "Annual commitment rate; billed per local subscription terms" : "Flexible monthly rate"}</p><p className="mt-3 text-sm font-semibold text-foreground">{formatCurrency(total || 0)} / month at {seats.toLocaleString()} seats</p></> : plan.startingPriceUSD ? <><div className="flex items-baseline gap-1"><span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Starting at</span><span className="text-4xl font-extrabold text-foreground">{formatCurrency(plan.startingPriceUSD)}</span></div><p className="mt-1 text-xs text-muted-foreground">/ seat / month · confirm with Google Cloud</p><p className="mt-3 text-sm text-muted-foreground">Edition-specific pricing may vary.</p></> : <><span className="text-xl font-bold text-foreground">{plan.id === "gemini-enterprise-payg" ? "$0 seat fee" : "See current pricing"}</span><p className="mt-1 text-xs leading-relaxed text-muted-foreground">{plan.pricingNote}</p></>}
                 </div>
                 <div className="mb-6 space-y-2.5">
                   {plan.highlightedFeatures.slice(0, 5).map((feature) => <div key={feature} className="flex items-start gap-2 text-sm text-foreground/90"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-google-green" /><span>{feature}</span></div>)}
@@ -121,92 +121,48 @@ export function PricingOverview() {
         </div>
       </section>
 
-      <section className="rounded-[30px] border border-border bg-card p-5 shadow-[0_30px_80px_-40px_rgba(59,130,246,0.45)] sm:p-8">
+      <section className="rounded-[30px] border border-border bg-card p-5 sm:p-8">
         <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-google-blue/20 bg-google-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-google-blue">
-              <Sparkles className="h-3.5 w-3.5" />
-              Token pricing
-            </div>
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">Public pricing per 1M tokens</h2>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-google-blue">Gemini API reference</p>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">Published model rates</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              API token rates are separate from Workspace and Gemini Enterprise subscriptions. Rates can depend on model, prompt size, modality, and billing options.
+            </p>
           </div>
-          <div className="rounded-full border border-border bg-muted/60 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            USD list pricing
-          </div>
+          <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-google-blue hover:underline">
+            Check Google's pricing page <ArrowRight className="h-4 w-4" />
+          </a>
         </div>
 
-        <div className="mb-6 grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-border bg-muted/30 p-4">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Best value</p>
-            <p className="mt-2 text-lg font-bold text-foreground">Gemini 2.5 Flash</p>
-            <p className="mt-1 text-sm text-muted-foreground">Balanced speed, reasoning, and cost efficiency for enterprise work.</p>
-          </div>
-          <div className="rounded-2xl border border-border bg-muted/30 p-4">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Standard credit</p>
-            <p className="mt-2 text-lg font-bold text-foreground">$10</p>
-            <p className="mt-1 text-sm text-muted-foreground">Applied to the final estimated usage total.</p>
-          </div>
-          <div className="rounded-2xl border border-border bg-muted/30 p-4">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Plus credit</p>
-            <p className="mt-2 text-lg font-bold text-foreground">$15</p>
-            <p className="mt-1 text-sm text-muted-foreground">Higher-end support and additional enterprise value.</p>
-          </div>
-        </div>
-
-        <div className="overflow-x-auto rounded-[24px] border border-border bg-background">
+        <div className="overflow-x-auto rounded-2xl border border-border bg-background">
           <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
             <thead>
-              <tr className="bg-gradient-to-r from-google-blue/8 via-gemini-indigo/8 to-google-green/8 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                <th className="px-4 py-3 font-medium">Model</th>
-                <th className="px-4 py-3 font-medium">Input / 1M</th>
-                <th className="px-4 py-3 font-medium">Output / 1M</th>
-                <th className="px-4 py-3 font-medium">Usage cost</th>
-                <th className="px-4 py-3 font-medium">Standard net</th>
-                <th className="px-4 py-3 font-medium">Plus net</th>
+              <tr className="bg-muted/50 text-xs uppercase tracking-wider text-muted-foreground">
+                <th className="px-4 py-3 font-semibold">Model</th>
+                <th className="px-4 py-3 font-semibold">Input / 1M tokens</th>
+                <th className="px-4 py-3 font-semibold">Output / 1M tokens</th>
+                <th className="px-4 py-3 font-semibold">Pricing note</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { model: "Gemini 2.5 Flash", input: 0.3, output: 2.5, usage: 2.8, featured: true },
-                { model: "Gemini 2.5 Pro", input: 1.25, output: 10, usage: 11.25, featured: false },
-                { model: "Gemini 2.5 Flash-Lite", input: 0.1, output: 0.4, usage: 0.5, featured: false },
-                { model: "GPT-4.1 mini", input: 0.4, output: 1.6, usage: 2.0, featured: false },
-                { model: "Claude 3.5 Sonnet", input: 3, output: 15, usage: 18, featured: false },
-                { model: "Mistral Large", input: 2, output: 6, usage: 8, featured: false },
-              ].map((row) => {
-                const standardNet = Math.max(0, row.usage - 10);
-                const plusNet = Math.max(0, row.usage - 15);
-
-                return (
-                  <tr key={row.model} className={row.featured ? "bg-google-blue/5" : "bg-transparent"}>
-                    <td className="border-t border-border px-4 py-3 font-semibold text-foreground">
-                      <div className="flex items-center gap-2">
-                        <span>{row.model}</span>
-                        {row.featured && <span className="rounded-full bg-google-blue/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-google-blue">Best value</span>}
-                      </div>
-                    </td>
-                    <td className="border-t border-border px-4 py-3 text-google-blue">${row.input.toFixed(2)}</td>
-                    <td className="border-t border-border px-4 py-3 text-google-blue">${row.output.toFixed(2)}</td>
-                    <td className="border-t border-border px-4 py-3 font-medium text-foreground">${row.usage.toFixed(2)}</td>
-                    <td className="border-t border-border px-4 py-3 text-google-green">${standardNet.toFixed(2)}</td>
-                    <td className="border-t border-border px-4 py-3 text-google-green">${plusNet.toFixed(2)}</td>
-                  </tr>
-                );
-              })}
+              {latestGeminiModels.map((model) => (
+                <tr key={model.id} className="border-t border-border align-top">
+                  <td className="border-t border-border px-4 py-4">
+                    <a href={model.source} target="_blank" rel="noreferrer" className="font-semibold text-foreground hover:text-google-blue hover:underline">{model.name}</a>
+                    <span className="mt-1 block text-xs text-muted-foreground">{model.status} · {model.family}</span>
+                  </td>
+                  <td className="border-t border-border px-4 py-4 font-mono text-foreground">{model.apiPricing ? `$${model.apiPricing.inputUsd.toFixed(2)}` : "See model pricing"}</td>
+                  <td className="border-t border-border px-4 py-4 font-mono text-foreground">{model.apiPricing ? `$${model.apiPricing.outputUsd.toFixed(2)}` : "See model pricing"}</td>
+                  <td className="border-t border-border px-4 py-4 text-xs leading-relaxed text-muted-foreground">{model.apiPricing?.context}{model.pricingNote ? ` · ${model.pricingNote}` : "Rates may vary by modality and usage type."}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-
-        <div className="mt-6 rounded-2xl border border-google-blue/20 bg-google-blue/5 p-4 text-sm text-muted-foreground">
-          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-            <div>
-              <span className="font-semibold text-foreground">Credit logic:</span> Gemini Enterprise Standard gets a $10 free credit and Gemini Enterprise Plus gets a $15 free credit. The credit is applied at the end to the estimated usage total.
-            </div>
-            <div className="rounded-full border border-border bg-background px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-google-blue">
-              Net = usage - credit
-            </div>
-          </div>
-        </div>
+        <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+          Displayed rates are USD list references. Check the linked model documentation for current rates, input-size tiers, and other pricing conditions before estimating API spend.
+        </p>
       </section>
 
       <section className="grid gap-5 md:grid-cols-3">

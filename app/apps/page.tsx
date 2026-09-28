@@ -51,7 +51,7 @@ export default function ApplicationsPage() {
             </h1>
             <p className="fluid-body text-muted-foreground leading-relaxed">
               Google Workspace integrates Gemini AI directly into your collaboration workflows.
-              From contextual email synthesis in Gmail to multimodal research in NotebookLM, explore how intelligence is embedded across all 9 core surfaces.
+              From contextual email assistance in Gmail to research in NotebookLM, explore Gemini capabilities across {applications.length} Workspace app surfaces.
             </p>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function ApplicationsPage() {
               href="/features"
               className="inline-flex items-center gap-2 px-6 py-3 border border-border bg-card hover:bg-muted font-medium rounded-xl transition-all"
             >
-              Browse All 89 Features
+              Browse All {features.length} Features
             </Link>
           </div>
         </div>

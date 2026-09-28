@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Database,
@@ -16,7 +17,6 @@ import {
 import { cn } from "@/lib/utils";
 import { GeminiLogo } from "@/components/logos/GeminiLogo";
 import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
-import { GoogleWorkspaceLogo } from "@/components/logos/GoogleWorkspaceLogo";
 import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
 
 interface MarqueeItem {
@@ -24,10 +24,11 @@ interface MarqueeItem {
   type: string;
   icon?: React.ElementType;
   logo?: React.ComponentType<{ className?: string }>;
+  image?: string;
 }
 
 const ITEMS: MarqueeItem[] = [
-  { name: "Google Workspace", type: "Native", logo: GoogleWorkspaceLogo },
+  { name: "Google Workspace", type: "Native", image: "/brand/workspace-app-icons.png" },
   { name: "Gemini Enterprise", type: "Native", logo: GeminiLogo },
   { name: "Google Cloud", type: "Cloud", logo: GoogleCloudLogo },
   { name: "MarketStar", type: "Partner", logo: MarketStarLogo },
@@ -67,7 +68,17 @@ export function EcosystemMarquee({ className }: { className?: string }) {
               key={`${item.name}-${idx}`}
               className="flex-shrink-0 bg-muted/30 backdrop-blur-sm border border-border/60 group-hover:border-gemini-purple/30 px-5 py-2.5 rounded-full flex items-center gap-3 transition-colors duration-300 hover:!border-gemini-purple/60 hover:bg-muted/50 cursor-default"
             >
-              {item.logo ? (
+              {item.image ? (
+                <div className="relative h-6 w-[126px] shrink-0 overflow-hidden" aria-hidden="true">
+                  <Image
+                    src={item.image}
+                    alt=""
+                    width={691}
+                    height={361}
+                    className="absolute left-0 top-0 h-auto w-full max-w-none -translate-y-[40.72%]"
+                  />
+                </div>
+              ) : item.logo ? (
                 <item.logo className="h-6 w-auto max-w-[72px] object-contain" />
               ) : item.icon ? (
                 <div className="rounded-full border border-border/50 bg-background p-1.5">
@@ -76,7 +87,7 @@ export function EcosystemMarquee({ className }: { className?: string }) {
               ) : null}
               <div className="flex flex-col">
                 <span className="text-sm font-medium leading-none">{item.name}</span>
-                <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold mt-1">
+                <span className="text-[10px] text-slate-300 uppercase tracking-wider font-semibold mt-1">
                   {item.type}
                 </span>
               </div>

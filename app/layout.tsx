@@ -9,6 +9,7 @@ import { CloudCursor } from "@/components/ui/CloudCursor";
 import { PageTransition } from "@/components/navigation/PageTransition";
 import { Geist, Outfit } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { siteUrl } from "@/lib/siteUrl";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-display" });
@@ -22,7 +23,11 @@ export const metadata: Metadata = {
   keywords: ["Gemini", "Google Workspace", "AI", "Enterprise", "NotebookLM", "Google Workspace AI", "Gemini Enterprise", "AI features", "plan comparison"],
   authors: [{ name: "MarketStar" }],
   creator: "MarketStar",
-  metadataBase: new URL("https://gemini-intelligence.marketstar.com"),
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
+  metadataBase: new URL(siteUrl),
   openGraph: {
     type: "website",
     locale: "en_US",

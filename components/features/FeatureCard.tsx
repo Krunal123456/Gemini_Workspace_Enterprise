@@ -30,7 +30,7 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
     "business-starter",
     "business-standard",
     "business-plus",
-    "ai-ultra",
+    "ai-expanded",
     "enterprise-plus",
   ];
 

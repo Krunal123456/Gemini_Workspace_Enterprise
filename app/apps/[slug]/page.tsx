@@ -205,7 +205,7 @@ export default async function AppDetailPage({ params }: AppDetailPageProps) {
               href={`/compare`}
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-google-blue hover:underline"
             >
-              See full 11-plan availability matrix
+              See all {plans.length} listed plans
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

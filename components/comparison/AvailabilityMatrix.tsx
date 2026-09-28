@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { features } from '@/data/features';
 import { plans } from '@/data/plans';
 import { applications } from '@/data/apps';
-import { Check, Minus, Search, Download } from 'lucide-react';
+import { Check, CircleHelp, Minus, Search, Download } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -119,7 +119,7 @@ export function AvailabilityMatrix() {
           </button>
           <button
             onClick={() => setDifferencesOnly((value) => !value)}
-            className={cn("px-4 py-2 border rounded-lg text-sm transition-colors", differencesOnly ? "border-google-blue bg-google-blue/10 text-google-blue" : "bg-muted border-border text-foreground hover:bg-muted/80")}
+            className={cn("px-4 py-2 border rounded-lg text-sm transition-colors", differencesOnly ? "border-blue-500/40 bg-blue-500/10 text-blue-800 dark:text-blue-200" : "bg-muted border-border text-foreground hover:bg-muted/80")}
           >
             {differencesOnly ? "Showing Differences" : "Show Differences Only"}
           </button>
@@ -128,8 +128,8 @@ export function AvailabilityMatrix() {
 
       <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-muted/20 p-3">
         <span className="mr-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Pin plans:</span>
-        {plans.map((plan) => <button key={plan.id} type="button" onClick={() => setSelectedPlanIds((current) => current.includes(plan.id) ? current.filter((id) => id !== plan.id) : [...current, plan.id])} className={cn("rounded-full border px-3 py-1.5 text-xs font-medium transition", selectedPlanIds.includes(plan.id) ? "border-google-blue bg-google-blue/10 text-google-blue" : "border-border text-muted-foreground hover:bg-muted")}>{plan.shortName}</button>)}
-        {selectedPlanIds.length > 0 && <button type="button" onClick={() => setSelectedPlanIds([])} className="ml-auto text-xs font-semibold text-google-blue hover:underline">Reset</button>}
+        {plans.map((plan) => <button key={plan.id} type="button" onClick={() => setSelectedPlanIds((current) => current.includes(plan.id) ? current.filter((id) => id !== plan.id) : [...current, plan.id])} className={cn("rounded-full border px-3 py-1.5 text-xs font-medium transition", selectedPlanIds.includes(plan.id) ? "border-blue-500/40 bg-blue-500/10 text-blue-800 dark:text-blue-200" : "border-border text-muted-foreground hover:bg-muted")}>{plan.shortName}</button>)}
+        {selectedPlanIds.length > 0 && <button type="button" onClick={() => setSelectedPlanIds([])} className="ml-auto text-xs font-semibold text-blue-800 hover:underline dark:text-blue-200">Reset</button>}
       </div>
 
       <div className="relative overflow-x-auto border border-border rounded-xl">
@@ -160,7 +160,7 @@ export function AvailabilityMatrix() {
               >
                 <td className="px-6 py-4 sticky left-0 bg-background/95 backdrop-blur-sm shadow-[1px_0_0_0_hsl(var(--border))] z-10">
                   <div className="flex flex-col gap-1">
-                    <Link href={`/features/${feature.slug}`} className="font-medium text-foreground hover:text-google-blue transition-colors">
+                    <Link href={`/features/${feature.slug}`} className="font-medium text-foreground hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
                       {feature.name}
                     </Link>
                     <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded w-fit">
@@ -174,20 +174,22 @@ export function AvailabilityMatrix() {
                   return (
                     <td key={plan.id} className={cn("px-6 py-4 text-center", selectedPlanIds.includes(plan.id) && "bg-google-blue/5")}>
                       <div className="group relative flex justify-center items-center">
-                        {!availability || !availability.available ? (
+                        {!availability ? (
+                          <span title="This feature is not mapped to this plan in the catalog. Confirm in Google's current edition guide."><CircleHelp className="h-4 w-4 text-amber-600" aria-label="Not mapped" /></span>
+                        ) : !availability.available ? (
                           <Minus className="w-5 h-5 text-muted-foreground/30" />
                         ) : availability.status === 'yes' ? (
                           <Check className="w-5 h-5 text-google-green" />
                         ) : availability.status === 'limited' ? (
-                          <span className="text-xs px-2 py-1 bg-google-yellow/10 text-google-yellow border border-google-yellow/20 rounded-full font-medium">
+                          <span className="text-xs px-2 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full font-medium dark:bg-amber-950/40 dark:text-amber-200 dark:border-amber-800/60">
                             {availability.limit || 'Limited'}
                           </span>
                         ) : availability.status === 'higher_limits' ? (
-                          <span className="text-xs px-2 py-1 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-full font-medium">
+                          <span className="text-xs px-2 py-1 bg-blue-50 text-blue-800 border border-blue-200 rounded-full font-medium dark:bg-blue-950/40 dark:text-blue-200 dark:border-blue-800/60">
                             {availability.limit || 'Higher Limits'}
                           </span>
                         ) : availability.status === 'enterprise' || availability.status === 'custom' ? (
-                          <span className="text-xs px-2 py-1 bg-gemini-indigo/10 text-gemini-indigo border border-gemini-indigo/20 rounded-full font-medium">
+                          <span className="text-xs px-2 py-1 bg-violet-50 text-violet-800 border border-violet-200 rounded-full font-medium dark:bg-violet-950/40 dark:text-violet-200 dark:border-violet-800/60">
                             {availability.limit || availability.status}
                           </span>
                         ) : (
@@ -211,7 +213,7 @@ export function AvailabilityMatrix() {
 
       <div className="space-y-3 md:hidden">
         <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Mobile comparison view</p>
-        {visibleFeatures.map((feature) => <div key={feature.slug} className="rounded-xl border border-border bg-card p-4"><Link href={`/features/${feature.slug}`} className="font-semibold text-foreground hover:text-google-blue">{feature.name}</Link><p className="mt-1 text-xs text-muted-foreground">{appMap[feature.application] || feature.application}</p><div className="mt-3 space-y-2">{filteredPlans.map((plan) => { const availability = feature.plans[plan.id]; return <div key={plan.id} className="flex items-center justify-between border-t border-border/60 pt-2 text-sm"><span className="text-muted-foreground">{plan.shortName}</span><span className={availability?.available ? "font-semibold text-google-green" : "text-muted-foreground/50"}>{availability?.available ? availability.limit || availability.note || "Included" : "Not included"}</span></div>; })}</div></div>)}
+        {visibleFeatures.map((feature) => <div key={feature.slug} className="rounded-xl border border-border bg-card p-4"><Link href={`/features/${feature.slug}`} className="font-semibold text-foreground hover:text-google-blue">{feature.name}</Link><p className="mt-1 text-xs text-muted-foreground">{appMap[feature.application] || feature.application}</p><div className="mt-3 space-y-2">{filteredPlans.map((plan) => { const availability = feature.plans[plan.id]; return <div key={plan.id} className="flex items-center justify-between border-t border-border/60 pt-2 text-sm"><span className="text-muted-foreground">{plan.shortName}</span><span className={availability?.available ? "font-semibold text-google-green" : "text-muted-foreground/70"}>{availability ? (availability.available ? availability.limit || availability.note || "Included" : "Not included") : "Not mapped"}</span></div>; })}</div></div>)}
       </div>
     </div>
   );

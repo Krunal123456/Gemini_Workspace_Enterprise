@@ -3,7 +3,7 @@ import { ProductCapabilityHub } from "@/components/products/ProductCapabilityHub
 
 export const metadata: Metadata = {
   title: "Gemini Developer Tools & Plan Availability | Gemini Intelligence",
-  description: "Explore Gemini CLI and Gemini Code Assist availability across AI Ultra and Gemini Enterprise plans.",
+  description: "Explore Gemini developer tools and their availability across current Workspace and Gemini Enterprise plans.",
 };
 
 export default function DeveloperToolsProductPage() {

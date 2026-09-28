@@ -1,0 +1,251 @@
+- generic [active] [ref=f160e1]:
+  - banner [ref=f160e2]:
+    - generic [ref=f160e4]:
+      - link [ref=f160e5] [cursor=pointer]:
+        - /url: /
+        - img "MarketStar" [ref=f160e7]
+      - button "Search the site" [ref=f160e9] [cursor=pointer]
+      - button "Toggle mobile menu" [ref=f160e13] [cursor=pointer]
+  - main [ref=f160e15]:
+    - main [ref=f160e1334]:
+      - generic [ref=f160e1335]:
+        - link "Back to Features Directory" [ref=f160e1336] [cursor=pointer]:
+          - /url: /features
+        - generic [ref=f160e1339]:
+          - generic [ref=f160e1340]:
+            - generic [ref=f160e1341]: gmail
+            - generic [ref=f160e1343]: gmail
+            - generic [ref=f160e1344]: All Plans
+          - generic [ref=f160e1345]:
+            - generic [ref=f160e1350]:
+              - paragraph [ref=f160e1351]: Source coverage
+              - paragraph [ref=f160e1352]: General product links
+              - paragraph [ref=f160e1353]: These links cover the broader product; they do not verify every detail of this catalog entry.
+            - generic [ref=f160e1354]:
+              - paragraph [ref=f160e1355]: Availability notes
+              - paragraph [ref=f160e1356]: See the plan matrix for edition-specific limits.
+            - link "Open Google reference" [ref=f160e1357] [cursor=pointer]:
+              - /url: https://workspace.google.com/
+          - generic [ref=f160e1362]:
+            - paragraph [ref=f160e1363]: Google references
+            - list [ref=f160e1364]:
+              - listitem [ref=f160e1365]:
+                - link "Google Workspace" [ref=f160e1366] [cursor=pointer]:
+                  - /url: https://workspace.google.com/
+              - listitem [ref=f160e1371]:
+                - link "Google Gemini product overview" [ref=f160e1372] [cursor=pointer]:
+                  - /url: https://workspace.google.com/products/gemini/?exp=none
+          - generic [ref=f160e1377]:
+            - heading "Contextual smart replies" [level=1] [ref=f160e1378]
+            - paragraph [ref=f160e1379]: Generate nuanced, contextual smart reply options based on the full conversation history.
+          - generic [ref=f160e1380]:
+            - link "Compare Plans" [ref=f160e1381] [cursor=pointer]:
+              - /url: /compare
+            - button "Share" [ref=f160e1382] [cursor=pointer]
+        - generic [ref=f160e1390]:
+          - generic [ref=f160e1391]:
+            - paragraph [ref=f160e1392]: Use case
+            - paragraph [ref=f160e1393]: Confirming meeting agendas with specific details
+          - generic [ref=f160e1394]:
+            - paragraph [ref=f160e1395]: Where it is used
+            - list [ref=f160e1396]:
+              - listitem [ref=f160e1397]:
+                - generic [ref=f160e1399]: Workspace search
+              - listitem [ref=f160e1400]:
+                - generic [ref=f160e1402]: Admin setup
+              - listitem [ref=f160e1403]:
+                - generic [ref=f160e1405]: Business operations
+          - generic [ref=f160e1406]:
+            - paragraph [ref=f160e1407]: How to use it
+            - list [ref=f160e1408]:
+              - listitem [ref=f160e1409]:
+                - generic [ref=f160e1410]: "1"
+                - generic [ref=f160e1411]: Review the connector requirements in the admin console.
+              - listitem [ref=f160e1412]:
+                - generic [ref=f160e1413]: "2"
+                - generic [ref=f160e1414]: Approve permissions and source access for the target system.
+              - listitem [ref=f160e1415]:
+                - generic [ref=f160e1416]: "3"
+                - generic [ref=f160e1417]: Ask Gemini for a grounded answer using the connected app context.
+        - generic [ref=f160e1418]:
+          - generic [ref=f160e1419]:
+            - generic [ref=f160e1420]:
+              - generic [ref=f160e1421]:
+                - heading "What It Does" [level=2] [ref=f160e1422]
+                - paragraph [ref=f160e1423]: Goes beyond generic 3-word replies by drafting complete, situationally aware responses that reflect ongoing nuances in the email thread.
+              - generic [ref=f160e1425]:
+                - heading "How It Works" [level=2] [ref=f160e1426]
+                - paragraph [ref=f160e1427]: Analyzes preceding messages and suggests complete multi-sentence responses customized to the user's typical writing style.
+              - generic [ref=f160e1429]:
+                - heading "Included capabilities" [level=3] [ref=f160e1430]
+                - generic [ref=f160e1432]:
+                  - generic [ref=f160e1433]: Deep thread awareness
+                  - generic [ref=f160e1434]: Style alignment
+                  - generic [ref=f160e1435]: One-tap sending
+              - generic [ref=f160e1437]:
+                - heading "Key Use Cases" [level=3] [ref=f160e1438]
+                - list [ref=f160e1439]:
+                  - listitem [ref=f160e1440]:
+                    - generic [ref=f160e1444]: Confirming meeting agendas with specific details
+                  - listitem [ref=f160e1445]:
+                    - generic [ref=f160e1449]: Acknowledging project deliverables
+                  - listitem [ref=f160e1450]:
+                    - generic [ref=f160e1454]: Routing requests politely
+            - generic [ref=f160e1455]:
+              - generic [ref=f160e1456]:
+                - heading "Plan Availability Matrix" [level=2] [ref=f160e1457]
+                - paragraph [ref=f160e1458]: Cataloged availability across 11 listed plans. Unmapped entries need source review.
+              - table [ref=f160e1461]:
+                - rowgroup [ref=f160e1462]:
+                  - row [ref=f160e1463]:
+                    - columnheader "Plan Name" [ref=f160e1464]
+                    - columnheader "Category" [ref=f160e1465]
+                    - columnheader "Status" [ref=f160e1466]
+                    - columnheader "Limits & Notes" [ref=f160e1467]
+                - rowgroup [ref=f160e1468]:
+                  - row [ref=f160e1469]:
+                    - cell "Business Starter" [ref=f160e1470]
+                    - cell "Google Workspace" [ref=f160e1471]
+                    - cell "Unavailable" [ref=f160e1472]
+                    - cell "-" [ref=f160e1476]
+                  - row [ref=f160e1477]:
+                    - cell "Business Standard" [ref=f160e1478]
+                    - cell "Google Workspace" [ref=f160e1479]
+                    - cell "Available" [ref=f160e1480]
+                    - cell "-" [ref=f160e1485]
+                  - row [ref=f160e1486]:
+                    - cell "Business Plus" [ref=f160e1487]
+                    - cell "Google Workspace" [ref=f160e1488]
+                    - cell "Available" [ref=f160e1489]
+                    - cell "-" [ref=f160e1494]
+                  - row [ref=f160e1495]:
+                    - cell "Enterprise Standard" [ref=f160e1496]
+                    - cell "Google Workspace" [ref=f160e1497]
+                    - cell "Available" [ref=f160e1498]
+                    - cell "-" [ref=f160e1503]
+                  - row [ref=f160e1504]:
+                    - cell "Enterprise Plus" [ref=f160e1505]
+                    - cell "Google Workspace" [ref=f160e1506]
+                    - cell "Available" [ref=f160e1507]
+                    - cell "-" [ref=f160e1512]
+                  - row [ref=f160e1513]:
+                    - cell "AI Expanded Access" [ref=f160e1514]
+                    - cell "AI Add-ons" [ref=f160e1515]
+                    - cell "Available" [ref=f160e1516]
+                    - cell "-" [ref=f160e1521]
+                  - row [ref=f160e1522]:
+                    - cell "Gemini Enterprise Business" [ref=f160e1523]
+                    - cell "Gemini Enterprise" [ref=f160e1524]
+                    - cell "Unavailable" [ref=f160e1525]
+                    - cell "-" [ref=f160e1529]
+                  - row [ref=f160e1530]:
+                    - cell "Gemini Enterprise Standard" [ref=f160e1531]
+                    - cell "Gemini Enterprise" [ref=f160e1532]
+                    - cell "Unavailable" [ref=f160e1533]
+                    - cell "-" [ref=f160e1537]
+                  - row [ref=f160e1538]:
+                    - cell "Gemini Enterprise Plus" [ref=f160e1539]
+                    - cell "Gemini Enterprise" [ref=f160e1540]
+                    - cell "Unavailable" [ref=f160e1541]
+                    - cell "-" [ref=f160e1545]
+                  - row [ref=f160e1546]:
+                    - cell "Gemini Enterprise Pay-as-you-go" [ref=f160e1547]
+                    - cell "Gemini Enterprise" [ref=f160e1548]
+                    - cell "Not mapped" [ref=f160e1549]
+                    - cell "Confirm with Google" [ref=f160e1550]
+                  - row [ref=f160e1551]:
+                    - cell "Gemini Enterprise Frontline" [ref=f160e1552]
+                    - cell "Gemini Enterprise" [ref=f160e1553]
+                    - cell "Unavailable" [ref=f160e1554]
+                    - cell "-" [ref=f160e1558]
+          - generic [ref=f160e1560]:
+            - heading "Related Features" [level=3] [ref=f160e1561]
+            - generic [ref=f160e1562]:
+              - link "gmail Help me write (Gmail) Draft, polish, shorten, or expand emails directly inside Gmail composer using AI." [ref=f160e1563] [cursor=pointer]:
+                - /url: /features/gmail-help-me-write
+                - generic [ref=f160e1564]: gmail
+                - heading "Help me write (Gmail)" [level=4] [ref=f160e1569]
+                - paragraph [ref=f160e1570]: Draft, polish, shorten, or expand emails directly inside Gmail composer using AI.
+              - link "gmail Email summaries (side panel) Summarize long email threads in the Gmail side panel and extract action items." [ref=f160e1571] [cursor=pointer]:
+                - /url: /features/gmail-email-summaries-side-panel
+                - generic [ref=f160e1572]: gmail
+                - heading "Email summaries (side panel)" [level=4] [ref=f160e1577]
+                - paragraph [ref=f160e1578]: Summarize long email threads in the Gmail side panel and extract action items.
+              - link "gmail Smart Compose Generate phrase-level and sentence-level writing suggestions while composing emails in Gmail." [ref=f160e1579] [cursor=pointer]:
+                - /url: /features/gmail-smart-compose
+                - generic [ref=f160e1580]: gmail
+                - heading "Smart Compose" [level=4] [ref=f160e1585]
+                - paragraph [ref=f160e1586]: Generate phrase-level and sentence-level writing suggestions while composing emails in Gmail.
+  - contentinfo [ref=f160e1073]:
+    - generic [ref=f160e1074]:
+      - generic [ref=f160e1075]:
+        - generic [ref=f160e1076]:
+          - generic [ref=f160e1077]:
+            - heading "Gemini Intelligence" [level=3] [ref=f160e1081]
+            - paragraph [ref=f160e1082]: by MarketStar
+          - paragraph [ref=f160e1083]: The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+        - generic [ref=f160e1084]:
+          - heading "Platform" [level=4] [ref=f160e1085]
+          - list [ref=f160e1086]:
+            - listitem [ref=f160e1087]:
+              - link "All Features" [ref=f160e1088] [cursor=pointer]:
+                - /url: /features
+            - listitem [ref=f160e1089]:
+              - link "Compare Plans" [ref=f160e1090] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=f160e1091]:
+              - link "Applications" [ref=f160e1092] [cursor=pointer]:
+                - /url: /apps
+            - listitem [ref=f160e1093]:
+              - link "NotebookLM" [ref=f160e1094] [cursor=pointer]:
+                - /url: /apps/notebooklm
+            - listitem [ref=f160e1095]:
+              - link "Enterprise AI" [ref=f160e1096] [cursor=pointer]:
+                - /url: /enterprise
+        - generic [ref=f160e1097]:
+          - heading "Enterprise" [level=4] [ref=f160e1098]
+          - list [ref=f160e1099]:
+            - listitem [ref=f160e1100]:
+              - link "Connectors" [ref=f160e1101] [cursor=pointer]:
+                - /url: /enterprise/connectors
+            - listitem [ref=f160e1102]:
+              - link "Agents & MCP" [ref=f160e1103] [cursor=pointer]:
+                - /url: /enterprise/agents
+            - listitem [ref=f160e1104]:
+              - link "Security & Governance" [ref=f160e1105] [cursor=pointer]:
+                - /url: /security
+            - listitem [ref=f160e1106]:
+              - link "Articles" [ref=f160e1107] [cursor=pointer]:
+                - /url: /articles
+            - listitem [ref=f160e1108]:
+              - link "Pricing" [ref=f160e1109] [cursor=pointer]:
+                - /url: /pricing#pricing-overview
+        - generic [ref=f160e1110]:
+          - heading "Applications" [level=4] [ref=f160e1111]
+          - list [ref=f160e1112]:
+            - listitem [ref=f160e1113]:
+              - link "Gmail" [ref=f160e1114] [cursor=pointer]:
+                - /url: /apps/gmail
+            - listitem [ref=f160e1115]:
+              - link "Google Docs" [ref=f160e1116] [cursor=pointer]:
+                - /url: /apps/docs
+            - listitem [ref=f160e1117]:
+              - link "Google Sheets" [ref=f160e1118] [cursor=pointer]:
+                - /url: /apps/sheets
+            - listitem [ref=f160e1119]:
+              - link "Google Meet" [ref=f160e1120] [cursor=pointer]:
+                - /url: /apps/meet
+            - listitem [ref=f160e1121]:
+              - link "Google Chat" [ref=f160e1122] [cursor=pointer]:
+                - /url: /apps/chat
+            - listitem [ref=f160e1123]:
+              - link "Google Slides" [ref=f160e1124] [cursor=pointer]:
+                - /url: /apps/slides
+            - listitem [ref=f160e1125]:
+              - link "Google Vids" [ref=f160e1126] [cursor=pointer]:
+                - /url: /apps/vids
+            - listitem [ref=f160e1127]:
+              - link "Google Drive" [ref=f160e1128] [cursor=pointer]:
+                - /url: /apps/drive
+      - paragraph [ref=f160e1130]: © 2025 MarketStar. All rights reserved. Google Workspace and Gemini are trademarks of Google LLC.
+  - alert [ref=f160e1131]: Contextual smart replies | Gemini Enterprise Intelligence | Gemini Enterprise AI Intelligence

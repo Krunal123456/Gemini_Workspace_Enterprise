@@ -7,7 +7,6 @@ import ArticlesTeaser from "@/components/home/ArticlesTeaser";
 import { LatestModelShowcase } from "@/components/home/LatestModelShowcase";
 import { EnterpriseTrustBento } from "@/components/home/EnterpriseTrustBento";
 import { WorkspaceProofMetrics, CinematicWorkspaceCTA } from "@/components/home/WorkspaceProofAndCTA";
-import { GeminiPlayground } from "@/components/sandbox/GeminiPlayground";
 import { WorkflowStory } from "@/components/scroll/WorkflowStory";
 import { features } from "@/data/features";
 
@@ -24,7 +23,6 @@ export default function HomePage() {
       <Hero />
       <WorkflowStory />
       <LatestModelShowcase />
-      <GeminiPlayground />
       <EnterpriseTrustBento />
       <WorkspaceProofMetrics />
 

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { plans } from '@/data/plans';
 import { Download, TrendingUp, Users, BriefcaseBusiness, ArrowRight } from 'lucide-react';
 import { cn, formatCurrency } from '@/lib/utils';
@@ -8,9 +9,10 @@ import { cn, formatCurrency } from '@/lib/utils';
 import confetti from 'canvas-confetti';
 
 export function PricingCalculator() {
+  const searchParams = useSearchParams();
   const [seats, setSeats] = useState<number>(100);
   const [isAnnual, setIsAnnual] = useState<boolean>(true);
-  const [selectedPlanId, setSelectedPlanId] = useState<string>('gemini-enterprise-standard');
+  const [selectedPlanId, setSelectedPlanId] = useState<string>('business-standard');
   const [rolloutMode, setRolloutMode] = useState<'pilot' | 'full'>('pilot');
   const [pilotSeats, setPilotSeats] = useState(25);
   const [seatMix, setSeatMix] = useState({ knowledgeWorkers: 65, managers: 25, executives: 10 });
@@ -19,22 +21,31 @@ export function PricingCalculator() {
   const [averageHourlyRate, setAverageHourlyRate] = useState(50);
 
   const selectedPlan = plans.find((p) => p.id === selectedPlanId) || plans[0];
+  const requestedPlan = searchParams.get('plan');
+  const hasFixedTermRates = typeof selectedPlan.monthlyPriceUSD === 'number' && typeof selectedPlan.annualPriceUSD === 'number';
 
-  const baseMonthlyPrice = selectedPlan.monthlyPriceUSD || 30;
-  const baseAnnualPrice = selectedPlan.annualPriceUSD || Math.round(baseMonthlyPrice * 0.83);
+  useEffect(() => {
+    if (requestedPlan && plans.some((plan) => plan.id === requestedPlan)) {
+      setSelectedPlanId(requestedPlan);
+    }
+  }, [requestedPlan]);
 
-  const perUserPrice = isAnnual ? baseAnnualPrice : baseMonthlyPrice;
-  const monthlyTotal = perUserPrice * seats;
-  const annualTotal = monthlyTotal * 12;
+  useEffect(() => {
+    const plan = plans.find((item) => item.id === selectedPlanId);
+    setIsAnnual(Boolean(plan?.annualPriceUSD));
+  }, [selectedPlanId]);
 
   const activeSeats = rolloutMode === 'pilot' ? pilotSeats : seats;
+  const perUserPrice = isAnnual ? selectedPlan.annualPriceUSD : selectedPlan.monthlyPriceUSD;
+  const monthlyInvestment = typeof perUserPrice === 'number' ? perUserPrice * activeSeats : null;
+  const annualInvestment = monthlyInvestment === null ? null : monthlyInvestment * 12;
   const monthlyValueGenerated = activeSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate;
   const annualValue = monthlyValueGenerated * 12;
-  const roi = monthlyTotal > 0 ? ((monthlyValueGenerated - monthlyTotal) / monthlyTotal) * 100 : 0;
-  const breakEvenMonths = monthlyValueGenerated > 0 ? Math.max(0, monthlyTotal / monthlyValueGenerated) : 0;
+  const roi = monthlyInvestment && monthlyInvestment > 0 ? ((monthlyValueGenerated - monthlyInvestment) / monthlyInvestment) * 100 : null;
+  const breakEvenMonths = monthlyInvestment !== null && monthlyValueGenerated > 0 ? Math.max(0, monthlyInvestment / monthlyValueGenerated) : null;
 
-  const pilotMonthly = perUserPrice * pilotSeats;
-  const fullMonthly = perUserPrice * seats;
+  const pilotMonthly = typeof perUserPrice === 'number' ? perUserPrice * pilotSeats : null;
+  const fullMonthly = typeof perUserPrice === 'number' ? perUserPrice * seats : null;
 
   const segmentBreakdown = [
     { label: 'Knowledge workers', percentage: seatMix.knowledgeWorkers, seats: Math.round((seats * seatMix.knowledgeWorkers) / 100), color: 'bg-google-blue' },
@@ -46,32 +57,31 @@ export function PricingCalculator() {
     {
       name: 'Pilot',
       seats: pilotSeats,
-      investment: perUserPrice * pilotSeats,
+      investment: typeof perUserPrice === 'number' ? perUserPrice * pilotSeats : null,
       value: pilotSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate,
-      payback: pilotSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate > 0 ? (perUserPrice * pilotSeats) / (pilotSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate) : 0,
+      payback: typeof perUserPrice === 'number' && hoursSavedPerUserMonth * adoptionRate * averageHourlyRate > 0 ? perUserPrice / (hoursSavedPerUserMonth * adoptionRate / 100 * averageHourlyRate) : null,
     },
     {
       name: 'Phased',
       seats: Math.round(seats * 0.6),
-      investment: perUserPrice * Math.round(seats * 0.6),
+      investment: typeof perUserPrice === 'number' ? perUserPrice * Math.round(seats * 0.6) : null,
       value: Math.round(seats * 0.6) * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate,
-      payback: Math.round(seats * 0.6) * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate > 0 ? (perUserPrice * Math.round(seats * 0.6)) / (Math.round(seats * 0.6) * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate) : 0,
+      payback: typeof perUserPrice === 'number' && hoursSavedPerUserMonth * adoptionRate * averageHourlyRate > 0 ? perUserPrice / (hoursSavedPerUserMonth * adoptionRate / 100 * averageHourlyRate) : null,
     },
     {
       name: 'Full rollout',
       seats,
-      investment: monthlyTotal,
+      investment: monthlyInvestment,
       value: monthlyValueGenerated,
       payback: breakEvenMonths,
     },
   ];
 
-  const recommendation =
-    roi > 150
-      ? `Recommend ${selectedPlan.name} with a phased deployment to capture strong productivity returns while keeping governance risk controlled.`
-      : rolloutMode === 'pilot'
-        ? `Recommend starting with a pilot of ${pilotSeats} seats and validating adoption before expanding.`
-        : `Recommend ${selectedPlan.name} once security controls, data governance, and adoption metrics are approved.`;
+  const recommendation = roi === null
+    ? `${selectedPlan.name} has no fixed per-seat price in this calculator, so cost-based ROI is not available. Use Google's current quote or usage estimate.`
+    : roi > 150
+      ? `Under these editable assumptions, modeled value is higher than the listed software rate. Validate actual adoption and time saved in a pilot.`
+      : `Use this scenario as a starting point, then validate adoption and measured time saved before estimating organization-wide value.`;
 
   const handleSeatMixChange = (key: 'knowledgeWorkers' | 'managers' | 'executives', value: number) => {
     const next = { ...seatMix, [key]: value };
@@ -104,23 +114,25 @@ export function PricingCalculator() {
     }
 
     const content = `
-Gemini Enterprise Quote Summary
+Plan Scenario Summary
 -----------------------------
 Plan: ${selectedPlan.name} (${selectedPlan.category})
-Seats: ${seats}
-Billing Cycle: ${isAnnual ? 'Annual Commitment (Billed Annually)' : 'Monthly Flexible'}
+Modeled seats: ${activeSeats}
+Billing basis: ${isAnnual ? 'Annual commitment rate per user/month' : 'Flexible monthly rate'}
 
 Investment:
-Price per User: ${formatCurrency(perUserPrice)} / month
-Total Monthly Commitment: ${formatCurrency(monthlyTotal)}
-Total Annual Commitment: ${formatCurrency(annualTotal)}
+Price per User: ${typeof perUserPrice === 'number' ? formatCurrency(perUserPrice) + ' / month' : selectedPlan.pricingNote || 'Not published'}
+Total Monthly Investment: ${monthlyInvestment === null ? 'Not available' : formatCurrency(monthlyInvestment)}
+Annualized Investment: ${annualInvestment === null ? 'Not available' : formatCurrency(annualInvestment)}
 
 Productivity & ROI Metrics:
 Estimated Hours Saved: ${hoursSavedPerUserMonth} hours / user / month
 Estimated Monthly Value: ${formatCurrency(monthlyValueGenerated)} / month
 Estimated Annual Value: ${formatCurrency(annualValue)} / year
-Estimated ROI: ${roi.toFixed(0)}%
-Break-Even: ${breakEvenMonths.toFixed(1)} months
+Estimated ROI: ${roi === null ? 'Not available' : `${roi.toFixed(0)}%`}
+Break-Even: ${breakEvenMonths === null ? 'Not available' : `${breakEvenMonths.toFixed(1)} months`}
+
+Note: Value and ROI are illustrative and depend on the assumptions entered in the calculator.
 
 Generated by MarketStar Gemini Enterprise Intelligence Platform
     `;
@@ -129,7 +141,7 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `gemini-quote-${seats}-seats.txt`);
+    link.setAttribute('download', `plan-scenario-${activeSeats}-seats.txt`);
     link.click();
   };
 
@@ -143,11 +155,11 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               <button type="button" onClick={() => setRolloutMode('pilot')} className={cn('rounded-xl border p-4 text-left transition', rolloutMode === 'pilot' ? 'border-google-blue bg-google-blue/10' : 'border-border hover:bg-muted')}>
                 <span className="block font-semibold text-foreground">Pilot rollout</span>
-                <span className="mt-1 block text-xs text-muted-foreground">{pilotSeats} users · {formatCurrency(pilotMonthly)}/month</span>
+                <span className="mt-1 block text-xs text-muted-foreground">{pilotSeats} users · {pilotMonthly === null ? "pricing unavailable" : `${formatCurrency(pilotMonthly)}/month`}</span>
               </button>
               <button type="button" onClick={() => setRolloutMode('full')} className={cn('rounded-xl border p-4 text-left transition', rolloutMode === 'full' ? 'border-google-blue bg-google-blue/10' : 'border-border hover:bg-muted')}>
                 <span className="block font-semibold text-foreground">Full rollout</span>
-                <span className="mt-1 block text-xs text-muted-foreground">{seats.toLocaleString()} users · {formatCurrency(fullMonthly)}/month</span>
+                <span className="mt-1 block text-xs text-muted-foreground">{seats.toLocaleString()} users · {fullMonthly === null ? "pricing unavailable" : `${formatCurrency(fullMonthly)}/month`}</span>
               </button>
             </div>
             <label className="mt-5 block text-sm font-medium text-foreground">Pilot seats: <span className="font-mono text-google-blue">{pilotSeats}</span></label>
@@ -171,7 +183,11 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
               max="5000"
               step="5"
               value={seats}
-              onChange={(e) => setSeats(parseInt(e.target.value))}
+              onChange={(e) => {
+                const nextSeats = parseInt(e.target.value, 10);
+                setSeats(nextSeats);
+                setPilotSeats((current) => Math.min(current, nextSeats));
+              }}
               className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-google-blue"
             />
             <div className="flex justify-between text-xs text-muted-foreground mt-2 font-mono">
@@ -240,38 +256,46 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-1">Select Plan</h3>
-                <p className="text-sm text-muted-foreground">Choose the tier that fits your needs.</p>
+                <p className="text-sm text-muted-foreground">Select a plan to see its published rate or pricing note.</p>
               </div>
 
               <div className="flex items-center gap-2 p-1 bg-muted rounded-lg border border-border">
                 <button
+                  type="button"
+                  disabled={!hasFixedTermRates}
                   onClick={() => setIsAnnual(false)}
+                  aria-pressed={!isAnnual}
                   className={cn(
-                    'px-3 py-1.5 text-sm rounded-md transition-colors',
-                    !isAnnual ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
+                    'px-3 py-1.5 text-sm rounded-md transition-colors disabled:cursor-not-allowed disabled:opacity-40',
+                    !isAnnual && hasFixedTermRates ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
-                  Monthly
+                  Flexible monthly
                 </button>
                 <button
+                  type="button"
+                  disabled={!hasFixedTermRates}
                   onClick={() => setIsAnnual(true)}
+                  aria-pressed={isAnnual && hasFixedTermRates}
                   className={cn(
-                    'px-3 py-1.5 text-sm rounded-md transition-colors flex items-center gap-1',
-                    isAnnual ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
+                    'px-3 py-1.5 text-sm rounded-md transition-colors flex items-center gap-1 disabled:cursor-not-allowed disabled:opacity-40',
+                    isAnnual && hasFixedTermRates ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
-                  Annual <span className="text-[10px] bg-google-green/20 text-google-green px-1.5 py-0.5 rounded-full">Save ~17%</span>
+                  Annual commitment <span className="text-[10px] bg-google-green/20 text-google-green px-1.5 py-0.5 rounded-full">{hasFixedTermRates ? "rate" : "N/A"}</span>
                 </button>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {plans.map((plan) => (
-                <div
+                <button
                   key={plan.id}
+                  type="button"
                   onClick={() => setSelectedPlanId(plan.id)}
+                  aria-pressed={selectedPlanId === plan.id}
                   className={cn(
-                    'p-4 rounded-xl border cursor-pointer transition-all hover:border-google-blue/50 relative',
+                    'w-full p-4 rounded-xl border text-left transition-all hover:border-google-blue/50 relative',
                     selectedPlanId === plan.id ? 'bg-google-blue/5 border-google-blue ring-1 ring-google-blue' : 'bg-background border-border hover:bg-muted/30'
                   )}
                 >
@@ -279,13 +303,14 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
                   <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{plan.category}</div>
                   <div className="font-semibold text-foreground mb-2">{plan.name}</div>
                   <div className="text-sm text-muted-foreground line-clamp-2">{plan.description}</div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
 
           <div className="atlas-card rounded-2xl border p-6">
             <h3 className="text-lg font-semibold text-foreground">Adoption assumptions</h3>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">Illustrative inputs only. Measure time saved and adoption in your own pilot before using these outputs as a forecast.</p>
             <div className="mt-5 grid gap-5 sm:grid-cols-3">
               <label className="text-sm text-foreground">
                 Adoption: <strong>{adoptionRate}%</strong>
@@ -310,18 +335,18 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
             <div className="space-y-6">
               <div className="pb-6 border-b border-border">
                 <div className="text-sm text-muted-foreground mb-1">Per User / Month</div>
-                <div className="text-4xl font-bold font-mono text-foreground">{formatCurrency(perUserPrice)}</div>
-                <div className="text-xs text-muted-foreground mt-2">Billed {isAnnual ? 'annually' : 'monthly'}</div>
+                <div className="text-2xl font-bold font-mono text-foreground">{typeof perUserPrice === 'number' ? formatCurrency(perUserPrice) : "Not published"}</div>
+                <div className="text-xs text-muted-foreground mt-2">{typeof perUserPrice === 'number' ? (isAnnual ? 'Annual commitment rate per user/month' : 'Flexible monthly rate') : selectedPlan.pricingNote}</div>
               </div>
 
               <div className="space-y-3 pb-6 border-b border-border">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Monthly Total</span>
-                  <span className="font-mono font-medium text-foreground">{formatCurrency(monthlyTotal)}</span>
+                  <span className="font-mono font-medium text-foreground">{monthlyInvestment === null ? "Not available" : formatCurrency(monthlyInvestment)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Annual Total</span>
-                  <span className="font-mono font-bold text-lg text-foreground">{formatCurrency(annualTotal)}</span>
+                  <span className="font-mono font-bold text-lg text-foreground">{annualInvestment === null ? "Not available" : formatCurrency(annualInvestment)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Estimated annual value</span>
@@ -342,17 +367,17 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
                   </div>
                   <div className="flex justify-between mt-2 pt-2 border-t border-gemini-indigo/20">
                     <span className="font-semibold text-foreground">Est. Efficiency ROI</span>
-                    <span className="font-bold text-google-green">{roi.toFixed(0)}%</span>
+                    <span className="font-bold text-google-green">{roi === null ? "Not available" : `${roi.toFixed(0)}%`}</span>
                   </div>
                   <div className="flex justify-between border-t border-gemini-indigo/20 pt-2">
                     <span className="text-muted-foreground">Break-even</span>
-                    <span className="font-medium text-foreground">{breakEvenMonths.toFixed(1)} months</span>
+                    <span className="font-medium text-foreground">{breakEvenMonths === null ? "Not available" : `${breakEvenMonths.toFixed(1)} months`}</span>
                   </div>
                 </div>
               </div>
 
               <div className="rounded-xl border border-google-blue/20 bg-google-blue/5 p-4">
-                <p className="text-xs font-bold uppercase tracking-wider text-google-blue">Plan recommendation</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-google-blue">Scenario note</p>
                 <p className="mt-2 text-sm text-foreground">{recommendation}</p>
               </div>
 
@@ -361,7 +386,7 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
                 className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
               >
                 <Download className="w-4 h-4" />
-                Export Quote Summary
+                Export Scenario Summary
               </button>
             </div>
           </div>
@@ -390,7 +415,7 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
               <div className="mt-4 space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Investment</span>
-                  <span className="font-mono font-medium text-foreground">{formatCurrency(scenario.investment)}</span>
+                  <span className="font-mono font-medium text-foreground">{scenario.investment === null ? "Not available" : formatCurrency(scenario.investment)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Monthly value</span>
@@ -398,7 +423,7 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
                 </div>
                 <div className="flex justify-between border-t border-border pt-2">
                   <span className="text-muted-foreground">Break-even</span>
-                  <span className="font-mono font-medium text-foreground">{scenario.payback.toFixed(1)} mo</span>
+                  <span className="font-mono font-medium text-foreground">{scenario.payback === null ? "Not available" : `${scenario.payback.toFixed(1)} mo`}</span>
                 </div>
               </div>
             </div>

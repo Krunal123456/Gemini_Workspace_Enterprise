@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
-import { ArrowDown, Clock3, Layers3, ListChecks, ShieldCheck, Sparkles, Workflow } from "lucide-react";
+import { Clock3, Layers3, ListChecks, ShieldCheck, Workflow } from "lucide-react";
 import { features } from "@/data/features";
 import { plans } from "@/data/plans";
 import { securityLayers } from "@/data/security";
@@ -66,38 +66,16 @@ export function WorkspaceProofMetrics() {
 }
 
 export function CinematicWorkspaceCTA() {
-  const reduceMotion = useReducedMotion();
-  const statusRef = useRef<HTMLParagraphElement>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
-
-  const handleExplore = async () => {
-    const target = document.querySelector("#playground");
-    target?.scrollIntoView({ behavior: reduceMotion ? "instant" : "smooth", block: "start" });
-
-    if (!reduceMotion) {
-      const { default: confetti } = await import("canvas-confetti");
-      confetti({ particleCount: 42, spread: 58, startVelocity: 27, scalar: 0.72, origin: { y: 0.7 }, colors: ["#4285F4", "#EA4335", "#FBBC05", "#34A853", "#9333EA"] });
-    }
-
-    if (statusRef.current) statusRef.current.textContent = "Interactive preview is ready.";
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => { if (statusRef.current) statusRef.current.textContent = ""; }, 3000);
-  };
-
   return (
     <section className="relative overflow-hidden bg-[#0b0912] py-20 text-white md:py-28">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_115%,rgba(124,58,237,0.3),transparent_48%),radial-gradient(ellipse_at_8%_18%,rgba(66,133,244,0.12),transparent_32%)]" />
       <div className="relative mx-auto max-w-[1100px] px-4 text-center sm:px-6 lg:px-8">
         <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center border border-violet-200/20 bg-violet-200/10 text-violet-100"><Clock3 className="h-5 w-5" /></div>
         <h2 className="mx-auto max-w-4xl text-3xl font-bold leading-tight sm:text-4xl lg:text-6xl">Ready to shape your enterprise AI workflow?</h2>
-        <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/60 sm:text-base">Explore plan availability, governance controls, and an interactive Gemini workflow preview.</p>
+        <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/60 sm:text-base">Explore plan availability and governance controls for Gemini in Workspace.</p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <button type="button" data-magnetic onClick={handleExplore} className="inline-flex min-h-12 items-center justify-center gap-2 bg-violet-300 px-6 text-sm font-semibold text-[#160c22] transition-colors hover:bg-white"><Sparkles className="h-4 w-4" />Try the interactive preview<ArrowDown className="h-4 w-4" /></button>
           <Link href="/compare" className="inline-flex min-h-12 items-center justify-center gap-2 border border-white/20 bg-white/[0.035] px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10"><Layers3 className="h-4 w-4" />Compare Workspace plans</Link>
         </div>
-        <p ref={statusRef} className="mt-4 min-h-5 text-xs text-violet-200" role="status" aria-live="polite" />
       </div>
     </section>
   );

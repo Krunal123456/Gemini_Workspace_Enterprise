@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Shield, ChevronDown, Lock, CheckCircle2 } from "lucide-react";
+import { Shield, ChevronDown, Lock, CircleHelp, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { securityLayers } from "@/data/security";
 
@@ -17,16 +17,20 @@ export default function SecurityPreview() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center justify-center gap-2 bg-blue-500/10 text-blue-500 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-            <Shield className="w-4 h-4" /> Defense in Depth
+            <Shield className="w-4 h-4" /> Security review
           </div>
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-6">
-            7-Layer Enterprise Security Stack
+            Security decisions need product-specific answers.
           </h2>
-          <div className="bg-card border-2 border-green-500/70 rounded-xl p-4 shadow-sm inline-block">
-            <p className="text-green-600 dark:text-green-400 font-medium flex items-center gap-2 text-lg">
+          <div className="bg-card border border-border rounded-xl p-4 shadow-sm inline-block">
+            <p className="text-foreground font-medium flex items-center gap-2 text-sm sm:text-base">
               <Lock className="w-5 h-5" />
-              Google Workspace customer data is NEVER used to train Gemini models. Your IP remains yours.
+              Google describes distinct data protections for Workspace with Gemini and Gemini Enterprise. Check the terms for the service you use.
             </p>
+            <div className="mt-3 flex flex-wrap gap-4 pl-8 text-xs font-semibold">
+              <a href="https://workspace.google.com/security/ai-privacy/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-google-blue hover:underline">Workspace AI privacy <ArrowRight className="h-3 w-3" /></a>
+              <a href="https://cloud.google.com/gemini-enterprise" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-google-blue hover:underline">Gemini Enterprise privacy <ArrowRight className="h-3 w-3" /></a>
+            </div>
           </div>
         </div>
 
@@ -82,35 +86,24 @@ export default function SecurityPreview() {
               return (
                 <div key={`detail-${layer.id}`} className="bg-card rounded-2xl border border-border shadow-xl p-8 h-full animate-in fade-in slide-in-from-right-4 duration-300">
                   <div className="inline-block px-3 py-1 bg-muted rounded-full text-xs font-bold text-muted-foreground tracking-wider uppercase mb-4">
-                    Layer {layer.level}
+                    Topic {layer.level}
                   </div>
                   <h3 className="text-2xl font-bold text-foreground mb-2">{layer.name}</h3>
                   <p className="text-xl text-blue-500 font-medium mb-4">{layer.tagline}</p>
                   <p className="text-muted-foreground mb-8">{layer.description}</p>
 
                   <h4 className="font-semibold text-foreground uppercase tracking-wider text-sm mb-4 border-b border-border pb-2">
-                    Key Capabilities
+                    Questions to validate
                   </h4>
 
                   <div className="space-y-6">
                     {layer.capabilities.map((cap, idx) => (
                       <div key={idx} className="flex gap-4">
-                        <CheckCircle2 className="w-6 h-6 text-green-500 shrink-0 mt-0.5" />
+                        <CircleHelp className="w-5 h-5 text-google-blue shrink-0 mt-0.5" />
                         <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <h5 className="font-bold text-foreground">{cap.name}</h5>
-                            {cap.isEnterpriseOnly && (
-                              <span className="bg-purple-500/15 text-purple-400 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">
-                                Enterprise Exclusive
-                              </span>
-                            )}
-                          </div>
+                          <h5 className="mb-1 font-bold text-foreground">{cap.name}</h5>
                           <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
-                          {cap.plansSupported && cap.plansSupported.length > 0 && (
-                            <div className="mt-2 text-xs text-muted-foreground/70">
-                              <span className="font-semibold">Supported plans:</span> {cap.plansSupported.join(", ")}
-                            </div>
-                          )}
+                          <p className="mt-2 text-xs leading-relaxed text-muted-foreground"><strong className="text-foreground">Ask:</strong> {cap.reviewQuestion}</p>
                         </div>
                       </div>
                     ))}

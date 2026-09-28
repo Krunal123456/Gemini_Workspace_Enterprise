@@ -24,7 +24,7 @@ import { connectors } from "@/data/connectors";
 
 export const metadata: Metadata = {
   title: "Enterprise AI Architecture | Gemini Enterprise, Connectors & MCP",
-  description: "Discover how Gemini Enterprise connects to your corporate knowledge base through enterprise connectors, Model Context Protocol (MCP), and autonomous agents with zero data training.",
+  description: "Review Gemini Enterprise connectors, agents, MCP options, and product-specific security controls using current Google documentation.",
 };
 
 export default function EnterprisePage() {
@@ -45,7 +45,7 @@ export default function EnterprisePage() {
           </h1>
 
           <p className="fluid-body text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
-            Move beyond isolated chat bubbles. Gemini Enterprise connects your organization's structured data, third-party applications, and custom APIs into a unified reasoning engine with strict ACL boundary enforcement.
+            Gemini Enterprise can ground work in Google and third-party sources with administrative and identity controls. Available connectors, permissions, and behavior depend on the edition, source, and configuration.
           </p>
 
           {/* Quick Action Navigation Grid */}
@@ -101,7 +101,7 @@ export default function EnterprisePage() {
               The 3 Pillars of Gemini Enterprise
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Enterprise readiness is defined by permissions, extensibility, and strict tenant isolation.
+              Enterprise readiness depends on source permissions, administrator configuration, and the documented controls for the edition you choose.
             </p>
           </div>
 
@@ -116,7 +116,7 @@ export default function EnterprisePage() {
                   Enterprise Grounding
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Index Salesforce, Jira, Confluence, SharePoint, and BigQuery. Gemini respects tenant access control lists (ACLs) in real-time, ensuring users only see answers sourced from files they have permission to access.
+                  Connector availability varies by edition and setup. Test permission-aware retrieval with your selected sources, representative accounts, and real access rules before rollout.
                 </p>
               </div>
               <Link
@@ -137,7 +137,7 @@ export default function EnterprisePage() {
                   Model Context Protocol (MCP)
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Support for open standard Model Context Protocol. Deploy secure local or VPC-hosted MCP servers to furnish Gemini with custom company tools, database queries, and private operational endpoints.
+                  MCP and agent capabilities depend on the Gemini product, edition, and configuration. Verify Google's current supported options and test integrations with least-privilege credentials.
                 </p>
               </div>
               <Link
@@ -155,17 +155,17 @@ export default function EnterprisePage() {
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">
-                  Model Armor & Zero Training
+                  Data Terms & Model Armor
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Customer data is never used to train foundation models. Enterprise Plus tiers activate Model Armor for real-time prompt injection defense, hallucination checks, and Cloud Audit logging.
+                  Google documents product-specific data protections for Gemini Enterprise. Model Armor is available across its editions at no extra cost, but administrators must enable and configure it.
                 </p>
               </div>
               <Link
                 href="/security"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-google-green hover:underline pt-4 border-t border-border/60"
               >
-                Inspect 7-Layer Security <ArrowRight className="w-4 h-4" />
+                Review Security Topics <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -180,9 +180,7 @@ export default function EnterprisePage() {
               <span className="text-xs font-bold uppercase tracking-wider text-google-blue block mb-2">
                 Knowledge Integration
               </span>
-              <h2 className="fluid-h2 font-bold text-foreground">
-                First-Party & Third-Party Connectors
-              </h2>
+              <h2 className="fluid-h2 font-bold text-foreground">Connector Examples</h2>
             </div>
             <Link
               href="/enterprise/connectors"
@@ -204,7 +202,7 @@ export default function EnterprisePage() {
                       {c.category}
                     </span>
                     <span className="text-[11px] font-bold uppercase text-google-blue bg-google-blue/10 px-2 py-0.5 rounded-full border border-google-blue/20">
-                      {c.status}
+                      Example
                     </span>
                   </div>
                   <h3 className="text-base font-bold text-foreground mb-2">{c.name}</h3>
@@ -213,7 +211,7 @@ export default function EnterprisePage() {
                   </p>
                 </div>
                 <div className="text-[11px] text-muted-foreground font-medium border-t border-border pt-3 mt-auto">
-                  {c.supportedEditions.join(" • ")}
+                  Verify edition support, region, and setup with Google
                 </div>
               </div>
             ))}

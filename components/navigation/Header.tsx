@@ -56,6 +56,7 @@ export function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -89,18 +90,20 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-4 z-50 transition-all duration-300",
-        scrolled ? "opacity-100" : "opacity-100"
+        "fixed inset-x-0 z-[60] transition-all duration-300",
+        scrolled
+          ? "top-0 bg-background py-2 shadow-lg shadow-slate-900/5 backdrop-blur-xl"
+          : "top-4 bg-transparent"
       )}
       onKeyDown={handleKeyDown}
     >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className={cn(
           "relative flex items-center justify-between gap-4 rounded-full border border-slate-200/80 bg-white/75 px-4 py-3 shadow-[0_20px_50px_-25px_rgba(30,64,175,0.28)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-slate-950/70",
-          scrolled && "border-blue-200/90 bg-white/85 dark:border-blue-500/20 dark:bg-slate-950/80"
+          scrolled && "border-blue-200/90 bg-white dark:border-blue-500/20 dark:bg-slate-950"
         )}>
-          <Link href="/" className="flex items-center gap-3 outline-none focus-visible:ring-2 ring-primary rounded-full">
-            <MarketStarLogo className="h-6 w-auto text-slate-900 dark:text-white" />
+          <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 rounded-full outline-none focus-visible:ring-2 ring-primary sm:flex-none">
+            <MarketStarLogo className="h-4 w-auto shrink-0 object-contain sm:h-5" />
             <div className="hidden h-5 w-px bg-slate-300 dark:bg-white/10 sm:block" />
             <span className="hidden text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-600 dark:text-slate-300 md:block">
               Gemini Intelligence
@@ -169,27 +172,20 @@ export function Header() {
             </div>
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            <ThemeToggle />
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <ThemeToggle className="hidden sm:flex" />
             <button
               onClick={handleSearchClick}
-              className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-sm text-slate-600 transition-colors hover:border-blue-400/30 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.02] dark:text-slate-300 dark:hover:text-white"
+              aria-label="Search the site"
+              className="flex h-10 w-10 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-2 text-sm text-slate-600 transition-colors hover:border-blue-400/30 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.02] dark:text-slate-300 dark:hover:text-white sm:w-auto sm:justify-start sm:px-3"
             >
               <Search className="h-4 w-4" />
-              Search
+              <span className="hidden sm:inline">Search</span>
             </button>
-            <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-              <Link
-                href="/compare"
-                className="inline-flex items-center justify-center rounded-full border border-violet-800 bg-violet-700 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_25px_-12px_rgba(124,58,237,0.75)] transition-all duration-300 hover:translate-y-[-1px] hover:bg-violet-600 hover:shadow-[0_14px_28px_-12px_rgba(124,58,237,0.8)]"
-              >
-                Launch Workspace
-              </Link>
-            </motion.div>
           </div>
 
           <button
-            className="lg:hidden p-2 text-slate-200"
+            className="shrink-0 rounded-full p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-google-blue dark:text-slate-100 dark:hover:bg-white/10 lg:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle mobile menu"
@@ -222,10 +218,13 @@ export function Header() {
             
             <nav className="flex flex-col gap-4">
               <Link href="/features" className="text-lg font-medium text-foreground py-2 border-b">Features</Link>
+              <Link href="/models" className="text-lg font-medium text-foreground py-2 border-b">Models</Link>
               <Link href="/products/gemini" className="text-lg font-medium text-foreground py-2 border-b">Gemini</Link>
               <Link href="/products/notebooklm" className="text-lg font-medium text-foreground py-2 border-b">NotebookLM</Link>
               <Link href="/products/gemini-enterprise" className="text-lg font-medium text-foreground py-2 border-b">Gemini Enterprise</Link>
               <Link href="/compare" className="text-lg font-medium text-foreground py-2 border-b">Compare</Link>
+              <Link href="/pricing" className="text-lg font-medium text-foreground py-2 border-b">Pricing</Link>
+              <Link href="/plans" className="text-lg font-medium text-foreground py-2 border-b">Plans</Link>
               
               <div className="py-2 border-b">
                 <span className="text-lg font-medium text-foreground block mb-4">Apps</span>

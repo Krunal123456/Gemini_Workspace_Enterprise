@@ -18,7 +18,7 @@ export default function ArticlesTeaser() {
               Expert analysis on enterprise AI procurement, deployment architectures, and security governance from the MarketStar Enterprise Advisory Group.
             </p>
           </div>
-          <Link href="/articles" className="inline-flex items-center text-blue-500 font-semibold hover:text-blue-400 transition-colors">
+          <Link href="/articles" className="inline-flex items-center text-blue-700 font-semibold hover:text-blue-800 transition-colors dark:text-blue-300 dark:hover:text-blue-200">
             View all articles <ArrowRight className="w-5 h-5 ml-1" />
           </Link>
         </div>
@@ -37,7 +37,7 @@ export default function ArticlesTeaser() {
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-blue-500 transition-colors">
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
                   {article.title}
                 </h3>
 

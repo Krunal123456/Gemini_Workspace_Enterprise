@@ -29,7 +29,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       <button
         onClick={() => setTheme("light")}
         className={cn(
-          "p-1.5 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
+          "min-h-11 min-w-11 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
           theme === "light"
             ? "bg-background text-foreground shadow-sm scale-105"
             : "text-muted-foreground hover:text-foreground hover:bg-background/40"
@@ -45,7 +45,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       <button
         onClick={() => setTheme("system")}
         className={cn(
-          "p-1.5 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
+          "min-h-11 min-w-11 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
           theme === "system"
             ? "bg-background text-foreground shadow-sm scale-105"
             : "text-muted-foreground hover:text-foreground hover:bg-background/40"
@@ -61,7 +61,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       <button
         onClick={() => setTheme("dark")}
         className={cn(
-          "p-1.5 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
+          "min-h-11 min-w-11 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
           theme === "dark"
             ? "bg-background text-foreground shadow-sm scale-105"
             : "text-muted-foreground hover:text-foreground hover:bg-background/40"

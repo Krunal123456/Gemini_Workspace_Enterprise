@@ -4,11 +4,10 @@ import { applications } from "@/data/apps";
 import { plans } from "@/data/plans";
 import { articles } from "@/data/articles";
 import { connectors } from "@/data/connectors";
+import { siteUrl } from "@/lib/siteUrl";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://gemini-intelligence.marketstar.com";
-  const now = new Date();
-
+  const baseUrl = siteUrl;
   // Static core routes
   const routes = [
     "",
@@ -22,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/products/developer-tools",
     "/plans",
     "/pricing",
+    "/models",
     "/compare",
     "/enterprise",
     "/enterprise/readiness",
@@ -33,7 +33,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: route === "" ? 1.0 : 0.8,
   }));
@@ -41,7 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic feature routes
   const featureRoutes = features.map((f) => ({
     url: `${baseUrl}/features/${f.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: f.isPopular ? 0.9 : 0.7,
   }));
@@ -49,14 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic app routes
   const appRoutes = applications.map((a) => ({
     url: `${baseUrl}/apps/${a.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
 
   const connectorRoutes = connectors.map((connector) => ({
     url: `${baseUrl}/enterprise/connectors/${connector.id}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
@@ -64,7 +60,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic plan routes
   const planRoutes = plans.map((p) => ({
     url: `${baseUrl}/plans/${p.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
@@ -72,7 +67,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic article routes
   const articleRoutes = articles.map((a) => ({
     url: `${baseUrl}/articles/${a.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));

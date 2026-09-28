@@ -1,20 +1,18 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
 import { 
   Building2, 
-  Sparkles, 
   ShieldCheck, 
-  Award, 
-  Users, 
   Globe2, 
   ArrowRight,
   CheckCircle2,
-  ExternalLink
 } from "lucide-react";
 import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
 import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
-import { GoogleWorkspaceLogo } from "@/components/logos/GoogleWorkspaceLogo";
+import { features } from "@/data/features";
+import { plans } from "@/data/plans";
 
 export const metadata: Metadata = {
   title: "About | MarketStar Gemini Enterprise AI Intelligence",
@@ -46,14 +44,20 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
             <div className="flex flex-col items-center md:items-start gap-3 p-6 rounded-2xl bg-card border border-border">
-              <MarketStarLogo className="h-7 w-auto text-foreground" />
+              <MarketStarLogo className="h-6 w-auto object-contain" />
               <span className="text-xs text-muted-foreground">
                 Premier Enterprise GTM & AI Acceleration Partner
               </span>
             </div>
 
             <div className="flex flex-col items-center md:items-start gap-3 p-6 rounded-2xl bg-card border border-border">
-              <GoogleWorkspaceLogo className="h-7 w-auto" />
+              <Image
+                src="/brand/google-workspace-wordmark.png"
+                alt="Google Workspace"
+                width={960}
+                height={124}
+                className="h-auto w-40"
+              />
               <span className="text-xs text-muted-foreground">
                 Google Workspace Commercial Ecosystem
               </span>
@@ -82,10 +86,10 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed text-sm sm:text-base">
                 <p>
-                  As Google continuously delivers breakout innovations — from 2M token context windows and NotebookLM Audio Overviews to Model Armor and Veo 3.1 video synthesis — enterprise procurement teams frequently struggle to understand which features belong to which plan.
+                  As Google continues to add AI capabilities across Workspace and Gemini Enterprise, procurement teams need clear information about which features belong to each edition and what limits apply.
                 </p>
                 <p>
-                  This platform bridges the information gap. We meticulously catalog all 89 AI features across all 11 Google Workspace and Gemini Enterprise editions, providing side-by-side matrices, ROI calculators, and architectural blueprints with zero ambiguity.
+                  This platform brings together {features.length} catalog entries and {plans.length} currently listed plan options, with side-by-side comparisons and planning tools. Coverage and source detail vary by feature, so check the linked Google documentation before making a purchasing or compliance decision.
                 </p>
               </div>
 
@@ -100,7 +104,7 @@ export default function AboutPage() {
                   href="/features"
                   className="inline-flex items-center gap-2 px-6 py-3 border border-border bg-card hover:bg-muted text-foreground font-semibold rounded-xl transition-all text-sm"
                 >
-                  Directory of 89 Features
+                  Directory of {features.length} Features
                 </Link>
               </div>
             </div>
@@ -113,7 +117,7 @@ export default function AboutPage() {
                   Independent Technical Transparency
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Every feature limit, quota, and storage ceiling is indexed directly from commercial documentation and technical releases.
+                  Feature notes link to Google product and technical documentation where available. Source coverage varies by entry.
                 </p>
               </div>
 
@@ -123,7 +127,7 @@ export default function AboutPage() {
                   Enterprise Privacy & Governance First
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  We emphasize tenant boundary isolation, compliance standards (HIPAA, SOC 2/3), and the contractual guarantee that customer data is never trained upon.
+                  We highlight governance and privacy controls described in Google's documentation. Contract terms and compliance scope depend on the service and subscription.
                 </p>
               </div>
 

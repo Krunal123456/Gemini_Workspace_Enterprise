@@ -9,6 +9,7 @@ import {
   ArrowLeft, 
   ArrowRight, 
   CheckCircle2, 
+  ExternalLink,
   Sparkles, 
   HardDrive, 
   Users, 
@@ -108,22 +109,29 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
                       <span className="text-sm text-muted-foreground">/ user / mo</span>
                     </div>
                     <span className="text-xs text-muted-foreground block mb-6">
-                      Billed annually ({formatCurrency(plan.monthlyPriceUSD || plan.annualPriceUSD)} monthly flexible)
+                      Annual commitment rate per user per month; billing cadence depends on your subscription terms.
                     </span>
+                  </div>
+                ) : plan.startingPriceUSD ? (
+                  <div className="mb-6">
+                    <span className="block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Starting at</span>
+                    <span className="text-4xl font-extrabold text-foreground">{formatCurrency(plan.startingPriceUSD)}</span>
+                    <span className="text-sm text-muted-foreground">/ seat / month</span>
+                    <span className="mt-2 block text-xs text-muted-foreground">{plan.pricingNote}</span>
                   </div>
                 ) : (
                   <div className="mb-6">
-                    <span className="text-2xl font-bold text-foreground block">Enterprise Agreement</span>
-                    <span className="text-xs text-muted-foreground">Custom pricing via Google or Partner</span>
+                    <span className="text-2xl font-bold text-foreground block">{plan.id === "gemini-enterprise-payg" ? "$0 seat fee" : "Contact Google"}</span>
+                    <span className="text-xs text-muted-foreground">{plan.pricingNote || "Confirm current pricing with Google or your reseller."}</span>
                   </div>
                 )}
               </div>
 
               <Link
-                href={`/compare?tab=calculator`}
+                href={`/compare?tab=calculator&plan=${plan.id}`}
                 className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-google-blue to-gemini-indigo text-white font-medium rounded-xl hover:shadow-lg transition-all text-sm text-center"
               >
-                Calculate Team Investment
+                Model a rollout scenario
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -181,7 +189,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
 
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <span className="text-xs font-bold text-muted-foreground uppercase block mb-1">
-                NotebookLM Access
+                Gemini Notebook access
               </span>
               <p className="font-semibold text-foreground text-sm">
                 {plan.coreCapabilities.notebookLMAccess}
@@ -190,7 +198,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
 
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <span className="text-xs font-bold text-muted-foreground uppercase block mb-1">
-                Connectors & Knowledge Indexing
+                {plan.type === "gemini-enterprise" ? "Enterprise connectors & indexing" : "Workspace context and data sources"}
               </span>
               <p className="font-semibold text-foreground text-sm">
                 {plan.coreCapabilities.connectors}
@@ -199,7 +207,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
 
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <span className="text-xs font-bold text-muted-foreground uppercase block mb-1">
-                Agents & Model Context Protocol (MCP)
+                {plan.type === "gemini-enterprise" ? "Agents & Model Context Protocol (MCP)" : "Workspace automation and agents"}
               </span>
               <p className="font-semibold text-foreground text-sm">
                 {plan.coreCapabilities.agentsAndMCP}
@@ -208,7 +216,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
 
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <span className="text-xs font-bold text-muted-foreground uppercase block mb-1">
-                Security & Model Armor
+                Security & administration
               </span>
               <p className="font-semibold text-foreground text-sm">
                 {plan.coreCapabilities.securityLevel}
@@ -217,7 +225,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
 
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <span className="text-xs font-bold text-muted-foreground uppercase block mb-1">
-                Cloud Audit Logging
+                Audit & activity records
               </span>
               <p className="font-semibold text-foreground text-sm">
                 {plan.coreCapabilities.auditLogging}
@@ -234,7 +242,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
                 Highlighted Entitlements
               </h3>
               <p className="text-xs text-muted-foreground">
-                {availableFeatures.length} of 89 features available in this edition
+                {availableFeatures.length} of {features.length} catalog features marked available in this edition
               </p>
             </div>
             <Link
@@ -255,6 +263,22 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
           </div>
         </div>
 
+        {plan.officialSources && plan.officialSources.length > 0 && (
+          <aside className="rounded-2xl border border-border bg-muted/20 p-6" aria-labelledby="plan-sources-heading">
+            <h2 id="plan-sources-heading" className="text-lg font-bold text-foreground">Official plan references</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Checked September 28, 2026. Pricing, feature access, and limits can change; use these Google pages for current purchase details.</p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {plan.officialSources.map((source) => (
+                <li key={source.url}>
+                  <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-google-blue hover:underline">
+                    {source.label}<ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
+
         {/* Back Link & CTA */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border">
           <Link
@@ -268,7 +292,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
             href="/compare"
             className="inline-flex items-center gap-2 px-6 py-3 bg-google-blue text-white font-semibold rounded-xl hover:bg-google-blue/90 transition-all text-sm"
           >
-            Compare {plan.name} in 11-Plan Matrix
+            Compare {plan.name} in the {plans.length}-Plan Matrix
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

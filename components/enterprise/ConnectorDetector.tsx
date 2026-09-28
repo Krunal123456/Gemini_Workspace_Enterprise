@@ -14,8 +14,6 @@ import {
 
 type DetectorResult = {
   domain: string;
-  ge_band: string;
-  source: string;
   setup_required?: boolean;
   search_links?: { id: string; name: string; url: string }[];
   matched: { id: string; name: string; status: string; category: string; evidence?: { title: string; url: string; snippet: string }[] }[];
@@ -88,7 +86,7 @@ export function ConnectorDetector() {
               </button>
             </div>
             <p className="mt-3 text-xs text-muted-foreground">
-              Try <button type="button" onClick={() => setDomain("acme.atlassian.net")} className="font-semibold text-google-blue hover:underline">acme.atlassian.net</button> for a sample match.
+              Public search checks require server-side Google Search credentials. A search result is only an indicative signal, not proof that a connector is configured.
             </p>
           </form>
         </div>

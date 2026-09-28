@@ -21,6 +21,10 @@
     --popover-foreground: #0f172a;
     --ring: #7c3aed;
     --radius: 1rem;
+    --google-blue-text: #185abc;
+    --google-green-text: #137333;
+    --gemini-indigo-text: #4338ca;
+    --gemini-purple-text: #6d28d9;
     --primary: #6d28d9;
     --primary-foreground: #ffffff;
     --secondary: rgba(124, 58, 237, 0.09);
@@ -58,6 +62,10 @@
     --popover: rgba(9, 13, 20, 0.9);
     --popover-foreground: #ebf2ff;
     --ring: #c4b5fd;
+    --google-blue-text: #8ab4f8;
+    --google-green-text: #81c995;
+    --gemini-indigo-text: #a5b4fc;
+    --gemini-purple-text: #c4b5fd;
     --primary: #a78bfa;
     --primary-foreground: #120b20;
     --secondary: rgba(167, 139, 250, 0.12);
@@ -536,6 +544,7 @@
       radial-gradient(ellipse 90% 70% at 50% -10%, rgba(124, 58, 237, 0.16), transparent 70%),
       radial-gradient(ellipse 60% 50% at 15% 35%, rgba(79, 70, 229, 0.12), transparent 60%),
       radial-gradient(ellipse 60% 50% at 85% 45%, rgba(6, 182, 212, 0.10), transparent 60%);
+    background-color: #090610;
   }
   .dark .synapse-ambient {
     background:
@@ -690,4 +699,22 @@
   * {
     color: black !important;
   }
+}
+
+/* Brand-colored text uses theme-specific shades that remain legible on surfaces. */
+:is(.text-google-blue, .text-google-blue\/80, [class~="hover:text-google-blue"]:hover, [class~="hover:text-google-blue/80"]:hover),
+.group:hover [class~="group-hover:text-google-blue"] {
+  color: var(--google-blue-text);
+}
+
+.text-google-green {
+  color: var(--google-green-text);
+}
+
+.text-gemini-indigo {
+  color: var(--gemini-indigo-text);
+}
+
+.text-gemini-purple {
+  color: var(--gemini-purple-text);
 }

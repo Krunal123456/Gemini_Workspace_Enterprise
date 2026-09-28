@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Sparkles } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
+import { Sparkles } from "lucide-react";
 
 const platformLinks = [
   { name: "All Features", href: "/features" },
@@ -15,7 +14,7 @@ const enterpriseLinks = [
   { name: "Agents & MCP", href: "/enterprise/agents" },
   { name: "Security & Governance", href: "/security" },
   { name: "Articles", href: "/articles" },
-  { name: "Pricing", href: "/compare#pricing" },
+  { name: "Pricing", href: "/pricing#pricing-overview" },
 ];
 
 const applicationLinks = [
@@ -49,18 +48,6 @@ export function Footer() {
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
             </p>
-            
-            <div className="flex items-center gap-4 pt-2">
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10" aria-label="GitHub">
-                <Github className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10" aria-label="Twitter">
-                <Twitter className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10" aria-label="LinkedIn">
-                <Linkedin className="w-5 h-5" />
-              </Link>
-            </div>
           </div>
 
           {/* Column 2 - Platform */}
@@ -122,14 +109,10 @@ export function Footer() {
 
         </div>
 
-        {/* Bottom bar */}
-        <div className="py-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground text-center sm:text-left">
+        <div className="border-t border-border py-6">
+          <p className="text-center text-sm text-muted-foreground sm:text-left">
             © 2025 MarketStar. All rights reserved. Google Workspace and Gemini are trademarks of Google LLC.
           </p>
-          <div className="shrink-0">
-            <ThemeToggle />
-          </div>
         </div>
       </div>
     </footer>

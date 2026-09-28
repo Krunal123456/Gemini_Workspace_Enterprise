@@ -11,7 +11,7 @@ import jsPDF from "jspdf";
 const securityOptions = [
   { id: "standard", label: "Standard governance", detail: "Workspace controls and basic admin reporting" },
   { id: "regulated", label: "Regulated environment", detail: "DLP, retention, advanced access, or compliance requirements" },
-  { id: "mission", label: "Mission-critical AI", detail: "Model Armor, CMEK, VPC-SC, SIEM, and agent governance" },
+  { id: "mission", label: "Mission-critical AI", detail: "Additional encryption, access, audit, and runtime controls to validate" },
 ] as const;
 
 export function ReadinessPlanner() {
@@ -39,20 +39,21 @@ export function ReadinessPlanner() {
   }, []);
 
   const recommendation = useMemo(() => {
-    const planId = security === "mission" || connectorNeed === "custom"
-      ? "gemini-enterprise-plus"
-      : security === "regulated" || connectorNeed === "some"
-        ? "gemini-enterprise-standard"
-        : deployment === "workspace" ? "ai-expanded" : "gemini-enterprise-business";
+    const planId = deployment === "workspace" && connectorNeed === "none" && security === "standard"
+      ? "business-standard"
+      : security === "mission"
+        ? "gemini-enterprise-plus"
+        : connectorNeed === "none" && deployment === "standalone"
+          ? "gemini-enterprise-business"
+          : "gemini-enterprise-standard";
     return plans.find((plan) => plan.id === planId) || plans[0];
   }, [connectorNeed, deployment, security]);
 
-  const price = recommendation.monthlyPriceUSD || 0;
-  const monthlyEstimate = price * seats;
+  const monthlyEstimate = typeof recommendation.monthlyPriceUSD === "number"
+    ? recommendation.monthlyPriceUSD * seats
+    : null;
   const matchedConnectors = connectorNeed === "none" ? [] : connectorNeed === "custom" ? connectors.filter((connector) => connector.type === "mcp" || connector.type === "custom") : connectors.filter((connector) => connector.type !== "custom").slice(0, 5);
-  const readinessScore = security === "mission" ? 96 : security === "regulated" ? 84 : 72;
-  const confidence = companyDomain ? "Public signal pending verification" : "Catalog recommendation";
-  const connectorGaps = connectorNeed === "custom" ? "Private APIs, databases, and MCP endpoints require architecture review." : connectorNeed === "some" ? "Confirm source permissions and connector region availability." : "Third-party grounding is outside this initial scope.";
+  const connectorGaps = connectorNeed === "custom" ? "Private APIs, databases, and custom sources require architecture review." : connectorNeed === "some" ? "Confirm source permissions and connector region availability." : "Third-party grounding is outside this initial scope.";
   const pilotScope = `${Math.max(5, Math.ceil(seats * 0.2))} users across IT, operations, and one knowledge-heavy business team`;
 
   const exportReport = () => {
@@ -61,16 +62,15 @@ export function ReadinessPlanner() {
       "===================================",
       `Company: ${companyName || "Not provided"}`,
       `Domain: ${companyDomain || "Not provided"}`,
-      `Confidence: ${confidence}`,
+      "This report is a planning draft; the company domain is not looked up.",
       `Seats: ${seats}`,
       `Deployment: ${deployment === "workspace" ? "Existing Google Workspace" : "Standalone Gemini Enterprise"}`,
       `Connector need: ${connectorNeed}`,
       `Security profile: ${security}`,
-      `Recommended plan: ${recommendation.name}`,
-      `Estimated monthly investment: $${monthlyEstimate.toLocaleString()}`,
-      `Readiness score: ${readinessScore}/100`,
+      `Candidate plan to review: ${recommendation.name}`,
+      `Monthly investment: ${monthlyEstimate === null ? recommendation.pricingNote || "No fixed monthly price listed" : "$" + monthlyEstimate.toLocaleString() + " based on listed USD rate"}`,
       `Connector gaps: ${connectorGaps}`,
-      `Security readiness: ${security}`,
+      `Security profile: ${security}`,
       `Suggested pilot: ${pilotScope}`,
       "",
       "Recommended rollout:",
@@ -95,11 +95,10 @@ export function ReadinessPlanner() {
     const lines = [
       `Company: ${companyName || "Not provided"}`,
       `Domain: ${companyDomain || "Not provided"}`,
-      `Recommended plan: ${recommendation.name}`,
-      `Readiness score: ${readinessScore}/100`,
-      `Estimated monthly investment: $${monthlyEstimate.toLocaleString()}`,
-      `Confidence: ${confidence}`,
-      `Security readiness: ${security}`,
+      `Candidate plan to review: ${recommendation.name}`,
+      `Monthly investment: ${monthlyEstimate === null ? recommendation.pricingNote || "No fixed monthly price listed" : "$" + monthlyEstimate.toLocaleString() + " based on listed USD rate"}`,
+      "Planning draft only; the company domain is not looked up.",
+      `Security profile: ${security}`,
       `Suggested pilot: ${pilotScope}`,
       `Connector gaps: ${connectorGaps}`,
     ];
@@ -123,7 +122,7 @@ export function ReadinessPlanner() {
             <input value={companyName} onChange={(event) => setCompanyName(event.target.value)} placeholder="Company name" className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground outline-none focus:border-google-blue" />
             <input value={companyDomain} onChange={(event) => setCompanyDomain(event.target.value)} placeholder="company.com" className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground outline-none focus:border-google-blue" />
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">Public evidence is indicative only and should be verified before procurement.</p>
+          <p className="mt-3 text-xs text-muted-foreground">These optional labels are used in your exported draft only. No company-domain lookup is performed.</p>
         </div>
 
         <div className="atlas-card rounded-2xl p-6 sm:p-8">
@@ -157,10 +156,11 @@ export function ReadinessPlanner() {
 
       <aside className="lg:sticky lg:top-24 lg:self-start">
         <div className="rounded-2xl bg-[#0B0F19] p-6 text-white shadow-2xl sm:p-8">
-          <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-6"><div><p className="text-xs font-bold uppercase tracking-wider text-blue-300">Recommended architecture</p><h2 className="mt-2 text-2xl font-bold">{recommendation.name}</h2></div><div className="rounded-full bg-google-green/15 px-3 py-1 text-sm font-bold text-green-300">{readinessScore}/100</div></div>
+          <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-6"><div><p className="text-xs font-bold uppercase tracking-wider text-blue-300">Candidate plan to review</p><h2 className="mt-2 text-2xl font-bold">{recommendation.name}</h2></div><div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200">Planning draft</div></div>
           <p className="mt-5 text-sm leading-relaxed text-slate-300">{recommendation.tagline}</p>
-          <div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Estimated monthly</span><strong className="mt-1 block text-xl">${monthlyEstimate.toLocaleString()}</strong></div><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Pilot scope</span><strong className="mt-1 block text-xl">{Math.max(5, Math.ceil(seats * 0.2))}</strong></div></div>
-          <div className="mt-7"><p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Recommended capabilities</p><div className="space-y-2">{recommendation.highlightedFeatures.slice(0, 5).map((item) => <div key={item} className="flex items-start gap-2 text-sm text-slate-200"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-400" />{item}</div>)}</div></div>
+          <p className="mt-3 text-xs leading-relaxed text-slate-400">This rule-based starting point reflects your selections. It is not a readiness score or a product eligibility check.</p>
+          <div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Monthly estimate</span><strong className="mt-1 block text-lg">{monthlyEstimate === null ? "Not available" : `$${monthlyEstimate.toLocaleString()} USD`}</strong><span className="mt-2 block text-xs leading-relaxed text-slate-400">{monthlyEstimate === null ? recommendation.pricingNote || "No fixed rate listed" : "Based on listed US rate; verify local pricing"}</span></div><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Pilot scope</span><strong className="mt-1 block text-xl">{Math.max(5, Math.ceil(seats * 0.2))} users</strong></div></div>
+          <div className="mt-7"><p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Plan notes to verify</p><div className="space-y-2">{recommendation.highlightedFeatures.slice(0, 5).map((item) => <div key={item} className="flex items-start gap-2 text-sm text-slate-200"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-400" />{item}</div>)}</div></div>
           {matchedConnectors.length > 0 && <div className="mt-7 border-t border-white/10 pt-6"><p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Connector direction</p><p className="text-sm text-slate-300">Plan for {matchedConnectors.slice(0, 3).map((connector) => connector.name).join(", ")}{matchedConnectors.length > 3 ? ` + ${matchedConnectors.length - 3} more` : ""}.</p></div>}
           <div className="mt-8 grid gap-3"><button type="button" onClick={savePlan} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">{saved ? "Saved to this browser" : "Save decision workspace"}</button><button type="button" onClick={exportReport} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Download className="h-4 w-4" /> Download text report</button><button type="button" onClick={exportPdf} className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-slate-950 transition hover:bg-slate-100"><Download className="h-4 w-4" /> Download PDF report</button><Link href={`/plans/${recommendation.slug}`} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View recommended plan <ArrowRight className="h-4 w-4" /></Link></div>
         </div>

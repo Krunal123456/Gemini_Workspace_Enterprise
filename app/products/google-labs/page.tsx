@@ -5,7 +5,7 @@ import { ProductCapabilityHub } from "@/components/products/ProductCapabilityHub
 
 export const metadata: Metadata = {
   title: "Google Labs AI Capabilities & Plan Availability | Gemini Intelligence",
-  description: "Explore Flow, Whisk, Project Mariner, and Antigravity availability through Google Labs and AI Ultra.",
+  description: "Explore selected Google Labs projects and their documented availability.",
 };
 
 export default function GoogleLabsProductPage() {
@@ -59,7 +59,7 @@ export default function GoogleLabsProductPage() {
         </div>
       </section>
 
-      <ProductCapabilityHub eyebrow="Google Labs" title="Track the frontier experiences attached to AI Ultra." description="Explore Google Labs capabilities including Flow, Whisk, Project Mariner, and Antigravity, with transparent plan availability." filterKey="google-labs" />
+      <ProductCapabilityHub eyebrow="Google Labs" title="Explore selected Google Labs capabilities." description="Browse catalog notes for selected Google Labs projects. Availability can change and is not necessarily tied to a Workspace plan." filterKey="google-labs" />
     </>
   );
 }
