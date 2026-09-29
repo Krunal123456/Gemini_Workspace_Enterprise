@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,28 +9,38 @@ import { useRouter } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { EcosystemMarquee } from "./EcosystemMarquee";
-import { features } from "@/data/features";
-import { connectors } from "@/data/connectors";
-import { plans } from "@/data/plans";
-import { securityLayers } from "@/data/security";
 import { SynapseCanvas } from "@/components/canvas/SynapseCanvas";
 import { WorkspaceAtlas } from "./WorkspaceAtlas";
+import { useLocale } from "@/lib/i18n/locale-context";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-const featureCount = features.length;
 
-export function Hero() {
+export function Hero({ labels }: { labels: Dictionary["hero"] }) {
+  const { features, connectors, plans, securityLayers } = useLocalizedData();
+  const featureCount = features.length;
+  const { locale, href } = useLocale();
   const router = useRouter();
   const reduceMotion = useReducedMotion();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const quickSearches = [
-    "Deep Research",
-    "Model Context Protocol",
-    "Salesforce Grounding",
-    "Model Armor",
-    "NotebookLM",
-    "Google Vids",
-  ];
+  const quickSearches =
+    locale === "es"
+      ? [
+          "Investigación profunda",
+          "Model Context Protocol",
+          "Fundamentación en Salesforce",
+          "Model Armor",
+          "NotebookLM",
+          "Google Vids",
+        ]
+      : [
+          "Deep Research",
+          "Model Context Protocol",
+          "Salesforce Grounding",
+          "Model Armor",
+          "NotebookLM",
+          "Google Vids",
+        ];
 
   const handleOpenSearch = () => {
     window.dispatchEvent(new CustomEvent("open-command-palette"));
@@ -97,7 +109,7 @@ export function Hero() {
             </span>
             <span className="text-white/55" aria-hidden="true">+</span>
             <span className="text-[0.625rem] font-bold text-white sm:text-xs">Gemini Enterprise</span>
-            <span className="hidden font-normal text-white/70 md:inline">Grounded in your data</span>
+            <span className="hidden font-normal text-white/70 md:inline">{labels.groundedBadge}</span>
           </motion.div>
 
           <motion.h1
@@ -109,9 +121,9 @@ export function Hero() {
             <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">Google</motion.span>{" "}
             <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">Workspace,</motion.span>
             <span className="block gemini-spectrum">
-              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">reimagined</motion.span>{" "}
-              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">by</motion.span>{" "}
-              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">AI.</motion.span>
+              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">{labels.line3}</motion.span>{" "}
+              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">{labels.line4}</motion.span>{" "}
+              <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-block">{labels.line5}</motion.span>
             </span>
           </motion.h1>
 
@@ -121,7 +133,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg"
           >
-            Bring Gemini into the flow of your work: grounded in Workspace context, connected to your tools, and governed for your organization. Explore {featureCount} capabilities, plans, models, and enterprise controls.
+            {labels.body.replace("{count}", String(featureCount))}
           </motion.p>
 
           <motion.div
@@ -131,19 +143,19 @@ export function Hero() {
             className="mt-8 flex w-full max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center"
           >
             <Link
-              href="/compare"
+              href={href("/compare")}
               data-magnetic
               className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-violet-300 px-6 py-3.5 text-sm font-semibold text-[#160c22] transition-colors hover:bg-white sm:w-auto"
             >
               <Sparkles className="h-4 w-4" />
-              Compare 11 Enterprise Plans
+              {labels.cta.replace("{count}", String(plans.length))}
               <ArrowRight className="h-4 w-4" />
             </Link>
 
           </motion.div>
 
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="mr-1 text-xs font-mono text-white/45">Explore</span>
+            <span className="mr-1 text-xs font-mono text-white/45">{labels.explore}</span>
             {quickSearches.map((item) => (
               <button
                 key={item}
@@ -168,7 +180,7 @@ export function Hero() {
                 {featureCount}+
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
-                Capabilities indexed
+                {labels.statCapabilities}
               </div>
             </div>
             <div>
@@ -176,7 +188,7 @@ export function Hero() {
                 {plans.length}
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
-                Plans compared
+                {labels.statPlans}
               </div>
             </div>
             <div>
@@ -184,7 +196,7 @@ export function Hero() {
                 1M
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
-                Largest listed context window
+                {labels.statContext}
               </div>
             </div>
             <div>
@@ -192,7 +204,7 @@ export function Hero() {
                 {securityLayers.length}
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
-                Security review topics
+                {labels.statSecurity}
               </div>
             </div>
           </div>

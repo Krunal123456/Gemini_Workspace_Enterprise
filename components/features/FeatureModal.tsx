@@ -1,5 +1,9 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,7 +20,6 @@ import {
   Check
 } from "lucide-react";
 import { Feature, PlanId } from "@/types";
-import { plans } from "@/data/plans";
 import { cn } from "@/lib/utils";
 
 interface FeatureModalProps {
@@ -25,6 +28,14 @@ interface FeatureModalProps {
 }
 
 export function FeatureModal({ feature, onClose }: FeatureModalProps) {
+  const { features, plans, categories } = useLocalizedData();
+  const { locale, href } = useLocale();
+  const t = createPhraseTranslator(locale);
+
+  // Category names come from the locale-aware catalog rather than the Spanish
+  // overlay directly, so English routes don't render Spanish labels.
+  const categoryLabel = (category: string) =>
+    categories.find((entry) => entry.name === category)?.name ?? category;
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (feature) {
@@ -72,25 +83,25 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                   {feature.application}
                 </div>
                 <div className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-                  {feature.category}
+                  {categoryLabel(feature.category)}
                 </div>
                 {feature.isNew && (
                   <div className="flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
                     <Sparkles className="h-3 w-3" />
-                    New
+                    {t("New")}
                   </div>
                 )}
                 {feature.isPopular && (
                   <div className="flex items-center gap-1 rounded-full bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">
                     <Flame className="h-3 w-3" />
-                    Popular
+                    {t("Popular")}
                   </div>
                 )}
               </div>
               <button
                 onClick={onClose}
                 className="rounded-full p-2 hover:bg-muted transition-colors"
-                aria-label="Close"
+                aria-label={t("Close")}
               >
                 <X className="h-5 w-5" />
               </button>
@@ -106,13 +117,13 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
 
               <div className="grid gap-8 md:grid-cols-2 mb-8">
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">What It Does</h3>
+                  <h3 className="text-lg font-semibold mb-3">{t("What It Does")}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {feature.whatItDoes}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">How It Works</h3>
+                  <h3 className="text-lg font-semibold mb-3">{t("How It Works")}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {feature.howItWorks}
                   </p>
@@ -121,7 +132,7 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
 
               {feature.useCases && feature.useCases.length > 0 && (
                 <div className="mb-8">
-                  <h3 className="text-lg font-semibold mb-3">Use Cases</h3>
+                  <h3 className="text-lg font-semibold mb-3">{t("Use Cases")}</h3>
                   <ul className="grid gap-2 sm:grid-cols-2">
                     {feature.useCases.map((useCase, i) => (
                       <li key={i} className="flex items-start gap-2">
@@ -134,20 +145,20 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
               )}
 
               <div className="mb-8">
-                <h3 className="text-lg font-semibold mb-4">Availability</h3>
+                <h3 className="text-lg font-semibold mb-4">{t("Availability")}</h3>
                 <div className="overflow-x-auto rounded-xl border">
                   <table className="w-full text-left text-sm">
                     <thead className="bg-muted/50 border-b">
                       <tr>
-                        <th className="px-4 py-3 font-medium">Plan</th>
-                        <th className="px-4 py-3 font-medium">Status</th>
-                        <th className="px-4 py-3 font-medium">Details</th>
+                        <th className="px-4 py-3 font-medium">{t("Plan")}</th>
+                        <th className="px-4 py-3 font-medium">{t("Status")}</th>
+                        <th className="px-4 py-3 font-medium">{t("Details")}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y">
                       {plans.map((plan) => {
                         const availability = feature.plans[plan.id];
-                        
+
                         return (
                           <tr key={plan.id} className="hover:bg-muted/20">
                             <td className="px-4 py-3 font-medium">{plan.name}</td>
@@ -168,12 +179,12 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                                   "capitalize",
                                   availability && !availability.available && "text-muted-foreground/70"
                                 )}>
-                                  {availability ? availability.status.replace("_", " ") : "not mapped"}
+                                  {availability ? t(availability.status.replace("_", " ")) : t("not mapped")}
                                 </span>
                               </div>
                             </td>
                             <td className="px-4 py-3 text-muted-foreground">
-                              {availability?.limit || availability?.note || (availability ? "-" : "Confirm in Google edition guide")}
+                              {availability?.limit || availability?.note || (availability ? "-" : t("Confirm in Google edition guide"))}
                             </td>
                           </tr>
                         );
@@ -189,7 +200,7 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                     <ShieldAlert className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" />
                     <div>
                       <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">
-                        Enterprise & Security Considerations
+                        {t("Enterprise & Security Considerations")}
                       </h4>
                       {feature.enterpriseConsiderations && (
                         <p className="text-sm text-blue-800/80 dark:text-blue-300/80 mb-2">
@@ -212,13 +223,13 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                 onClick={onClose}
                 className="text-sm font-medium hover:underline text-muted-foreground"
               >
-                Close
+                {t("Close")}
               </button>
               <Link
-                href={`/features/${feature.slug}`}
+                href={href(`/features/${feature.slug}`)}
                 className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 gap-2"
               >
-                View Full Page
+                {t("View Full Page")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

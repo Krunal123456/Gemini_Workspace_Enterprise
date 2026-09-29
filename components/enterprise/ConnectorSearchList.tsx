@@ -3,12 +3,15 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { connectors } from "@/data/connectors";
+import { getConnectors } from "@/lib/i18n/data";
+import { useLocale } from "@/lib/i18n/locale-context";
 import { CheckCircle2, ChevronRight, Search } from "lucide-react";
 
 export function ConnectorSearchList() {
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState("");
+  const { locale, href } = useLocale();  const [query, setQuery] = useState("");
+
+  const connectors = useMemo(() => getConnectors(locale), [locale]);
 
   useEffect(() => {
     const param = searchParams.get("q");
@@ -86,7 +89,7 @@ export function ConnectorSearchList() {
                     </span>
                   </div>
 
-                  <Link href={`/enterprise/connectors/${connector.id}`} className="group/title inline-flex items-center gap-2">
+                  <Link href={href(`/enterprise/connectors/${connector.id}`)} className="group/title inline-flex items-center gap-2">
                     <h2 className="text-2xl font-bold text-foreground mb-3 group-hover/title:text-google-blue">{connector.name}</h2>
                     <ChevronRight className="mb-2 h-5 w-5 text-muted-foreground transition group-hover/title:translate-x-1" />
                   </Link>

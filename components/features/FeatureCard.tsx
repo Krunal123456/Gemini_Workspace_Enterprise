@@ -1,12 +1,15 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { formatEnterpriseAvailability } from "@/lib/i18n/featureLabels";
+import { useLocale } from "@/lib/i18n/locale-context";
+
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Flame } from "lucide-react";
 import { Feature, PlanId } from "@/types";
 import { cn } from "@/lib/utils";
-import { applications } from "@/data/apps";
 
 interface FeatureCardProps {
   feature: Feature;
@@ -15,16 +18,19 @@ interface FeatureCardProps {
 }
 
 export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps) {
+  const { applications } = useLocalizedData();
+  const { locale, href, tp } = useLocale();
+  const { features } = useLocalizedData();
   // Try to find the app to get its color
   const appInfo = applications.find(
     (app) => app.id === feature.application || app.name === feature.application
   );
-  
+
   const isGeminiChat = feature.application === "gemini";
   const appColor = isGeminiChat ? "#8B5CF6" : appInfo?.accentColor || "var(--google-blue)";
   const applicationLabel = feature.application === "gemini" ? "Gemini Chat" : appInfo?.name || feature.application;
   const categoryLabel = feature.category === "gemini" ? "Chat App" : feature.category;
-  
+
   // 5 key tiers for preview: Starter, Standard, Plus, AI Add-on, Enterprise Plus
   const previewTiers: PlanId[] = [
     "business-starter",
@@ -41,22 +47,6 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
     }
   };
 
-  const formatEnterpriseAvailability = (av: string) => {
-    switch (av) {
-      case "enterprise-only":
-        return "Enterprise Only";
-      case "add-on":
-        return "Add-on Available";
-      case "all":
-        return "All Plans";
-      case "plus":
-        return "Plus Plans";
-      case "standard":
-        return "Standard & Up";
-      default:
-        return av;
-    }
-  };
 
   return (
     <motion.div
@@ -77,7 +67,7 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
               {categoryLabel}
             </div>
           </div>
-          
+
           {(feature.isNew || feature.isPopular) && (
             <div className="flex gap-1">
               {feature.isNew && (
@@ -128,7 +118,7 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
         <div className="flex items-center justify-between border-t border-border/50 pt-3">
           <div className="flex flex-col gap-1">
             <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-              {formatEnterpriseAvailability(feature.enterpriseAvailability)}
+              {formatEnterpriseAvailability(feature.enterpriseAvailability, locale)}
             </span>
             <div className="flex items-center gap-1">
               {previewTiers.map((tierId) => {
@@ -153,15 +143,15 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
             onClick={handleSelect}
             className="flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
-            Inspect Details
+            {tp("Inspect Details")}
             <ArrowRight className="atlas-arrow h-4 w-4" />
           </button>
         ) : (
           <Link
-            href={`/features/${feature.slug}`}
+            href={href(`/features/${feature.slug}`)}
             className="flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
-            Inspect Details
+            {tp("Inspect Details")}
             <ArrowRight className="atlas-arrow h-4 w-4" />
           </Link>
         )}

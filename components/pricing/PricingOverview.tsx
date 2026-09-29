@@ -1,10 +1,12 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Minus, Plus, Sparkles } from "lucide-react";
-import { plans } from "@/data/plans";
-import { latestGeminiModels } from "@/data/geminiModels";
 import { cn, formatCurrency } from "@/lib/utils";
 
 type PricingMode = "workspace" | "standalone";
@@ -15,6 +17,9 @@ const modePlans: Record<PricingMode, string[]> = {
 };
 
 export function PricingOverview() {
+  const { models, plans } = useLocalizedData();
+  const { locale } = useLocale();
+  const t = createPhraseTranslator(locale);
   const [mode, setMode] = useState<PricingMode>("workspace");
   const [seats, setSeats] = useState(25);
   const [isAnnual, setIsAnnual] = useState(true);
@@ -36,10 +41,10 @@ export function PricingOverview() {
       <section className="rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-google-blue">Build your estimate</p>
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">Choose how you want to deploy Gemini.</h2>
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-google-blue">{t("Build your estimate")}</p>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">{t("Choose how you want to deploy Gemini.")}</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              Public list pricing is a starting point. Use the controls to model a pilot or a full organization rollout.
+              {t("Public list pricing is a starting point. Use the controls to model a pilot or a full organization rollout.")}
             </p>
           </div>
           <div className="inline-flex rounded-xl border border-border bg-muted/60 p-1" role="group" aria-label="Deployment type">
@@ -65,7 +70,7 @@ export function PricingOverview() {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold text-foreground">How many seats do you need?</p>
-                <p className="mt-1 text-xs text-muted-foreground">Adjust from 5 to 5,000 users.</p>
+                <p className="mt-1 text-xs text-muted-foreground">{t("Adjust from 5 to 5,000 users.")}</p>
               </div>
               <div className="flex items-center gap-2 rounded-xl border border-border bg-background p-1">
                 <button type="button" onClick={() => updateSeats(-5)} aria-label="Remove five seats" className="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"><Minus className="h-4 w-4" /></button>
@@ -146,7 +151,7 @@ export function PricingOverview() {
               </tr>
             </thead>
             <tbody>
-              {latestGeminiModels.map((model) => (
+              {models.map((model) => (
                 <tr key={model.id} className="border-t border-border align-top">
                   <td className="border-t border-border px-4 py-4">
                     <a href={model.source} target="_blank" rel="noreferrer" className="font-semibold text-foreground hover:text-google-blue hover:underline">{model.name}</a>
@@ -169,8 +174,8 @@ export function PricingOverview() {
         {["Commitment", "Deployment", "Consolidation"].map((title, index) => (
           <div key={title} className="rounded-2xl border border-border bg-muted/30 p-6">
             <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-google-blue/10 text-google-blue"><Sparkles className="h-5 w-5" /></div>
-            <h3 className="font-bold text-foreground">{index === 0 ? "Annual contracts" : index === 1 ? "Start with a pilot" : "Consolidate your stack"}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{index === 0 ? "Annual commitments reduce the public list price and create predictable budgeting." : index === 1 ? "Decide whether AI goes to every user now or begins with a focused team." : "Compare these add-ons against the third-party AI tools your organization already funds."}</p>
+            <h3 className="font-bold text-foreground">{index === 0 ? t("Annual contracts") : index === 1 ? t("Start with a pilot") : t("Consolidate your stack")}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{index === 0 ? t("Annual commitments reduce the public list price and create predictable budgeting.") : index === 1 ? t("Decide whether AI goes to every user now or begins with a focused team.") : t("Compare these add-ons against the third-party AI tools your organization already funds.")}</p>
           </div>
         ))}
       </section>

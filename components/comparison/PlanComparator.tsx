@@ -1,13 +1,21 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { plans } from '@/data/plans';
 import { Check, Minus, Plus, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 export function PlanComparator() {
+  const { plans } = useLocalizedData();
+  const { locale, href } = useLocale();
+  const t = createPhraseTranslator(locale);
+  const comparisonLabels = getDictionary(locale).comparison;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -56,46 +64,46 @@ export function PlanComparator() {
 
   const selectedPlans = useMemo(() => {
     return selectedPlanIds.map(id => plans.find(p => p.id === id)).filter(Boolean) as typeof plans;
-  }, [selectedPlanIds]);
+  }, [selectedPlanIds, plans]);
 
   const availableToAdd = useMemo(() => {
     return plans.filter(p => !selectedPlanIds.includes(p.id));
-  }, [selectedPlanIds]);
+  }, [selectedPlanIds, plans]);
 
   if (!isMounted) return null;
 
   const comparisonSections = [
     {
-      title: 'Overview & Pricing',
+      title: t('Overview & Pricing'),
       rows: [
-        { label: 'Flexible rate / user / month', getValue: (p: (typeof plans)[number]) => p.monthlyPriceUSD ? `$${p.monthlyPriceUSD} / user / mo` : p.startingPriceUSD ? `From $${p.startingPriceUSD} / user / mo` : p.pricingNote || 'Check current pricing' },
-        { label: 'Annual commitment rate / user / month', getValue: (p: (typeof plans)[number]) => p.annualPriceUSD ? `$${p.annualPriceUSD} / user / mo` : p.startingPriceUSD ? `From $${p.startingPriceUSD} / user / mo` : p.pricingNote || 'Check current pricing' },
-        { label: 'Storage', getValue: (p: (typeof plans)[number]) => p.storage },
-        { label: 'Meeting Size', getValue: (p: (typeof plans)[number]) => p.participantLimit ? `${p.participantLimit} participants` : 'N/A' },
+        { label: t('Flexible rate / user / month'), getValue: (p: (typeof plans)[number]) => p.monthlyPriceUSD ? `$${p.monthlyPriceUSD} ${comparisonLabels.perUser}` : p.startingPriceUSD ? `${comparisonLabels.from} $${p.startingPriceUSD} ${comparisonLabels.perUser}` : p.pricingNote || comparisonLabels.checkPricing },
+        { label: t('Annual commitment rate / user / month'), getValue: (p: (typeof plans)[number]) => p.annualPriceUSD ? `$${p.annualPriceUSD} ${comparisonLabels.perUser}` : p.startingPriceUSD ? `${comparisonLabels.from} $${p.startingPriceUSD} ${comparisonLabels.perUser}` : p.pricingNote || comparisonLabels.checkPricing },
+        { label: t('Storage'), getValue: (p: (typeof plans)[number]) => p.storage },
+        { label: t('Meeting Size'), getValue: (p: (typeof plans)[number]) => p.participantLimit ? t('{count} participants', { count: p.participantLimit }) : t('N/A') },
       ]
     },
     {
-      title: 'AI & Workspace',
+      title: t('AI & Workspace'),
       rows: [
-        { label: 'AI in Workspace', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.generativeAI },
-        { label: 'Model access', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.modelAccess },
-        { label: 'Deep Research', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.deepResearch },
-        { label: 'NotebookLM access', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.notebookLMAccess },
+        { label: t('AI in Workspace'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.generativeAI },
+        { label: t('Model access'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.modelAccess },
+        { label: t('Deep Research'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.deepResearch },
+        { label: t('NotebookLM access'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.notebookLMAccess },
       ]
     },
     {
-      title: 'Grounding & Connectors',
+      title: t('Grounding & Connectors'),
       rows: [
-        { label: 'Grounding', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.grounding },
-        { label: 'Connectors', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.connectors },
-        { label: 'Agents & MCP', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.agentsAndMCP },
-        { label: 'Audit logging', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.auditLogging },
+        { label: t('Grounding'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.grounding },
+        { label: t('Connectors'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.connectors },
+        { label: t('Agents & MCP'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.agentsAndMCP },
+        { label: t('Audit logging'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.auditLogging },
       ]
     },
     {
-      title: 'Security & Governance',
+      title: t('Security & Governance'),
       rows: [
-        { label: 'Security level', getValue: (p: (typeof plans)[number]) => p.coreCapabilities.securityLevel },
+        { label: t('Security level'), getValue: (p: (typeof plans)[number]) => p.coreCapabilities.securityLevel },
       ]
     }
   ];
@@ -105,7 +113,7 @@ export function PlanComparator() {
       {/* Controls */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-muted/50 rounded-xl border border-border">
         <div className="flex flex-col gap-2">
-          <h3 className="text-sm font-medium text-muted-foreground">Select up to 4 plans to compare</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">{t("Select up to 4 plans to compare")}</h3>
           <div className="flex flex-wrap gap-2">
             {selectedPlans.map(plan => (
               <div key={plan.id} className="flex items-center gap-2 px-3 py-1.5 bg-background border border-border rounded-full text-sm text-foreground">
@@ -120,7 +128,7 @@ export function PlanComparator() {
             {selectedPlanIds.length < 4 && (
               <div className="relative group">
                 <button className="flex items-center gap-1 px-3 py-1.5 border border-dashed border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground rounded-full text-sm transition-all">
-                  <Plus className="w-3 h-3" /> Add Plan
+                  <Plus className="w-3 h-3" /> {t("Add Plan")}
                 </button>
                 <div className="absolute top-full left-0 mt-2 w-64 max-h-60 overflow-y-auto bg-card border border-border rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 p-2 flex flex-col gap-1">
                   {availableToAdd.map(plan => (
@@ -139,7 +147,7 @@ export function PlanComparator() {
         </div>
 
         <label className="flex items-center gap-3 cursor-pointer">
-          <span className="text-sm font-medium text-foreground">Show Differences Only</span>
+          <span className="text-sm font-medium text-foreground">{t("Show Differences Only")}</span>
           <div className="relative inline-flex items-center">
             <input
               type="checkbox"
@@ -158,7 +166,7 @@ export function PlanComparator() {
           <thead className="bg-muted sticky top-0 z-20 border-b border-border">
             <tr>
               <th className="px-6 py-6 w-1/4 sticky left-0 bg-muted z-30 shadow-[1px_0_0_0_hsl(var(--border))]">
-                <div className="text-lg font-semibold text-foreground">Plan Features</div>
+                <div className="text-lg font-semibold text-foreground">{t("Plan Features")}</div>
               </th>
               {selectedPlans.map(plan => (
                 <th key={plan.id} className="px-6 py-6 text-center border-l border-border/50">
@@ -166,10 +174,10 @@ export function PlanComparator() {
                     <span className="text-xs uppercase tracking-wider text-muted-foreground">{plan.category}</span>
                     <span className="text-xl font-bold text-foreground">{plan.name}</span>
                     <Link
-                      href={`/plans/${plan.id}`}
+                      href={href(`/plans/${plan.id}`)}
                       className="px-4 py-2 mt-2 bg-foreground text-background hover:bg-foreground/90 rounded-lg text-sm font-medium transition-colors w-full text-center"
                     >
-                      View Details
+                      {comparisonLabels.detail}
                     </Link>
                   </div>
                 </th>

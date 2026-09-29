@@ -1,4 +1,8 @@
+"use client";
+
 import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 const sources = [
   {
@@ -19,13 +23,15 @@ const sources = [
 ];
 
 export function FreshnessPanel() {
+  const { locale } = useLocale();
+  const t = createPhraseTranslator(locale);
   return (
     <section className="atlas-card rounded-2xl border p-6 sm:p-8">
       <div>
-        <p className="atlas-kicker mb-2">Source notes</p>
-        <h2 className="text-2xl font-bold text-foreground">Confirm changing details with Google</h2>
+        <p className="atlas-kicker mb-2">{t("Source notes")}</p>
+        <h2 className="text-2xl font-bold text-foreground">{t("Confirm changing details with Google")}</h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Plans, regional prices, quotas, and feature availability can change. Use these Google pages to confirm details for your location and subscription before making a purchase decision.
+          {t("Plans, regional prices, quotas, and feature availability can change. Use these Google pages to confirm details for your location and subscription before making a purchase decision.")}
         </p>
       </div>
 
@@ -39,8 +45,8 @@ export function FreshnessPanel() {
               className="group flex items-center justify-between gap-4 py-4"
             >
               <span>
-                <span className="block font-semibold text-foreground group-hover:text-google-blue">{source.title}</span>
-                <span className="mt-1 block text-sm text-muted-foreground">{source.description}</span>
+                <span className="block font-semibold text-foreground group-hover:text-google-blue">{t(source.title)}</span>
+                <span className="mt-1 block text-sm text-muted-foreground">{t(source.description)}</span>
               </span>
               <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-google-blue">
                 Open <ExternalLink className="h-3.5 w-3.5" />

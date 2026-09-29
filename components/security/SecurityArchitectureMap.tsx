@@ -1,19 +1,25 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+import { useLocale } from "@/lib/i18n/locale-context";
+
 import { useState } from "react";
 import { Activity, CircleHelp, Database, FileCheck, Key, Lock, ShieldCheck, UserCheck } from "lucide-react";
-import { securityLayers } from "@/data/security";
 
 const icons = [UserCheck, Lock, Database, ShieldCheck, Key, FileCheck, Activity];
 
 export function SecurityArchitectureMap() {
+  const { securityLayers } = useLocalizedData();
+  const { locale } = useLocale();
+  const t = createPhraseTranslator(locale);
   const [selectedId, setSelectedId] = useState(securityLayers[0].id);
   const selected = securityLayers.find((layer) => layer.id === selectedId) || securityLayers[0];
   const SelectedIcon = icons[selected.level - 1] || ShieldCheck;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr]">
-      <div className="space-y-2" role="tablist" aria-label="Security review topics">
+      <div className="space-y-2" role="tablist" aria-label={t("Security review topics")}>
         {securityLayers.map((layer) => {
           const Icon = icons[layer.level - 1] || ShieldCheck;
           const isSelected = selected.id === layer.id;
@@ -31,7 +37,7 @@ export function SecurityArchitectureMap() {
                 <Icon className="h-5 w-5" />
               </span>
               <span>
-                <span className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">Topic {layer.level}</span>
+                <span className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Topic {level}", { level: layer.level })}</span>
                 <span className="block text-sm font-bold text-foreground">{layer.name}</span>
               </span>
             </button>
@@ -45,7 +51,7 @@ export function SecurityArchitectureMap() {
             <SelectedIcon className="h-6 w-6" />
           </span>
           <div>
-            <p className="atlas-kicker">Security review topic</p>
+            <p className="atlas-kicker">{t("Security review topic")}</p>
             <h3 className="mt-1 text-2xl font-bold text-foreground">{selected.name}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{selected.tagline}</p>
           </div>

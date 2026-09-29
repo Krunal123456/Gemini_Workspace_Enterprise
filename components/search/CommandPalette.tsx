@@ -1,16 +1,13 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { features } from "@/data/features";
-import { plans } from "@/data/plans";
-import { applications } from "@/data/apps";
-import { articles } from "@/data/articles";
-import { connectors } from "@/data/connectors";
-import { latestGeminiModels } from "@/data/geminiModels";
-import { securityLayers } from "@/data/security";
 import {
   Search,
   X,
@@ -69,12 +66,15 @@ type PaletteOption =
   | { kind: "popular"; optionId: string; href: string; title: string };
 
 export function CommandPalette() {
+  const { features, applications, plans, articles, connectors, securityLayers, models } = useLocalizedData();
+  const { locale, t, href } = useLocale();
+  const tp = useMemo(() => createPhraseTranslator(locale), [locale]);
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  
+
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -103,7 +103,7 @@ export function CommandPalette() {
           setIsOpen(true);
         }
       }
-      
+
       if (e.key === "Escape" && isOpen) {
         e.preventDefault();
         setIsOpen(false);
@@ -201,7 +201,7 @@ export function CommandPalette() {
         type: "feature",
         title: f.name,
         description: f.description,
-        href: `/features/${f.slug || f.name.toLowerCase().replace(/\s+/g, "-")}`,
+        href: href(`/features/${f.slug || f.name.toLowerCase().replace(/\s+/g, "-")}`),
         category: f.category,
         icon: <Sparkles className="h-4 w-4 text-gemini-purple" />,
       }));
@@ -220,7 +220,7 @@ export function CommandPalette() {
         type: "app",
         title: a.name,
         description: a.description,
-        href: `/apps/${a.slug || a.name.toLowerCase().replace(/\s+/g, "-")}`,
+        href: href(`/apps/${a.slug || a.name.toLowerCase().replace(/\s+/g, "-")}`),
         category: a.category,
         icon: <Layers className="h-4 w-4 text-google-blue" />,
       }));
@@ -242,7 +242,7 @@ export function CommandPalette() {
         type: "plan",
         title: p.name,
         description: p.description,
-        href: `/plans/${p.slug}`,
+        href: href(`/plans/${p.slug}`),
         icon: <CreditCard className="h-4 w-4 text-google-green" />,
       }));
 
@@ -261,7 +261,7 @@ export function CommandPalette() {
         type: "article",
         title: a.title,
         description: a.excerpt,
-        href: `/articles/${a.slug}`,
+        href: href(`/articles/${a.slug}`),
         category: a.category,
         icon: <FileText className="h-4 w-4 text-marketstar-navy" />,
       }));
@@ -281,12 +281,12 @@ export function CommandPalette() {
         type: "connector",
         title: c.name,
         description: c.description,
-        href: `/enterprise/connectors/${c.id}`,
+        href: href(`/enterprise/connectors/${c.id}`),
         category: c.category,
         icon: <Plug className="h-4 w-4 text-google-red" />,
       }));
 
-    addMatches(latestGeminiModels, (model) => [
+    addMatches(models, (model) => [
       model.name,
       model.apiId,
       model.status,
@@ -299,7 +299,7 @@ export function CommandPalette() {
       type: "model",
       title: model.name,
       description: model.summary,
-      href: "/models",
+      href: href("/models"),
       category: model.status,
       icon: <Cpu className="h-4 w-4 text-gemini-purple" />,
     }));
@@ -314,8 +314,8 @@ export function CommandPalette() {
       type: "security",
       title: layer.name,
       description: layer.tagline,
-      href: "/security",
-      category: "Security & governance",
+      href: href("/security"),
+      category: tp("Security & governance"),
       icon: <ShieldCheck className="h-4 w-4 text-google-green" />,
     }));
 
@@ -324,31 +324,31 @@ export function CommandPalette() {
       type: "page",
       title: page.title,
       description: page.description,
-      href: page.href,
-      category: "Site page",
+      href: href(page.href),
+      category: tp("Site page"),
       icon: <Search className="h-4 w-4 text-slate-500" />,
     }));
 
     return matches.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title));
-  }, [debouncedQuery]);
+  }, [debouncedQuery, href, tp, features, applications, plans, articles, connectors, securityLayers, models]);
 
   const groups = useMemo(() => {
     const definitions: { label: string; type: SearchType }[] = [
-      { label: "Features", type: "feature" },
-      { label: "Applications", type: "app" },
-      { label: "Plans", type: "plan" },
-      { label: "Articles", type: "article" },
-      { label: "Connectors", type: "connector" },
-      { label: "Gemini models", type: "model" },
-      { label: "Security and governance", type: "security" },
-      { label: "Site pages", type: "page" },
+      { label: tp("Features"), type: "feature" },
+      { label: tp("Applications"), type: "app" },
+      { label: tp("Plans"), type: "plan" },
+      { label: tp("Articles"), type: "article" },
+      { label: tp("Connectors"), type: "connector" },
+      { label: tp("Gemini models"), type: "model" },
+      { label: tp("Security and governance"), type: "security" },
+      { label: tp("Site pages"), type: "page" },
     ];
 
     return definitions
       .map((group) => ({ ...group, items: results.filter((result) => result.type === group.type) }))
       .filter((group) => group.items.length > 0)
       .sort((a, b) => (b.items[0]?.score ?? 0) - (a.items[0]?.score ?? 0));
-  }, [results]);
+  }, [results, tp]);
 
   const displayedResults = useMemo(() => groups.flatMap((group) => group.items), [groups]);
 
@@ -358,9 +358,9 @@ export function CommandPalette() {
     .map((feature) => ({
       id: feature.id || feature.name,
       title: feature.name,
-      href: `/features/${feature.slug || feature.name.toLowerCase().replace(/\s+/g, "-")}`,
+      href: href(`/features/${feature.slug || feature.name.toLowerCase().replace(/\s+/g, "-")}`),
       icon: <Sparkles className="h-4 w-4 text-gemini-purple" />,
-    })), []);
+    })), [features, href]);
 
   const isSearchPending = query.trim() !== debouncedQuery.trim();
   const activeOptions = useMemo<PaletteOption[]>(() => {
@@ -480,7 +480,7 @@ export function CommandPalette() {
               transition={{ duration: 0.18, ease: "easeOut" }}
               className="w-full max-w-2xl overflow-hidden rounded-[30px] border border-slate-200/80 bg-white/80 shadow-[0_35px_100px_-40px_rgba(59,130,246,0.65)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75 pointer-events-auto flex flex-col max-h-[72vh]"
             >
-              <h2 id="command-palette-title" className="sr-only">Search the site</h2>
+              <h2 id="command-palette-title" className="sr-only">{t("nav.searchSite")}</h2>
               <div className="relative border-b border-slate-200/80 px-4 py-4 dark:border-white/10">
                 <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-3 py-3 shadow-inner shadow-slate-200/50 dark:border-white/10 dark:bg-slate-900/80 dark:shadow-none">
                   <Search className="h-5 w-5 shrink-0 text-slate-500 dark:text-slate-400" />
@@ -490,9 +490,9 @@ export function CommandPalette() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleInputKeyDown}
-                    placeholder="Search everything: features, plans, sources, models, guides..."
+                    placeholder={tp("Search everything: features, plans, sources, models, guides...")}
                     className="flex-1 bg-transparent text-base text-slate-800 outline-none placeholder:text-slate-500 dark:text-slate-100 dark:placeholder:text-slate-400"
-                    aria-label="Search all site content"
+                    aria-label={tp("Search all site content")}
                     role="combobox"
                     aria-autocomplete="list"
                     aria-expanded={activeOptions.length > 0}
@@ -502,7 +502,7 @@ export function CommandPalette() {
                   {query && (
                     <button
                       type="button"
-                      aria-label="Clear search"
+                      aria-label={tp("Clear search")}
                       onClick={() => {
                         setQuery("");
                         inputRef.current?.focus();
@@ -517,22 +517,22 @@ export function CommandPalette() {
 
               <div className="overflow-y-auto flex-1 p-2 space-y-4" id="command-palette-results" aria-live="polite" aria-busy={isSearchPending}>
                 {isSearchPending && (
-                  <p className="px-3 py-6 text-sm text-slate-500 dark:text-slate-400" role="status">Searching the site…</p>
+                  <p className="px-3 py-6 text-sm text-slate-500 dark:text-slate-400" role="status">{tp("Searching the site…")}</p>
                 )}
 
                 {!isSearchPending && debouncedQuery.trim() && results.length === 0 && (
                   <div className="py-14 text-center">
                     <Search className="w-8 h-8 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                    <p className="text-gray-900 dark:text-gray-100 font-medium">No results found</p>
+                    <p className="text-gray-900 dark:text-gray-100 font-medium">{tp("No results found")}</p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                      Try a product or topic such as Gmail, pricing, security, or connectors.
+                      {tp("Try a product or topic such as Gmail, pricing, security, or connectors.")}
                     </p>
                   </div>
                 )}
 
                 {!isSearchPending && !debouncedQuery.trim() && recentSearches.length > 0 && (
                   <div className="mb-2 flex items-center justify-between px-3">
-                    <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Recent searches</h3>
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{tp("Recent searches")}</h3>
                     <button
                       type="button"
                       onClick={() => {
@@ -544,7 +544,7 @@ export function CommandPalette() {
                         }
                       }}
                       className="text-xs text-google-blue hover:underline"
-                    >Clear</button>
+                    >{tp("Clear")}</button>
                   </div>
                 )}
 
@@ -580,8 +580,8 @@ export function CommandPalette() {
                         })}
                       </div>
                     )}
-                    <div role="group" aria-label="Popular features">
-                      <h3 aria-hidden="true" className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">Popular Features</h3>
+                    <div role="group" aria-label={tp("Popular features")}>
+                      <h3 aria-hidden="true" className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">{tp("Popular Features")}</h3>
                       <div className="space-y-1" role="presentation">
                         {recentItems.map((item, index) => {
                           const optionIndex = recentSearches.length + index;
@@ -700,23 +700,23 @@ export function CommandPalette() {
                     <kbd className="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 font-sans shadow-sm dark:border-white/10 dark:bg-slate-950">
                       K
                     </kbd>
-                    <span className="ml-1">to toggle</span>
+                    <span className="ml-1">{tp("to toggle")}</span>
                   </span>
                   <span className="hidden items-center gap-1 sm:flex">
                     <kbd className="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 font-sans shadow-sm dark:border-white/10 dark:bg-slate-950">↑</kbd>
                     <kbd className="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 font-sans shadow-sm dark:border-white/10 dark:bg-slate-950">↓</kbd>
-                    <span className="ml-1">to navigate</span>
+                    <span className="ml-1">{tp("to navigate")}</span>
                   </span>
                   <span className="hidden items-center gap-1 sm:flex">
                     <kbd className="flex items-center gap-1 rounded-md border border-slate-200 bg-white px-1.5 py-0.5 font-sans shadow-sm dark:border-white/10 dark:bg-slate-950">
                       <CornerDownLeft className="h-3 w-3" />
                     </kbd>
-                    <span className="ml-1">to select</span>
+                    <span className="ml-1">{tp("to select")}</span>
                   </span>
                 </div>
                 <div className="hidden items-center gap-1 text-slate-400 md:flex">
                   <kbd className="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 font-sans shadow-sm dark:border-white/10 dark:bg-slate-950">ESC</kbd>
-                  <span className="ml-1">to close</span>
+                  <span className="ml-1">{tp("to close")}</span>
                 </div>
               </div>
             </motion.div>

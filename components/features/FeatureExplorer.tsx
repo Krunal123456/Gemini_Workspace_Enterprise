@@ -1,13 +1,14 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, Filter, SlidersHorizontal, ArrowRight, Sparkles } from "lucide-react";
 import { Feature } from "@/types";
-import { features } from "@/data/features";
-import { categories } from "@/data/categories";
-import { applications } from "@/data/apps";
 import { cn } from "@/lib/utils";
 
 import { FeatureCard } from "./FeatureCard";
@@ -20,6 +21,10 @@ interface FeatureExplorerProps {
 }
 
 export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
+  const { categories } = useLocalizedData();
+  const { features, applications } = useLocalizedData();
+  const { locale, href } = useLocale();
+  const t = createPhraseTranslator(locale);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedApp, setSelectedApp] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -41,7 +46,7 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
 
       // 2. App Filter
       if (selectedApp !== "all") {
-        if (feature.application.toLowerCase() !== selectedApp.toLowerCase() && 
+        if (feature.application.toLowerCase() !== selectedApp.toLowerCase() &&
             applications.find(a => a.id === selectedApp)?.name !== feature.application) {
           return false;
         }
@@ -57,7 +62,7 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
 
       // 4. Quick Toggles
       if (quickToggle === "enterprise-only") {
-        if (feature.enterpriseAvailability !== "enterprise-only" && 
+        if (feature.enterpriseAvailability !== "enterprise-only" &&
             feature.enterpriseAvailability !== "plus") {
           return false;
         }
@@ -69,7 +74,7 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
 
       return true;
     });
-  }, [searchQuery, selectedApp, selectedCategory, quickToggle]);
+  }, [searchQuery, selectedApp, selectedCategory, quickToggle, features, applications, categories]);
 
   const totalFeaturesCount = features.length;
 
@@ -77,14 +82,14 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
     <div className="w-full flex flex-col gap-8">
       {/* Search and Filters Container */}
       <div className="flex flex-col gap-6 rounded-3xl bg-muted/30 p-4 sm:p-6 lg:p-8 border border-border/50">
-        
+
         {/* Top row: Search & Quick Toggles */}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="relative w-full lg:max-w-md">
             <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search features, capabilities, use cases..."
+              placeholder={t("Search features, capabilities, use cases...")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-full border border-border/50 bg-background py-3 pl-10 pr-10 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
@@ -98,9 +103,9 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
               </button>
             )}
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm text-muted-foreground font-medium mr-2 hidden sm:block">Filter by:</span>
+            <span className="text-sm text-muted-foreground font-medium mr-2 hidden sm:block">{t("Filter by:")}</span>
             {(["all", "enterprise-only", "popular", "new"] as QuickToggle[]).map((toggle) => (
               <button
                 key={toggle}
@@ -112,10 +117,10 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
                     : "bg-background text-muted-foreground border-border/50 hover:bg-muted"
                 )}
               >
-                {toggle === "all" && "All"}
-                {toggle === "enterprise-only" && "Enterprise Exclusive"}
-                {toggle === "popular" && "Popular Only"}
-                {toggle === "new" && "New Capabilities"}
+                {toggle === "all" && t("All")}
+                {toggle === "enterprise-only" && t("Enterprise Exclusive")}
+                {toggle === "popular" && t("Popular Only")}
+                {toggle === "new" && t("New Capabilities")}
               </button>
             ))}
           </div>
@@ -133,7 +138,7 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
                   : "hover:bg-muted text-muted-foreground"
               )}
             >
-              All Apps
+              {t("All Apps")}
             </button>
             <button
               onClick={() => setSelectedApp("gemini")}
@@ -158,8 +163,8 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
                     : "hover:bg-muted text-muted-foreground"
                 )}
               >
-                <span 
-                  className="w-2 h-2 rounded-full" 
+                <span
+                  className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: app.accentColor || "var(--google-blue)" }}
                 />
                 {app.name}
@@ -180,7 +185,7 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
                   : "border-border bg-background text-muted-foreground hover:bg-muted"
               )}
             >
-              All Categories
+              {t("All Categories")}
             </button>
             {categories.map((cat) => (
               <button
@@ -203,7 +208,7 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
       {/* Results Header */}
       <div className="flex items-center justify-between px-2">
         <p className="text-sm font-medium text-muted-foreground">
-          Showing <span className="text-foreground">{filteredFeatures.length}</span> of {totalFeaturesCount} features
+          {t("Showing {shown} of {total} features", { shown: filteredFeatures.length, total: totalFeaturesCount })}
         </p>
       </div>
 
@@ -233,9 +238,9 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
           <div className="rounded-full bg-muted p-4 mb-4">
             <Filter className="h-8 w-8 text-muted-foreground" />
           </div>
-          <h3 className="text-xl font-bold tracking-tight mb-2">No features found</h3>
+          <h3 className="text-xl font-bold tracking-tight mb-2">{t("No features found")}</h3>
           <p className="text-muted-foreground max-w-md mb-6">
-            We couldn't find any features matching your current filters and search criteria.
+            {t("We couldn't find any features matching your current filters and search criteria.")}
           </p>
           <button
             onClick={() => {
@@ -246,7 +251,7 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
             }}
             className="rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            Reset All Filters
+            {t("Reset All Filters")}
           </button>
         </div>
       )}
@@ -255,10 +260,10 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
       {filteredFeatures.length > 0 && (
         <div className="flex justify-center mt-8">
           <Link
-            href="/features"
+            href={href("/features")}
             className="group flex items-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-sm font-medium transition-all hover:border-primary hover:text-primary shadow-sm"
           >
-            View All {totalFeaturesCount} Features in Catalog
+            {t("View All {count} Features in Catalog", { count: totalFeaturesCount })}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>

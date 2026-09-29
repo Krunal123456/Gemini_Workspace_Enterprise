@@ -1,10 +1,13 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { GeminiLogo } from "@/components/logos/GeminiLogo";
-import { homepageGeminiModels } from "@/data/geminiModels";
 
 function RevealModelCard({ children, delay }: { children: ReactNode; delay: number }) {
   const cardRef = useRef<HTMLElement>(null);
@@ -47,6 +50,10 @@ function RevealModelCard({ children, delay }: { children: ReactNode; delay: numb
 }
 
 export function LatestModelShowcase() {
+  const { models } = useLocalizedData();
+  const { locale, href } = useLocale();
+  const t = createPhraseTranslator(locale);
+  const homepageGeminiModels = models.slice(0, 4);
   return (
     <section className="relative overflow-hidden border-b border-border bg-[#f3f1f8] py-20 dark:bg-[#100d18] md:py-24">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
@@ -55,18 +62,18 @@ export function LatestModelShowcase() {
             <div className="mb-4 flex items-center gap-3">
               <GeminiLogo className="h-7 w-7" />
               <span className="text-xs font-semibold uppercase tracking-[0.14em] text-violet-800 dark:text-violet-200">
-                Model catalog · verified Sep 24, 2026
+                {t("Model catalog · verified Sep 24, 2026")}
               </span>
             </div>
             <h2 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">
-              The right Gemini model for the work.
+              {t("The right Gemini model for the work.")}
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-              Compare current API model families by capability and release status. API list pricing is separate from Google Workspace and Gemini Enterprise licensing.
+              {t("Compare current API model families by capability and release status. API list pricing is separate from Google Workspace and Gemini Enterprise licensing.")}
             </p>
           </div>
-          <Link href="/models" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold text-violet-800 transition-colors hover:text-violet-600 dark:text-violet-200 dark:hover:text-white">
-            Full model catalog <ArrowRight className="h-4 w-4" />
+          <Link href={href("/models")} className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold text-violet-800 transition-colors hover:text-violet-600 dark:text-violet-200 dark:hover:text-white">
+            {t("Full model catalog")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
@@ -98,7 +105,7 @@ export function LatestModelShowcase() {
                   ))}
                 </div>
                 <a href={model.source} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-violet-800 underline-offset-4 hover:underline dark:text-violet-200">
-                  Model details <ExternalLink className="h-3 w-3" />
+                  {t("Model details")} <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
             </RevealModelCard>

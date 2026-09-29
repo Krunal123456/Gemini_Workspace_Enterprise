@@ -1,11 +1,13 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+
 import React, { useState } from "react";
 import { Shield, ChevronDown, Lock, CircleHelp, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { securityLayers } from "@/data/security";
 
 export default function SecurityPreview() {
+  const { securityLayers } = useLocalizedData();
   const [activeLayerId, setActiveLayerId] = useState<string | null>(securityLayers[0]?.id || null);
 
   const toggleLayer = (id: string) => {

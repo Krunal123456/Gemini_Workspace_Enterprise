@@ -1,11 +1,12 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Download, ShieldCheck, Sparkles } from "lucide-react";
-import { connectors } from "@/data/connectors";
-import { plans } from "@/data/plans";
-import { features } from "@/data/features";
 import jsPDF from "jspdf";
 
 const securityOptions = [
@@ -15,6 +16,9 @@ const securityOptions = [
 ] as const;
 
 export function ReadinessPlanner() {
+  const { locale, href } = useLocale();
+  const t = createPhraseTranslator(locale);
+  const { features, plans, connectors } = useLocalizedData();
   const [seats, setSeats] = useState(250);
   const [companyName, setCompanyName] = useState("");
   const [companyDomain, setCompanyDomain] = useState("");
@@ -162,7 +166,7 @@ export function ReadinessPlanner() {
           <div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Monthly estimate</span><strong className="mt-1 block text-lg">{monthlyEstimate === null ? "Not available" : `$${monthlyEstimate.toLocaleString()} USD`}</strong><span className="mt-2 block text-xs leading-relaxed text-slate-400">{monthlyEstimate === null ? recommendation.pricingNote || "No fixed rate listed" : "Based on listed US rate; verify local pricing"}</span></div><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Pilot scope</span><strong className="mt-1 block text-xl">{Math.max(5, Math.ceil(seats * 0.2))} users</strong></div></div>
           <div className="mt-7"><p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Plan notes to verify</p><div className="space-y-2">{recommendation.highlightedFeatures.slice(0, 5).map((item) => <div key={item} className="flex items-start gap-2 text-sm text-slate-200"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-400" />{item}</div>)}</div></div>
           {matchedConnectors.length > 0 && <div className="mt-7 border-t border-white/10 pt-6"><p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Connector direction</p><p className="text-sm text-slate-300">Plan for {matchedConnectors.slice(0, 3).map((connector) => connector.name).join(", ")}{matchedConnectors.length > 3 ? ` + ${matchedConnectors.length - 3} more` : ""}.</p></div>}
-          <div className="mt-8 grid gap-3"><button type="button" onClick={savePlan} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">{saved ? "Saved to this browser" : "Save decision workspace"}</button><button type="button" onClick={exportReport} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Download className="h-4 w-4" /> Download text report</button><button type="button" onClick={exportPdf} className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-slate-950 transition hover:bg-slate-100"><Download className="h-4 w-4" /> Download PDF report</button><Link href={`/plans/${recommendation.slug}`} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View recommended plan <ArrowRight className="h-4 w-4" /></Link></div>
+          <div className="mt-8 grid gap-3"><button type="button" onClick={savePlan} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">{saved ? "Saved to this browser" : "Save decision workspace"}</button><button type="button" onClick={exportReport} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Download className="h-4 w-4" /> Download text report</button><button type="button" onClick={exportPdf} className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-slate-950 transition hover:bg-slate-100"><Download className="h-4 w-4" /> Download PDF report</button><Link href={href(`/plans/${recommendation.slug}`)} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View recommended plan <ArrowRight className="h-4 w-4" /></Link></div>
         </div>
       </aside>
     </div>

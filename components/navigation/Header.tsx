@@ -22,6 +22,9 @@ import {
   BookOpen,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { LocaleSwitcher } from "./LocaleSwitcher";
+import { useLocale } from "@/lib/i18n/locale-context";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 const apps = [
   { name: "Gmail", icon: Mail, href: "/apps/gmail", color: "text-red-500" },
@@ -36,20 +39,23 @@ const apps = [
 ];
 
 const navItems = [
-  { name: "Features", href: "/features" },
-  { name: "Models", href: "/models" },
-  { name: "Compare", href: "/compare" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "Enterprise", href: "/enterprise" },
-  { name: "Security", href: "/security" },
-  { name: "Articles", href: "/articles" },
-];
+  { key: "features", href: "/features" },
+  { key: "models", href: "/models" },
+  { key: "compare", href: "/compare" },
+  { key: "pricing", href: "/pricing" },
+  { key: "enterprise", href: "/enterprise" },
+  { key: "security", href: "/security" },
+  { key: "articles", href: "/articles" },
+] as const;
 
-export function Header() {
+type NavLabels = Dictionary["nav"];
+
+export function Header({ labels }: { labels: NavLabels }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [appsDropdownOpen, setAppsDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const { href } = useLocale();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -97,30 +103,30 @@ export function Header() {
       )}
       onKeyDown={handleKeyDown}
     >
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1400px] px-3 sm:px-6 lg:px-8">
         <div className={cn(
-          "relative flex items-center justify-between gap-4 rounded-full border border-slate-200/80 bg-white/75 px-4 py-3 shadow-[0_20px_50px_-25px_rgba(30,64,175,0.28)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-slate-950/70",
+          "relative flex items-center justify-between gap-2 sm:gap-3 xl:gap-4 rounded-full border border-slate-200/80 bg-white/80 px-3 sm:px-4 py-2 sm:py-2.5 shadow-[0_20px_50px_-25px_rgba(30,64,175,0.28)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-slate-950/70",
           scrolled && "border-blue-200/90 bg-white dark:border-blue-500/20 dark:bg-slate-950"
         )}>
-          <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 rounded-full outline-none focus-visible:ring-2 ring-primary sm:flex-none">
+          <Link href={href("/")} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3 rounded-full outline-none focus-visible:ring-2 ring-primary">
             <MarketStarLogo className="h-4 w-auto shrink-0 object-contain sm:h-5" />
-            <div className="hidden h-5 w-px bg-slate-300 dark:bg-white/10 sm:block" />
-            <span className="hidden text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-600 dark:text-slate-300 md:block">
+            <div className="hidden h-4 w-px bg-slate-300 dark:bg-white/10 sm:block" />
+            <span className="hidden text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300 xl:block">
               Gemini Intelligence
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-1 rounded-full border border-slate-200 bg-slate-50/80 p-1 lg:flex dark:border-white/10 dark:bg-white/[0.02]">
+          <nav className="hidden items-center gap-0.5 rounded-full border border-slate-200 bg-slate-50/80 p-0.5 xl:flex dark:border-white/10 dark:bg-white/[0.02]">
             {navItems.map((item) => {
-              const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const isActive = pathname === href(item.href) || pathname.startsWith(`${href(item.href)}/`);
               return (
                 <Link
-                  key={item.name}
-                  href={item.href}
+                  key={item.key}
+                  href={href(item.href)}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200",
-                    isActive ? "text-violet-800 dark:text-violet-200" : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                    "relative rounded-full px-2.5 py-1 text-xs font-medium transition-colors duration-200 2xl:px-3 2xl:py-1.5 2xl:text-sm whitespace-nowrap",
+                    isActive ? "text-violet-800 dark:text-violet-200 font-semibold" : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
                   )}
                 >
                 {isActive && (
@@ -130,7 +136,7 @@ export function Header() {
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   />
                 )}
-                <span className="relative z-10">{item.name}</span>
+                <span className="relative z-10">{labels[item.key]}</span>
                 </Link>
               );
             })}
@@ -140,10 +146,10 @@ export function Header() {
                 onClick={() => setAppsDropdownOpen(!appsDropdownOpen)}
                 aria-expanded={appsDropdownOpen}
                 aria-haspopup="true"
-                className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                className="flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-300 dark:hover:text-white 2xl:px-3 2xl:py-1.5 2xl:text-sm whitespace-nowrap"
               >
-                Apps
-                <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", appsDropdownOpen && "rotate-180")} />
+                {labels.apps}
+                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", appsDropdownOpen && "rotate-180")} />
               </button>
               <AnimatePresence>
                 {appsDropdownOpen && (
@@ -152,13 +158,13 @@ export function Header() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 12, scale: 0.98 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute left-1/2 top-full mt-3 w-[520px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-[0_30px_90px_-35px_rgba(96,165,250,0.45)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/90"
+                    className="absolute left-1/2 top-full mt-3 w-[520px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-[0_30px_90px_-35px_rgba(96,165,250,0.45)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/90 z-50"
                   >
                     <div className="grid grid-cols-3 gap-2">
                       {apps.map((app) => (
                         <Link
                           key={app.name}
-                          href={app.href}
+                          href={href(app.href)}
                           className="group flex flex-col items-center justify-center gap-2 rounded-xl border border-transparent bg-slate-50/80 p-3 text-center transition-all duration-200 hover:border-blue-400/30 hover:bg-blue-500/5 dark:bg-white/[0.02]"
                         >
                           <app.icon className={cn("h-5 w-5 transition-transform duration-200 group-hover:scale-110", app.color)} />
@@ -172,25 +178,26 @@ export function Header() {
             </div>
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
             <ThemeToggle className="hidden sm:flex" />
+            <LocaleSwitcher className="hidden sm:flex" />
             <button
               onClick={handleSearchClick}
-              aria-label="Search the site"
-              className="flex h-10 w-10 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-2 text-sm text-slate-600 transition-colors hover:border-blue-400/30 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.02] dark:text-slate-300 dark:hover:text-white sm:w-auto sm:justify-start sm:px-3"
+              aria-label={labels.searchSite}
+              title={`${labels.search} (⌘K)`}
+              className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-slate-200/90 bg-white/80 text-slate-600 transition-colors hover:border-blue-400/30 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.02] dark:text-slate-300 dark:hover:text-white"
             >
               <Search className="h-4 w-4" />
-              <span className="hidden sm:inline">Search</span>
             </button>
           </div>
 
           <button
-            className="shrink-0 rounded-full p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-google-blue dark:text-slate-100 dark:hover:bg-white/10 lg:hidden"
+            className="shrink-0 rounded-full p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-google-blue dark:text-slate-100 dark:hover:bg-white/10 xl:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
-            aria-label="Toggle mobile menu"
+            aria-label={labels.toggleMenu}
           >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
@@ -209,30 +216,30 @@ export function Header() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder={labels.searchPlaceholder}
                 className="w-full pl-9 pr-4 py-2 bg-muted border-transparent focus:bg-background focus:border-primary rounded-lg text-sm transition-colors outline-none"
                 onClick={handleSearchClick}
                 readOnly
               />
             </div>
-            
+
             <nav className="flex flex-col gap-4">
-              <Link href="/features" className="text-lg font-medium text-foreground py-2 border-b">Features</Link>
-              <Link href="/models" className="text-lg font-medium text-foreground py-2 border-b">Models</Link>
-              <Link href="/products/gemini" className="text-lg font-medium text-foreground py-2 border-b">Gemini</Link>
-              <Link href="/products/notebooklm" className="text-lg font-medium text-foreground py-2 border-b">NotebookLM</Link>
-              <Link href="/products/gemini-enterprise" className="text-lg font-medium text-foreground py-2 border-b">Gemini Enterprise</Link>
-              <Link href="/compare" className="text-lg font-medium text-foreground py-2 border-b">Compare</Link>
-              <Link href="/pricing" className="text-lg font-medium text-foreground py-2 border-b">Pricing</Link>
-              <Link href="/plans" className="text-lg font-medium text-foreground py-2 border-b">Plans</Link>
-              
+              <Link href={href("/features")} className="text-lg font-medium text-foreground py-2 border-b">{labels.features}</Link>
+              <Link href={href("/models")} className="text-lg font-medium text-foreground py-2 border-b">{labels.models}</Link>
+              <Link href={href("/products/gemini")} className="text-lg font-medium text-foreground py-2 border-b">Gemini</Link>
+              <Link href={href("/products/notebooklm")} className="text-lg font-medium text-foreground py-2 border-b">NotebookLM</Link>
+              <Link href={href("/products/gemini-enterprise")} className="text-lg font-medium text-foreground py-2 border-b">Gemini Enterprise</Link>
+              <Link href={href("/compare")} className="text-lg font-medium text-foreground py-2 border-b">{labels.compare}</Link>
+              <Link href={href("/pricing")} className="text-lg font-medium text-foreground py-2 border-b">{labels.pricing}</Link>
+              <Link href={href("/plans")} className="text-lg font-medium text-foreground py-2 border-b">{labels.plans}</Link>
+
               <div className="py-2 border-b">
-                <span className="text-lg font-medium text-foreground block mb-4">Apps</span>
+                <span className="text-lg font-medium text-foreground block mb-4">{labels.apps}</span>
                 <div className="grid grid-cols-3 gap-4">
                   {apps.map((app) => (
                     <Link
                       key={app.name}
-                      href={app.href}
+                      href={href(app.href)}
                       className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-muted/50"
                     >
                       <app.icon className={cn("w-6 h-6", app.color)} />
@@ -241,22 +248,27 @@ export function Header() {
                   ))}
                 </div>
               </div>
-              
-              <Link href="/enterprise" className="text-lg font-medium text-foreground py-2 border-b">Enterprise</Link>
-              <Link href="/security" className="text-lg font-medium text-foreground py-2 border-b">Security</Link>
-              <Link href="/articles" className="text-lg font-medium text-foreground py-2 border-b">Articles</Link>
+
+              <Link href={href("/enterprise")} className="text-lg font-medium text-foreground py-2 border-b">{labels.enterprise}</Link>
+              <Link href={href("/security")} className="text-lg font-medium text-foreground py-2 border-b">{labels.security}</Link>
+              <Link href={href("/articles")} className="text-lg font-medium text-foreground py-2 border-b">{labels.articles}</Link>
 
               <div className="flex items-center justify-between py-3 border-b">
-                <span className="text-sm font-medium text-muted-foreground">Theme</span>
+                <span className="text-sm font-medium text-muted-foreground">{labels.theme}</span>
                 <ThemeToggle />
               </div>
             </nav>
-            
+
+            <div className="flex items-center justify-between py-3 border-b">
+              <span className="text-sm font-medium text-muted-foreground">{labels.language}</span>
+              <LocaleSwitcher />
+            </div>
+
             <Link
-              href="/compare"
+              href={href("/compare")}
               className="w-full py-3 text-center text-sm font-medium text-white bg-gradient-to-r from-[#4A47F6] to-[#8C52FF] rounded-lg mt-2"
             >
-              Get Started
+              {labels.getStarted}
             </Link>
           </motion.div>
         )}

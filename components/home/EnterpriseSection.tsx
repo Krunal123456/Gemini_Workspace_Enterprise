@@ -2,7 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Database, Terminal, Bot, Network } from "lucide-react";
+import { ArrowRight, Database, Bot, Network } from "lucide-react";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 const connectors = [
   { name: "Jira" },
@@ -16,6 +18,8 @@ const connectors = [
 ];
 
 export default function EnterpriseSection() {
+  const { locale, href } = useLocale();
+  const t = createPhraseTranslator(locale);
   return (
     <section className="atlas-section py-24 bg-[#0B0F19] text-white relative overflow-hidden">
       {/* Background Glows */}
@@ -25,13 +29,13 @@ export default function EnterpriseSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-gemini-cyan font-bold tracking-widest text-sm uppercase mb-4">
-            Enterprise Architecture
+            {t("Enterprise Architecture")}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-            Beyond standard chat: Connectors, Agents & MCP
+            {t("Beyond standard chat: Connectors, Agents & MCP")}
           </h2>
           <p className="text-lg text-gray-400">
-            Explore connected data sources, agent workflows, and governance topics. Check each feature's current edition requirements and service terms before rollout.
+            {t("Explore connected data sources, agent workflows, and governance topics. Check each feature's current edition requirements and service terms before rollout.")}
           </p>
         </div>
 
@@ -43,9 +47,9 @@ export default function EnterpriseSection() {
               <div className="atlas-icon flex h-12 w-12 items-center justify-center rounded-xl bg-gemini-cyan/20 mb-6 text-gemini-cyan">
                 <Database className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Enterprise Grounding & Connectors</h3>
+              <h3 className="text-xl font-bold mb-3">{t("Enterprise Grounding & Connectors")}</h3>
               <p className="text-gray-400 leading-relaxed">
-                Gemini Enterprise documents permission-aware search. Connector support, indexing, and permission behavior depend on your source and configuration.
+                {t("Gemini Enterprise documents permission-aware search. Connector support, indexing, and permission behavior depend on your source and configuration.")}
               </p>
             </div>
           </div>
@@ -57,9 +61,9 @@ export default function EnterpriseSection() {
               <div className="atlas-icon flex h-12 w-12 items-center justify-center rounded-xl bg-gemini-purple/20 mb-6 text-gemini-purple">
                 <Network className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Model Context Protocol (MCP)</h3>
+              <h3 className="text-xl font-bold mb-3">{t("Model Context Protocol (MCP)")}</h3>
               <p className="text-gray-400 leading-relaxed">
-                Review the supported MCP options for your Gemini product and edition before connecting private APIs, databases, or custom tools.
+                {t("Review the supported MCP options for your Gemini product and edition before connecting private APIs, databases, or custom tools.")}
               </p>
             </div>
           </div>
@@ -71,9 +75,9 @@ export default function EnterpriseSection() {
               <div className="atlas-icon flex h-12 w-12 items-center justify-center rounded-xl bg-gemini-spark/20 mb-6 text-gemini-spark">
                 <Bot className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Autonomous Enterprise Agents</h3>
+              <h3 className="text-xl font-bold mb-3">{t("Autonomous Enterprise Agents")}</h3>
               <p className="text-gray-400 leading-relaxed">
-                Plan agent workflows around approved tools, source permissions, and human review. Available actions depend on edition and configuration.
+                {t("Plan agent workflows around approved tools, source permissions, and human review. Available actions depend on edition and configuration.")}
               </p>
             </div>
           </div>
@@ -83,20 +87,20 @@ export default function EnterpriseSection() {
         <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
             <div>
-              <h3 className="text-xl font-bold mb-2">Connector examples</h3>
-              <p className="text-gray-400 text-sm">Confirm current edition support, regional availability, and administrator setup for each source.</p>
+              <h3 className="text-xl font-bold mb-2">{t("Connector examples")}</h3>
+              <p className="text-gray-400 text-sm">{t("Confirm current edition support, regional availability, and administrator setup for each source.")}</p>
             </div>
-            <Link href="/enterprise/connectors" className="text-sm font-medium text-gemini-cyan hover:text-gemini-cyan/80 flex items-center gap-1">
-              View all connectors <ArrowRight className="w-4 h-4" />
+            <Link href={href("/enterprise/connectors")} className="text-sm font-medium text-gemini-cyan hover:text-gemini-cyan/80 flex items-center gap-1">
+              {t("View all connectors")} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          
+
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             {connectors.map((connector) => (
               <div key={connector.name} className="flex items-center gap-3 bg-dark-surface/50 border border-white/10 rounded-lg py-2 px-4 hover:border-white/20 transition-colors">
                 <div className="font-semibold text-sm">{connector.name}</div>
                 <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-gray-300">
-                  Example
+                  {t("Example")}
                 </span>
               </div>
             ))}
@@ -104,8 +108,8 @@ export default function EnterpriseSection() {
         </div>
 
         <div className="text-center">
-          <Link href="/enterprise" className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-4 rounded-full font-semibold hover:opacity-90 transition-opacity">
-            Explore the Deep Architectural Guide
+          <Link href={href("/enterprise")} className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-4 rounded-full font-semibold hover:opacity-90 transition-opacity">
+            {t("Explore the Deep Architectural Guide")}
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

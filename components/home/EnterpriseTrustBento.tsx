@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -9,6 +11,8 @@ import {
   ShieldCheck,
   Workflow,
 } from "lucide-react";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 const ACCENT_CLASSES: Record<string, string> = {
   violet: "text-violet-200",
@@ -82,22 +86,25 @@ const TRUST_PILLARS = [
 ];
 
 export function EnterpriseTrustBento() {
+  const { locale, href } = useLocale();
+  const t = createPhraseTranslator(locale);
   return (
     <section className="relative overflow-hidden border-y border-white/10 bg-[#0b0912] py-20 text-white md:py-28">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="mb-10 grid gap-6 md:grid-cols-[1fr_0.7fr] md:items-end">
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-violet-200">Designed for enterprise reality</p>
-            <h2 className="max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">Intelligence with boundaries.</h2>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-violet-200">{t("Designed for enterprise reality")}</p>
+            <h2 className="max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{t("Intelligence with boundaries.")}</h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-white/60 md:justify-self-end">
-            Data use, control availability, and agent permissions depend on the Workspace service, edition, configuration, and applicable agreement. Follow the primary sources for your deployment.
+            {t("Data use, control availability, and agent permissions depend on the Workspace service, edition, configuration, and applicable agreement. Follow the primary sources for your deployment.")}
           </p>
         </div>
 
         <div className="grid gap-px border border-white/10 bg-white/10 md:grid-cols-2 xl:grid-cols-3">
-          {TRUST_PILLARS.map(({ id, icon: Icon, title, body, meta, href, source, sourceLabel, accent }) => {
-            const destination = href ?? source ?? "/security";
+          {TRUST_PILLARS.map(({ id, icon: Icon, title, body, meta, href: hrefOverride, source, sourceLabel, accent }) => {
+            // External sources stay absolute; internal paths pick up the locale prefix.
+            const destination = source ?? (hrefOverride ? href(hrefOverride) : href("/security"));
             return (
               <article key={id} data-spotlight className="spotlight-surface group relative min-h-[252px] overflow-hidden bg-[#100d18] p-5 sm:p-7">
                 <div className="relative z-10 flex h-full flex-col">
@@ -107,12 +114,12 @@ export function EnterpriseTrustBento() {
                     </span>
                     {id === "orchestration" ? <Bot className="h-4 w-4 text-white/30" /> : <ShieldCheck className="h-4 w-4 text-white/25" />}
                   </div>
-                  <h3 className="max-w-sm text-xl font-semibold leading-snug">{title}</h3>
-                  <p className="mt-3 max-w-md text-sm leading-6 text-white/60">{body}</p>
+                  <h3 className="max-w-sm text-xl font-semibold leading-snug">{t(title)}</h3>
+                  <p className="mt-3 max-w-md text-sm leading-6 text-white/60">{t(body)}</p>
                   <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
-                    <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-white/35">{meta}</span>
+                    <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-white/35">{t(meta)}</span>
                     <Link href={destination} target={source ? "_blank" : undefined} rel={source ? "noreferrer" : undefined} className="inline-flex min-h-10 items-center gap-1.5 text-xs font-semibold text-white/75 transition-colors hover:text-violet-200">
-                      {sourceLabel}<ArrowUpRight className="h-3.5 w-3.5" />
+                      {t(sourceLabel)}<ArrowUpRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
                 </div>

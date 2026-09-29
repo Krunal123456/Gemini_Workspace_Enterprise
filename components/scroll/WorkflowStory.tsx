@@ -5,14 +5,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight,
-  CalendarDays,
   FileText,
   Mail,
-  MessageSquareText,
-  Presentation,
   Table2,
   Video,
 } from "lucide-react";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 const WORKFLOWS = [
   {
@@ -62,6 +61,8 @@ const WORKFLOWS = [
 ];
 
 export function WorkflowStory() {
+  const { locale } = useLocale();
+  const t = createPhraseTranslator(locale);
   const rootRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -142,10 +143,10 @@ export function WorkflowStory() {
     <section ref={rootRef} className="workflow-story relative border-y border-white/10 bg-[#0b0912] text-white">
       <div className="workflow-stage mx-auto grid max-w-[1440px] gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-12 lg:py-16">
         <div className="workflow-intro max-w-xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-violet-200">Workspace tools, connected</p>
-          <h2 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">How Gemini moves work forward.</h2>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-violet-200">{t("Workspace tools, connected")}</p>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{t("How Gemini moves work forward.")}</h2>
           <p className="mt-5 max-w-lg text-sm leading-7 text-white/60 sm:text-base">
-            From the first message to a reviewed next step, Gemini brings AI into the Workspace tools your teams already use.
+            {t("From the first message to a reviewed next step, Gemini brings AI into the Workspace tools your teams already use.")}
           </p>
 
           <ol className="mt-9 grid gap-2 sm:grid-cols-2 lg:grid-cols-1" aria-label="Workflow steps">
@@ -163,7 +164,7 @@ export function WorkflowStory() {
 
           <div className="mt-8 hidden items-center gap-3 lg:flex" aria-hidden="true">
             <div className="h-24 w-px overflow-hidden bg-white/10"><div ref={progressRef} className="h-full origin-top scale-y-0 bg-violet-300" /></div>
-            <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-white/40">Scroll to follow</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-white/40">{t("Scroll to follow")}</span>
           </div>
         </div>
 
@@ -176,28 +177,28 @@ export function WorkflowStory() {
                 <div className="relative flex items-center justify-between border-b border-white/10 pb-4">
                   <div className="flex items-center gap-3">
                     <span className="flex h-10 w-10 items-center justify-center border border-white/10 bg-white/[0.035]" style={{ color: workflow.color }}><Icon className="h-5 w-5" /></span>
-                    <div><p className="text-[10px] font-semibold uppercase tracking-[0.13em] text-white/45">{workflow.eyebrow}</p><p className="mt-1 text-sm font-semibold text-white">{workflow.app}</p></div>
+                    <div><p className="text-[10px] font-semibold uppercase tracking-[0.13em] text-white/45">{t(workflow.eyebrow)}</p><p className="mt-1 text-sm font-semibold text-white">{workflow.app}</p></div>
                   </div>
-                  <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.12em] text-white/45"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Ready</span>
+                  <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.12em] text-white/45"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> {t("Ready")}</span>
                 </div>
 
                 <div className="relative grid flex-1 gap-7 py-7 md:grid-cols-[1fr_0.9fr] md:items-center">
                   <div>
-                    <h3 className="max-w-md text-2xl font-bold leading-tight sm:text-3xl">{workflow.title}</h3>
-                    <p className="mt-4 max-w-md text-sm leading-6 text-white/60">{workflow.description}</p>
+                    <h3 className="max-w-md text-2xl font-bold leading-tight sm:text-3xl">{t(workflow.title)}</h3>
+                    <p className="mt-4 max-w-md text-sm leading-6 text-white/60">{t(workflow.description)}</p>
                     <ul className="mt-6 grid gap-2">
-                      {workflow.features.map((feature) => <li key={feature} className="flex items-center gap-2 text-xs text-white/70"><span className="h-1 w-1 rounded-full" style={{ backgroundColor: workflow.color }} />{feature}</li>)}
+                      {workflow.features.map((feature) => <li key={feature} className="flex items-center gap-2 text-xs text-white/70"><span className="h-1 w-1 rounded-full" style={{ backgroundColor: workflow.color }} />{t(feature)}</li>)}
                     </ul>
                   </div>
 
                   <div className="border border-white/10 bg-black/25 p-4">
-                    <div className="mb-5 flex items-center justify-between gap-3"><span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/40">Workspace preview</span><span className="text-[10px] text-white/35">Illustrative interface</span></div>
-                    <div className="flex items-center gap-2 border-b border-white/10 pb-3"><Icon className="h-4 w-4" style={{ color: workflow.color }} /><span className="text-xs font-medium text-white/75">{workflow.preview[0]}</span></div>
-                    <p className="mt-3 text-[10px] text-white/40">{workflow.preview[1]}</p>
+                    <div className="mb-5 flex items-center justify-between gap-3"><span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/40">{t("Workspace preview")}</span><span className="text-[10px] text-white/35">{t("Illustrative interface")}</span></div>
+                    <div className="flex items-center gap-2 border-b border-white/10 pb-3"><Icon className="h-4 w-4" style={{ color: workflow.color }} /><span className="text-xs font-medium text-white/75">{t(workflow.preview[0])}</span></div>
+                    <p className="mt-3 text-[10px] text-white/40">{t(workflow.preview[1])}</p>
                     <div className="mt-4 space-y-2">
-                      {workflow.preview.slice(2).map((line, index) => <div key={line} className="flex gap-2 text-xs leading-5 text-white/70"><span className="font-mono text-violet-200/75">0{index + 1}</span><span>{line}</span></div>)}
+                      {workflow.preview.slice(2).map((line, index) => <div key={line} className="flex gap-2 text-xs leading-5 text-white/70"><span className="font-mono text-violet-200/75">0{index + 1}</span><span>{t(line)}</span></div>)}
                     </div>
-                    <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/40"><span>Review before sharing</span><ArrowRight className="h-3.5 w-3.5" /></div>
+                    <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/40"><span>{t("Review before sharing")}</span><ArrowRight className="h-3.5 w-3.5" /></div>
                   </div>
                 </div>
               </article>
