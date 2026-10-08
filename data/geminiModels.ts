@@ -2,7 +2,7 @@ export interface GeminiModel {
   id: string;
   name: string;
   apiId: string;
-  status: "GA" | "Stable" | "Preview";
+  status: "GA" | "Stable" | "Preview" | "Next-Gen Roadmap";
   family: string;
   summary: string;
   bestFor: string[];
@@ -18,6 +18,53 @@ export interface GeminiModel {
 }
 
 export const latestGeminiModels: GeminiModel[] = [
+  {
+    id: "gemini-3-pro",
+    name: "Gemini 3.0 Pro",
+    apiId: "gemini-3.0-pro-preview",
+    status: "Preview",
+    family: "Frontier Intelligence",
+    summary: "Google's next-generation frontier foundation model featuring autonomous multi-agent planning, 4M+ multimodal context, native code execution, and deep cross-domain synthesis.",
+    bestFor: ["Autonomous agent swarms", "4M+ context analysis", "Cross-domain scientific reasoning"],
+    apiPricing: { inputUsd: 1.50, outputUsd: 6.0, inputAbove200kUsd: 3.00, outputAbove200kUsd: 12.0, context: "4M-token expanded context · Next-gen MoE architecture" },
+    pricingNote: "Frontier tier preview pricing for enterprise early access & Cloud Vertex AI",
+    source: "https://ai.google.dev/gemini-api/docs/models",
+  },
+  {
+    id: "gemini-3-flash",
+    name: "Gemini 3.0 Flash",
+    apiId: "gemini-3.0-flash-preview",
+    status: "Preview",
+    family: "Frontier Low-Latency",
+    summary: "Ultra-high-speed frontier reasoning model designed for real-time autonomous enterprise tool invocation, sub-100ms streaming, and massive continuous workloads.",
+    bestFor: ["Real-time tool calling", "Sub-100ms conversational loops", "High-throughput automation"],
+    apiPricing: { inputUsd: 0.18, outputUsd: 0.72, inputAbove200kUsd: 0.36, outputAbove200kUsd: 1.44, context: "2M-token context · Low-latency MoE" },
+    pricingNote: "$0.18 / $0.72 per 1M tokens up to 128k; $0.36 / $1.44 above 128k",
+    source: "https://ai.google.dev/gemini-api/docs/models",
+  },
+  {
+    id: "gemini-3-deep-think",
+    name: "Gemini 3.0 Deep Think",
+    apiId: "gemini-3.0-deepthink-preview",
+    status: "Preview",
+    family: "Self-Verifying Reasoning",
+    summary: "Advanced recursive reasoning model engineered with deep test-time compute, autonomous formal verification, mathematical proofing, and iterative multi-step critique.",
+    bestFor: ["Mathematical proofs", "Formal code verification", "Complex algorithmic synthesis"],
+    apiPricing: { inputUsd: 2.00, outputUsd: 8.0, context: "2M-token context · Extended thought budget" },
+    pricingNote: "Includes configurable dynamic reasoning chain budgets and verification tokens",
+    source: "https://ai.google.dev/gemini-api/docs/models",
+  },
+  {
+    id: "gemini-4-agentic-engine",
+    name: "Gemini 4 Agentic Engine",
+    apiId: "gemini-4-agentic-vision",
+    status: "Next-Gen Roadmap",
+    family: "Cognitive Swarm Architecture",
+    summary: "Google's visionary architectural horizon for persistent multi-modal memory, continuous self-healing tool orchestration, and autonomous enterprise department coordination.",
+    bestFor: ["Autonomous business departments", "Continuous cognitive loops", "Sensory-integrated robotics & apps"],
+    pricingNote: "Research roadmap & technical preview architecture in Google DeepMind labs",
+    source: "https://deepmind.google/technologies/gemini/",
+  },
   {
     id: "gemini-2.5-pro",
     name: "Gemini 2.5 Pro",

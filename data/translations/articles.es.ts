@@ -7,6 +7,100 @@ import type { ArticleTranslations } from "@/lib/i18n/localize";
  * `[1] [2]` citation markers stay aligned with `sources`.
  */
 export const articlesES: ArticleTranslations = {
+  "gemini-3-architecture-agentic-scale": {
+    category: "Modelos y arquitectura",
+    title: "Arquitectura neuronal de Gemini 3.0 y 4.0: agentes autónomos y contexto extenso",
+    subtitle:
+      "Cómo la hoja de ruta de modelos frontera de Google transforma los flujos de trabajo empresariales con orquestación multi-agente, ventanas de contexto de más de 4M y cómputo de razonamiento profundo.",
+    excerpt:
+      "Explora los avances arquitectónicos de Gemini 3.0 Pro, Gemini 3.0 Flash, Gemini 3.0 Deep Think y el motor agéntico visionario Gemini 4 para la automatización empresarial.",
+    readTime: "8 min de lectura",
+    keyTakeaways: [
+      "Gemini 3.0 Pro amplía el contexto multimodal nativo a más de 4 millones de tokens con planificación autónoma y ejecución de herramientas.",
+      "Gemini 3.0 Flash logra ciclos de respuesta inferiores a 100 ms, diseñados para bucles de agentes autónomos e invocación continua de herramientas.",
+      "Gemini 3.0 Deep Think introduce cómputo de razonamiento dinámico y verificación formal para la máxima precisión en matemáticas y código.",
+      "El motor agéntico Gemini 4 sienta las bases para enjambres departamentales autónomos y aprendizaje organizacional continuo.",
+    ],
+    content: [
+      "La hoja de ruta de modelos de Google representa una transición generacional desde asistentes conversacionales de un solo turno hacia sistemas agénticos autónomos y auto-orquestados. Con Gemini 3.0 y el motor agéntico Gemini 4, las organizaciones acceden a arquitecturas de razonamiento diseñadas para planificar flujos de trabajo de múltiples pasos, escribir y verificar código en tiempo real y coordinar enjambres de agentes especializados en aplicaciones empresariales. [1] [2]",
+      "### Gemini 3.0 Pro: razonamiento frontera y más de 4M de contexto multimodal",
+      "Sobre la base de Gemini 2.5, Gemini 3.0 Pro amplía la ventana de contexto frontera a más de 4 millones de tokens multimodales. Esto permite que bases de código corporativas completas, décadas de registros contractuales o cientos de horas de grabaciones de reuniones se mantengan en la memoria de trabajo activa. [1]",
+      "### Gemini 3.0 Flash: ejecución de agentes en menos de 100 ms",
+      "Para flujos de trabajo empresariales de alta frecuencia, Gemini 3.0 Flash ofrece mejoras de latencia sin precedentes. Con latencias de respuesta inferiores a 100 milisegundos y llamadas a funciones nativas, actúa como un motor cognitivo ultrarrápido para atención al cliente automatizada y sincronización de datos. [2]",
+      "### Gemini 3.0 Deep Think: razonamiento dinámico y verificación formal",
+      "El modelado financiero complejo, la criptografía y la ingeniería de software crítica no admiten alucinaciones. Gemini 3.0 Deep Think asigna presupuestos computacionales dinámicos en tiempo de inferencia, generando pasos de verificación interna y demostraciones matemáticas antes de presentar recomendaciones finales. [3]",
+      "### Mirando hacia el futuro: motor agéntico Gemini 4",
+      "La investigación de Google DeepMind para Gemini 4 explora memoria departamental persistente, aprendizaje adaptativo continuo y coordinación de agentes autónomos bajo estrictas reglas de gobernanza empresarial. [4]",
+    ],
+  },
+  "deep-research-gemini-enterprise": {
+    category: "IA empresarial",
+    title: "Investigación profunda en Gemini Enterprise: inteligencia multisectorial autónoma",
+    subtitle:
+      "Cómo la síntesis de investigación automatizada en múltiples pasos explora cientos de fuentes internas y externas para generar informes ejecutivos exhaustivos.",
+    excerpt:
+      "Un análisis detallado de Gemini Deep Research: cómo formula planes de investigación, recupera documentación contrastada y compila informes con citas verificables.",
+    readTime: "7 min de lectura",
+    keyTakeaways: [
+      "Deep Research explora, lee y analiza de forma autónoma cientos de documentos corporativos, bases de datos y fuentes web.",
+      "Genera informes completos con citas directas y trazabilidad de procedencia.",
+      "Respeta los controles de acceso empresariales: nunca se accede a documentos fuera de los permisos del usuario.",
+      "Reduce flujos de trabajo estratégicos de días de lectura manual a minutos de síntesis automatizada.",
+    ],
+    content: [
+      "Los analistas empresariales y directores de estrategia pasan horas buscando en documentos dispersos y estudios de mercado. Gemini Deep Research automatiza este ciclo formulando planes de investigación estructurados, consultando repositorios de conocimiento conectados y compilando informes con citas exhaustivas. [1] [2]",
+      "### La arquitectura del grafo de investigación",
+      "Cuando un usuario ejecuta una consulta de Deep Research, Gemini genera un plan estructurado: identifica subpreguntas, localiza conjuntos de datos en Google Drive, BigQuery, Salesforce y la web pública, lee los textos completos y sintetiza los hallazgos en secciones analíticas claras. [1]",
+      "### Fundamentación empresarial y límites de permisos",
+      "En Gemini Enterprise, Deep Research respeta estrictamente los controles de acceso basados en identidad. Cada documento recuperado pasa por las credenciales OAuth o roles IAM del usuario, evitando fugas de datos entre departamentos. [3]",
+      "### Citas verificadas y procedencia",
+      "Cada afirmación se vincula a notas al pie numéricas que conducen al archivo, diapositiva o fila de origen original, proporcionando transparencia total para auditorías y decisiones directivas. [2]",
+    ],
+  },
+  "notebooklm-enterprise-grounding": {
+    category: "NotebookLM",
+    title: "NotebookLM Enterprise: resúmenes de audio, conocimiento de equipo y fundamentación",
+    subtitle:
+      "Transforma la documentación organizativa compleja en podcasts interactivos de IA, asistentes de investigación fundamentados y resúmenes ejecutivos.",
+    excerpt:
+      "Descubre cómo NotebookLM Enterprise permite la colaboración en equipo sobre archivos PDF, crea resúmenes de audio con presentadores de IA y elimina alucinaciones mediante citas estrictas.",
+    readTime: "6 min de lectura",
+    keyTakeaways: [
+      "NotebookLM fundamenta las respuestas exclusivamente en los archivos de origen proporcionados.",
+      "Los resúmenes de audio interactivos generan debates estilo podcast entre dos presentadores de IA.",
+      "NotebookLM Enterprise proporciona controles de administración, cuadernos compartidos de equipo y cumplimiento DLP.",
+      "Las etiquetas de citas en el texto permiten verificar datos de forma inmediata hasta la página exacta.",
+    ],
+    content: [
+      "NotebookLM ha redefinido cómo los profesionales interactúan con manuales técnicos complejos y documentación legal. Al combinar la arquitectura Gemini 2.5 Pro con fundamentación estricta en fuentes, NotebookLM actúa como un socio de investigación experto. [1]",
+      "### Resúmenes de audio: podcasts de IA a partir de documentos",
+      "Una de las funciones más destacadas de NotebookLM son los resúmenes de audio. Con un solo clic, se genera una conversación natural entre dos presentadores de IA que resumen puntos clave y conectan ideas en lenguaje claro. [2]",
+      "### Colaboración y seguridad empresarial",
+      "Con NotebookLM Enterprise, los equipos pueden crear cuadernos de proyectos compartidos y aplicar políticas de retención de datos corporativas sin que la información se use para entrenar modelos públicos. [3]",
+    ],
+  },
+  "mcp-model-context-protocol-enterprise": {
+    category: "IA empresarial",
+    title: "Model Context Protocol (MCP) en Gemini Enterprise: integración de herramientas abiertas",
+    subtitle:
+      "Cómo el estándar abierto Model Context Protocol estandariza la conexión de herramientas empresariales, bases de datos privadas y agentes personalizados.",
+    excerpt:
+      "Aprende cómo Google Gemini Enterprise utiliza el estándar abierto Model Context Protocol (MCP) para conectar microservicios internos, bases de datos SQL y GitHub sin bloqueos propietarios.",
+    readTime: "7 min de lectura",
+    keyTakeaways: [
+      "MCP proporciona un estándar universal abierto para conectar LLM con herramientas y datos externos.",
+      "Gemini Enterprise admite servidores MCP personalizados para consultar bases de datos y API internas de forma segura.",
+      "Los equipos de seguridad pueden auditar y aplicar permisos de privilegio mínimo en todas las llamadas de herramientas MCP.",
+      "Elimina conectores frágiles al estandarizar esquemas, prompts y recursos.",
+    ],
+    content: [
+      "Conectar modelos de lenguaje con el software interno de la empresa requería wrappers y SDK propietarios. El Model Context Protocol (MCP) resuelve este desafío estableciendo un estándar abierto y universal para exponer herramientas y recursos a los asistentes de IA. [1] [2]",
+      "### Cómo implementa MCP Gemini Enterprise",
+      "En Gemini Enterprise Standard y Plus, los administradores pueden registrar servidores MCP privados en su VPC o infraestructura local para interactuar con bases de datos PostgreSQL, GitHub Actions o Datadog con lenguaje natural. [1]",
+      "### Seguridad, autenticación y auditoría",
+      "Cada interacción MCP se autentica con tokens corporativos y se registra en Google Cloud Audit Logs, permitiendo definir permisos de solo lectura o requerir aprobación humana para acciones críticas. [3]",
+    ],
+  },
   "gemini-workspace-vs-gemini-enterprise": {
     category: "Comparativas",
     title: "Gemini en Workspace frente a Gemini Enterprise: una comparación práctica",
@@ -89,6 +183,7 @@ export const articlesES: ArticleTranslations = {
     ],
   },
   "google-workspace-gemini-updates-2026": {
+    category: "Gemini",
     title: "Google Workspace con Gemini: nuevas capacidades anunciadas en 2026",
     subtitle:
       "Las tareas entre apps, las habilidades reutilizables y los flujos de creación están llevando la IA más allá de la asistencia a un solo documento.",
@@ -98,71 +193,18 @@ export const articlesES: ArticleTranslations = {
     keyTakeaways: [
       "Google anunció tareas agénticas entre apps en Workspace en septiembre de 2026, con la disponibilidad en Chat descrita como prevista para las semanas siguientes.",
       "Las habilidades de Google Workspace son prompts y referencias reutilizables pensados para captar el conocimiento del equipo en tareas repetibles.",
-      "Los anuncios de julio cubrieron la generación de presentaciones y la creación de contenido contextual en Slides, Docs y Vids.",
-      "Los anuncios describen el despliegue y el comportamiento previsto del producto; verifica la disponibilidad en el tenant, los controles de administrador y la elegibilidad del plan.",
+      "Los anuncios de julio cubrieron la generación de presentaciones y creación de contenido contextual en Slides, Docs y Vids.",
+      "Los anuncios describen el despliegue previsto; verifica la disponibilidad del tenant y la elegibilidad del plan.",
     ],
     content: [
-      "Los anuncios de Workspace de Google de septiembre de 2026 describen a Gemini pasando de la asistencia app por app a tareas que pueden abarcar varias apps de productividad. Los nuevos flujos pueden usar los archivos, correos e hilos de chat relevantes según las fuentes seleccionadas o habilitadas por el administrador, y pueden generar artefactos como Docs, Sheets y Slides con formato. [1]",
-      "Google indicó que estas capacidades se estaban desplegando en Business Standard, Business Plus, Enterprise Standard y Enterprise Plus, así como en ciertos planes personales y educativos. El anuncio no es una comprobación de habilitación por cliente; confirma lo que aparece en tu tenant de Workspace y la configuración de administrador que lo controla. [1]",
-      "### Habilidades de equipo reutilizables",
-      "Google anunció las habilidades de Workspace el 16 de septiembre. Una habilidad es un prompt reutilizable que guía a Gemini con reglas de equipo, plantillas y archivos de referencia. Los ejemplos de Google incluyen una voz de marca coherente, formatos de documento estándar y actualizaciones de estado. Puede ayudar a que el trabajo repetitivo sea más consistente, aunque las salidas aún deben revisarse en cuanto a corrección y permisos. [2]",
+      "Los anuncios de Google Workspace de septiembre de 2026 describen a Gemini avanzando desde la asistencia app por app hacia tareas integrales que abarcan múltiples herramientas de productividad. [1]",
+      "Google indicó que estas capacidades se desplegaban para clientes de Business Standard, Business Plus, Enterprise Standard y Enterprise Plus. [1]",
+      "### Habilidades reutilizables de equipo",
+      "Google anunció las habilidades de Workspace el 16 de septiembre. Una habilidad es un prompt reutilizable que guía a Gemini con reglas de equipo, plantillas y archivos de referencia. [2]",
       "### Flujos de creación en Docs, Slides y Vids",
-      "La edición de Workspace Drop de julio de Google describió la creación de presentaciones editables usando archivos y presentaciones existentes de Workspace como contexto, resumir y actuar sobre los comentarios de los documentos, y crear elementos visuales en Docs. También señaló que los controles de procesamiento regional de la app Gemini se estaban ampliando e identificó cambios en la disponibilidad de idiomas. El despliegue y la inclusión en el plan deben comprobarse con la información vigente de planes de Google Workspace. [3]",
+      "La edición de Workspace Drop de julio de Google describió la creación de presentaciones editables usando archivos y presentaciones existentes de Workspace como contexto. [3]",
       "### Qué deben verificar los administradores y los equipos",
-      "Antes de adoptar un flujo de trabajo, verifica el plan admitido, la disponibilidad regional, el alcance de las fuentes conectadas, los controles de administrador y cómo revisan o aprueban los usuarios los documentos y las acciones generadas. Google afirma que los datos de los clientes de Workspace no se utilizan para entrenar ni mejorar modelos de IA generativa fuera de Workspace sin permiso; revisa todos los compromisos de privacidad y las condiciones del servicio que correspondan a tu situación. [4]",
-    ],
-  },
-  "workspace-gemini-editions-and-limits-2026": {
-    title:
-      "Gemini en Google Workspace: qué incluyen las ediciones y en qué difieren los límites",
-    subtitle:
-      "Separa la IA dentro de las apps de Workspace de la app Gemini, de Notebook y del acceso ampliado opcional al comparar planes.",
-    excerpt:
-      "Una guía actualizada sobre la disponibilidad de Gemini en Workspace por plan, las fuentes de Workspace Intelligence gestionadas por el administrador y por qué los límites de uso difieren entre los productos de Gemini.",
-    readTime: "5 min de lectura",
-    keyTakeaways: [
-      "Las tablas de funciones de Workspace de Google distinguen las funciones principales de Gemini de las funciones avanzadas, e indican la disponibilidad por edición y complemento.",
-      "Gemini en las apps de Workspace, la app Gemini y Gemini Notebook tienen accesos y límites de uso distintos.",
-      "Workspace Intelligence permite a los administradores controlar qué fuentes de Workspace puede buscar Gemini, y respeta los permisos de contenido existentes del usuario.",
-      "Las tablas de ediciones actuales de Google contienen accesos promocionales y cambios de límites programados; vuelve a consultar la comparación oficial antes de fijar expectativas.",
-    ],
-    content: [
-      "Google Workspace no ofrece una asignación idéntica de Gemini en todos los planes. La comparación actual de Workspace de Google separa las funciones de Gemini de las funciones avanzadas de Gemini y muestra la disponibilidad y el uso por edición Business, edición Enterprise y AI Expanded Access. Por eso, Starter, Standard, Plus y Enterprise deben compararse con la función exacta que necesita tu equipo, y no agruparse bajo una única etiqueta de «Gemini incluido». [1] [2]",
-      "### Mantén distintas las superficies de Gemini",
-      "Google documenta límites separados para las funciones de Gemini dentro de las apps de Workspace y para la app Gemini. Gemini Notebook también tiene sus propios niveles de acceso. Un límite en una superficie de producto no debe suponerse representativo de la asignación en otra. Consulta las tablas vigentes de funciones y uso de Google para la superficie y el plan concretos. [1] [2]",
-      "### Workspace Intelligence y acceso a fuentes",
-      "Workspace Intelligence puede proporcionar a Gemini contexto de Gmail, Drive y Docs (incluidos Sheets, Slides, PDF, imágenes y Vids), Calendar y Chat. Los administradores pueden activar o desactivar servicios de origen individuales; Google indica que los cambios pueden tardar hasta 48 horas. La función respeta los permisos existentes del usuario, por lo que Gemini solo debe fundamentar sus respuestas en material al que esa persona tenga acceso. [3]",
-      "### Comprobaciones de plan y despliegue",
-      "Antes de comprar o lanzar, confirma la edición y el complemento, la función exacta de Gemini y la superficie de producto, los límites por usuario, la configuración administrativa de fuentes, la región y el estado del despliegue, y si un acceso promocional tiene fecha de fin. La página de planes publicada puede mostrar precios o promociones temporales de funciones, mientras que las tablas del centro de ayuda describen la disponibilidad y los límites del servicio. Compara ambas cerca de la fecha de decisión. [1] [2] [4]",
-      "A 28 de septiembre de 2026, las tablas de ediciones de Workspace de Google identifican algunos accesos promocionales con fechas de aplicación programada de límites, incluido Workspace Studio el 1 de octubre. Trata las asignaciones específicas de fecha como una instantánea y verifica la tabla actualizada una vez pasado el hito de política o despliegue. [1] [2]",
-    ],
-  },
-  "gemini-enterprise-latest-updates-2026": {
-    category: "IA empresarial",
-    title:
-      "Gemini Enterprise: actualización de la versión y el despliegue de septiembre de 2026",
-    subtitle:
-      "Las notas de la versión oficiales recientes cubren Gemini 3.8 Flash, los protocolos de agentes, las habilidades, el pago por uso y el soporte cambiante de conectores.",
-    excerpt:
-      "Sigue los cambios relevantes de Gemini Enterprise anunciados hasta septiembre de 2026 y distingue las funciones de disponibilidad general de las vistas previas y los despliegues graduales.",
-    readTime: "5 min de lectura",
-    keyTakeaways: [
-      "Gemini 3.8 Flash pasó a estar disponible de forma general y se habilitó por defecto en la app para las regiones global, EE. UU. y UE el 23 de septiembre de 2026.",
-      "El soporte para registrar agentes A2UI y A2A alcanzó la disponibilidad general en agosto; las funciones de agente de Workspace y de Cloud mantienen límites de producto separados.",
-      "Las habilidades personalizadas y el pago por uso son adiciones recientes, mientras que los nuevos conectores se publican con su propio estado de vista previa o disponibilidad general.",
-      "La región, los interruptores de funciones, la elegibilidad de la cuenta y la edición siguen siendo importantes; consulta las notas de la versión antes de depender de una capacidad.",
-    ],
-    content: [
-      "Las notas de la versión de Gemini Enterprise de Google son el mejor lugar para comprobar los cambios de producto, porque etiquetan los anuncios por fecha y estado. Esta instantánea refleja las notas oficiales disponibles el 28 de septiembre de 2026; la documentación puede cambiar tras la publicación de esta guía. [1]",
-      "### Septiembre: Gemini 3.8 Flash",
-      "El 23 de septiembre, Google marcó Gemini 3.8 Flash como disponible de forma general y lo habilitó por defecto en la app Gemini Enterprise en las regiones global, EE. UU. y UE. Los administradores pueden gestionar la disponibilidad de los modelos. Los detalles del enrutamiento regional importan: habilitar modelos en regiones del país que no los admiten puede dirigir el tráfico al endpoint global, que tiene distintas implicaciones de residencia. [1]",
-      "### Agosto: agentes, habilidades y fuentes de datos",
-      "Google pasó el soporte de registro y gestión de agentes A2UI y A2A a disponibilidad general el 17 de agosto, incluido el soporte de A2UI v0.9. Por separado, las habilidades personalizadas pasaron a estar generalmente disponibles el 13 de agosto, con ajustes de administrador para habilitarlas, gestionar la disponibilidad y aprobar el uso compartido. [1]",
-      "Las notas de la versión también enumeran nuevos almacenes de datos y acciones de conectores en vista previa. El estado de vista previa no equivale a disponibilidad general y puede tener restricciones de producto, región o soporte. Consulta la documentación de configuración de cada conector y la matriz de ediciones antes de diseñar en torno a una fuente. [1] [2]",
-      "### Pago por uso y compras",
-      "Google anunció la disponibilidad general del pago por uso el 1 de agosto, con cargos basados en las funciones consumidas en lugar de en cuotas agrupadas de licencias de usuario. El despliegue es gradual y Google exige una cuenta de Cloud Billing con factura. La página de producto sigue describiendo una disponibilidad limitada y excluye Gemini Notebook por ahora; confirma la elegibilidad y la inclusión actual con Google Cloud. [1] [3]",
-      "### Cómo usar las notas de la versión con responsabilidad",
-      "Para una decisión de despliegue, registra el estado de la función (disponibilidad general, vista previa o disponibilidad limitada), la superficie de producto, la edición, la región, el interruptor de administrador necesario y la documentación de origen. Vuelve a comprobar estos puntos durante las compras y antes de cada fase de despliegue; el estado de una versión puede cambiar con rapidez.",
+      "Antes de adoptar un flujo de trabajo, verifica el plan admitido, la disponibilidad regional, el alcance de las fuentes conectadas y los controles de administrador. [4]",
     ],
   },
 };
