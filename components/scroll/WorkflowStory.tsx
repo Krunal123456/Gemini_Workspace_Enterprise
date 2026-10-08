@@ -91,7 +91,7 @@ export function WorkflowStory() {
           pin: root.querySelector(".workflow-stage"),
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.7,
+          scrub: 0.3,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (trigger) => {

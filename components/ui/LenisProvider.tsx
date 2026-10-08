@@ -2,42 +2,40 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let lenis: Lenis | null = null;
-    let rafId = 0;
+    if (motionPreference.matches) return;
 
-    const stop = () => {
-      cancelAnimationFrame(rafId);
-      rafId = 0;
-      if (!lenis) return;
-      lenis.off("scroll", ScrollTrigger.update);
-      lenis.destroy();
-      lenis = null;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // High refresh rate (120Hz/144Hz) optimized Lenis instance
+    const lenis = new Lenis({
+      lerp: 0.1,
+      duration: 1.0,
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
+      autoRaf: false, // We synchronize directly to gsap.ticker for true 144Hz frame lock
+    });
+
+    lenis.on("scroll", ScrollTrigger.update);
+
+    // Sync Lenis tick directly with GSAP's high-precision RAF ticker
+    const updateTicker = (time: number) => {
+      lenis.raf(time * 1000);
     };
 
-    const start = () => {
-      if (motionPreference.matches || lenis) return;
-      lenis = new Lenis({ lerp: 0.12, duration: 0.8, smoothWheel: true, touchMultiplier: 1.0 });
-      lenis.on("scroll", ScrollTrigger.update);
-
-      const raf = (time: number) => {
-        lenis?.raf(time);
-        rafId = requestAnimationFrame(raf);
-      };
-      rafId = requestAnimationFrame(raf);
-    };
-
-    const syncMotionPreference = () => motionPreference.matches ? stop() : start();
-    start();
-    motionPreference.addEventListener("change", syncMotionPreference);
+    gsap.ticker.add(updateTicker);
+    gsap.ticker.lagSmoothing(0); // Disable lag smoothing so 144Hz displays never stutter or throttle
 
     return () => {
-      motionPreference.removeEventListener("change", syncMotionPreference);
-      stop();
+      gsap.ticker.remove(updateTicker);
+      lenis.off("scroll", ScrollTrigger.update);
+      lenis.destroy();
     };
   }, []);
 

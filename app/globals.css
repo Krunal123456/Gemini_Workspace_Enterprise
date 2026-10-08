@@ -94,10 +94,31 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--background);
     font-family: var(--font-sans), sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Lenis native hardware integration */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 
   body {
-    @apply transition-colors duration-200;
     background:
       radial-gradient(circle at top left, rgba(26, 115, 232, 0.08), transparent 24%),
       radial-gradient(circle at 80% 10%, rgba(52, 168, 83, 0.06), transparent 18%),
