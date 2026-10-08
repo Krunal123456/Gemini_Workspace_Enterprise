@@ -16,9 +16,9 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 
 export function Hero({ labels }: { labels: Dictionary["hero"] }) {
-  const { features, connectors, plans, securityLayers } = useLocalizedData();
+  const { features, connectors, plans, securityLayers, models } = useLocalizedData();
   const featureCount = features.length;
-  const { locale, href } = useLocale();
+  const { locale, href, tp } = useLocale();
   const router = useRouter();
   const reduceMotion = useReducedMotion();
   const [searchQuery, setSearchQuery] = useState("");
@@ -180,7 +180,7 @@ export function Hero({ labels }: { labels: Dictionary["hero"] }) {
 
           <WorkspaceAtlas />
 
-          <div className="grid grid-cols-2 gap-x-5 gap-y-6 border-t border-white/15 pt-6 lg:col-span-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-5 gap-y-6 border-t border-white/15 pt-6 lg:col-span-2">
             <div>
               <div className="font-mono text-2xl font-bold tracking-tight text-white sm:text-3xl">
                 {featureCount}+
@@ -198,15 +198,31 @@ export function Hero({ labels }: { labels: Dictionary["hero"] }) {
               </div>
             </div>
             <div>
-              <div className="font-mono text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                1M
+              <div className="font-mono text-2xl font-bold tracking-tight text-cyan-300 sm:text-3xl">
+                4M+
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
                 {labels.statContext}
               </div>
             </div>
             <div>
-              <div className="font-mono text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              <div className="font-mono text-2xl font-bold tracking-tight text-pink-300 sm:text-3xl">
+                {models.length}
+              </div>
+              <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
+                {tp("Gemini Models Indexed")}
+              </div>
+            </div>
+            <div>
+              <div className="font-mono text-2xl font-bold tracking-tight text-amber-300 sm:text-3xl">
+                {connectors.length}+
+              </div>
+              <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
+                {tp("Enterprise Connectors & MCP")}
+              </div>
+            </div>
+            <div>
+              <div className="font-mono text-2xl font-bold tracking-tight text-emerald-300 sm:text-3xl">
                 {securityLayers.length}
               </div>
               <div className="mt-1 text-[10px] font-mono uppercase tracking-wider text-white/50">
