@@ -73,6 +73,8 @@ export function CommandPalette() {
   const tp = useMemo(() => createPhraseTranslator(locale), [locale]);
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+  type FacetKey = "all" | "model" | "article" | "feature" | "connector" | "security" | "plan" | "app";
+  const [activeFacet, setActiveFacet] = useState<FacetKey>("all");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
@@ -334,6 +336,24 @@ export function CommandPalette() {
     return matches.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title));
   }, [debouncedQuery, href, tp, features, applications, plans, articles, connectors, securityLayers, models]);
 
+  const facetCounts = useMemo(() => {
+    return {
+      all: results.length,
+      model: results.filter((r) => r.type === "model").length,
+      article: results.filter((r) => r.type === "article").length,
+      feature: results.filter((r) => r.type === "feature").length,
+      connector: results.filter((r) => r.type === "connector").length,
+      security: results.filter((r) => r.type === "security").length,
+      plan: results.filter((r) => r.type === "plan").length,
+      app: results.filter((r) => r.type === "app").length,
+    };
+  }, [results]);
+
+  const filteredResults = useMemo(() => {
+    if (activeFacet === "all") return results;
+    return results.filter((result) => result.type === activeFacet);
+  }, [results, activeFacet]);
+
   const groups = useMemo(() => {
     const definitions: { label: string; type: SearchType }[] = [
       { label: tp("Features"), type: "feature" },
@@ -347,10 +367,10 @@ export function CommandPalette() {
     ];
 
     return definitions
-      .map((group) => ({ ...group, items: results.filter((result) => result.type === group.type) }))
+      .map((group) => ({ ...group, items: filteredResults.filter((result) => result.type === group.type) }))
       .filter((group) => group.items.length > 0)
       .sort((a, b) => (b.items[0]?.score ?? 0) - (a.items[0]?.score ?? 0));
-  }, [results, tp]);
+  }, [filteredResults, tp]);
 
   const displayedResults = useMemo(() => groups.flatMap((group) => group.items), [groups]);
 
@@ -514,6 +534,54 @@ export function CommandPalette() {
                       <X className="h-4 w-4" />
                     </button>
                   )}
+                </div>
+
+                {/* Category Facet Filter Bar */}
+                <div className="mt-3 flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5 px-0.5">
+                  {(
+                    [
+                      { key: "all", label: tp("All"), count: facetCounts.all },
+                      { key: "model", label: tp("Models"), count: facetCounts.model },
+                      { key: "article", label: tp("Articles"), count: facetCounts.article },
+                      { key: "feature", label: tp("Features"), count: facetCounts.feature },
+                      { key: "connector", label: tp("Connectors"), count: facetCounts.connector },
+                      { key: "security", label: tp("Security"), count: facetCounts.security },
+                      { key: "plan", label: tp("Plans"), count: facetCounts.plan },
+                      { key: "app", label: tp("Apps"), count: facetCounts.app },
+                    ] as const
+                  ).map((facet) => {
+                    const isActive = activeFacet === facet.key;
+                    return (
+                      <button
+                        key={facet.key}
+                        type="button"
+                        onClick={() => {
+                          setActiveFacet(facet.key);
+                          setSelectedIndex(0);
+                        }}
+                        className={cn(
+                          "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0",
+                          isActive
+                            ? "bg-violet-600 text-white shadow-sm shadow-violet-500/30 dark:bg-violet-500"
+                            : "border border-slate-200/80 bg-white/60 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:hover:bg-white/[0.08] dark:hover:text-white"
+                        )}
+                      >
+                        <span>{facet.label}</span>
+                        {debouncedQuery.trim() && (
+                          <span
+                            className={cn(
+                              "rounded-full px-1.5 py-0.2 text-[10px] font-mono",
+                              isActive
+                                ? "bg-white/20 text-white"
+                                : "bg-slate-200/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                            )}
+                          >
+                            {facet.count}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

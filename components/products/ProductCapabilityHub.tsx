@@ -7,6 +7,8 @@ import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Circle, Sparkles } from "lucide-react";
+import { AudioOverviewPlayer } from "@/components/notebooklm/AudioOverviewPlayer";
+import { AmbientAuroraGlow } from "@/components/ui/AmbientAuroraGlow";
 
 type ProductCapabilityHubProps = {
   title: string;
@@ -28,14 +30,23 @@ export function ProductCapabilityHub({ title, description, filterKey, eyebrow }:
   const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) || plans[0];
 
   return (
-    <div className="min-h-screen bg-background pb-24 text-foreground">
-      <section className="border-b border-border/60 bg-muted/20 py-20">
+    <div className="relative min-h-screen bg-background pb-24 text-foreground overflow-hidden">
+      <AmbientAuroraGlow variant={filterKey === "notebooklm" ? "violet" : "hero"} />
+      <section className="relative border-b border-border/60 bg-muted/20 py-20 backdrop-blur-xl">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <p className="mb-4 text-xs font-bold uppercase tracking-wider text-google-blue">{t(eyebrow)}</p>
           <h1 className="fluid-h1 max-w-4xl font-extrabold tracking-tight">{t(title)}</h1>
           <p className="fluid-body mt-6 max-w-3xl leading-relaxed text-muted-foreground">{t(description)}</p>
         </div>
       </section>
+
+      {filterKey === "notebooklm" && (
+        <section className="py-12 border-b border-border/60">
+          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+            <AudioOverviewPlayer />
+          </div>
+        </section>
+      )}
 
       <section className="py-16">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">

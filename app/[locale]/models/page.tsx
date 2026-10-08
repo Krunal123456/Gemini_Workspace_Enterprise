@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { GeminiLogo } from "@/components/logos/GeminiLogo";
 import { latestGeminiModels } from "@/data/geminiModels";
 import { ModelCostCalculator } from "@/components/models/ModelCostCalculator";
+import { AmbientAuroraGlow } from "@/components/ui/AmbientAuroraGlow";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 
@@ -44,7 +45,8 @@ export default async function ModelsPage({
   const t = createPhraseTranslator(locale);
 
   return (
-    <main className="min-h-screen bg-background pb-20 pt-24">
+    <main className="relative min-h-screen bg-background pb-20 pt-24 overflow-hidden">
+      <AmbientAuroraGlow variant="violet" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-center gap-3 text-sm text-muted-foreground">
           <Link href="/" className="inline-flex items-center gap-2 hover:text-foreground">
