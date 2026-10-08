@@ -25,7 +25,7 @@ export function SpotlightCard({
   className,
   spotlightColor = "rgba(167, 139, 250, 0.14)",
   borderGlowColor = "rgba(147, 197, 253, 0.3)",
-  enableTilt = true,
+  enableTilt = false,
   enableBorderBeam = false,
   ...props
 }: SpotlightCardProps) {

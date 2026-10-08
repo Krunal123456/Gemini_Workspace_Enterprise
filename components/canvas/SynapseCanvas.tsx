@@ -38,7 +38,7 @@ export function SynapseCanvas() {
       canvas.style.height = `${height}px`;
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      const count = coarsePointer.matches ? 18 : Math.min(54, Math.max(28, Math.round(width / 24)));
+      const count = coarsePointer.matches ? 12 : Math.min(28, Math.max(16, Math.round(width / 45)));
       particles.length = 0;
       for (let index = 0; index < count; index += 1) {
         particles.push({
@@ -80,17 +80,17 @@ export function SynapseCanvas() {
 
         for (let next = index + 1; next < particles.length; next += 1) {
           const other = particles[next];
-          const distance = Math.hypot(particle.x - other.x, particle.y - other.y);
-          if (distance < connectionRadius) {
-            const proximity = 1 - distance / connectionRadius;
-            const gradient = context.createLinearGradient(particle.x, particle.y, other.x, other.y);
-            gradient.addColorStop(0, `${particle.color}${Math.round(proximity * 0.18 * 255).toString(16).padStart(2, "0")}`);
-            gradient.addColorStop(1, `${other.color}${Math.round(proximity * 0.18 * 255).toString(16).padStart(2, "0")}`);
+          const dx = particle.x - other.x;
+          const dy = particle.y - other.y;
+          const distSq = dx * dx + dy * dy;
+          const connRadSq = connectionRadius * connectionRadius;
+          if (distSq < connRadSq) {
+            const proximity = 1 - Math.sqrt(distSq) / connectionRadius;
             context.beginPath();
             context.moveTo(particle.x, particle.y);
             context.lineTo(other.x, other.y);
-            context.strokeStyle = gradient;
-            context.lineWidth = 0.7;
+            context.strokeStyle = `rgba(167, 139, 250, ${proximity * 0.22})`;
+            context.lineWidth = 0.6;
             context.stroke();
           }
         }

@@ -166,19 +166,19 @@ export function WorkspaceAtlas() {
             />
           ))}
           {/* Data-flow packets — animated circles that travel along each connector toward the Gemini core */}
-          {!reduceMotion && atlasNodes.map((node, index) => {
+          {!reduceMotion && atlasNodes.slice(0, 4).map((node, index) => {
             const packetColor =
               node.source === "app" ? "#4285F4" :
               node.source === "connector" ? "#34A853" :
               "#A78BFA";
-            const dur = `${3.2 + (index * 0.55)}s`;
-            const delay = `${-(index * 0.9)}s`;
+            const dur = `${3.6 + (index * 0.6)}s`;
+            const delay = `${-(index * 1.1)}s`;
             return (
               <circle
                 key={`pkt-${node.id}`}
                 r="0.9"
                 fill={packetColor}
-                opacity="0.85"
+                opacity="0.8"
               >
                 <animateMotion
                   dur={dur}
@@ -186,8 +186,7 @@ export function WorkspaceAtlas() {
                   repeatCount="indefinite"
                   path={`M ${node.left} ${node.top} L 50 50`}
                 />
-                <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur={dur} begin={delay} repeatCount="indefinite" />
-                <animate attributeName="r" values="0.5;1;1;0.4" keyTimes="0;0.1;0.85;1" dur={dur} begin={delay} repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.8;0.8;0" keyTimes="0;0.1;0.85;1" dur={dur} begin={delay} repeatCount="indefinite" />
               </circle>
             );
           })}

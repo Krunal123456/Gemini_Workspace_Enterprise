@@ -52,7 +52,7 @@ export function EcosystemMarquee({ className }: { className?: string }) {
 
       <div className="flex w-fit group">
         <motion.div
-          className="flex gap-4 pr-4"
+          className="flex gap-4 pr-4 will-change-transform [transform:translate3d(0,0,0)]"
           animate={{ x: "-50%" }}
           transition={{
             duration: 40,

@@ -131,13 +131,8 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="relative min-h-screen bg-background text-foreground antialiased selection:bg-blue-500/25 selection:text-foreground overflow-x-hidden">
-        {/* Ambient Glassmorphic Aurora Refraction Spheres */}
-        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-          <div className="absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full bg-violet-600/10 dark:bg-violet-600/15 blur-[140px]" />
-          <div className="absolute top-1/3 -right-32 h-[450px] w-[450px] rounded-full bg-blue-500/10 dark:bg-blue-500/15 blur-[150px]" />
-          <div className="absolute bottom-1/4 -left-32 h-[500px] w-[500px] rounded-full bg-cyan-500/8 dark:bg-cyan-500/12 blur-[160px]" />
-          <div className="absolute -bottom-40 right-1/4 h-[550px] w-[550px] rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 blur-[160px]" />
-        </div>
+        {/* Ambient Subtle Accent Lighting (CSS-composited for zero scroll lag) */}
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(124,58,237,0.08),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(124,58,237,0.12),transparent_70%)]" aria-hidden="true" />
 
         <LocaleProvider locale={locale}>
           <LenisProvider>

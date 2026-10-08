@@ -21,7 +21,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
 
     const start = () => {
       if (motionPreference.matches || lenis) return;
-      lenis = new Lenis({ lerp: 0.08, duration: 1.1, smoothWheel: true, touchMultiplier: 1.1 });
+      lenis = new Lenis({ lerp: 0.12, duration: 0.8, smoothWheel: true, touchMultiplier: 1.0 });
       lenis.on("scroll", ScrollTrigger.update);
 
       const raf = (time: number) => {
