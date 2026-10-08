@@ -82,7 +82,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
         aria-expanded={isOpen}
         aria-label={`Language selector. Current language: ${currentOption.nativeLabel}`}
         className={cn(
-          "flex h-8 sm:h-9 items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/70 px-2.5 sm:px-3 text-xs font-bold text-slate-700 shadow-sm backdrop-blur-xl transition-all duration-200 hover:border-violet-400/40 hover:bg-white hover:text-slate-950 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.1] dark:hover:text-white shrink-0",
+          "flex h-7.5 sm:h-8 items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/70 px-2.5 text-xs font-bold text-slate-700 shadow-sm backdrop-blur-xl transition-all duration-200 hover:border-violet-400/40 hover:bg-white hover:text-slate-950 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.1] dark:hover:text-white shrink-0",
           isOpen && "border-violet-400/50 bg-white shadow-md dark:border-white/20 dark:bg-white/[0.1]",
           isPending && "opacity-70 cursor-wait",
         )}
