@@ -32,6 +32,8 @@ export const phrasesES: Record<string, string> = {
   "Loading connectors…": "Cargando conectores…",
 
   // ---- features index ----
+  "Google Workspace & Gemini AI Features Directory":
+    "Directorio de funciones de IA de Google Workspace y Gemini",
   "Comprehensive Directory • {n} AI Capabilities":
     "Directorio completo · {n} capacidades de IA",
   "Google Workspace & Gemini AI Features":
@@ -333,6 +335,8 @@ export const phrasesES: Record<string, string> = {
   "Gemini 2.5 Reasoner": "Gemini 2.5 Reasoner",
 
   // ---- models ----
+  "Gemini Models Catalog & Pricing Comparison":
+    "Catálogo de modelos Gemini y comparación de precios",
   "Model stack": "Stack de modelos",
   "Gemini models for the modern enterprise stack.":
     "Modelos de Gemini para el stack empresarial moderno.",
@@ -894,4 +898,56 @@ export const phrasesES: Record<string, string> = {
   // ---- pricing page ----
   "Gemini Enterprise Pricing | Compare AI Plans":
     "Precios de Gemini Enterprise | Compara los planes de IA",
+
+  // ---- customer onboarding guide ----
+  "Customer Onboarding Guide": "Guía de incorporación de clientes",
+  "Administrator Onboarding Runbook": "Manual de incorporación para administradores",
+  "Customer Onboarding for ": "Incorporación de clientes para ",
+  " Standard & Plus": " Standard y Plus",
+  "An end-to-end operational guide for Google Cloud and Workspace administrators. Verify organization hierarchies, assign billing, enable required APIs, configure least-privilege IAM roles, distribute user licenses, create enterprise apps, and connect grounded data stores with official documentation citations.":
+    "Una guía operativa integral para administradores de Google Cloud y Workspace. Verifique jerarquías de organizaciones, asigne facturación, habilite las APIs requeridas, configure roles IAM de mínimo privilegio, distribuya licencias de usuario, cree aplicaciones empresariales y conecte almacenes de datos basados en documentación oficial.",
+  "Configure Onboarding Parameters": "Configurar parámetros de incorporación",
+  "Tailor instructions, quota expectations, and hierarchy warnings to your environment.":
+    "Adapte las instrucciones, las expectativas de cuotas y las advertencias de jerarquía a su entorno.",
+  "Interactive Deployment Guide": "Guía interactiva de despliegue",
+  "Overall Implementation Progress": "Progreso general de implementación",
+  "subtasks completed": "subtareas completadas",
+  "Export Checklist": "Exportar lista de verificación",
+  "Reset all onboarding checklist progress?": "¿Restablecer todo el progreso de la lista de verificación de incorporación?",
+  "Copied!": "¡Copiado!",
+  "Copy": "Copiar",
+  "Console Path": "Ruta de la consola",
+  "Hierarchy Note": "Nota de jerarquía",
+  "Edition Specifics": "Detalles de la edición",
+  "Required Implementation Subtasks": "Subtareas de implementación requeridas",
+  "IAM Role Reference Matrix": "Matriz de referencia de roles IAM",
+  "Assign least-privilege roles to service agents, administrators, and knowledge workers.":
+    "Asigne roles de mínimo privilegio a agentes de servicio, administradores y usuarios finales.",
+  "Persona": "Perfil / Rol funcional",
+  "IAM Role Identifier": "Identificador de rol IAM",
+  "Role Title": "Título del rol",
+  "Purpose & Scope": "Propósito y alcance",
+  "Mandatory": "Obligatorio",
+  "Optional": "Opcional",
+  "Common Pitfalls & Resolutions": "Dificultades comunes y soluciones",
+  "Official Google Cloud Documentation Citations": "Citas de documentación oficial de Google Cloud",
+  "Official Documentation Citations": "Citas de documentación oficial",
+  "Continue to": "Continuar a",
+  "Previous": "Anterior",
+  "Next": "Siguiente",
+  "Onboarding Steps": "Pasos de incorporación",
+
+  // ---- Workspace Business Edition Onboarding ----
+  "Business (Workspace), Standard & Plus (Cloud)": "Business (Workspace), Standard y Plus (Cloud)",
+  "An end-to-end operational guide for Google Workspace and Google Cloud administrators. Manage Google Workspace Admin Console settings for Business edition (up to 300 seats, 25 GiB pooled indexing), or configure Google Cloud Console projects, billing, APIs, IAM, and Discovery Engine data stores for Standard and Plus editions.":
+    "Una guía operativa integral para administradores de Google Workspace y Google Cloud. Administre la consola de Google Workspace para la edición Business (hasta 300 licencias, 25 GiB de indexación agrupada), o configure proyectos, facturación, APIs, roles IAM y almacenes de Discovery Engine en Google Cloud Console para Standard y Plus.",
+  "Tailor instructions, quota expectations, and console click paths to your edition.":
+    "Adapte las instrucciones, las expectativas de cuotas y las rutas de consola a su edición.",
+  "Business (Workspace)": "Business (Workspace)",
+  "Standard (GCP)": "Standard (GCP)",
+  "Plus (GCP)": "Plus (GCP)",
+  "Google Workspace Domain": "Dominio de Google Workspace",
+  "Managed centrally via the Google Workspace Admin console (admin.google.com). Features 25 GiB pooled storage and data indexing per seat, up to 300 seats, native grounding across Gmail, Docs, Sheets, and Drive, plus Gemini Notebook. Requires no Google Cloud infrastructure or GCP project setup.":
+    "Gestionado de forma centralizada a través de la consola de administración de Google Workspace (admin.google.com). Ofrece 25 GiB de almacenamiento e indexación agrupados por usuario, hasta 300 usuarios, conexión nativa con Gmail, Docs, Sheets y Drive, además de Gemini Notebook. No requiere configuración de infraestructura en Google Cloud.",
 };
+

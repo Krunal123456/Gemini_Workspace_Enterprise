@@ -119,54 +119,175 @@ export function ReadinessPlanner() {
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
       <div className="space-y-6">
-        <div className="atlas-card rounded-2xl p-6 sm:p-8">
+        <div className="glass-panel rounded-3xl p-6 sm:p-8">
           <p className="atlas-kicker mb-2">Company context</p>
           <h2 className="text-2xl font-bold text-foreground">Who is this rollout for?</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <input value={companyName} onChange={(event) => setCompanyName(event.target.value)} placeholder="Company name" className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground outline-none focus:border-google-blue" />
-            <input value={companyDomain} onChange={(event) => setCompanyDomain(event.target.value)} placeholder="company.com" className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground outline-none focus:border-google-blue" />
+            <input
+              value={companyName}
+              onChange={(event) => setCompanyName(event.target.value)}
+              placeholder="Company name"
+              className="h-12 rounded-2xl border border-slate-200/80 bg-white/70 px-4 text-sm text-foreground backdrop-blur-xl outline-none transition focus:border-google-blue focus:ring-2 focus:ring-google-blue/20 dark:border-white/10 dark:bg-white/[0.04]"
+            />
+            <input
+              value={companyDomain}
+              onChange={(event) => setCompanyDomain(event.target.value)}
+              placeholder="company.com"
+              className="h-12 rounded-2xl border border-slate-200/80 bg-white/70 px-4 text-sm text-foreground backdrop-blur-xl outline-none transition focus:border-google-blue focus:ring-2 focus:ring-google-blue/20 dark:border-white/10 dark:bg-white/[0.04]"
+            />
           </div>
           <p className="mt-3 text-xs text-muted-foreground">These optional labels are used in your exported draft only. No company-domain lookup is performed.</p>
         </div>
 
-        <div className="atlas-card rounded-2xl p-6 sm:p-8">
+        <div className="glass-panel rounded-3xl p-6 sm:p-8">
           <p className="atlas-kicker mb-2">Step 01 · Rollout shape</p>
           <h2 className="text-2xl font-bold text-foreground">Tell us how you plan to deploy Gemini.</h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={() => setDeployment("workspace")} className={`rounded-xl border p-4 text-left transition ${deployment === "workspace" ? "border-google-blue bg-google-blue/10" : "border-border hover:bg-muted"}`}><span className="block font-semibold text-foreground">Existing Workspace</span><span className="mt-1 block text-xs text-muted-foreground">Add AI capability to your current collaboration stack.</span></button>
-            <button type="button" onClick={() => setDeployment("standalone")} className={`rounded-xl border p-4 text-left transition ${deployment === "standalone" ? "border-google-blue bg-google-blue/10" : "border-border hover:bg-muted"}`}><span className="block font-semibold text-foreground">Standalone Gemini</span><span className="mt-1 block text-xs text-muted-foreground">Build a governed AI layer across your organization.</span></button>
+            <button
+              type="button"
+              onClick={() => setDeployment("workspace")}
+              className={`rounded-2xl border p-4 text-left backdrop-blur-xl transition ${
+                deployment === "workspace"
+                  ? "border-google-blue bg-google-blue/15 shadow-sm shadow-google-blue/10"
+                  : "border-slate-200/60 bg-white/60 hover:bg-white/90 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.08]"
+              }`}
+            >
+              <span className="block font-semibold text-foreground">Existing Workspace</span>
+              <span className="mt-1 block text-xs text-muted-foreground">Add AI capability to your current collaboration stack.</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setDeployment("standalone")}
+              className={`rounded-2xl border p-4 text-left backdrop-blur-xl transition ${
+                deployment === "standalone"
+                  ? "border-google-blue bg-google-blue/15 shadow-sm shadow-google-blue/10"
+                  : "border-slate-200/60 bg-white/60 hover:bg-white/90 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.08]"
+              }`}
+            >
+              <span className="block font-semibold text-foreground">Standalone Gemini</span>
+              <span className="mt-1 block text-xs text-muted-foreground">Build a governed AI layer across your organization.</span>
+            </button>
           </div>
-          <label className="mt-7 block text-sm font-semibold text-foreground">How many users are in scope? <span className="font-mono text-google-blue">{seats.toLocaleString()}</span></label>
-          <input aria-label="Users in scope" type="range" min="5" max="5000" step="5" value={seats} onChange={(event) => setSeats(Number(event.target.value))} className="mt-4 h-2 w-full accent-google-blue" />
+          <label className="mt-7 block text-sm font-semibold text-foreground">
+            How many users are in scope? <span className="font-mono text-google-blue">{seats.toLocaleString()}</span>
+          </label>
+          <input
+            aria-label="Users in scope"
+            type="range"
+            min="5"
+            max="5000"
+            step="5"
+            value={seats}
+            onChange={(event) => setSeats(Number(event.target.value))}
+            className="mt-4 h-2 w-full accent-google-blue cursor-pointer"
+          />
           <div className="mt-2 flex justify-between text-xs text-muted-foreground"><span>5 users</span><span>5,000 users</span></div>
         </div>
 
-        <div className="atlas-card rounded-2xl p-6 sm:p-8">
+        <div className="glass-panel rounded-3xl p-6 sm:p-8">
           <p className="atlas-kicker mb-2">Step 02 · Architecture</p>
           <h2 className="text-2xl font-bold text-foreground">How much enterprise grounding do you need?</h2>
           <div className="mt-6 grid gap-3">
-            {[{ id: "none", label: "Workspace only", detail: "No third-party sources in the first rollout." }, { id: "some", label: "Pre-built connectors", detail: "Use SaaS sources such as Jira, Salesforce, Slack, or SharePoint." }, { id: "custom", label: "Custom APIs and MCP", detail: "Connect private databases, internal tools, and agent actions." }].map((option) => <button key={option.id} type="button" onClick={() => setConnectorNeed(option.id)} className={`rounded-xl border p-4 text-left transition ${connectorNeed === option.id ? "border-google-blue bg-google-blue/10" : "border-border hover:bg-muted"}`}><span className="block font-semibold text-foreground">{option.label}</span><span className="mt-1 block text-xs text-muted-foreground">{option.detail}</span></button>)}
+            {[
+              { id: "none", label: "Workspace only", detail: "No third-party sources in the first rollout." },
+              { id: "some", label: "Pre-built connectors", detail: "Use SaaS sources such as Jira, Salesforce, Slack, or SharePoint." },
+              { id: "custom", label: "Custom APIs and MCP", detail: "Connect private databases, internal tools, and agent actions." }
+            ].map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setConnectorNeed(option.id)}
+                className={`rounded-2xl border p-4 text-left backdrop-blur-xl transition ${
+                  connectorNeed === option.id
+                    ? "border-google-blue bg-google-blue/15 shadow-sm shadow-google-blue/10"
+                    : "border-slate-200/60 bg-white/60 hover:bg-white/90 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.08]"
+                }`}
+              >
+                <span className="block font-semibold text-foreground">{option.label}</span>
+                <span className="mt-1 block text-xs text-muted-foreground">{option.detail}</span>
+              </button>
+            ))}
           </div>
         </div>
 
-        <div className="atlas-card rounded-2xl p-6 sm:p-8">
+        <div className="glass-panel rounded-3xl p-6 sm:p-8">
           <p className="atlas-kicker mb-2">Step 03 · Governance</p>
           <h2 className="text-2xl font-bold text-foreground">What security bar must the rollout meet?</h2>
           <div className="mt-6 grid gap-3">
-            {securityOptions.map((option) => <button key={option.id} type="button" onClick={() => setSecurity(option.id)} className={`rounded-xl border p-4 text-left transition ${security === option.id ? "border-google-blue bg-google-blue/10" : "border-border hover:bg-muted"}`}><span className="block font-semibold text-foreground">{option.label}</span><span className="mt-1 block text-xs text-muted-foreground">{option.detail}</span></button>)}
+            {securityOptions.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setSecurity(option.id)}
+                className={`rounded-2xl border p-4 text-left backdrop-blur-xl transition ${
+                  security === option.id
+                    ? "border-google-blue bg-google-blue/15 shadow-sm shadow-google-blue/10"
+                    : "border-slate-200/60 bg-white/60 hover:bg-white/90 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.08]"
+                }`}
+              >
+                <span className="block font-semibold text-foreground">{option.label}</span>
+                <span className="mt-1 block text-xs text-muted-foreground">{option.detail}</span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
       <aside className="lg:sticky lg:top-24 lg:self-start">
-        <div className="rounded-2xl bg-[#0B0F19] p-6 text-white shadow-2xl sm:p-8">
-          <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-6"><div><p className="text-xs font-bold uppercase tracking-wider text-blue-300">Candidate plan to review</p><h2 className="mt-2 text-2xl font-bold">{recommendation.name}</h2></div><div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200">Planning draft</div></div>
+        <div className="rounded-3xl border border-slate-700/60 bg-slate-950/80 p-6 text-white shadow-[0_30px_90px_-30px_rgba(59,130,246,0.4)] backdrop-blur-3xl sm:p-8">
+          <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-6">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-blue-300">Candidate plan to review</p>
+              <h2 className="mt-2 text-2xl font-bold">{recommendation.name}</h2>
+            </div>
+            <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200 border border-white/10">
+              Planning draft
+            </div>
+          </div>
           <p className="mt-5 text-sm leading-relaxed text-slate-300">{recommendation.tagline}</p>
           <p className="mt-3 text-xs leading-relaxed text-slate-400">This rule-based starting point reflects your selections. It is not a readiness score or a product eligibility check.</p>
-          <div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Monthly estimate</span><strong className="mt-1 block text-lg">{monthlyEstimate === null ? "Not available" : `$${monthlyEstimate.toLocaleString()} USD`}</strong><span className="mt-2 block text-xs leading-relaxed text-slate-400">{monthlyEstimate === null ? recommendation.pricingNote || "No fixed rate listed" : "Based on listed US rate; verify local pricing"}</span></div><div className="rounded-xl border border-white/10 bg-white/5 p-4"><span className="block text-xs text-slate-400">Pilot scope</span><strong className="mt-1 block text-xl">{Math.max(5, Math.ceil(seats * 0.2))} users</strong></div></div>
-          <div className="mt-7"><p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Plan notes to verify</p><div className="space-y-2">{recommendation.highlightedFeatures.slice(0, 5).map((item) => <div key={item} className="flex items-start gap-2 text-sm text-slate-200"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-400" />{item}</div>)}</div></div>
-          {matchedConnectors.length > 0 && <div className="mt-7 border-t border-white/10 pt-6"><p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Connector direction</p><p className="text-sm text-slate-300">Plan for {matchedConnectors.slice(0, 3).map((connector) => connector.name).join(", ")}{matchedConnectors.length > 3 ? ` + ${matchedConnectors.length - 3} more` : ""}.</p></div>}
-          <div className="mt-8 grid gap-3"><button type="button" onClick={savePlan} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">{saved ? "Saved to this browser" : "Save decision workspace"}</button><button type="button" onClick={exportReport} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Download className="h-4 w-4" /> Download text report</button><button type="button" onClick={exportPdf} className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-slate-950 transition hover:bg-slate-100"><Download className="h-4 w-4" /> Download PDF report</button><Link href={href(`/plans/${recommendation.slug}`)} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View recommended plan <ArrowRight className="h-4 w-4" /></Link></div>
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+              <span className="block text-xs text-slate-400">Monthly estimate</span>
+              <strong className="mt-1 block text-lg font-bold">{monthlyEstimate === null ? "Not available" : `$${monthlyEstimate.toLocaleString()} USD`}</strong>
+              <span className="mt-2 block text-xs leading-relaxed text-slate-400">{monthlyEstimate === null ? recommendation.pricingNote || "No fixed rate listed" : "Based on listed US rate; verify local pricing"}</span>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+              <span className="block text-xs text-slate-400">Pilot scope</span>
+              <strong className="mt-1 block text-xl font-bold">{Math.max(5, Math.ceil(seats * 0.2))} users</strong>
+            </div>
+          </div>
+          <div className="mt-7">
+            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Plan notes to verify</p>
+            <div className="space-y-2">
+              {recommendation.highlightedFeatures.slice(0, 5).map((item) => (
+                <div key={item} className="flex items-start gap-2 text-sm text-slate-200">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-400" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          {matchedConnectors.length > 0 && (
+            <div className="mt-7 border-t border-white/10 pt-6">
+              <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Connector direction</p>
+              <p className="text-sm text-slate-300">Plan for {matchedConnectors.slice(0, 3).map((connector) => connector.name).join(", ")}{matchedConnectors.length > 3 ? ` + ${matchedConnectors.length - 3} more` : ""}.</p>
+            </div>
+          )}
+          <div className="mt-8 grid gap-3">
+            <button type="button" onClick={savePlan} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/15">
+              {saved ? "Saved to this browser" : "Save decision workspace"}
+            </button>
+            <button type="button" onClick={exportReport} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/15">
+              <Download className="h-4 w-4" /> Download text report
+            </button>
+            <button type="button" onClick={exportPdf} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3.5 font-semibold text-slate-950 shadow-md transition hover:bg-slate-100">
+              <Download className="h-4 w-4" /> Download PDF report
+            </button>
+            <Link href={href(`/plans/${recommendation.slug}`)} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/15">
+              View recommended plan <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </aside>
     </div>

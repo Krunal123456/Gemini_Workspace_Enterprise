@@ -20,7 +20,7 @@ interface FeatureCardProps {
 export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps) {
   const { applications } = useLocalizedData();
   const { locale, href, tp } = useLocale();
-  const { features } = useLocalizedData();
+
   // Try to find the app to get its color
   const appInfo = applications.find(
     (app) => app.id === feature.application || app.name === feature.application
@@ -28,8 +28,13 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
 
   const isGeminiChat = feature.application === "gemini";
   const appColor = isGeminiChat ? "#8B5CF6" : appInfo?.accentColor || "var(--google-blue)";
-  const applicationLabel = feature.application === "gemini" ? "Gemini Chat" : appInfo?.name || feature.application;
-  const categoryLabel = feature.category === "gemini" ? "Chat App" : feature.category;
+  const applicationLabel = isGeminiChat ? "Gemini" : appInfo?.shortName || appInfo?.name || (feature.application.charAt(0).toUpperCase() + feature.application.slice(1));
+  const rawCategory = feature.category === "gemini" ? "Gemini" : feature.category;
+  const isRedundantCategory =
+    !rawCategory ||
+    rawCategory.toLowerCase() === applicationLabel.toLowerCase() ||
+    rawCategory.toLowerCase() === feature.application.toLowerCase() ||
+    (feature.category === "gemini" && isGeminiChat);
 
   // 5 key tiers for preview: Starter, Standard, Plus, AI Add-on, Enterprise Plus
   const previewTiers: PlanId[] = [
@@ -52,20 +57,22 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
     <motion.div
       whileHover={{ y: -4 }}
       className={cn(
-        "atlas-interactive group relative flex flex-col justify-between overflow-hidden rounded-2xl border bg-background p-5 text-left transition-all duration-300 hover:-translate-y-1",
-        isSelected ? "border-primary ring-1 ring-primary" : "border-border hover:border-primary/30"
+        "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/50 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 text-left shadow-sm transition-all duration-300 hover:shadow-xl hover:border-violet-500/40 hover:-translate-y-1",
+        isSelected ? "border-violet-500 ring-2 ring-violet-500/30" : "hover:border-violet-500/30"
       )}
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3.5">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-1.5 rounded-full border border-border/50 bg-muted/30 px-2 py-0.5 text-xs font-medium text-muted-foreground">
+            <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/40 backdrop-blur-xs px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
               {isGeminiChat ? <Sparkles className="atlas-icon h-3 w-3" style={{ color: appColor }} /> : <span className="h-2 w-2 rounded-full" style={{ backgroundColor: appColor }} />}
               {applicationLabel}
             </div>
-            <div className="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">
-              {categoryLabel}
-            </div>
+            {!isRedundantCategory && (
+              <div className="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">
+                {rawCategory}
+              </div>
+            )}
           </div>
 
           {(feature.isNew || feature.isPopular) && (

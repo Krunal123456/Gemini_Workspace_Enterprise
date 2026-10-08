@@ -5,13 +5,15 @@ import { useLocale } from "@/lib/i18n/locale-context";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Check, Minus, Plus, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
-export function PlanComparator() {
+const DEFAULT_SELECTED = ['business-standard', 'ai-expanded', 'gemini-enterprise-standard'];
+
+function PlanComparatorInner() {
   const { plans } = useLocalizedData();
   const { locale, href } = useLocale();
   const t = createPhraseTranslator(locale);
@@ -20,7 +22,7 @@ export function PlanComparator() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const defaultSelected = ['business-standard', 'ai-expanded', 'gemini-enterprise-standard'];
+  const defaultSelected = DEFAULT_SELECTED;
 
   const [selectedPlanIds, setSelectedPlanIds] = useState<string[]>([]);
   const [showDiffOnly, setShowDiffOnly] = useState(false);
@@ -111,31 +113,31 @@ export function PlanComparator() {
   return (
     <div className="flex flex-col gap-8">
       {/* Controls */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-muted/50 rounded-xl border border-border">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-sm font-medium text-muted-foreground">{t("Select up to 4 plans to compare")}</h3>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-5 sm:p-6 bg-white/70 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl border border-white/40 dark:border-white/10 shadow-sm">
+        <div className="flex flex-col gap-2.5">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Select up to 4 plans to compare")}</h3>
           <div className="flex flex-wrap gap-2">
             {selectedPlans.map(plan => (
-              <div key={plan.id} className="flex items-center gap-2 px-3 py-1.5 bg-background border border-border rounded-full text-sm text-foreground">
+              <div key={plan.id} className="flex items-center gap-2 px-3.5 py-1.5 bg-background/80 backdrop-blur border border-border/80 rounded-full text-sm font-medium text-foreground shadow-xs">
                 <span>{plan.name}</span>
                 {selectedPlanIds.length > 2 && (
                   <button onClick={() => removePlan(plan.id)} className="hover:text-google-red transition-colors text-muted-foreground">
-                    <X className="w-3 h-3" />
+                    <X className="w-3.5 h-3.5" />
                   </button>
                 )}
               </div>
             ))}
             {selectedPlanIds.length < 4 && (
               <div className="relative group">
-                <button className="flex items-center gap-1 px-3 py-1.5 border border-dashed border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground rounded-full text-sm transition-all">
-                  <Plus className="w-3 h-3" /> {t("Add Plan")}
+                <button className="flex items-center gap-1.5 px-3.5 py-1.5 border border-dashed border-border/80 text-muted-foreground hover:text-foreground hover:border-violet-500 rounded-full text-sm font-medium transition-all bg-background/40 backdrop-blur">
+                  <Plus className="w-3.5 h-3.5" /> {t("Add Plan")}
                 </button>
-                <div className="absolute top-full left-0 mt-2 w-64 max-h-60 overflow-y-auto bg-card border border-border rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 p-2 flex flex-col gap-1">
+                <div className="absolute top-full left-0 mt-2 w-64 max-h-60 overflow-y-auto bg-card/95 backdrop-blur-2xl border border-border/80 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 p-2 flex flex-col gap-1">
                   {availableToAdd.map(plan => (
                     <button
                       key={plan.id}
                       onClick={() => addPlan(plan.id)}
-                      className="text-left px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-colors"
+                      className="text-left px-3 py-2 text-sm font-medium text-foreground hover:bg-violet-500/10 hover:text-violet-600 rounded-xl transition-colors"
                     >
                       {plan.name}
                     </button>
@@ -146,7 +148,7 @@ export function PlanComparator() {
           </div>
         </div>
 
-        <label className="flex items-center gap-3 cursor-pointer">
+        <label className="flex items-center gap-3 cursor-pointer select-none">
           <span className="text-sm font-medium text-foreground">{t("Show Differences Only")}</span>
           <div className="relative inline-flex items-center">
             <input
@@ -161,11 +163,11 @@ export function PlanComparator() {
       </div>
 
       {/* Comparison Matrix */}
-      <div className="overflow-x-auto border border-border rounded-xl">
+      <div className="overflow-x-auto border border-white/40 dark:border-white/10 rounded-3xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_20px_50px_-25px_rgba(99,102,241,0.15)] dark:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.6)]">
         <table className="w-full text-sm text-left table-fixed">
-          <thead className="bg-muted sticky top-0 z-20 border-b border-border">
+          <thead className="bg-muted/60 backdrop-blur-md sticky top-0 z-20 border-b border-border/60">
             <tr>
-              <th className="px-6 py-6 w-1/4 sticky left-0 bg-muted z-30 shadow-[1px_0_0_0_hsl(var(--border))]">
+              <th className="px-6 py-6 w-1/4 sticky left-0 bg-background/90 backdrop-blur-xl z-30 shadow-[1px_0_0_0_hsl(var(--border))]">
                 <div className="text-lg font-semibold text-foreground">{t("Plan Features")}</div>
               </th>
               {selectedPlans.map(plan => (
@@ -175,7 +177,7 @@ export function PlanComparator() {
                     <span className="text-xl font-bold text-foreground">{plan.name}</span>
                     <Link
                       href={href(`/plans/${plan.id}`)}
-                      className="px-4 py-2 mt-2 bg-foreground text-background hover:bg-foreground/90 rounded-lg text-sm font-medium transition-colors w-full text-center"
+                      className="px-4 py-2 mt-2 bg-gradient-to-r from-google-blue to-gemini-indigo text-white hover:opacity-90 rounded-xl text-sm font-semibold transition-all w-full text-center shadow-xs"
                     >
                       {comparisonLabels.detail}
                     </Link>
@@ -196,14 +198,14 @@ export function PlanComparator() {
 
               return (
                 <React.Fragment key={section.title}>
-                  <tr className="bg-muted/40">
+                  <tr className="bg-muted/40 backdrop-blur-xs">
                     <td colSpan={selectedPlans.length + 1} className="px-6 py-4 font-semibold text-google-blue sticky left-0">
                       {section.title}
                     </td>
                   </tr>
                   {visibleRows.map((row, rIdx) => (
-                    <tr key={`${sIdx}-${rIdx}`} className="hover:bg-muted/20 transition-colors">
-                      <td className="px-6 py-4 font-medium text-foreground sticky left-0 bg-background/95 backdrop-blur-sm shadow-[1px_0_0_0_hsl(var(--border))] z-10">
+                    <tr key={`${sIdx}-${rIdx}`} className="hover:bg-violet-500/5 transition-colors">
+                      <td className="px-6 py-4 font-medium text-foreground sticky left-0 bg-background/90 backdrop-blur-xl shadow-[1px_0_0_0_hsl(var(--border))] z-10">
                         {row.label}
                       </td>
                       {selectedPlans.map(plan => {
@@ -215,7 +217,7 @@ export function PlanComparator() {
                                 ? <Check className="w-5 h-5 text-google-green mx-auto" />
                                 : <Minus className="w-5 h-5 text-muted-foreground/30 mx-auto" />
                             ) : (
-                              <span className="text-foreground/80">{val as string}</span>
+                              <span className="text-foreground/85 font-medium">{val as string}</span>
                             )}
                           </td>
                         );
@@ -229,5 +231,14 @@ export function PlanComparator() {
         </table>
       </div>
     </div>
+  );
+}
+
+/** Self-contained export — Suspense boundary included so useSearchParams never throws in Next.js 15. */
+export function PlanComparator() {
+  return (
+    <Suspense fallback={<div className="h-64 flex items-center justify-center text-sm text-muted-foreground animate-pulse">Loading comparator…</div>}>
+      <PlanComparatorInner />
+    </Suspense>
   );
 }

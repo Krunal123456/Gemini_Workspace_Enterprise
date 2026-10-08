@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useLocale } from "@/lib/i18n/locale-context";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 const ACCENT_CLASSES: Record<string, string> = {
   violet: "text-violet-200",
@@ -20,6 +21,24 @@ const ACCENT_CLASSES: Record<string, string> = {
   green: "text-emerald-200",
   gold: "text-amber-200",
   coral: "text-rose-200",
+};
+
+// Per-accent radial spotlight color (cursor glow fill)
+const SPOTLIGHT_COLORS: Record<string, string> = {
+  violet: "rgba(167,139,250,0.18)",
+  blue:   "rgba(66,133,244,0.18)",
+  green:  "rgba(52,168,83,0.18)",
+  gold:   "rgba(251,188,5,0.14)",
+  coral:  "rgba(234,67,53,0.16)",
+};
+
+// Per-accent specular border glow color
+const BORDER_GLOW_COLORS: Record<string, string> = {
+  violet: "rgba(167,139,250,0.45)",
+  blue:   "rgba(66,133,244,0.45)",
+  green:  "rgba(52,168,83,0.45)",
+  gold:   "rgba(251,188,5,0.40)",
+  coral:  "rgba(234,67,53,0.40)",
 };
 
 const TRUST_PILLARS = [
@@ -101,29 +120,41 @@ export function EnterpriseTrustBento() {
           </p>
         </div>
 
-        <div className="grid gap-px border border-white/10 bg-white/10 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {TRUST_PILLARS.map(({ id, icon: Icon, title, body, meta, href: hrefOverride, source, sourceLabel, accent }) => {
             // External sources stay absolute; internal paths pick up the locale prefix.
             const destination = source ?? (hrefOverride ? href(hrefOverride) : href("/security"));
             return (
-              <article key={id} data-spotlight className="spotlight-surface group relative min-h-[252px] overflow-hidden bg-[#100d18] p-5 sm:p-7">
-                <div className="relative z-10 flex h-full flex-col">
-                  <div className="mb-7 flex items-center justify-between gap-4">
-                    <span className={`flex h-10 w-10 items-center justify-center border border-white/10 bg-white/[0.035] ${ACCENT_CLASSES[accent]}`}>
+              <SpotlightCard
+                key={id}
+                spotlightColor={SPOTLIGHT_COLORS[accent]}
+                borderGlowColor={BORDER_GLOW_COLORS[accent]}
+                enableTilt
+                enableBorderBeam={false}
+                className="min-h-[260px] rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-7 backdrop-blur-2xl dark:bg-slate-900/60 dark:border-white/10 shadow-lg hover:border-white/20 transition-all duration-300"
+              >
+                <div className="flex h-full flex-col">
+                  <div className="mb-6 flex items-center justify-between gap-4">
+                    <span className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] backdrop-blur-md ${ACCENT_CLASSES[accent]}`}>
                       <Icon className="h-5 w-5" />
                     </span>
-                    {id === "orchestration" ? <Bot className="h-4 w-4 text-white/30" /> : <ShieldCheck className="h-4 w-4 text-white/25" />}
+                    {id === "orchestration" ? <Bot className="h-4 w-4 text-white/40" /> : <ShieldCheck className="h-4 w-4 text-white/35" />}
                   </div>
                   <h3 className="max-w-sm text-xl font-semibold leading-snug">{t(title)}</h3>
-                  <p className="mt-3 max-w-md text-sm leading-6 text-white/60">{t(body)}</p>
-                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
-                    <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-white/35">{t(meta)}</span>
-                    <Link href={destination} target={source ? "_blank" : undefined} rel={source ? "noreferrer" : undefined} className="inline-flex min-h-10 items-center gap-1.5 text-xs font-semibold text-white/75 transition-colors hover:text-violet-200">
+                  <p className="mt-3 max-w-md text-sm leading-6 text-white/65">{t(body)}</p>
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-white/10">
+                    <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-white/40">{t(meta)}</span>
+                    <Link
+                      href={destination}
+                      target={source ? "_blank" : undefined}
+                      rel={source ? "noreferrer" : undefined}
+                      className="inline-flex min-h-10 items-center gap-1.5 text-xs font-semibold text-white/85 transition-colors hover:text-violet-300"
+                    >
                       {t(sourceLabel)}<ArrowUpRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
                 </div>
-              </article>
+              </SpotlightCard>
             );
           })}
         </div>

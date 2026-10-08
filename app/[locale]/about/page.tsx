@@ -50,15 +50,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       {/* Brand Alignment & Attribution */}
-      <section className="py-16 border-b border-border">
+      <section className="py-16 border-b border-border/60">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
-            <div className="flex flex-col items-center md:items-start gap-3 p-6 rounded-2xl bg-card border border-border">
+            <div className="flex flex-col items-center md:items-start gap-3 p-8 rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
               <MarketStarLogo className="h-6 w-auto object-contain" />
               <span className="text-xs text-muted-foreground">{t("Premier Enterprise GTM & AI Acceleration Partner")}</span>
             </div>
 
-            <div className="flex flex-col items-center md:items-start gap-3 p-6 rounded-2xl bg-card border border-border">
+            <div className="flex flex-col items-center md:items-start gap-3 p-8 rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
               <Image
                 src="/brand/google-workspace-wordmark.png"
                 alt="Google Workspace"
@@ -69,7 +69,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <span className="text-xs text-muted-foreground">{t("Google Workspace Commercial Ecosystem")}</span>
             </div>
 
-            <div className="flex flex-col items-center md:items-start gap-3 p-6 rounded-2xl bg-card border border-border">
+            <div className="flex flex-col items-center md:items-start gap-3 p-8 rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
               <GoogleCloudLogo className="h-7 w-auto" />
               <span className="text-xs text-muted-foreground">{t("Google Cloud Infrastructure & Model Foundation")}</span>
             </div>
@@ -96,12 +96,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/compare"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-google-blue text-white font-semibold rounded-xl hover:bg-google-blue/90 transition-all text-sm"
-                >{t("Explore Plan Matrix")}<ArrowRight className="w-4 h-4" />
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-google-blue via-gemini-indigo to-gemini-purple text-white font-semibold rounded-2xl hover:shadow-lg hover:shadow-google-blue/20 transition-all text-sm shadow-md"
+                >
+                  {t("Explore Plan Matrix")}<ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/features"
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-border bg-card hover:bg-muted text-foreground font-semibold rounded-xl transition-all text-sm"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 border border-slate-200/80 bg-white/70 hover:bg-white/90 text-foreground font-semibold rounded-2xl shadow-sm backdrop-blur-xl transition-all text-sm dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-white/[0.08]"
                 >
                   Directory of {features.length} Features
                 </Link>
@@ -109,8 +110,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </div>
 
             {/* Strategic Pillars */}
-            <div className="space-y-6">
-              <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <div className="space-y-5">
+              <div className="rounded-3xl border border-slate-200/80 bg-white/70 p-7 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all hover:border-google-green/40 dark:border-white/10 dark:bg-slate-950/60">
                 <div className="flex items-center gap-3 mb-2 font-bold text-foreground">
                   <CheckCircle2 className="w-5 h-5 text-google-green" />{t("Independent Technical Transparency")}</div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
@@ -118,7 +119,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <div className="rounded-3xl border border-slate-200/80 bg-white/70 p-7 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all hover:border-google-blue/40 dark:border-white/10 dark:bg-slate-950/60">
                 <div className="flex items-center gap-3 mb-2 font-bold text-foreground">
                   <ShieldCheck className="w-5 h-5 text-google-blue" />{t("Enterprise Privacy & Governance First")}</div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
@@ -126,7 +127,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <div className="rounded-3xl border border-slate-200/80 bg-white/70 p-7 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all hover:border-gemini-purple/40 dark:border-white/10 dark:bg-slate-950/60">
                 <div className="flex items-center gap-3 mb-2 font-bold text-foreground">
                   <Globe2 className="w-5 h-5 text-gemini-purple" />{t("Ecosystem Go-To-Market Expertise")}</div>
                 <p className="text-xs text-muted-foreground leading-relaxed">

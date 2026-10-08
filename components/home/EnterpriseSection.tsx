@@ -41,42 +41,39 @@ export default function EnterpriseSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
           {/* Pillar 1 */}
-          <div className="atlas-interactive group relative rounded-2xl bg-white/5 border border-white/10 p-8 transition-all duration-300">
-            <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-gemini-cyan/50 transition-colors duration-300 shadow-[0_0_20px_rgba(0,0,0,0)] group-hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]" />
+          <div className="group relative rounded-3xl bg-white/[0.04] backdrop-blur-2xl border border-white/10 p-8 transition-all duration-300 hover:border-gemini-cyan/40 hover:shadow-[0_20px_50px_-20px_rgba(6,182,212,0.25)]">
             <div className="relative z-10">
-              <div className="atlas-icon flex h-12 w-12 items-center justify-center rounded-xl bg-gemini-cyan/20 mb-6 text-gemini-cyan">
+              <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-gemini-cyan/15 mb-6 text-gemini-cyan border border-gemini-cyan/25 backdrop-blur-md shadow-inner">
                 <Database className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold mb-3">{t("Enterprise Grounding & Connectors")}</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed text-sm">
                 {t("Gemini Enterprise documents permission-aware search. Connector support, indexing, and permission behavior depend on your source and configuration.")}
               </p>
             </div>
           </div>
 
           {/* Pillar 2 */}
-          <div className="atlas-interactive group relative rounded-2xl bg-white/5 border border-white/10 p-8 transition-all duration-300">
-            <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-gemini-purple/50 transition-colors duration-300 shadow-[0_0_20px_rgba(0,0,0,0)] group-hover:shadow-[0_0_30px_rgba(168,85,247,0.2)]" />
+          <div className="group relative rounded-3xl bg-white/[0.04] backdrop-blur-2xl border border-white/10 p-8 transition-all duration-300 hover:border-gemini-purple/40 hover:shadow-[0_20px_50px_-20px_rgba(168,85,247,0.25)]">
             <div className="relative z-10">
-              <div className="atlas-icon flex h-12 w-12 items-center justify-center rounded-xl bg-gemini-purple/20 mb-6 text-gemini-purple">
+              <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-gemini-purple/15 mb-6 text-gemini-purple border border-gemini-purple/25 backdrop-blur-md shadow-inner">
                 <Network className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold mb-3">{t("Model Context Protocol (MCP)")}</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed text-sm">
                 {t("Review the supported MCP options for your Gemini product and edition before connecting private APIs, databases, or custom tools.")}
               </p>
             </div>
           </div>
 
           {/* Pillar 3 */}
-          <div className="atlas-interactive group relative rounded-2xl bg-white/5 border border-white/10 p-8 transition-all duration-300">
-            <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-gemini-spark/50 transition-colors duration-300 shadow-[0_0_20px_rgba(0,0,0,0)] group-hover:shadow-[0_0_30px_rgba(245,158,11,0.2)]" />
+          <div className="group relative rounded-3xl bg-white/[0.04] backdrop-blur-2xl border border-white/10 p-8 transition-all duration-300 hover:border-gemini-spark/40 hover:shadow-[0_20px_50px_-20px_rgba(245,158,11,0.25)]">
             <div className="relative z-10">
-              <div className="atlas-icon flex h-12 w-12 items-center justify-center rounded-xl bg-gemini-spark/20 mb-6 text-gemini-spark">
+              <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-gemini-spark/15 mb-6 text-gemini-spark border border-gemini-spark/25 backdrop-blur-md shadow-inner">
                 <Bot className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold mb-3">{t("Autonomous Enterprise Agents")}</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed text-sm">
                 {t("Plan agent workflows around approved tools, source permissions, and human review. Available actions depend on edition and configuration.")}
               </p>
             </div>
@@ -84,21 +81,21 @@ export default function EnterpriseSection() {
         </div>
 
         {/* Connector Grid */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-12">
+        <div className="bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-3xl p-8 mb-12 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
             <div>
               <h3 className="text-xl font-bold mb-2">{t("Connector examples")}</h3>
               <p className="text-gray-400 text-sm">{t("Confirm current edition support, regional availability, and administrator setup for each source.")}</p>
             </div>
-            <Link href={href("/enterprise/connectors")} className="text-sm font-medium text-gemini-cyan hover:text-gemini-cyan/80 flex items-center gap-1">
+            <Link href={href("/enterprise/connectors")} className="text-sm font-semibold text-gemini-cyan hover:text-gemini-cyan/80 flex items-center gap-1.5 transition-colors">
               {t("View all connectors")} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div className="flex flex-wrap gap-3.5 justify-center md:justify-start">
             {connectors.map((connector) => (
-              <div key={connector.name} className="flex items-center gap-3 bg-dark-surface/50 border border-white/10 rounded-lg py-2 px-4 hover:border-white/20 transition-colors">
-                <div className="font-semibold text-sm">{connector.name}</div>
+              <div key={connector.name} className="flex items-center gap-3 bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-gemini-cyan/40 rounded-xl py-2.5 px-4.5 backdrop-blur-md transition-all duration-200">
+                <div className="font-semibold text-sm text-slate-200">{connector.name}</div>
                 <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-gray-300">
                   {t("Example")}
                 </span>
@@ -108,7 +105,7 @@ export default function EnterpriseSection() {
         </div>
 
         <div className="text-center">
-          <Link href={href("/enterprise")} className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-4 rounded-full font-semibold hover:opacity-90 transition-opacity">
+          <Link href={href("/enterprise")} className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-google-blue to-gemini-indigo text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-google-blue/25 transition-all">
             {t("Explore the Deep Architectural Guide")}
             <ArrowRight className="w-5 h-5" />
           </Link>

@@ -83,7 +83,7 @@ export function Footer({
   const href = (path: string) => localizeHref(locale, path);
 
   return (
-    <footer className="w-full bg-muted/30 border-t border-border">
+    <footer className="w-full bg-white/60 dark:bg-slate-950/60 backdrop-blur-2xl border-t border-white/40 dark:border-white/10 shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.05)]">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
         <div className="py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           <div className="flex flex-col space-y-6">

@@ -49,13 +49,13 @@ export default function ComparisonPreview() {
           </Link>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+        <div className="overflow-x-auto rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
           <table className="min-w-[920px] w-full border-separate border-spacing-0 text-left">
             <thead>
-              <tr className="bg-muted/50 text-xs uppercase tracking-wider text-muted-foreground">
-                <th className="sticky left-0 z-10 min-w-48 border-b border-border bg-muted/90 px-5 py-4 font-semibold backdrop-blur">{labels.detail}</th>
+              <tr className="bg-slate-50/80 text-xs uppercase tracking-wider text-muted-foreground dark:bg-white/[0.03]">
+                <th className="sticky left-0 z-10 min-w-48 border-b border-border/80 bg-slate-50/90 px-5 py-4 font-semibold backdrop-blur dark:bg-slate-900/90">{labels.detail}</th>
                 {previewPlans.map((plan) => (
-                  <th key={plan.id} className="min-w-52 border-b border-border px-5 py-4 align-top">
+                  <th key={plan.id} className="min-w-52 border-b border-border/80 px-5 py-4 align-top">
                     <span className="block text-[10px] font-semibold text-google-blue">{plan.category}</span>
                     <Link href={href(`/plans/${plan.slug}`)} className="mt-2 block text-base font-bold normal-case tracking-normal text-foreground hover:text-google-blue">{plan.name}</Link>
                   </th>
@@ -64,22 +64,22 @@ export default function ComparisonPreview() {
             </thead>
             <tbody className="text-sm">
               <tr>
-                <th className="sticky left-0 border-b border-border bg-card px-5 py-5 font-semibold text-foreground">{labels.publishedRate}</th>
+                <th className="sticky left-0 border-b border-border/60 bg-white/80 px-5 py-5 font-semibold text-foreground backdrop-blur dark:bg-slate-950/80">{labels.publishedRate}</th>
                 {previewPlans.map((plan) => (
-                  <td key={plan.id} className="border-b border-border px-5 py-5 align-top">
+                  <td key={plan.id} className="border-b border-border/60 px-5 py-5 align-top">
                     <span className="font-semibold text-foreground">{getPriceLabel(plan, labels)}</span>
                     <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">{plan.annualPriceUSD ? labels.annualNote : labels.startingNote}</span>
                   </td>
                 ))}
               </tr>
               <tr>
-                <th className="sticky left-0 border-b border-border bg-card px-5 py-5 font-semibold text-foreground">{labels.storage}</th>
+                <th className="sticky left-0 border-b border-border/60 bg-white/80 px-5 py-5 font-semibold text-foreground backdrop-blur dark:bg-slate-950/80">{labels.storage}</th>
                 {previewPlans.map((plan) => (
-                  <td key={plan.id} className="border-b border-border px-5 py-5 align-top leading-relaxed text-muted-foreground">{plan.storage}</td>
+                  <td key={plan.id} className="border-b border-border/60 px-5 py-5 align-top leading-relaxed text-muted-foreground">{plan.storage}</td>
                 ))}
               </tr>
               <tr>
-                <th className="sticky left-0 bg-card px-5 py-5 font-semibold text-foreground">{labels.summary}</th>
+                <th className="sticky left-0 bg-white/80 px-5 py-5 font-semibold text-foreground backdrop-blur dark:bg-slate-950/80">{labels.summary}</th>
                 {previewPlans.map((plan) => (
                   <td key={plan.id} className="px-5 py-5 align-top leading-relaxed text-muted-foreground">{plan.tagline}</td>
                 ))}

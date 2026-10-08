@@ -1,14 +1,27 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { Download, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import type { Metadata } from "next";
 import { FeatureExplorer } from "@/components/features/FeatureExplorer";
+import { FeaturesExportButton } from "@/components/features/FeaturesExportButton";
 import { getFeatures } from "@/lib/i18n/features";
-import { featureCategoryLabels } from "@/data/translations/features.es";
-
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = resolveLocale(rawLocale);
+  const t = createPhraseTranslator(locale);
+  return {
+    title: t("Google Workspace & Gemini AI Features Directory"),
+    description: t("Search, filter, and inspect every generative AI feature across Gmail, Docs, Sheets, Meet, NotebookLM, Vids, and the Gemini Enterprise Chat App."),
+  };
+}
+
 export default async function FeaturesPage({
   params,
 }: {
@@ -18,37 +31,6 @@ export default async function FeaturesPage({
   const locale: Locale = resolveLocale(rawLocale);
   const t = createPhraseTranslator(locale);
   const allFeatures = getFeatures(locale);
-  const handleExportCSV = () => {
-    const headers = ["Name", "Application", "Category", "Enterprise Availability", "Supported Plans"];
-    const rows = allFeatures.map(f => {
-      const supportedPlans = Object.entries(f.plans)
-        .filter(([_, availability]) => availability.available)
-        .map(([planId]) => planId)
-        .join(", ");
-      
-      return [
-        f.name.replace(/,/g, " "),
-        f.application === "gemini" ? "Gemini Chat" : f.application,
-        f.category,
-        f.enterpriseAvailability,
-        supportedPlans
-      ];
-    });
-
-    const csvContent = [
-      headers.join(","),
-      ...rows.map(row => row.join(","))
-    ].join("\n");
-
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "gemini-enterprise-features.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   return (
     <main className="min-h-screen bg-background pb-20 pt-24">
@@ -70,11 +52,7 @@ export default async function FeaturesPage({
             <p className="text-lg text-muted-foreground md:text-xl">{t("Search, filter, and inspect every generative AI feature across Gmail, Docs, Sheets, Meet, NotebookLM, Vids, and the Gemini Enterprise Chat App.")}</p>
           </div>
           
-          <button 
-            onClick={handleExportCSV}
-            className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary px-6 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-          >
-            <Download className="h-4 w-4" />{t("Export Features")}</button>
+          <FeaturesExportButton features={allFeatures} label={t("Export Features")} />
         </div>
 
         {/* Explorer */}

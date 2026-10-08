@@ -83,11 +83,14 @@ export function SynapseCanvas() {
           const distance = Math.hypot(particle.x - other.x, particle.y - other.y);
           if (distance < connectionRadius) {
             const proximity = 1 - distance / connectionRadius;
+            const gradient = context.createLinearGradient(particle.x, particle.y, other.x, other.y);
+            gradient.addColorStop(0, `${particle.color}${Math.round(proximity * 0.18 * 255).toString(16).padStart(2, "0")}`);
+            gradient.addColorStop(1, `${other.color}${Math.round(proximity * 0.18 * 255).toString(16).padStart(2, "0")}`);
             context.beginPath();
             context.moveTo(particle.x, particle.y);
             context.lineTo(other.x, other.y);
-            context.strokeStyle = `rgba(182, 165, 255, ${proximity * 0.11})`;
-            context.lineWidth = 0.65;
+            context.strokeStyle = gradient;
+            context.lineWidth = 0.7;
             context.stroke();
           }
         }

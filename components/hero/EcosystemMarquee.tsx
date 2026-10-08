@@ -3,21 +3,18 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  Database,
-  Link2,
-  Code,
-  Zap,
-  Briefcase,
-  Share2,
-  Shield,
-  Search,
-  Cloud,
-} from "lucide-react";
+import { Database, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { GeminiLogo } from "@/components/logos/GeminiLogo";
 import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
 import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
+import { SalesforceLogo } from "@/components/logos/SalesforceLogo";
+import { JiraLogo } from "@/components/logos/JiraLogo";
+import { ConfluenceLogo } from "@/components/logos/ConfluenceLogo";
+import { SharePointLogo } from "@/components/logos/SharePointLogo";
+import { SlackLogo } from "@/components/logos/SlackLogo";
+import { BoxLogo } from "@/components/logos/BoxLogo";
+import { GitHubLogo } from "@/components/logos/GitHubLogo";
 
 interface MarqueeItem {
   name: string;
@@ -32,13 +29,13 @@ const ITEMS: MarqueeItem[] = [
   { name: "Gemini Enterprise", type: "Native", logo: GeminiLogo },
   { name: "Google Cloud", type: "Cloud", logo: GoogleCloudLogo },
   { name: "MarketStar", type: "Partner", logo: MarketStarLogo },
-  { name: "Salesforce", type: "MCP Ready", icon: Link2 },
-  { name: "Jira", type: "MCP Ready", icon: Code },
-  { name: "Confluence", type: "MCP Ready", icon: Share2 },
-  { name: "SharePoint", type: "MCP Ready", icon: Database },
-  { name: "Slack", type: "MCP Ready", icon: Link2 },
-  { name: "Box", type: "MCP Ready", icon: Database },
-  { name: "GitHub", type: "MCP Ready", icon: Code },
+  { name: "Salesforce", type: "MCP Ready", logo: SalesforceLogo },
+  { name: "Jira", type: "MCP Ready", logo: JiraLogo },
+  { name: "Confluence", type: "MCP Ready", logo: ConfluenceLogo },
+  { name: "SharePoint", type: "MCP Ready", logo: SharePointLogo },
+  { name: "Slack", type: "MCP Ready", logo: SlackLogo },
+  { name: "Box", type: "MCP Ready", logo: BoxLogo },
+  { name: "GitHub", type: "MCP Ready", logo: GitHubLogo },
   { name: "BigQuery", type: "Native", icon: Database },
   { name: "Model Context Protocol", type: "MCP Ready", icon: Shield },
 ];
@@ -79,7 +76,7 @@ export function EcosystemMarquee({ className }: { className?: string }) {
                   />
                 </div>
               ) : item.logo ? (
-                <item.logo className="h-6 w-auto max-w-[72px] object-contain" />
+                <item.logo className="h-6 w-auto max-w-[80px] object-contain" />
               ) : item.icon ? (
                 <div className="rounded-full border border-border/50 bg-background p-1.5">
                   <item.icon className="h-4 w-4 text-foreground/80" />

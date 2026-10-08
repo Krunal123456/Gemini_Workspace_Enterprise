@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { getConnectors } from "@/lib/i18n/data";
 import { useLocale } from "@/lib/i18n/locale-context";
 import { CheckCircle2, ChevronRight, Search } from "lucide-react";
 
-export function ConnectorSearchList() {
+function ConnectorSearchListInner() {
   const searchParams = useSearchParams();
-  const { locale, href } = useLocale();  const [query, setQuery] = useState("");
+  const { locale, href } = useLocale();
+  const [query, setQuery] = useState("");
 
   const connectors = useMemo(() => getConnectors(locale), [locale]);
 
@@ -61,13 +62,13 @@ export function ConnectorSearchList() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search connectors, e.g. jira"
-              className="w-full rounded-2xl border border-border bg-background py-3 pl-11 pr-4 text-sm text-foreground shadow-sm outline-none transition focus:border-google-blue focus:ring-2 focus:ring-google-blue/20"
+              className="w-full rounded-2xl border border-slate-200/80 bg-white/70 py-3 pl-11 pr-4 text-sm text-foreground shadow-sm backdrop-blur-xl outline-none transition focus:border-google-blue focus:ring-2 focus:ring-google-blue/20 dark:border-white/10 dark:bg-white/[0.04]"
             />
           </label>
         </div>
 
         {filteredConnectors.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
+          <div className="rounded-3xl border border-dashed border-slate-200/80 bg-white/40 p-12 text-center backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.02]">
             <p className="text-lg font-semibold text-foreground">No connectors match your search.</p>
             <p className="mt-2 text-sm text-muted-foreground">Try a different keyword like Jira, Salesforce, SharePoint, or BigQuery.</p>
           </div>
@@ -77,11 +78,11 @@ export function ConnectorSearchList() {
               <div
                 key={connector.id}
                 id={connector.id}
-                className="rounded-2xl border border-border bg-card p-8 shadow-sm flex flex-col justify-between hover:shadow-card-hover transition-all"
+                className="group flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white/70 p-8 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-google-blue/50 hover:shadow-[0_24px_50px_-20px_rgba(66,133,244,0.22)] dark:border-white/10 dark:bg-slate-950/60"
               >
                 <div>
                   <div className="flex items-center justify-between gap-4 mb-4">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-muted text-muted-foreground border border-border">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100/80 text-muted-foreground border border-slate-200/60 dark:bg-white/[0.04] dark:border-white/10">
                       {connector.category}
                     </span>
                     <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-google-blue/10 text-google-blue border border-google-blue/20">
@@ -115,7 +116,7 @@ export function ConnectorSearchList() {
                       {connector.dataTypes.map((dt, i) => (
                         <span
                           key={i}
-                          className="text-[11px] px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border"
+                          className="text-[11px] px-2.5 py-0.5 rounded-full bg-slate-100/70 dark:bg-white/[0.04] text-muted-foreground border border-slate-200/50 dark:border-white/5"
                         >
                           {dt}
                         </span>
@@ -140,5 +141,13 @@ export function ConnectorSearchList() {
         )}
       </div>
     </section>
+  );
+}
+
+export function ConnectorSearchList() {
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-10 text-sm text-muted-foreground animate-pulse">Loading connectors…</div>}>
+      <ConnectorSearchListInner />
+    </Suspense>
   );
 }

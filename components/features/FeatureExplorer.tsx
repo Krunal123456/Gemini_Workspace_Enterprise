@@ -81,23 +81,23 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
   return (
     <div className="w-full flex flex-col gap-8">
       {/* Search and Filters Container */}
-      <div className="flex flex-col gap-6 rounded-3xl bg-muted/30 p-4 sm:p-6 lg:p-8 border border-border/50">
+      <div className="flex flex-col gap-6 rounded-3xl bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-8 border border-white/40 dark:border-white/10 shadow-[0_20px_50px_-25px_rgba(99,102,241,0.15)] dark:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.6)]">
 
         {/* Top row: Search & Quick Toggles */}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="relative w-full lg:max-w-md">
-            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder={t("Search features, capabilities, use cases...")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-border/50 bg-background py-3 pl-10 pr-10 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+              className="w-full rounded-full border border-white/50 dark:border-white/10 bg-background/80 backdrop-blur-md py-3 pl-11 pr-10 text-sm outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all shadow-xs"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 rounded-full hover:bg-muted"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 rounded-full hover:bg-muted"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -111,10 +111,10 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
                 key={toggle}
                 onClick={() => setQuickToggle(toggle)}
                 className={cn(
-                  "rounded-full px-4 py-2 text-sm font-medium transition-colors border",
+                  "rounded-full px-4 py-2 text-sm font-semibold transition-all border backdrop-blur-xs",
                   quickToggle === toggle
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-background text-muted-foreground border-border/50 hover:bg-muted"
+                    ? "bg-gradient-to-r from-google-blue to-gemini-indigo text-white border-transparent shadow-xs"
+                    : "bg-background/60 text-muted-foreground border-border/70 hover:bg-muted"
                 )}
               >
                 {toggle === "all" && t("All")}
@@ -132,10 +132,10 @@ export function FeatureExplorer({ viewMode = "modal" }: FeatureExplorerProps) {
             <button
               onClick={() => setSelectedApp("all")}
               className={cn(
-                "rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+                "rounded-xl px-4 py-2 text-sm font-semibold transition-all",
                 selectedApp === "all"
-                  ? "bg-secondary text-secondary-foreground"
-                  : "hover:bg-muted text-muted-foreground"
+                  ? "bg-secondary text-secondary-foreground shadow-xs"
+                  : "hover:bg-muted/60 text-muted-foreground"
               )}
             >
               {t("All Apps")}

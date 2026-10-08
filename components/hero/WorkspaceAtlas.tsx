@@ -165,6 +165,32 @@ export function WorkspaceAtlas() {
               className={`${styles.connection} ${node.source === "app" ? styles.appConnection : node.source === "connector" ? styles.connectorConnection : styles.governanceConnection} ${node.id === activeNode.id ? styles.activeConnection : ""}`}
             />
           ))}
+          {/* Data-flow packets — animated circles that travel along each connector toward the Gemini core */}
+          {!reduceMotion && atlasNodes.map((node, index) => {
+            const packetColor =
+              node.source === "app" ? "#4285F4" :
+              node.source === "connector" ? "#34A853" :
+              "#A78BFA";
+            const dur = `${3.2 + (index * 0.55)}s`;
+            const delay = `${-(index * 0.9)}s`;
+            return (
+              <circle
+                key={`pkt-${node.id}`}
+                r="0.9"
+                fill={packetColor}
+                opacity="0.85"
+              >
+                <animateMotion
+                  dur={dur}
+                  begin={delay}
+                  repeatCount="indefinite"
+                  path={`M ${node.left} ${node.top} L 50 50`}
+                />
+                <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur={dur} begin={delay} repeatCount="indefinite" />
+                <animate attributeName="r" values="0.5;1;1;0.4" keyTimes="0;0.1;0.85;1" dur={dur} begin={delay} repeatCount="indefinite" />
+              </circle>
+            );
+          })}
         </svg>
 
         <div className={styles.core} aria-hidden="true">

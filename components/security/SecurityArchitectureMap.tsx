@@ -18,8 +18,8 @@ export function SecurityArchitectureMap() {
   const SelectedIcon = icons[selected.level - 1] || ShieldCheck;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr]">
-      <div className="space-y-2" role="tablist" aria-label={t("Security review topics")}>
+    <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+      <div className="space-y-2.5" role="tablist" aria-label={t("Security review topics")}>
         {securityLayers.map((layer) => {
           const Icon = icons[layer.level - 1] || ShieldCheck;
           const isSelected = selected.id === layer.id;
@@ -31,13 +31,17 @@ export function SecurityArchitectureMap() {
               onClick={() => setSelectedId(layer.id)}
               role="tab"
               aria-selected={isSelected}
-              className={`flex w-full items-center gap-4 rounded-xl border p-4 text-left transition ${isSelected ? "border-google-green bg-google-green/10 shadow-sm" : "border-border bg-card hover:bg-muted"}`}
+              className={`flex w-full items-center gap-4 rounded-2xl border p-4 text-left backdrop-blur-xl transition-all duration-200 ${
+                isSelected
+                  ? "border-google-green/80 bg-google-green/15 shadow-[0_8px_30px_rgba(34,197,94,0.2)] scale-[1.02]"
+                  : "border-slate-200/60 bg-white/60 hover:bg-white/90 dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.07]"
+              }`}
             >
-              <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isSelected ? "bg-google-green text-white" : "bg-muted text-muted-foreground"}`}>
+              <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl transition-colors ${isSelected ? "bg-google-green text-white shadow-md shadow-google-green/30" : "bg-slate-100 dark:bg-white/5 text-muted-foreground"}`}>
                 <Icon className="h-5 w-5" />
               </span>
               <span>
-                <span className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Topic {level}", { level: layer.level })}</span>
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{t("Topic {level}", { level: layer.level })}</span>
                 <span className="block text-sm font-bold text-foreground">{layer.name}</span>
               </span>
             </button>
@@ -45,9 +49,9 @@ export function SecurityArchitectureMap() {
         })}
       </div>
 
-      <section className="atlas-card rounded-2xl p-6 sm:p-8" role="tabpanel">
-        <div className="flex items-start gap-4 border-b border-border pb-6">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-google-green/10 text-google-green">
+      <section className="glass-panel rounded-3xl p-6 sm:p-8" role="tabpanel">
+        <div className="flex items-start gap-4 border-b border-border/60 pb-6">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-google-green/10 text-google-green border border-google-green/20">
             <SelectedIcon className="h-6 w-6" />
           </span>
           <div>
@@ -61,13 +65,13 @@ export function SecurityArchitectureMap() {
 
         <div className="mt-7 grid gap-4 md:grid-cols-2">
           {selected.capabilities.map((capability) => (
-            <article key={capability.name} className="rounded-xl border border-border bg-muted/20 p-4">
-              <div className="flex items-start gap-2">
+            <article key={capability.name} className="rounded-2xl border border-slate-200/60 bg-white/50 p-5 backdrop-blur-xl dark:border-white/5 dark:bg-white/[0.02]">
+              <div className="flex items-start gap-2.5">
                 <CircleHelp className="mt-0.5 h-4 w-4 shrink-0 text-google-blue" />
                 <h4 className="text-sm font-bold text-foreground">{capability.name}</h4>
               </div>
               <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{capability.description}</p>
-              <p className="mt-3 border-t border-border/60 pt-3 text-xs leading-relaxed text-muted-foreground">
+              <p className="mt-3 border-t border-border/40 pt-3 text-xs leading-relaxed text-muted-foreground">
                 <strong className="text-foreground">Ask:</strong> {capability.reviewQuestion}
               </p>
             </article>

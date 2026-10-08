@@ -83,7 +83,13 @@ export function Hero({ labels }: { labels: Dictionary["hero"] }) {
     >
       <SynapseCanvas />
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        {/* Gemini violet — primary hero glow */}
         <div className="absolute -top-64 left-[42%] h-[38rem] w-[48rem] -translate-x-1/2 rounded-full bg-violet-700/25 blur-[150px]" />
+        {/* Google Cloud Deep Blue — left ambient */}
+        <div className="absolute -left-[10rem] top-[10rem] h-[26rem] w-[26rem] rounded-full blur-[160px]" style={{ background: "rgba(26,115,232,0.12)" }} />
+        {/* Google Cloud Teal — bottom-right accent */}
+        <div className="absolute bottom-[-4rem] right-[8%] h-[22rem] w-[22rem] rounded-full blur-[140px]" style={{ background: "rgba(0,188,212,0.09)" }} />
+        {/* Fuchsia — far right depth */}
         <div className="absolute right-[-12rem] top-[28rem] h-[28rem] w-[28rem] rounded-full bg-fuchsia-700/10 blur-[140px]" />
       </div>
 

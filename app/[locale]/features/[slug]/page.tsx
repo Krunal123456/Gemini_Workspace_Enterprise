@@ -62,7 +62,15 @@ export default async function FeatureDetailPage({ params }: Props) {
   const appInfo = getApplications(locale).find(
     (app) => app.id === feature.application || app.name === feature.application
   );
-  const appColor = appInfo?.accentColor || "var(--google-blue)";
+  const isGemini = feature.application === "gemini";
+  const appColor = isGemini ? "#8B5CF6" : appInfo?.accentColor || "var(--google-blue)";
+  const appName = isGemini ? "Gemini" : appInfo?.shortName || appInfo?.name || (feature.application.charAt(0).toUpperCase() + feature.application.slice(1));
+  const categoryLabel = featureCategoryLabels[feature.category] ?? feature.category;
+  const isRedundantCategory =
+    !categoryLabel ||
+    categoryLabel.toLowerCase() === appName.toLowerCase() ||
+    categoryLabel.toLowerCase() === feature.application.toLowerCase() ||
+    (feature.category === "gemini" && isGemini);
   const evidence = getFeatureEvidence(feature);
 
   // Filter out features to use as related features
@@ -90,12 +98,14 @@ export default async function FeatureDetailPage({ params }: Props) {
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-3 py-1 text-sm font-medium text-muted-foreground">
               <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: appColor }} />
-              {feature.application}
+              {appName}
             </div>
             
-            <div className="rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground">
-              {featureCategoryLabels[feature.category] ?? feature.category}
-            </div>
+            {!isRedundantCategory && (
+              <div className="rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground">
+                {categoryLabel}
+              </div>
+            )}
 
             {feature.isNew && (
               <div className="flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">

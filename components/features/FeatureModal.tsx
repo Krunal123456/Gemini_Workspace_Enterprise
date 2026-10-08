@@ -28,7 +28,7 @@ interface FeatureModalProps {
 }
 
 export function FeatureModal({ feature, onClose }: FeatureModalProps) {
-  const { features, plans, categories } = useLocalizedData();
+  const { features, plans, categories, applications } = useLocalizedData();
   const { locale, href } = useLocale();
   const t = createPhraseTranslator(locale);
 
@@ -36,6 +36,18 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
   // overlay directly, so English routes don't render Spanish labels.
   const categoryLabel = (category: string) =>
     categories.find((entry) => entry.name === category)?.name ?? category;
+
+  const appInfo = applications.find(
+    (app) => app.id === feature?.application || app.name === feature?.application
+  );
+  const isGemini = feature?.application === "gemini";
+  const appName = isGemini ? "Gemini" : appInfo?.shortName || appInfo?.name || (feature?.application ? feature.application.charAt(0).toUpperCase() + feature.application.slice(1) : "");
+  const rawCatLabel = feature ? categoryLabel(feature.category) : "";
+  const isRedundantCategory =
+    !rawCatLabel ||
+    rawCatLabel.toLowerCase() === appName.toLowerCase() ||
+    rawCatLabel.toLowerCase() === feature?.application.toLowerCase() ||
+    (feature?.category === "gemini" && isGemini);
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (feature) {
@@ -75,16 +87,18 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed left-[50%] top-[50%] z-[70] w-full max-w-3xl max-h-[90vh] translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-2xl border bg-background shadow-2xl outline-none sm:rounded-3xl flex flex-col"
+            className="fixed left-[50%] top-[50%] z-[70] w-full max-w-3xl max-h-[90vh] translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-3xl border border-white/50 dark:border-white/10 bg-white/85 dark:bg-slate-900/80 backdrop-blur-3xl shadow-[0_30px_90px_-20px_rgba(0,0,0,0.6)] outline-none flex flex-col"
           >
             <div className="flex items-center justify-between border-b px-6 py-4">
               <div className="flex items-center gap-3">
                 <div className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
-                  {feature.application}
+                  {appName}
                 </div>
-                <div className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-                  {categoryLabel(feature.category)}
-                </div>
+                {!isRedundantCategory && (
+                  <div className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+                    {rawCatLabel}
+                  </div>
+                )}
                 {feature.isNew && (
                   <div className="flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
                     <Sparkles className="h-3 w-3" />

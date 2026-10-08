@@ -76,13 +76,13 @@ export function ConnectorDetector() {
                   value={domain}
                   onChange={(event) => setDomain(event.target.value)}
                   placeholder="yourcompany.com"
-                  className="h-14 w-full rounded-xl border border-border bg-background pl-12 pr-4 text-base outline-none transition focus:border-google-blue focus:ring-2 focus:ring-google-blue/20"
+                  className="h-14 w-full rounded-2xl border border-slate-200/80 bg-white/70 pl-12 pr-4 text-base shadow-sm backdrop-blur-xl outline-none transition focus:border-google-blue focus:ring-2 focus:ring-google-blue/20 dark:border-white/10 dark:bg-white/[0.04]"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-google-blue px-6 font-semibold text-white transition hover:bg-google-blue/90 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-google-blue px-6 font-semibold text-white shadow-md shadow-google-blue/20 transition hover:bg-google-blue/90 disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={!domain.trim() || isLoading}
               >
                 <Search className="h-4 w-4" />
@@ -95,10 +95,10 @@ export function ConnectorDetector() {
           </form>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+        <div className="rounded-3xl border border-slate-200/80 bg-white/70 p-6 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)] backdrop-blur-2xl sm:p-8 dark:border-white/10 dark:bg-slate-950/60">
           {!result ? (
             <div className="flex min-h-64 flex-col items-center justify-center text-center">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/5 text-muted-foreground">
                 <Database className="h-7 w-7" />
               </div>
               <h3 className="font-semibold text-foreground">{t("Your readiness summary appears here")}</h3>
@@ -108,7 +108,7 @@ export function ConnectorDetector() {
             </div>
           ) : (
             <div>
-              <div className="flex items-start justify-between gap-4 border-b border-border pb-5">
+              <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Checked domain")}</p>
                   <h3 className="mt-1 break-all text-xl font-bold text-foreground">{result.domain}</h3>

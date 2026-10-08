@@ -130,13 +130,21 @@ export default async function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen bg-background text-foreground antialiased selection:bg-blue-500/25 selection:text-foreground">
+      <body className="relative min-h-screen bg-background text-foreground antialiased selection:bg-blue-500/25 selection:text-foreground overflow-x-hidden">
+        {/* Ambient Glassmorphic Aurora Refraction Spheres */}
+        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+          <div className="absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full bg-violet-600/10 dark:bg-violet-600/15 blur-[140px]" />
+          <div className="absolute top-1/3 -right-32 h-[450px] w-[450px] rounded-full bg-blue-500/10 dark:bg-blue-500/15 blur-[150px]" />
+          <div className="absolute bottom-1/4 -left-32 h-[500px] w-[500px] rounded-full bg-cyan-500/8 dark:bg-cyan-500/12 blur-[160px]" />
+          <div className="absolute -bottom-40 right-1/4 h-[550px] w-[550px] rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 blur-[160px]" />
+        </div>
+
         <LocaleProvider locale={locale}>
           <LenisProvider>
             <ThemeProvider>
               <CloudCursor />
               <Header labels={dictionary.nav} />
-              <main className="min-h-[calc(100vh-4rem)] bg-background text-foreground">
+              <main className="min-h-[calc(100vh-4rem)]">
                 <PageTransition>{children}</PageTransition>
               </main>
               <Footer labels={dictionary.footer} locale={locale} />

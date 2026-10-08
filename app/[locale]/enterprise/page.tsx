@@ -24,7 +24,9 @@ import {
   Layers,
   FileCheck,
   Search,
-  Route
+  Route,
+  FileCheck2,
+  Laptop
 } from "lucide-react";
 
 
@@ -64,10 +66,22 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
           {/* Quick Action Navigation Grid */}
           <div className="flex flex-wrap items-center justify-center gap-3.5 max-w-4xl mx-auto">
             <Link
-              href={href("/enterprise/readiness")}
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-foreground text-background font-semibold rounded-xl hover:opacity-90 transition-all shadow-sm text-sm"
+              href={href("/enterprise/onboarding/business")}
+              className="inline-flex items-center gap-2 px-5 py-3.5 bg-gradient-to-r from-google-blue via-gemini-indigo to-gemini-purple text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-google-blue/20 transition-all text-sm shadow-sm"
             >
-              <Route className="w-4 h-4 text-google-blue" />{t("Build readiness plan")}<ArrowRight className="w-4 h-4" />
+              <Laptop className="w-4 h-4" />{t("Business (Workspace) Onboarding")}<ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href={href("/enterprise/onboarding/cloud")}
+              className="inline-flex items-center gap-2 px-5 py-3.5 border border-google-blue/30 bg-card hover:bg-muted text-foreground font-semibold rounded-xl transition-all shadow-sm text-sm"
+            >
+              <FileCheck2 className="w-4 h-4 text-google-blue" />{t("Standard & Plus (Cloud) Onboarding")}<ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href={href("/enterprise/readiness")}
+              className="inline-flex items-center gap-2 px-5 py-3.5 bg-foreground text-background font-semibold rounded-xl hover:opacity-90 transition-all shadow-sm text-sm"
+            >
+              <Route className="w-4 h-4 text-google-blue" />{t("Build readiness plan")}
             </Link>
             <Link
               href={href("/enterprise/connector-detector")}
@@ -110,9 +124,9 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Pillar 1 */}
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-google-blue/40 transition-all">
+            <div className="rounded-3xl border border-slate-200/80 bg-white/70 p-8 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl flex flex-col justify-between hover:shadow-lg hover:border-google-blue/50 transition-all duration-300 dark:border-white/10 dark:bg-slate-950/60">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-google-blue/10 text-google-blue flex items-center justify-center mb-6 border border-google-blue/20">
+                <div className="w-12 h-12 rounded-2xl bg-google-blue/10 text-google-blue flex items-center justify-center mb-6 border border-google-blue/20">
                   <Database className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{t("Enterprise Grounding")}</h3>
@@ -128,9 +142,9 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
             </div>
 
             {/* Pillar 2 */}
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-gemini-purple/40 transition-all">
+            <div className="rounded-3xl border border-slate-200/80 bg-white/70 p-8 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl flex flex-col justify-between hover:shadow-lg hover:border-gemini-purple/50 transition-all duration-300 dark:border-white/10 dark:bg-slate-950/60">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-gemini-purple/10 text-gemini-purple flex items-center justify-center mb-6 border border-gemini-purple/20">
+                <div className="w-12 h-12 rounded-2xl bg-gemini-purple/10 text-gemini-purple flex items-center justify-center mb-6 border border-gemini-purple/20">
                   <Terminal className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">
@@ -148,9 +162,9 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
             </div>
 
             {/* Pillar 3 */}
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-google-green/40 transition-all">
+            <div className="rounded-3xl border border-slate-200/80 bg-white/70 p-8 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl flex flex-col justify-between hover:shadow-lg hover:border-google-green/50 transition-all duration-300 dark:border-white/10 dark:bg-slate-950/60">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-google-green/10 text-google-green flex items-center justify-center mb-6 border border-google-green/20">
+                <div className="w-12 h-12 rounded-2xl bg-google-green/10 text-google-green flex items-center justify-center mb-6 border border-google-green/20">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{t("Data Terms & Model Armor")}</h3>
@@ -169,7 +183,7 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
       </section>
 
       {/* Connectors Snapshot Grid */}
-      <section className="py-24 bg-muted/30 border-b border-border">
+      <section className="py-24 bg-muted/30 border-b border-border/60">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
@@ -187,11 +201,11 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
             {connectors.slice(0, 8).map((c) => (
               <div
                 key={c.id}
-                className="bg-card border border-border rounded-xl p-6 shadow-sm hover:border-google-blue/50 hover:shadow-md transition-all flex flex-col justify-between"
+                className="rounded-3xl border border-slate-200/80 bg-white/70 p-6 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl hover:border-google-blue/50 hover:shadow-lg transition-all duration-300 flex flex-col justify-between dark:border-white/10 dark:bg-slate-950/60"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-border">
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100/80 text-muted-foreground border border-slate-200/60 dark:bg-white/[0.04] dark:border-white/10">
                       {c.category}
                     </span>
                     <span className="text-[11px] font-bold uppercase text-google-blue bg-google-blue/10 px-2 py-0.5 rounded-full border border-google-blue/20">{t("Example")}</span>
@@ -201,7 +215,7 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
                     {c.description}
                   </p>
                 </div>
-                <div className="text-[11px] text-muted-foreground font-medium border-t border-border pt-3 mt-auto">{t("Verify edition support, region, and setup with Google")}</div>
+                <div className="text-[11px] text-muted-foreground font-medium border-t border-border/60 pt-3 mt-auto">{t("Verify edition support, region, and setup with Google")}</div>
               </div>
             ))}
           </div>

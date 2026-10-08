@@ -123,7 +123,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
             {t("Review the controls Google documents for Workspace with Gemini and Gemini Enterprise.")} {t("Availability depends on product, edition, region, and administrator configuration.")}
           </p>
 
-          <div className="max-w-3xl mx-auto bg-muted/50 border border-google-green/40 rounded-2xl p-6 backdrop-blur-md shadow-2xl">
+          <div className="max-w-3xl mx-auto rounded-3xl border border-google-green/40 bg-white/70 p-7 shadow-[0_20px_50px_-20px_rgba(34,197,94,0.15)] backdrop-blur-2xl dark:bg-slate-950/70">
             <div className="flex items-center justify-center gap-3 text-foreground font-semibold text-lg mb-2">
               <Lock className="w-5 h-5 text-google-green" />{t("Read the applicable data protection terms")}</div>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -149,7 +149,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <section className="py-20 bg-muted/20 border-t border-border">
+      <section className="py-20 bg-muted/20 border-t border-border/60">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-google-blue block mb-2">{t("Admin & Governance")}</span>
@@ -161,8 +161,8 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {governanceControls(t).map(({ title, icon: Icon, description, detail }) => (
-              <div key={title} className="rounded-2xl border border-border bg-card p-6 shadow-sm hover:border-google-blue/50 transition-colors">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-google-blue/10 text-google-blue">
+              <div key={title} className="rounded-3xl border border-slate-200/80 bg-white/70 p-6 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl hover:border-google-blue/50 transition-all duration-300 dark:border-white/10 dark:bg-slate-950/60">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-google-blue/10 text-google-blue border border-google-blue/20">
                   <Icon className="h-5 w-5" />
                 </div>
                 <h4 className="text-lg font-semibold text-foreground">{title}</h4>
@@ -172,21 +172,21 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
             ))}
           </div>
 
-          <div className="mt-12 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-            <div className="border-b border-border bg-muted/50 px-6 py-4">
+          <div className="mt-12 overflow-hidden rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
+            <div className="border-b border-border/60 bg-slate-50/80 px-6 py-4 dark:bg-white/[0.03]">
               <h4 className="text-lg font-semibold text-foreground">{t("Questions to validate before rollout")}</h4>
             </div>
             <div className="overflow-x-auto">
               <table className="min-w-full text-left text-sm">
-                <thead className="bg-muted/50 text-muted-foreground">
+                <thead className="bg-slate-50/50 text-muted-foreground dark:bg-white/[0.02]">
                   <tr>
-                    <th className="px-6 py-3 font-medium">{t("Control")}</th>
-                    <th className="px-6 py-3 font-medium">{t("Confirm for your service and edition")}</th>
+                    <th className="px-6 py-3.5 font-medium">{t("Control")}</th>
+                    <th className="px-6 py-3.5 font-medium">{t("Confirm for your service and edition")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {complianceMatrix(t).map((row) => (
-                    <tr key={row.control} className="border-t border-border">
+                    <tr key={row.control} className="border-t border-border/60">
                       <td className="px-6 py-4 font-medium text-foreground">{row.control}</td>
                       <td className="px-6 py-4 text-muted-foreground">{row.requirement}</td>
                     </tr>
@@ -198,7 +198,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <section className="py-20 bg-muted/20 border-t border-border">
+      <section className="py-20 bg-muted/20 border-t border-border/60">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h3 className="text-2xl font-bold text-foreground mb-4">{t("Check Google's compliance documentation")}</h3>
@@ -214,7 +214,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
               ["Model Armor setup", "https://docs.cloud.google.com/gemini/enterprise/docs/enable-model-armor"],
               ["HIPAA included functionality", "https://knowledge.workspace.google.com/admin/compliance/hipaa-compliance-with-google-workspace-and-cloud-identity"],
             ].map(([label, href]) => (
-              <a key={href} href={href} target="_blank" rel="noreferrer" className="rounded-xl border border-border bg-card p-4 shadow-sm transition hover:border-google-blue/40 hover:bg-muted/40">
+              <a key={href} href={href} target="_blank" rel="noreferrer" className="rounded-3xl border border-slate-200/80 bg-white/70 p-5 shadow-sm backdrop-blur-2xl transition hover:border-google-blue/50 hover:bg-white/90 dark:border-white/10 dark:bg-slate-950/60 dark:hover:bg-white/[0.06]">
                 <span className="block font-bold text-sm text-foreground">{label}</span>
                 <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-google-blue">{t("Open Google source")}<ArrowRight className="h-3 w-3" /></span>
               </a>
@@ -222,7 +222,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
           </div>
 
           <div className="mt-12 text-center">
-            <Link href="/compare" className="inline-flex items-center gap-2 rounded-xl bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">
+            <Link href="/compare" className="inline-flex items-center gap-2 rounded-2xl bg-foreground px-6 py-3.5 text-sm font-semibold text-background hover:opacity-90 shadow-md">
               {t("Compare {n} listed plans", { n: plans.length })} <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
