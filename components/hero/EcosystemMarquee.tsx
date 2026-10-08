@@ -1,38 +1,41 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  Database,
-  Link2,
-  Code,
-  Zap,
-  Briefcase,
-  Share2,
-  Shield,
-  Search,
-  Cloud,
-} from "lucide-react";
+import { Database, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { GeminiLogo } from "@/components/logos/GeminiLogo";
+import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
+import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
+import { SalesforceLogo } from "@/components/logos/SalesforceLogo";
+import { JiraLogo } from "@/components/logos/JiraLogo";
+import { ConfluenceLogo } from "@/components/logos/ConfluenceLogo";
+import { SharePointLogo } from "@/components/logos/SharePointLogo";
+import { SlackLogo } from "@/components/logos/SlackLogo";
+import { BoxLogo } from "@/components/logos/BoxLogo";
+import { GitHubLogo } from "@/components/logos/GitHubLogo";
 
 interface MarqueeItem {
   name: string;
   type: string;
-  icon: React.ElementType;
+  icon?: React.ElementType;
+  logo?: React.ComponentType<{ className?: string }>;
+  image?: string;
 }
 
 const ITEMS: MarqueeItem[] = [
-  { name: "Google Workspace", type: "Native", icon: Database },
-  { name: "Gemini Enterprise", type: "Native", icon: Zap },
-  { name: "Google Cloud", type: "Cloud", icon: Cloud },
-  { name: "MarketStar", type: "Partner", icon: Briefcase },
-  { name: "Salesforce", type: "MCP Ready", icon: Link2 },
-  { name: "Jira", type: "MCP Ready", icon: Code },
-  { name: "Confluence", type: "MCP Ready", icon: Share2 },
-  { name: "SharePoint", type: "MCP Ready", icon: Database },
-  { name: "Slack", type: "MCP Ready", icon: Link2 },
-  { name: "Box", type: "MCP Ready", icon: Database },
-  { name: "GitHub", type: "MCP Ready", icon: Code },
+  { name: "Google Workspace", type: "Native", image: "/brand/workspace-app-icons.png" },
+  { name: "Gemini Enterprise", type: "Native", logo: GeminiLogo },
+  { name: "Google Cloud", type: "Cloud", logo: GoogleCloudLogo },
+  { name: "MarketStar", type: "Partner", logo: MarketStarLogo },
+  { name: "Salesforce", type: "MCP Ready", logo: SalesforceLogo },
+  { name: "Jira", type: "MCP Ready", logo: JiraLogo },
+  { name: "Confluence", type: "MCP Ready", logo: ConfluenceLogo },
+  { name: "SharePoint", type: "MCP Ready", logo: SharePointLogo },
+  { name: "Slack", type: "MCP Ready", logo: SlackLogo },
+  { name: "Box", type: "MCP Ready", logo: BoxLogo },
+  { name: "GitHub", type: "MCP Ready", logo: GitHubLogo },
   { name: "BigQuery", type: "Native", icon: Database },
   { name: "Model Context Protocol", type: "MCP Ready", icon: Shield },
 ];
@@ -62,12 +65,26 @@ export function EcosystemMarquee({ className }: { className?: string }) {
               key={`${item.name}-${idx}`}
               className="flex-shrink-0 bg-muted/30 backdrop-blur-sm border border-border/60 group-hover:border-gemini-purple/30 px-5 py-2.5 rounded-full flex items-center gap-3 transition-colors duration-300 hover:!border-gemini-purple/60 hover:bg-muted/50 cursor-default"
             >
-              <div className="p-1.5 bg-background rounded-full shadow-sm border border-border/50">
-                <item.icon className="w-4 h-4 text-foreground/80" />
-              </div>
+              {item.image ? (
+                <div className="relative h-6 w-[126px] shrink-0 overflow-hidden" aria-hidden="true">
+                  <Image
+                    src={item.image}
+                    alt=""
+                    width={691}
+                    height={361}
+                    className="absolute left-0 top-0 h-auto w-full max-w-none -translate-y-[40.72%]"
+                  />
+                </div>
+              ) : item.logo ? (
+                <item.logo className="h-6 w-auto max-w-[80px] object-contain" />
+              ) : item.icon ? (
+                <div className="rounded-full border border-border/50 bg-background p-1.5">
+                  <item.icon className="h-4 w-4 text-foreground/80" />
+                </div>
+              ) : null}
               <div className="flex flex-col">
                 <span className="text-sm font-medium leading-none">{item.name}</span>
-                <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold mt-1">
+                <span className="text-[10px] text-slate-300 uppercase tracking-wider font-semibold mt-1">
                   {item.type}
                 </span>
               </div>

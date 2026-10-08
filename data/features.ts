@@ -1,26 +1,25 @@
 import { Feature, PlanId, PlanAvailability } from "@/types";
 
-// Helper to quickly generate availability record across all 11 plans
+// Fill mapped feature availability for editions with reviewed catalog entries.
 function makeAvailability(
   map: Partial<Record<PlanId, Partial<PlanAvailability>>>
-): Record<PlanId, PlanAvailability> {
-  const allPlanIds: PlanId[] = [
+): Partial<Record<PlanId, PlanAvailability>> {
+  const mappedPlanIds: PlanId[] = [
     "business-starter",
     "business-standard",
     "business-plus",
     "enterprise-standard",
     "enterprise-plus",
     "ai-expanded",
-    "ai-ultra",
     "gemini-enterprise-business",
     "gemini-enterprise-standard",
     "gemini-enterprise-plus",
     "frontline",
   ];
 
-  const result = {} as Record<PlanId, PlanAvailability>;
+  const result: Partial<Record<PlanId, PlanAvailability>> = {};
 
-  for (const pid of allPlanIds) {
+  for (const pid of mappedPlanIds) {
     if (map[pid]) {
       result[pid] = {
         available: map[pid]!.available ?? true,
@@ -69,7 +68,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -226,7 +224,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -252,7 +249,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
       "frontline": { available: true, status: "yes" },
@@ -272,7 +268,6 @@ export const features: Feature[] = [
     enterpriseAvailability: "standard",
     plans: makeAvailability({
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher priority" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest priority" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -296,7 +291,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -340,7 +334,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes", limit: "20 / day" },
       "enterprise-plus": { available: true, status: "yes", limit: "20 / day" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher quota" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest quota" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -515,7 +508,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -536,7 +528,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -557,7 +548,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -578,7 +568,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -620,7 +609,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -641,7 +629,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -662,7 +649,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -683,7 +669,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -726,7 +711,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -747,7 +731,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -767,7 +750,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -793,7 +775,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -814,7 +795,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -835,7 +815,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -856,7 +835,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -877,7 +855,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -912,7 +889,6 @@ export const features: Feature[] = [
     isNew: true,
     plans: makeAvailability({
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -931,7 +907,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -974,7 +949,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -995,7 +969,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1016,7 +989,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1172,7 +1144,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1193,7 +1164,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1214,7 +1184,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -1239,7 +1208,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1260,7 +1228,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1280,7 +1247,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
     }),
   },
   {
@@ -1301,7 +1267,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -1326,7 +1291,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1347,7 +1311,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1368,7 +1331,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1410,7 +1372,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -1433,7 +1394,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes", note: "Enterprise limits" },
       "enterprise-plus": { available: true, status: "yes", note: "Highest limits" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -1554,7 +1514,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -1577,7 +1536,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -1597,7 +1555,6 @@ export const features: Feature[] = [
     isNew: true,
     plans: makeAvailability({
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
   },
@@ -1714,7 +1671,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -1982,7 +1938,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
     }),
   },
   {
@@ -2003,7 +1958,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -2022,7 +1976,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -2045,7 +1998,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -2072,7 +2024,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -2093,7 +2044,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -2122,7 +2072,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -2259,7 +2208,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },

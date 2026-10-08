@@ -14,13 +14,13 @@ export function ThemeToggle({ className }: { className?: string }) {
   }, []);
 
   if (!mounted) {
-    return <div className={cn("h-8 w-24 bg-muted/50 animate-pulse rounded-full", className)} />;
+    return <div className={cn("h-8 w-24 bg-white/40 dark:bg-white/5 animate-pulse rounded-full border border-slate-200/50 dark:border-white/10", className)} />;
   }
 
   return (
     <div
       className={cn(
-        "flex items-center p-0.5 bg-muted/60 dark:bg-muted/40 rounded-full border border-border backdrop-blur-sm shadow-sm",
+        "flex items-center p-0.5 rounded-full border border-slate-200/80 bg-white/70 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.04]",
         className
       )}
       role="radiogroup"
@@ -29,10 +29,10 @@ export function ThemeToggle({ className }: { className?: string }) {
       <button
         onClick={() => setTheme("light")}
         className={cn(
-          "p-1.5 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
+          "h-7 w-7 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
           theme === "light"
-            ? "bg-background text-foreground shadow-sm scale-105"
-            : "text-muted-foreground hover:text-foreground hover:bg-background/40"
+            ? "bg-white text-slate-900 shadow-sm shadow-slate-900/10 scale-105 border border-slate-200/80"
+            : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
         )}
         aria-label="Light theme"
         title="Light theme"
@@ -45,10 +45,10 @@ export function ThemeToggle({ className }: { className?: string }) {
       <button
         onClick={() => setTheme("system")}
         className={cn(
-          "p-1.5 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
+          "h-7 w-7 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
           theme === "system"
-            ? "bg-background text-foreground shadow-sm scale-105"
-            : "text-muted-foreground hover:text-foreground hover:bg-background/40"
+            ? "bg-white text-slate-900 shadow-sm shadow-slate-900/10 scale-105 border border-slate-200/80 dark:bg-white/20 dark:text-white dark:border-white/20"
+            : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
         )}
         aria-label="System theme"
         title="System theme"
@@ -61,10 +61,10 @@ export function ThemeToggle({ className }: { className?: string }) {
       <button
         onClick={() => setTheme("dark")}
         className={cn(
-          "p-1.5 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
+          "h-7 w-7 rounded-full transition-all duration-200 text-xs flex items-center justify-center",
           theme === "dark"
-            ? "bg-background text-foreground shadow-sm scale-105"
-            : "text-muted-foreground hover:text-foreground hover:bg-background/40"
+            ? "bg-slate-900 text-white shadow-sm shadow-purple-500/20 scale-105 border border-white/20 dark:bg-violet-600 dark:border-violet-400/30"
+            : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
         )}
         aria-label="Dark theme"
         title="Dark theme"

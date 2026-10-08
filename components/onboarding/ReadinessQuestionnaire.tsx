@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 const steps = [
   { id: "workspace", title: "Do you use Google Workspace?" },
   { id: "users", title: "How many users?" },
-  { id: "tools", title: "Which tools do you use?" },
+  { id: "tools", title: "Which key system should the pilot include?" },
   { id: "connectors", title: "Do you need third-party connectors?" },
   { id: "agents", title: "Do you need agents or MCP?" },
   { id: "security", title: "What security requirements apply?" },
@@ -31,11 +31,39 @@ export function ReadinessQuestionnaire() {
     setIndex(0);
   };
 
-  const recommendations = [
-    "Existing Google Workspace deployment with a narrow pilot is the lowest-risk path.",
-    "Secure enterprise grounding and AI governance should be validated before broad rollout.",
-    "Focus on permissions, security, and connector coverage before scaling to all users.",
-  ];
+  const recommendations = useMemo(() => {
+    const items: string[] = [];
+
+    items.push(
+      answers.workspace === "Yes"
+        ? "Confirm the Gemini features and usage limits included in your current Workspace edition."
+        : "Decide whether you need Workspace collaboration apps, a standalone enterprise AI platform, or both."
+    );
+
+    if (["501-5000", "5000+"].includes(answers.users)) {
+      items.push("Check seat eligibility, licensing, and rollout requirements with Google for your organization size.");
+    } else if (answers.users) {
+      items.push("Run a pilot with representative users before expanding the rollout.");
+    }
+
+    if (answers.tools && ["Jira", "Salesforce", "Slack", "GitHub", "SharePoint", "BigQuery"].includes(answers.tools)) {
+      items.push(`Confirm connector availability and permissions for ${answers.tools} in the edition you are considering.`);
+    }
+
+    if (answers.connectors === "Yes, we need connectors") {
+      items.push("Validate connector coverage, source permissions, indexing limits, and sync behavior with your actual data sources.");
+    }
+
+    if (answers.agents && answers.agents !== "No") {
+      items.push("Review the edition's agent features, administrator controls, and approval flow before enabling actions.");
+    }
+
+    if (answers.security) {
+      items.push(`Map ${answers.security} requirements to Google's documented controls and your organization's compliance obligations.`);
+    }
+
+    return items;
+  }, [answers]);
 
   return (
     <section className="atlas-card rounded-2xl p-6 sm:p-8">
@@ -56,12 +84,12 @@ export function ReadinessQuestionnaire() {
         )}
         {current.id === "tools" && (
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {['Gmail', 'Docs', 'Drive', 'Jira', 'Salesforce', 'Slack', 'GitHub', 'BigQuery', 'SharePoint'].map((option) => <button key={option} type="button" onClick={() => next(option)} className="rounded-xl border border-border bg-background p-4 text-left font-medium hover:border-google-blue">{option}</button>)}
+            {['Gmail', 'Docs', 'Drive', 'Jira', 'Salesforce', 'Slack', 'GitHub', 'BigQuery', 'SharePoint'].map((option) => <button key={option} type="button" aria-pressed={answers.tools === option} onClick={() => next(option)} className="rounded-xl border border-border bg-background p-4 text-left font-medium hover:border-google-blue">{option}</button>)}
           </div>
         )}
         {current.id === "connectors" && (
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={() => next("Yes")} className="rounded-xl border border-border bg-background p-4 text-left font-medium hover:border-google-blue">Yes, we need connectors</button>
+            <button type="button" onClick={() => next("Yes, we need connectors")} className="rounded-xl border border-border bg-background p-4 text-left font-medium hover:border-google-blue">Yes, we need connectors</button>
             <button type="button" onClick={() => next("No")} className="rounded-xl border border-border bg-background p-4 text-left font-medium hover:border-google-blue">No, start with Workspace only</button>
           </div>
         )}
@@ -89,6 +117,10 @@ export function ReadinessQuestionnaire() {
           <button type="button" onClick={reset} className="mt-5 rounded-lg border border-google-blue/30 bg-white px-3 py-2 text-sm font-semibold text-google-blue">Restart questionnaire</button>
         </div>
       )}
+      <div className="mt-6 flex justify-between border-t border-border pt-5">
+        <button type="button" onClick={() => setIndex((currentIndex) => Math.max(0, currentIndex - 1))} disabled={index === 0} className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40">Back</button>
+        <span className="self-center text-xs text-muted-foreground">Planning guide only · not a product eligibility decision</span>
+      </div>
     </section>
   );
 }

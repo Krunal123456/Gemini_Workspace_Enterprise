@@ -1,0 +1,210 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - generic [ref=f4e4]:
+      - link "MarketStar Gemini Intelligence" [ref=f4e5] [cursor=pointer]:
+        - /url: /
+        - img "MarketStar" [ref=f4e7]
+        - generic [ref=f4e9]: Gemini Intelligence
+      - navigation [ref=f4e10]:
+        - link "Features" [ref=f4e11] [cursor=pointer]:
+          - /url: /features
+        - link "Models" [ref=f4e12] [cursor=pointer]:
+          - /url: /models
+        - link "Compare" [ref=f4e13] [cursor=pointer]:
+          - /url: /compare
+        - link "Pricing" [ref=f4e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Enterprise" [ref=f4e15] [cursor=pointer]:
+          - /url: /enterprise
+        - link "Security" [ref=f4e16] [cursor=pointer]:
+          - /url: /security
+        - link "Articles" [ref=f4e17] [cursor=pointer]:
+          - /url: /articles
+        - button "Apps" [ref=f4e20] [cursor=pointer]
+      - button "Search the site" [ref=f4e25] [cursor=pointer]
+  - main [ref=f4e29]:
+    - article [ref=f4e31]:
+      - link "Back to all Articles" [ref=f4e34] [cursor=pointer]:
+        - /url: /articles
+      - generic [ref=f4e38]:
+        - generic [ref=f4e39]:
+          - generic [ref=f4e40]: Enterprise AI
+          - generic [ref=f4e41]: 5 min read
+          - generic [ref=f4e46]: 2026-09-28
+        - 'heading "Gemini Enterprise: September 2026 release and rollout update" [level=1] [ref=f4e50]'
+        - paragraph [ref=f4e51]: Recent official release notes cover Gemini 3.8 Flash, agent protocols, skills, Pay-as-you-go, and changing connector support.
+        - generic [ref=f4e52]:
+          - generic [ref=f4e53]: MS
+          - generic [ref=f4e54]:
+            - generic [ref=f4e55]: MarketStar Research
+            - generic [ref=f4e56]: Product research • MarketStar
+      - generic [ref=f4e57]:
+        - generic [ref=f4e58]:
+          - heading "Key Executive Takeaways" [level=2] [ref=f4e59]
+          - list [ref=f4e62]:
+            - listitem [ref=f4e63]:
+              - generic [ref=f4e67]: Gemini 3.8 Flash became generally available and enabled by default in the app for global, US, and EU regions on September 23, 2026.
+            - listitem [ref=f4e68]:
+              - generic [ref=f4e72]: Support for registering A2UI and A2A agents reached general availability in August; Workspace and Cloud agent features still have separate product boundaries.
+            - listitem [ref=f4e73]:
+              - generic [ref=f4e77]: Custom skills and Pay-as-you-go are recent additions, while connector additions are published with their own preview or GA status.
+            - listitem [ref=f4e78]:
+              - generic [ref=f4e82]: Region, feature toggles, account eligibility, and edition still matter; consult release notes before relying on a capability.
+        - generic [ref=f4e83]:
+          - paragraph [ref=f4e84]:
+            - text: Google's Gemini Enterprise release notes are the best place to check product changes because they label announcements by date and status. This snapshot reflects the official notes available on September 28, 2026; the documentation may change after this guide is published.
+            - link "Jump to source 1" [ref=f4e85] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+          - 'heading "September: Gemini 3.8 Flash" [level=3] [ref=f4e86]'
+          - paragraph [ref=f4e87]:
+            - text: "On September 23, Google marked Gemini 3.8 Flash generally available and enabled by default in the Gemini Enterprise app in the global, US, and EU regions. Administrators can manage model availability. Regional routing details matter: enabling models in unsupported in-country regions can route traffic to the global endpoint, which has different residency implications."
+            - link "Jump to source 1" [ref=f4e88] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+          - 'heading "August: agents, skills, and data sources" [level=3] [ref=f4e89]'
+          - paragraph [ref=f4e90]:
+            - text: Google moved registration and management support for A2UI and A2A agents to general availability on August 17, including A2UI v0.9 support. Separately, custom skills became generally available on August 13, with administrator settings for enabling, managing availability, and approving sharing.
+            - link "Jump to source 1" [ref=f4e91] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+          - paragraph [ref=f4e92]:
+            - text: The release notes also list new data stores and connector actions in preview. Preview status is not the same as general availability and may have product, region, or support constraints. Check the individual connector setup documentation and edition matrix before designing around a source.
+            - link "Jump to source 1" [ref=f4e93] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+            - link "Jump to source 2" [ref=f4e94] [cursor=pointer]:
+              - /url: "#source-2"
+              - text: "[2]"
+          - heading "Pay-as-you-go and purchasing" [level=3] [ref=f4e95]
+          - paragraph [ref=f4e96]:
+            - text: Google announced Pay-as-you-go general availability on August 1, with charges based on consumed features rather than pooled user-license quotas. The rollout is gradual, and Google requires an invoiced Cloud Billing account. The product page still describes limited availability and excludes Gemini Notebook at present; confirm eligibility and current inclusion with Google Cloud.
+            - link "Jump to source 1" [ref=f4e97] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+            - link "Jump to source 3" [ref=f4e98] [cursor=pointer]:
+              - /url: "#source-3"
+              - text: "[3]"
+          - heading "How to use release notes responsibly" [level=3] [ref=f4e99]
+          - paragraph [ref=f4e100]: For a deployment decision, record the feature's status (GA, preview, or limited availability), product surface, edition, region, required admin switch, and source documentation. Recheck these items during procurement and before each rollout phase; release status can change quickly.
+        - complementary [ref=f4e101]:
+          - heading "Official sources" [level=2] [ref=f4e102]
+          - paragraph [ref=f4e103]: Sources checked September 28, 2026. Product availability and terms can change; follow the linked Google pages for the latest details.
+          - list [ref=f4e104]:
+            - listitem [ref=f4e105]:
+              - generic [ref=f4e106]: "[1]"
+              - link "Gemini Enterprise release notes" [ref=f4e107] [cursor=pointer]:
+                - /url: https://docs.cloud.google.com/gemini/enterprise/docs/release-notes
+              - text: (Google)
+            - listitem [ref=f4e108]:
+              - generic [ref=f4e109]: "[2]"
+              - link "Compare editions of Gemini Enterprise" [ref=f4e110] [cursor=pointer]:
+                - /url: https://docs.cloud.google.com/gemini/enterprise/docs/editions
+              - text: (Google)
+            - listitem [ref=f4e111]:
+              - generic [ref=f4e112]: "[3]"
+              - link "Gemini Enterprise app editions and pricing" [ref=f4e113] [cursor=pointer]:
+                - /url: https://cloud.google.com/gemini-enterprise
+              - text: (Google)
+        - generic [ref=f4e114]:
+          - heading "Features Referenced in this Guide" [level=2] [ref=f4e115]
+          - generic [ref=f4e116]:
+            - link "gemini Agents Build, use, govern, and source agents in Gemini Enterprise. Inspect feature" [ref=f4e117] [cursor=pointer]:
+              - /url: /features/gemini-enterprise-platform-agents
+              - generic [ref=f4e118]:
+                - generic [ref=f4e119]: gemini
+                - heading "Agents" [level=3] [ref=f4e120]
+                - paragraph [ref=f4e121]: Build, use, govern, and source agents in Gemini Enterprise.
+              - generic [ref=f4e122]: Inspect feature
+            - link "gemini Custom MCP server connectors Connect Gemini Enterprise to custom MCP (Model Context Protocol) server connectors. Inspect feature" [ref=f4e126] [cursor=pointer]:
+              - /url: /features/gemini-enterprise-platform-custom-mcp-server-connectors
+              - generic [ref=f4e127]:
+                - generic [ref=f4e128]: gemini
+                - heading "Custom MCP server connectors" [level=3] [ref=f4e129]
+                - paragraph [ref=f4e130]: Connect Gemini Enterprise to custom MCP (Model Context Protocol) server connectors.
+              - generic [ref=f4e131]: Inspect feature
+            - link "gemini Stored Organisational Knowledge Pooled indexing storage for organisational knowledge available to Gemini Enterprise. Inspect feature" [ref=f4e135] [cursor=pointer]:
+              - /url: /features/gemini-enterprise-platform-stored-organisational-knowledge
+              - generic [ref=f4e136]:
+                - generic [ref=f4e137]: gemini
+                - heading "Stored Organisational Knowledge" [level=3] [ref=f4e138]
+                - paragraph [ref=f4e139]: Pooled indexing storage for organisational knowledge available to Gemini Enterprise.
+              - generic [ref=f4e140]: Inspect feature
+        - generic [ref=f4e144]:
+          - link "Back to all Articles" [ref=f4e145] [cursor=pointer]:
+            - /url: /articles
+          - link "Compare all 11 listed plans" [ref=f4e148] [cursor=pointer]:
+            - /url: /compare
+  - contentinfo [ref=f4e151]:
+    - generic [ref=f4e152]:
+      - generic [ref=f4e153]:
+        - generic [ref=f4e154]:
+          - generic [ref=f4e155]:
+            - heading "Gemini Intelligence" [level=3] [ref=f4e159]
+            - paragraph [ref=f4e160]: by MarketStar
+          - paragraph [ref=f4e161]: The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+        - generic [ref=f4e162]:
+          - heading "Platform" [level=4] [ref=f4e163]
+          - list [ref=f4e164]:
+            - listitem [ref=f4e165]:
+              - link "All Features" [ref=f4e166] [cursor=pointer]:
+                - /url: /features
+            - listitem [ref=f4e167]:
+              - link "Compare Plans" [ref=f4e168] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=f4e169]:
+              - link "Applications" [ref=f4e170] [cursor=pointer]:
+                - /url: /apps
+            - listitem [ref=f4e171]:
+              - link "NotebookLM" [ref=f4e172] [cursor=pointer]:
+                - /url: /apps/notebooklm
+            - listitem [ref=f4e173]:
+              - link "Enterprise AI" [ref=f4e174] [cursor=pointer]:
+                - /url: /enterprise
+        - generic [ref=f4e175]:
+          - heading "Enterprise" [level=4] [ref=f4e176]
+          - list [ref=f4e177]:
+            - listitem [ref=f4e178]:
+              - link "Connectors" [ref=f4e179] [cursor=pointer]:
+                - /url: /enterprise/connectors
+            - listitem [ref=f4e180]:
+              - link "Agents & MCP" [ref=f4e181] [cursor=pointer]:
+                - /url: /enterprise/agents
+            - listitem [ref=f4e182]:
+              - link "Security & Governance" [ref=f4e183] [cursor=pointer]:
+                - /url: /security
+            - listitem [ref=f4e184]:
+              - link "Articles" [ref=f4e185] [cursor=pointer]:
+                - /url: /articles
+            - listitem [ref=f4e186]:
+              - link "Pricing" [ref=f4e187] [cursor=pointer]:
+                - /url: /pricing#pricing-overview
+        - generic [ref=f4e188]:
+          - heading "Applications" [level=4] [ref=f4e189]
+          - list [ref=f4e190]:
+            - listitem [ref=f4e191]:
+              - link "Gmail" [ref=f4e192] [cursor=pointer]:
+                - /url: /apps/gmail
+            - listitem [ref=f4e193]:
+              - link "Google Docs" [ref=f4e194] [cursor=pointer]:
+                - /url: /apps/docs
+            - listitem [ref=f4e195]:
+              - link "Google Sheets" [ref=f4e196] [cursor=pointer]:
+                - /url: /apps/sheets
+            - listitem [ref=f4e197]:
+              - link "Google Meet" [ref=f4e198] [cursor=pointer]:
+                - /url: /apps/meet
+            - listitem [ref=f4e199]:
+              - link "Google Chat" [ref=f4e200] [cursor=pointer]:
+                - /url: /apps/chat
+            - listitem [ref=f4e201]:
+              - link "Google Slides" [ref=f4e202] [cursor=pointer]:
+                - /url: /apps/slides
+            - listitem [ref=f4e203]:
+              - link "Google Vids" [ref=f4e204] [cursor=pointer]:
+                - /url: /apps/vids
+            - listitem [ref=f4e205]:
+              - link "Google Drive" [ref=f4e206] [cursor=pointer]:
+                - /url: /apps/drive
+      - paragraph [ref=f4e208]: © 2025 MarketStar. All rights reserved. Google Workspace and Gemini are trademarks of Google LLC.
+  - alert [ref=f4e209]

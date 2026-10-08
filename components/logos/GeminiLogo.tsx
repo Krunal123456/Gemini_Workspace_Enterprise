@@ -7,6 +7,7 @@ export function GeminiLogo({ className = "h-6 w-auto" }: { className?: string })
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      role="img"
       aria-label="Google Gemini Logo"
     >
       <defs>
