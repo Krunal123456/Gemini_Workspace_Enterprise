@@ -11,6 +11,7 @@ const workloadRows = [
   { workload: "Autonomous agent swarms, 4M+ context & cross-domain synthesis", model: "Gemini 3.0 Pro (Preview)", note: "Next-gen frontier MoE foundation model" },
   { workload: "Real-time tool calling & sub-100ms conversational loops", model: "Gemini 3.0 Flash (Preview)", note: "Frontier low-latency autonomous engine" },
   { workload: "Dynamic reasoning compute & mathematical verification", model: "Gemini 3.0 Deep Think (Preview)", note: "Formal test-time self-verifying logic" },
+  { workload: "Interactive 3D neural avatars, live streaming & facial sync", model: "Gemini 3.8 Live Avatar (Preview)", note: "Sub-80ms photorealistic audio-visual synthesis" },
   { workload: "Cognitive swarm architecture & departmental autonomy", model: "Gemini 4 Agentic Engine (Roadmap)", note: "Visionary DeepMind continuous intelligence" },
   { workload: "Complex reasoning, software engineering & multimodal STEM", model: "Gemini 2.5 Pro (GA)", note: "Flagship 2M-token production reasoning model" },
   { workload: "Long-horizon agent workflows & high-frequency coding", model: "Gemini 2.5 Flash (GA)", note: "Next-gen flagship Flash with sub-second speed" },

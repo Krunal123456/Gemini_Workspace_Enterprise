@@ -55,6 +55,18 @@ export const latestGeminiModels: GeminiModel[] = [
     source: "https://ai.google.dev/gemini-api/docs/models",
   },
   {
+    id: "gemini-3.8-live-avatar",
+    name: "Gemini 3.8 Live Avatar",
+    apiId: "gemini-3.8-live-avatar-preview",
+    status: "Preview",
+    family: "Interactive Real-time Avatar & Vision",
+    summary: "Next-generation bidirectional audio-visual model engineered for hyper-realistic 3D neural avatars, real-time facial expression synthesis, sub-80ms voice-to-video synchronization, and conversational customer-facing agents.",
+    bestFor: ["Interactive AI Avatars", "Real-time Photorealistic Video Streaming", "Sub-80ms Voice & Face Sync", "Executive Virtual Presenters"],
+    apiPricing: { inputUsd: 0.25, outputUsd: 1.00, context: "Real-time bidirectional video/audio stream · WebRTC native" },
+    pricingNote: "Billed per active stream session minute with real-time blendshape synthesis and token grounding",
+    source: "https://ai.google.dev/gemini-api/docs/multimodal-live",
+  },
+  {
     id: "gemini-4-agentic-engine",
     name: "Gemini 4 Agentic Engine",
     apiId: "gemini-4-agentic-vision",
