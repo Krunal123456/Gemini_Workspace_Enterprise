@@ -14,7 +14,8 @@ import {
   Layers,
   HardDrive,
   Users,
-  ChevronRight
+  ChevronRight,
+  GitBranch,
 } from "lucide-react";
 
 const plansPageMeta: Record<string, { title: string; description: string }> = {
@@ -62,16 +63,25 @@ export default async function PlansPage({
       {/* Hero Header */}
       <section className="relative overflow-hidden pt-24 pb-16 border-b border-border/60 bg-muted/20">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-google-blue/10 text-google-blue text-xs font-semibold uppercase tracking-wider mb-4 border border-google-blue/20">
-              <CreditCard className="w-3.5 h-3.5" /> {t.badge}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-google-blue/10 text-google-blue text-xs font-semibold uppercase tracking-wider mb-4 border border-google-blue/20">
+                <CreditCard className="w-3.5 h-3.5" /> {t.badge}
+              </div>
+              <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground mb-6">
+                {t.heading} <span className="gradient-text">{t.headingHighlight}</span>.
+              </h1>
+              <p className="fluid-body text-muted-foreground leading-relaxed">
+                {t.body}
+              </p>
             </div>
-            <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground mb-6">
-              {t.heading} <span className="gradient-text">{t.headingHighlight}</span>.
-            </h1>
-            <p className="fluid-body text-muted-foreground leading-relaxed">
-              {t.body}
-            </p>
+            <Link
+              href="/mindmap"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-google-blue/30 bg-google-blue/10 text-google-blue text-sm font-semibold hover:bg-google-blue/20 transition-all shrink-0"
+            >
+              <GitBranch className="w-4 h-4" />
+              View Mind Map
+            </Link>
           </div>
         </div>
       </section>

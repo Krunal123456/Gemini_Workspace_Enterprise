@@ -28,6 +28,7 @@ export type UiDictionary = {
     articles: string;
     apps: string;
     plans: string;
+    mindmap: string;
     search: string;
     searchSite: string;
     searchPlaceholder: string;
@@ -140,6 +141,7 @@ const en: UiDictionary = {
     articles: "Articles",
     apps: "Apps",
     plans: "Plans",
+    mindmap: "Mind Map",
     search: "Search",
     searchSite: "Search the site",
     searchPlaceholder: "Search...",
@@ -264,6 +266,7 @@ const es: UiDictionary = {
     articles: "Artículos",
     apps: "Apps",
     plans: "Planes",
+    mindmap: "Mapa Mental",
     search: "Buscar",
     searchSite: "Buscar en el sitio",
     searchPlaceholder: "Buscar...",

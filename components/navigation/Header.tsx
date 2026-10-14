@@ -44,6 +44,7 @@ const apps = [
 const navItems = [
   { key: "features", href: "/features" },
   { key: "plans", href: "/plans" },
+  { key: "mindmap", href: "/mindmap" },
   { key: "models", href: "/models" },
   { key: "compare", href: "/compare" },
   { key: "pricing", href: "/pricing" },

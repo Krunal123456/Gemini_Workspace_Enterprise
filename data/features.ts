@@ -1,6 +1,16 @@
 import { Feature, PlanId, PlanAvailability } from "@/types";
 
 // Fill mapped feature availability for editions with reviewed catalog entries.
+//
+// Propagation hierarchy (explicit map always wins over auto-propagation):
+//   business-standard → gemini-business-addon, ai-expanded
+//   enterprise-standard/plus → gemini-enterprise-addon, gemini-enterprise-business,
+//                              gemini-enterprise-standard, gemini-enterprise-plus,
+//                              gemini-enterprise-payg, frontline
+//   gemini-enterprise-business → gemini-enterprise-standard, gemini-enterprise-plus,
+//                                 gemini-enterprise-payg, frontline
+//   Standalone add-ons (google-voice-*, appsheet-core, workspace-additional-storage,
+//   ai-security, ai-meetings-messaging): ONLY available if explicitly mapped.
 function makeAvailability(
   map: Partial<Record<PlanId, Partial<PlanAvailability>>>
 ): Partial<Record<PlanId, PlanAvailability>> {
@@ -29,49 +39,106 @@ function makeAvailability(
 
   const result: Partial<Record<PlanId, PlanAvailability>> = {};
 
-  const hasWorkspaceStd = Boolean(map["business-standard"]?.available);
-  const hasWorkspaceEnt = Boolean(map["enterprise-standard"]?.available || map["enterprise-plus"]?.available);
-  const hasEnterpriseGemini = Boolean(map["gemini-enterprise-standard"]?.available);
+  // ── Source helpers ─────────────────────────────────────────────────────────
+  const wsStd    = map["business-standard"];
+  const wsEntStd = map["enterprise-standard"];
+  const wsEntPls = map["enterprise-plus"];
+  const wsEntSrc = wsEntStd ?? wsEntPls;
+  const geBiz    = map["gemini-enterprise-business"];
+  const geStd    = map["gemini-enterprise-standard"];
+  const gePls    = map["gemini-enterprise-plus"];
+  const geFront  = map["frontline"];
 
-  for (const pid of mappedPlanIds) {
-    if (map[pid]) {
-      result[pid] = {
-        available: map[pid]!.available ?? true,
-        status: map[pid]!.status ?? (map[pid]!.available === false ? "no" : "yes"),
-        note: map[pid]!.note,
-        limit: map[pid]!.limit,
-      };
-    } else if (pid === "gemini-business-addon" && hasWorkspaceStd) {
-      result[pid] = {
-        available: true,
-        status: map["business-standard"]?.status ?? "yes",
-        note: map["business-standard"]?.note || "Available with Gemini Business add-on",
-        limit: map["business-standard"]?.limit,
-      };
-    } else if (pid === "gemini-enterprise-addon" && (hasWorkspaceEnt || hasWorkspaceStd)) {
-      result[pid] = {
-        available: true,
-        status: map["enterprise-standard"]?.status ?? (map["business-standard"]?.status ?? "yes"),
-        note: map["enterprise-standard"]?.note || "Available with Gemini Enterprise add-on",
-        limit: map["enterprise-standard"]?.limit,
-      };
-    } else if (pid === "gemini-enterprise-payg" && hasEnterpriseGemini) {
-      result[pid] = {
-        available: true,
-        status: map["gemini-enterprise-standard"]?.status ?? "yes",
-        note: "Usage-based billing",
-        limit: map["gemini-enterprise-standard"]?.limit,
-      };
-    } else {
-      result[pid] = {
-        available: false,
-        status: "no",
+  const hasWsStd   = Boolean(wsStd?.available);
+  const hasWsEnt   = Boolean(wsEntSrc?.available);
+  const hasGeBiz   = Boolean(geBiz?.available);
+  const hasGeStd   = Boolean(geStd?.available);
+  const hasGePls   = Boolean(gePls?.available);
+  const hasGeFront = Boolean(geFront?.available);
+
+  // Best GE source for PayGo / Frontline fallback
+  const geBestSrc = geStd ?? gePls ?? geBiz ?? wsEntSrc;
+  const hasAnyGe  = hasGeBiz || hasGeStd || hasGePls;
+
+  function normEntry(src: Partial<PlanAvailability>, defaultNote?: string): PlanAvailability {
+    return {
+      available: src.available ?? true,
+      status:    src.status ?? "yes",
+      note:      src.note ?? defaultNote,
+      limit:     src.limit,
+    };
+  }
+
+  function resolve(pid: PlanId): PlanAvailability {
+    // ① Explicit mapping always wins
+    if (map[pid] !== undefined) {
+      const m = map[pid]!;
+      return {
+        available: m.available ?? true,
+        status:    m.status ?? (m.available === false ? "no" : "yes"),
+        note:      m.note,
+        limit:     m.limit,
       };
     }
+
+    // ② gemini-business-addon — inherits from Business Standard
+    if (pid === "gemini-business-addon" && hasWsStd) {
+      return normEntry(wsStd!, "Included with Gemini Business add-on");
+    }
+
+    // ③ gemini-enterprise-addon — inherits from Enterprise Standard/Plus
+    if (pid === "gemini-enterprise-addon" && (hasWsEnt || hasWsStd)) {
+      const src = wsEntSrc ?? wsStd!;
+      return normEntry(src, "Included with Gemini Enterprise add-on");
+    }
+
+    // ④ gemini-enterprise-business — inherits from Workspace Enterprise
+    if (pid === "gemini-enterprise-business" && hasWsEnt) {
+      return normEntry(wsEntSrc!, wsEntSrc!.note);
+    }
+
+    // ⑤ gemini-enterprise-standard — inherits from GE Business or Workspace Enterprise
+    if (pid === "gemini-enterprise-standard") {
+      if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
+      if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
+    }
+
+    // ⑥ gemini-enterprise-plus — inherits from GE Standard → GE Business → WS Enterprise
+    if (pid === "gemini-enterprise-plus") {
+      if (hasGeStd)  return normEntry(geStd!, geStd!.note);
+      if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
+      if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
+    }
+
+    // ⑦ gemini-enterprise-payg — inherits from best GE source
+    if (pid === "gemini-enterprise-payg" && (hasAnyGe || hasWsEnt) && geBestSrc) {
+      return normEntry(geBestSrc, "Usage-based billing");
+    }
+
+    // ⑧ frontline — inherits from GE Standard/Business if available
+    if (pid === "frontline" && !hasGeFront) {
+      if (hasGeStd)  return normEntry(geStd!, "Frontline seat access");
+      if (hasGeBiz)  return normEntry(geBiz!, "Frontline seat access");
+    }
+
+    // ⑨ ai-expanded — higher limits for Workspace Standard features
+    if (pid === "ai-expanded" && hasWsStd) {
+      return { available: true, status: "higher_limits", note: "Higher limits with AI Expanded Access", limit: wsStd!.limit };
+    }
+
+    // ⑩ Standalone plans — NEVER auto-propagated:
+    //    google-voice-*, appsheet-core, workspace-additional-storage,
+    //    ai-security, ai-meetings-messaging
+    return { available: false, status: "no" };
+  }
+
+  for (const pid of mappedPlanIds) {
+    result[pid] = resolve(pid);
   }
 
   return result;
 }
+
 
 export const features: Feature[] = [
   // ==========================================
