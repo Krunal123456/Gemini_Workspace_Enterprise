@@ -38,7 +38,13 @@ export type AppTranslation = DeepPartial<
 export type PlanTranslation = DeepPartial<
   Pick<
     Plan,
-    "tagline" | "description" | "idealFor" | "storage" | "pricingNote"
+    | "name"
+    | "shortName"
+    | "tagline"
+    | "description"
+    | "idealFor"
+    | "storage"
+    | "pricingNote"
   > & { highlightedFeatures: string[] }
 >;
 

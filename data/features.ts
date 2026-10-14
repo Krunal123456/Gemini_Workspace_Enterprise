@@ -10,14 +10,28 @@ function makeAvailability(
     "business-plus",
     "enterprise-standard",
     "enterprise-plus",
+    "gemini-business-addon",
+    "gemini-enterprise-addon",
+    "ai-meetings-messaging",
+    "ai-security",
     "ai-expanded",
     "gemini-enterprise-business",
     "gemini-enterprise-standard",
     "gemini-enterprise-plus",
+    "gemini-enterprise-payg",
+    "google-voice-starter",
+    "google-voice-standard",
+    "google-voice-premier",
+    "appsheet-core",
+    "workspace-additional-storage",
     "frontline",
   ];
 
   const result: Partial<Record<PlanId, PlanAvailability>> = {};
+
+  const hasWorkspaceStd = Boolean(map["business-standard"]?.available);
+  const hasWorkspaceEnt = Boolean(map["enterprise-standard"]?.available || map["enterprise-plus"]?.available);
+  const hasEnterpriseGemini = Boolean(map["gemini-enterprise-standard"]?.available);
 
   for (const pid of mappedPlanIds) {
     if (map[pid]) {
@@ -26,6 +40,27 @@ function makeAvailability(
         status: map[pid]!.status ?? (map[pid]!.available === false ? "no" : "yes"),
         note: map[pid]!.note,
         limit: map[pid]!.limit,
+      };
+    } else if (pid === "gemini-business-addon" && hasWorkspaceStd) {
+      result[pid] = {
+        available: true,
+        status: map["business-standard"]?.status ?? "yes",
+        note: map["business-standard"]?.note || "Available with Gemini Business add-on",
+        limit: map["business-standard"]?.limit,
+      };
+    } else if (pid === "gemini-enterprise-addon" && (hasWorkspaceEnt || hasWorkspaceStd)) {
+      result[pid] = {
+        available: true,
+        status: map["enterprise-standard"]?.status ?? (map["business-standard"]?.status ?? "yes"),
+        note: map["enterprise-standard"]?.note || "Available with Gemini Enterprise add-on",
+        limit: map["enterprise-standard"]?.limit,
+      };
+    } else if (pid === "gemini-enterprise-payg" && hasEnterpriseGemini) {
+      result[pid] = {
+        available: true,
+        status: map["gemini-enterprise-standard"]?.status ?? "yes",
+        note: "Usage-based billing",
+        limit: map["gemini-enterprise-standard"]?.limit,
       };
     } else {
       result[pid] = {
@@ -2348,4 +2383,107 @@ export const features: Feature[] = [
       "frontline": { available: true, status: "yes" },
     }),
   },
+  {
+    id: "voice-ai-voicemail-transcription",
+    slug: "voice-ai-voicemail-transcription",
+    name: "AI Voicemail Transcription & Summaries",
+    category: "voice",
+    application: "voice",
+    description: "Automatically transcribe incoming voicemails using neural speech recognition, delivered with summaries directly to Gmail and the Voice mobile/web apps.",
+    whatItDoes: "Transcribes caller speech into text and delivers it directly to your inbox so you can read voicemails silently and act on them instantly without listening to audio.",
+    howItWorks: "Feeds voicemail audio through Google's low-latency neural speech-to-text models, creating formatted text transcripts and identifying key action items.",
+    useCases: ["Reviewing urgent client voicemails during meetings", "Archiving customer request text for CRM records", "Searching historical voicemails via Gmail search"],
+    capabilities: ["Neural speech-to-text transcription", "Gmail inbox delivery", "Multi-language voicemail recognition"],
+    enterpriseAvailability: "add-on",
+    plans: makeAvailability({
+      "google-voice-starter": { available: true, status: "yes" },
+      "google-voice-standard": { available: true, status: "yes" },
+      "google-voice-premier": { available: true, status: "yes" },
+    }),
+  },
+  {
+    id: "voice-auto-attendant-ivr",
+    slug: "voice-auto-attendant-ivr",
+    name: "Smart Multi-Level Auto Attendant (IVR)",
+    category: "voice",
+    application: "voice",
+    description: "Automated multi-level interactive voice response (IVR) phone tree routing callers to specific departments, hunt groups, or employees.",
+    whatItDoes: "Directs incoming calls to the right team or individual with customizable greeting menus, business hour rules, and multi-language prompt support.",
+    howItWorks: "Configured in Google Workspace Admin console with visual call flows, dial-by-name directory options, and scheduled routing rules.",
+    useCases: ["Routing sales calls to regional teams", "Handling after-hours emergency support lines", "Directing callers to bilingual staff"],
+    capabilities: ["Multi-level IVR menus", "Business hours routing", "Custom text-to-speech greetings"],
+    enterpriseAvailability: "add-on",
+    plans: makeAvailability({
+      "google-voice-standard": { available: true, status: "yes" },
+      "google-voice-premier": { available: true, status: "yes" },
+    }),
+  },
+  {
+    id: "voice-call-recording-ediscovery",
+    slug: "voice-call-recording-ediscovery",
+    name: "Call Recording & Vault eDiscovery",
+    category: "voice",
+    application: "voice",
+    description: "Automated call recording with centralized Google Vault retention, compliance holds, and BigQuery call telemetry export.",
+    whatItDoes: "Captures and archives organizational call recordings, SMS messages, and call metadata for regulatory compliance, training, and legal discovery.",
+    howItWorks: "Records calls server-side and stores encrypted audio artifacts in Google Vault with configurable retention rules and BigQuery streaming export.",
+    useCases: ["Financial compliance audit trails", "Quality assurance and agent training", "Legal eDiscovery hold requests"],
+    capabilities: ["Automatic compliance recording", "Google Vault legal holds", "BigQuery telemetry export"],
+    enterpriseAvailability: "add-on",
+    plans: makeAvailability({
+      "google-voice-premier": { available: true, status: "yes" },
+    }),
+  },
 ];
+
+// Attach specialized add-on availability for AI Meetings & Messaging, AI Security, Voice, AppSheet, and Storage
+for (const feature of features) {
+  // AI Meetings and Messaging add-on covers Meet and Chat AI capabilities
+  if (feature.application === "meet" || feature.application === "chat") {
+    const isAvailableInMeetings =
+      feature.plans["enterprise-standard"]?.available ||
+      feature.plans["business-standard"]?.available ||
+      feature.plans["business-plus"]?.available;
+    if (isAvailableInMeetings) {
+      feature.plans["ai-meetings-messaging"] = {
+        available: true,
+        status: "yes",
+        note: "Included in AI Meetings and Messaging add-on",
+      };
+    }
+  }
+
+  // AI Security add-on covers automated classification, DLP, and client-side encryption controls
+  if (
+    feature.id.includes("classification") ||
+    feature.id.includes("dlp") ||
+    feature.id.includes("client-side-encryption") ||
+    feature.id.includes("security-gemini-ai")
+  ) {
+    feature.plans["ai-security"] = {
+      available: true,
+      status: "yes",
+      note: "Included in Google Workspace AI Security add-on",
+    };
+  }
+
+  // AppSheet Core add-on
+  if (feature.application === "appsheet" || feature.id.includes("appsheet")) {
+    feature.plans["appsheet-core"] = {
+      available: true,
+      status: "yes",
+      note: "Included in AppSheet Core add-on & Enterprise Plus",
+    };
+  }
+
+  // Workspace Additional Storage add-on
+  if (feature.id.includes("storage") || feature.category === "drive") {
+    feature.plans["workspace-additional-storage"] = {
+      available: true,
+      status: "yes",
+      note: "+10 TB pooled storage increment",
+    };
+  }
+}
+
+

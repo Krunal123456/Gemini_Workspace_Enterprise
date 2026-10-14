@@ -18,8 +18,9 @@ export function trackEvent(event: AnalyticsEvent): void {
     );
 
     // If Google Analytics gtag is present
-    if (typeof (window as unknown as { gtag?: Function }).gtag === "function") {
-      (window as unknown as { gtag: Function }).gtag("event", event.name, event.properties);
+    const win = window as unknown as { gtag?: (...args: unknown[]) => void };
+    if (typeof win.gtag === "function") {
+      win.gtag("event", event.name, event.properties);
     }
   }
 }

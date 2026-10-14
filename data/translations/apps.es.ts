@@ -257,4 +257,20 @@ export const appsES: AppTranslations = {
     enterpriseValue:
       "Permite a los equipos de estrategia, los asesores jurídicos y los directivos dominar la literatura compleja, auditar contratos y generar resúmenes ejecutivos con rastros de auditoría verificables.",
   },
+  voice: {
+    category: "Comunicación",
+    tagline:
+      "Telefonía en la nube con transcripción de buzón de voz por IA, IVR automatizado y eDiscovery de Google Vault.",
+    description:
+      "Google Voice proporciona telefonía inteligente en la nube para Google Workspace. Incorpora transcripción automática de voz a texto de mensajes de voz impulsada por IA, operadoras automáticas multinivel, grupos de timbre, integración con teléfonos de escritorio y archivo de cumplimiento normativo con Google Vault.",
+    keyAIFeatures: [
+      "Transcripción de buzón de voz por IA",
+      "Filtrado inteligente de llamadas no deseadas",
+      "Grabación y transcripción automatizada de llamadas",
+    ],
+    overview:
+      "Google Voice se integra en Gmail, Google Calendar y Google Meet, convirtiendo cualquier navegador web, dispositivo móvil o teléfono de escritorio certificado en una línea telefónica corporativa con cumplimiento normativo empresarial y gestión de administración centralizada.",
+    enterpriseValue:
+      "Elimina los costes de mantenimiento de centralitas PBX locales, centraliza la asignación de números de teléfono en la consola de administración de Google Workspace y garantiza la retención de registros para auditorías de cumplimiento.",
+  },
 };

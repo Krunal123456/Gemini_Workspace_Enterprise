@@ -189,6 +189,15 @@ export const featuresES: Record<string, FeatureTranslation> = {
   },
   "security-vpc-service-controls": { name: "VPC Service Controls (VPC-SC)" },
   "security-hipaa-compliance": { name: "Cumplimiento de HIPAA" },
+  "voice-ai-voicemail-transcription": {
+    name: "Transcripción de buzón de voz por IA",
+  },
+  "voice-auto-attendant-ivr": {
+    name: "Operadora automática multinivel (IVR)",
+  },
+  "voice-call-recording-ediscovery": {
+    name: "Grabación de llamadas y eDiscovery en Vault",
+  },
 };
 
 /**
@@ -202,6 +211,7 @@ export const featureCategoryLabels: Record<string, string> = {
   docs: "Docs",
   sheets: "Sheets",
   meet: "Meet",
+  voice: "Google Voice",
   chat: "Google Chat",
   calendar: "Calendar",
   forms: "Forms",

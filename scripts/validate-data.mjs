@@ -19,6 +19,21 @@ console.log(`✓ Total Categories: ${categories.length}`);
 
 console.log(`✓ Total Core Apps: ${applications.length}`);
 
+for (const plan of plans) {
+  if (!plan.id || !plan.name || !plan.slug || !plan.category) {
+    console.error(`❌ Plan invalid: ${plan?.id}`);
+    errors++;
+  }
+  if (!Array.isArray(plan.highlightedFeatures)) {
+    console.error(`❌ Plan ${plan.id} missing highlightedFeatures array`);
+    errors++;
+  }
+  if (!plan.coreCapabilities) {
+    console.error(`❌ Plan ${plan.id} missing coreCapabilities`);
+    errors++;
+  }
+}
+
 for (const feature of features) {
   if (!feature.id || seenFeatureIds.has(feature.id)) {
     console.error(`❌ Duplicate or empty feature ID: ${feature.id}`);

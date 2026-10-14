@@ -13,11 +13,20 @@ export type PlanId =
   | "business-plus"
   | "enterprise-standard"
   | "enterprise-plus"
+  | "gemini-business-addon"
+  | "gemini-enterprise-addon"
+  | "ai-meetings-messaging"
+  | "ai-security"
   | "ai-expanded"
   | "gemini-enterprise-business"
   | "gemini-enterprise-standard"
   | "gemini-enterprise-plus"
   | "gemini-enterprise-payg"
+  | "google-voice-starter"
+  | "google-voice-standard"
+  | "google-voice-premier"
+  | "appsheet-core"
+  | "workspace-additional-storage"
   | "frontline";
 
 export interface FeatureCitation {
@@ -57,7 +66,7 @@ export interface Plan {
   name: string;
   shortName: string;
   type: "workspace" | "addon" | "gemini-enterprise";
-  category: "Google Workspace" | "AI Add-ons" | "Gemini Enterprise";
+  category: "Google Workspace" | "AI Add-ons" | "Workspace Add-ons" | "Gemini Enterprise";
   tagline: string;
   description: string;
   idealFor: string;

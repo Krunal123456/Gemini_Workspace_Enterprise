@@ -109,8 +109,9 @@ export function AvailabilityMatrix() {
           >
             <option value="All">{t("All Plan Groups")}</option>
             <option value="Google Workspace">Google Workspace</option>
-            <option value="Gemini Enterprise">Gemini Enterprise</option>
             <option value="AI Add-ons">{t("AI Add-ons")}</option>
+            <option value="Workspace Add-ons">{t("Workspace Add-ons")}</option>
+            <option value="Gemini Enterprise">Gemini Enterprise</option>
           </select>
 
           <button

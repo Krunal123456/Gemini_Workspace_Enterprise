@@ -207,11 +207,13 @@ const en: UiDictionary = {
       groups: {
         "Gemini Enterprise": { tag: "Standalone Governed AI Platform" },
         "AI Add-ons": { tag: "Enhance Existing Workspace Plans" },
+        "Workspace Add-ons": { tag: "Telephony, Storage & App Building Extensions" },
         "Google Workspace": { tag: "Foundational Collaboration Suites" },
       },
       groupLabels: {
         "Gemini Enterprise": "Gemini Enterprise",
         "AI Add-ons": "AI Add-ons",
+        "Workspace Add-ons": "Workspace Add-ons",
         "Google Workspace": "Google Workspace",
       },
     },
@@ -329,11 +331,13 @@ const es: UiDictionary = {
       groups: {
         "Gemini Enterprise": { tag: "Plataforma de IA autónoma y gobernada" },
         "AI Add-ons": { tag: "Mejora tus planes de Workspace existentes" },
+        "Workspace Add-ons": { tag: "Extensiones de telefonía, almacenamiento y creación de apps" },
         "Google Workspace": { tag: "Suites fundamentales de colaboración" },
       },
       groupLabels: {
         "Gemini Enterprise": "Gemini Enterprise",
         "AI Add-ons": "Complementos de IA",
+        "Workspace Add-ons": "Complementos de Workspace",
         "Google Workspace": "Google Workspace",
       },
     },

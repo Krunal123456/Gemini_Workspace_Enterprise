@@ -9,10 +9,18 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Minus, Plus, Sparkles } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 
-type PricingMode = "workspace" | "standalone";
+type PricingMode = "workspace" | "addons" | "standalone";
 
 const modePlans: Record<PricingMode, string[]> = {
-  workspace: ["business-standard", "business-plus", "ai-expanded"],
+  workspace: ["business-standard", "business-plus", "enterprise-standard"],
+  addons: [
+    "google-voice-standard",
+    "gemini-enterprise-addon",
+    "gemini-business-addon",
+    "ai-meetings-messaging",
+    "ai-security",
+    "appsheet-core",
+  ],
   standalone: ["gemini-enterprise-business", "gemini-enterprise-standard", "gemini-enterprise-plus", "gemini-enterprise-payg"],
 };
 
@@ -26,7 +34,7 @@ export function PricingOverview() {
 
   const visiblePlans = useMemo(
     () => modePlans[mode].map((id) => plans.find((plan) => plan.id === id)).filter(Boolean),
-    [mode],
+    [mode, plans],
   );
 
   const getPrice = (plan: (typeof plans)[number]) =>
@@ -47,20 +55,27 @@ export function PricingOverview() {
               {t("Public list pricing is a starting point. Use the controls to model a pilot or a full organization rollout.")}
             </p>
           </div>
-          <div className="inline-flex rounded-2xl border border-border/80 bg-muted/40 backdrop-blur-md p-1" role="group" aria-label="Deployment type">
+          <div className="inline-flex flex-wrap rounded-2xl border border-border/80 bg-muted/40 backdrop-blur-md p-1 gap-1" role="group" aria-label="Deployment type">
             <button
               type="button"
               onClick={() => setMode("workspace")}
               className={cn("rounded-xl px-4 py-2.5 text-sm font-semibold transition-all", mode === "workspace" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
             >
-              I have Google Workspace
+              Google Workspace
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode("addons")}
+              className={cn("rounded-xl px-4 py-2.5 text-sm font-semibold transition-all", mode === "addons" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
+            >
+              Add-ons & Voice
             </button>
             <button
               type="button"
               onClick={() => setMode("standalone")}
               className={cn("rounded-xl px-4 py-2.5 text-sm font-semibold transition-all", mode === "standalone" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
             >
-              I want standalone Gemini
+              Standalone Gemini
             </button>
           </div>
         </div>
@@ -91,7 +106,13 @@ export function PricingOverview() {
       <section>
         <div className="mb-7 flex items-end justify-between gap-4">
           <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-google-blue">{mode === "workspace" ? "Workspace customers" : "Standalone customers"}</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-google-blue">
+              {mode === "workspace"
+                ? "Workspace core editions"
+                : mode === "addons"
+                  ? "Add-on licenses (Voice, AI & No-Code)"
+                  : "Standalone customers"}
+            </p>
             <h2 className="text-2xl font-bold tracking-tight text-foreground">Plans that scale with your rollout</h2>
           </div>
           <Link href="/compare" className="hidden items-center gap-2 text-sm font-semibold text-google-blue hover:underline sm:inline-flex">Compare all plans <ArrowRight className="h-4 w-4" /></Link>
@@ -136,7 +157,7 @@ export function PricingOverview() {
             </p>
           </div>
           <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-google-blue hover:underline">
-            Check Google's pricing page <ArrowRight className="h-4 w-4" />
+            Check Google&apos;s pricing page <ArrowRight className="h-4 w-4" />
           </a>
         </div>
 

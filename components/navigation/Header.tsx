@@ -21,6 +21,7 @@ import {
   HardDrive,
   BookOpen,
   Sparkles,
+  Phone,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { LocaleSwitcher } from "./LocaleSwitcher";
@@ -32,6 +33,7 @@ const apps = [
   { name: "Docs", icon: FileText, href: "/apps/docs", color: "text-blue-500" },
   { name: "Sheets", icon: Table, href: "/apps/sheets", color: "text-green-500" },
   { name: "Meet", icon: Video, href: "/apps/meet", color: "text-teal-500" },
+  { name: "Google Voice", icon: Phone, href: "/apps/voice", color: "text-emerald-500" },
   { name: "Chat", icon: MessageSquare, href: "/apps/chat", color: "text-green-600" },
   { name: "Slides", icon: Presentation, href: "/apps/slides", color: "text-yellow-500" },
   { name: "Vids", icon: Clapperboard, href: "/apps/vids", color: "text-indigo-500" },
@@ -41,6 +43,7 @@ const apps = [
 
 const navItems = [
   { key: "features", href: "/features" },
+  { key: "plans", href: "/plans" },
   { key: "models", href: "/models" },
   { key: "compare", href: "/compare" },
   { key: "pricing", href: "/pricing" },

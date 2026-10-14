@@ -15,6 +15,7 @@ import {
   Clapperboard,
   HardDrive,
   BookOpen,
+  Phone,
   ArrowLeft,
   ArrowRight,
   Sparkles,
@@ -43,6 +44,7 @@ const iconMap: Record<string, React.ElementType> = {
   Clapperboard,
   HardDrive,
   BookOpen,
+  Phone,
 };
 
 export async function generateStaticParams() {

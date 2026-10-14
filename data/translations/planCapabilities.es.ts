@@ -104,4 +104,76 @@ export const planCoreCapabilityPhrasesES: Record<string, string> = {
     "Funciones de Gemini Enterprise para usuarios de primera línea elegibles",
   "Access to agents provisioned by an administrator":
     "Acceso a los agentes aprovisionados por un administrador",
+  "Gemini in Gmail, Docs, Sheets, Slides, Drive, and Meet":
+    "Gemini en Gmail, Documentos, Hojas de cálculo, Presentaciones, Drive y Meet",
+  "Standard Gemini business model access with enterprise data protections":
+    "Acceso estándar a modelos comerciales de Gemini con protección de datos empresarial",
+  "Grounds on user Workspace files, emails, and meetings within permission boundaries":
+    "Fundamentado en archivos, correos y reuniones de Workspace del usuario dentro de sus límites de permisos",
+  "Standard research and drafting capabilities; subject to edition feature limits":
+    "Capacidades estándar de investigación y redacción; sujetas a los límites de funciones de la edición",
+  "Included with standard Gemini Notebook access; feature limits vary":
+    "Incluido con acceso estándar a Gemini Notebook; los límites de funciones varían",
+  "Workspace sources (Gmail, Docs, Drive, Sheets, Slides)":
+    "Fuentes de Workspace (Gmail, Documentos, Drive, Hojas de cálculo, Presentaciones)",
+  "Standard Workspace Studio agent access under administrator governance":
+    "Acceso estándar a agentes de Workspace Studio bajo la gobernanza del administrador",
+  "Workspace commercial data protection: zero customer data training, ISO/SOC certifications":
+    "Protección de datos comerciales de Workspace: cero entrenamiento con datos de clientes, certificaciones ISO/SOC",
+  "Standard Google Workspace admin audit logs and license tracking":
+    "Registros de auditoría estándar del administrador de Google Workspace y seguimiento de licencias",
+  "Full unrestricted Gemini assistance across all Google Workspace applications":
+    "Asistencia completa y sin restricciones de Gemini en todas las aplicaciones de Google Workspace",
+  "Priority access to frontier Gemini models with highest enterprise usage limits":
+    "Acceso prioritario a modelos de frontera Gemini con los límites de uso empresarial más altos",
+  "Comprehensive grounding across enterprise Workspace files, communications, and data":
+    "Fundamentación integral en archivos, comunicaciones y datos de Workspace de la empresa",
+  "Extended deep research limits and advanced document synthesis":
+    "Límites ampliados de investigación profunda y síntesis avanzada de documentos",
+  "Full Gemini Notebook access with enterprise grounding and source synthesis":
+    "Acceso completo a Gemini Notebook con fundamentación empresarial y síntesis de fuentes",
+  "Full Workspace source integration with advanced search grounding":
+    "Integración completa de fuentes de Workspace con fundamentación de búsqueda avanzada",
+  "Advanced Workspace Studio agent governance, automation flows, and customization":
+    "Gobernanza avanzada de agentes de Workspace Studio, flujos de automatización y personalización",
+  "Enterprise data protection, HIPAA/SOC/ISO compliance, zero customer data training":
+    "Protección de datos empresariales, cumplimiento de HIPAA/SOC/ISO, cero entrenamiento con datos de clientes",
+  "Comprehensive administrative logging, BigQuery export, and compliance auditing":
+    "Registro administrativo integral, exportación a BigQuery y auditoría de cumplimiento",
+  "Specialized meeting transcription, summarization, and chat intelligence":
+    "Transcripción, resúmenes y funciones inteligentes especializadas para reuniones y chat",
+  "Dedicated speech-to-text, translation, and meeting summarization models":
+    "Modelos dedicados de voz a texto, traducción y resúmenes de reuniones",
+  "Grounds meeting notes on live audio streams and Chat room conversation context":
+    "Fundamenta las notas de reuniones en flujos de audio en directo y el contexto de las conversaciones de chat",
+  "Focused on meeting recap and conversation thread synthesis":
+    "Enfocado en la recopilación de reuniones y la síntesis de hilos de conversación",
+  "Generated meeting notes export directly to Google Docs and Drive":
+    "Las notas de reuniones generadas se exportan directamente a Google Docs y Drive",
+  "Google Meet and Google Chat source integration":
+    "Integración con fuentes de Google Meet y Google Chat",
+  "Automated meeting note-taker agent in Google Meet":
+    "Agente automatizado para tomar notas en reuniones de Google Meet",
+  "Encrypted meeting audio processing with zero customer data retention for model training":
+    "Procesamiento cifrado del audio de las reuniones con retención cero para entrenamiento de modelos",
+  "Admin audit logging for meeting recording and automated note artifacts":
+    "Registro de auditoría de administración para grabaciones de reuniones y artefactos de notas automatizados",
+  "Specialized privacy-preserving classification and labeling models":
+    "Modelos especializados de clasificación y etiquetado que preservan la privacidad",
+  "Trained on enterprise security and data classification taxonomies":
+    "Entrenados en taxonomías de seguridad empresarial y clasificación de datos",
+  "Evaluates organizational Drive metadata and document content without data leakage":
+    "Evalúa metadatos y contenido de documentos de Drive de la organización sin fuga de datos",
+  "Continuous compliance and DLP posture analysis across organizational files":
+    "Análisis continuo de cumplimiento y postura de DLP en los archivos de la organización",
+  "Governs access permissions for files cited in NotebookLM or Gemini chats":
+    "Gobierna los permisos de acceso para archivos citados en NotebookLM o chats de Gemini",
+  "Deep integration with Google Drive, Google Vault, and Cloud Identity":
+    "Integración profunda con Google Drive, Google Vault y Cloud Identity",
+  "Autonomous classification rules and policy enforcement triggers":
+    "Reglas autónomas de clasificación y activadores de aplicación de políticas",
+  "Highest zero-trust enterprise security with client-side encryption label integration":
+    "Máxima seguridad empresarial de confianza cero con integración de etiquetas de cifrado del lado del cliente",
+  "Complete security investigation tool integration and BigQuery audit exports":
+    "Integración completa con la herramienta de investigación de seguridad y exportaciones de auditoría a BigQuery",
 };

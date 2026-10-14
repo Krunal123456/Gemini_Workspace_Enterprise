@@ -50,9 +50,12 @@ export default async function PlansPage({
   const plans = getPlans(locale);
   const t = getDictionary(locale).pages.plans;
   // `name` stays the English grouping key so plan filtering keeps working.
-  const planGroups = ["Gemini Enterprise", "AI Add-ons", "Google Workspace"].map(
-    (name) => ({ name, tag: t.groups[name].tag, label: t.groupLabels[name] }),
-  );
+  const planGroups = [
+    "Google Workspace",
+    "AI Add-ons",
+    "Workspace Add-ons",
+    "Gemini Enterprise",
+  ].map((name) => ({ name, tag: t.groups[name].tag, label: t.groupLabels[name] }));
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">

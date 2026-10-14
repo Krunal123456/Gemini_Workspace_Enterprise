@@ -17,6 +17,7 @@ import {
   Clapperboard,
   HardDrive,
   BookOpen,
+  Phone,
   ArrowRight,
   Sparkles,
   Layers,
@@ -56,6 +57,7 @@ const iconMap: Record<string, React.ElementType> = {
   Clapperboard,
   HardDrive,
   BookOpen,
+  Phone,
 };
 
 export default async function ApplicationsPage({

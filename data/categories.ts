@@ -50,6 +50,14 @@ export const categories: Category[] = [
     featuresCount: 3,
   },
   {
+    id: "voice",
+    name: "Google Voice",
+    description: "Cloud telephony with AI-powered voicemail transcription, multi-level auto attendant, and eDiscovery.",
+    iconName: "Phone",
+    accentColor: "#34A853",
+    featuresCount: 3,
+  },
+  {
     id: "calendar",
     name: "Google Calendar",
     description: "AI scheduling, agenda preparation, and executive calendar optimization across meeting workflows.",
