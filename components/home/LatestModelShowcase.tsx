@@ -38,7 +38,7 @@ export function LatestModelShowcase() {
             <div className="mb-4 flex items-center gap-3">
               <GeminiLogo className="h-7 w-7" />
               <span className="text-xs font-semibold uppercase tracking-[0.14em] text-violet-800 dark:text-violet-200">
-                {t("Model catalog · verified Sep 24, 2026")}
+                {t("Model catalog · updated Oct 14, 2026 · Gemini 4 Argon GA")}
               </span>
             </div>
             <h2 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">

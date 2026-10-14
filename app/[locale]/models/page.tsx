@@ -9,6 +9,7 @@ import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 
 const workloadRows = [
+  { workload: "Flagship GA reasoning, enterprise agentic workflows & complex multi-step tasks", model: "Gemini 4 Argon (GA)", note: "Most capable GA frontier model · 1M-token context · Adjustable thinking" },
   { workload: "Autonomous agent swarms, 4M+ context & cross-domain synthesis", model: "Gemini 3.0 Pro (Preview)", note: "Next-gen frontier MoE foundation model" },
   { workload: "Real-time tool calling & sub-100ms conversational loops", model: "Gemini 3.0 Flash (Preview)", note: "Frontier low-latency autonomous engine" },
   { workload: "Dynamic reasoning compute & mathematical verification", model: "Gemini 3.0 Deep Think (Preview)", note: "Formal test-time self-verifying logic" },

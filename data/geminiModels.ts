@@ -19,6 +19,18 @@ export interface GeminiModel {
 
 export const latestGeminiModels: GeminiModel[] = [
   {
+    id: "gemini-4-argon",
+    name: "Gemini 4 Argon",
+    apiId: "gemini-4-argon",
+    status: "GA",
+    family: "Flagship Frontier Reasoning",
+    summary: "Google's most capable generally available frontier model — featuring a 1M-token unified context window, adjustable thinking levels (low, medium, high), deep multi-step reasoning, advanced coding, science, and full multimodal understanding. Powers Gemini Enterprise connectors across Gmail, Drive, Calendar, and Chat.",
+    bestFor: ["Complex multi-step reasoning", "Advanced software engineering", "Enterprise agentic workflows"],
+    apiPricing: { inputUsd: 2.00, outputUsd: 10.0, context: "1M-token unified context · Adjustable thinking levels (low / medium / high)" },
+    pricingNote: "Introductory GA pricing: $2.00 input / $10.00 output per 1M tokens. Cached input tokens available at reduced rates.",
+    source: "https://ai.google.dev/gemini-api/docs/models",
+  },
+  {
     id: "gemini-3-pro",
     name: "Gemini 3.0 Pro",
     apiId: "gemini-3.0-pro-preview",
