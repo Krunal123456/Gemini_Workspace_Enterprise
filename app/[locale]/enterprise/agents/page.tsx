@@ -14,12 +14,15 @@ import {
   Boxes,
   ShieldCheck,
   Server,
-  Zap
+  Zap,
+  Mail,
+  Bot
 } from "lucide-react";
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { localizeHref } from "@/lib/i18n/href";
+import { CoworkerAgentShowcase } from "@/components/enterprise/CoworkerAgentShowcase";
 export async function generateMetadata({
   params,
 }: {
@@ -80,6 +83,13 @@ export default async function AgentsAndMcpPage({
               >{t("View Pre-Built Connectors")}</Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Sundar Pichai "Gemini at Work" Coworker Agents Section ── */}
+      <section className="py-20 border-b border-border bg-background">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+          <CoworkerAgentShowcase />
         </div>
       </section>
 
