@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useRef, useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import {
   X,
@@ -235,6 +236,7 @@ function PlanDrawer({
 }) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [mounted, setMounted] = useState(false);
 
   const style = CATEGORY_STYLES[plan.category] ?? CATEGORY_STYLES["Google Workspace"];
 
@@ -268,19 +270,25 @@ function PlanDrawer({
 
   // Lock body scroll while open
   useEffect(() => {
-    const prev = document.body.style.overflow;
+    setMounted(true);
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousDocumentOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousDocumentOverflow;
       window.removeEventListener("keydown", onKey);
     };
   }, [onClose]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div className="fixed inset-0 z-[100] flex justify-end animate-in fade-in duration-200">
       {/* Backdrop */}
       <div
@@ -423,7 +431,10 @@ function PlanDrawer({
         </div>
 
         {/* Feature List (Scrollable) */}
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-4 space-y-2">
+        <div
+          data-lenis-prevent
+          className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-4 space-y-2"
+        >
           {filteredFeatures.length === 0 ? (
             <div className="py-12 text-center text-muted-foreground text-sm">
               No features match your search query.
@@ -482,7 +493,8 @@ function PlanDrawer({
           )}
         </div>
       </aside>
-    </div>
+    </div>,
+    document.body
   );
 }
 
