@@ -7,6 +7,45 @@ import type { ArticleTranslations } from "@/lib/i18n/localize";
  * `[1] [2]` citation markers stay aligned with `sources`.
  */
 export const articlesES: ArticleTranslations = {
+  "gemini-enterprise-deployment-checklist": {
+    category: "IA empresarial",
+    title: "Lista de verificación para desplegar Gemini Enterprise: planifica un piloto gobernado",
+    subtitle:
+      "Guía práctica para administradores sobre edición, configuración del proyecto, IAM, acceso a datos, cuotas, controles de seguridad y evaluación del piloto.",
+    excerpt:
+      "Usa esta lista de verificación basada en fuentes para preparar un piloto de Gemini Enterprise, confirmar acceso y licencias, conectar y autorizar almacenes de datos, entender las cuotas agrupadas y probar la calidad de búsqueda antes del despliegue.",
+    readTime: "8 min de lectura",
+    keyTakeaways: [
+      "Confirma la edición y la documentación aplicables antes de planificar; Google mantiene Business separado de las ediciones de Cloud.",
+      "Planifica el proyecto de Cloud, la facturación, la ubicación de la app y cualquier requisito de CMEK antes de crearla, ya que su ubicación no se puede cambiar después.",
+      "Verifica por separado los roles de IAM, las licencias del producto, el acceso a la app y la autorización del almacén de datos durante el piloto.",
+      "Las cuotas de funciones suelen agruparse por edición, proyecto y ubicación; la cuota de almacenamiento e indexación se comparte entre ediciones dentro de ese proyecto y ubicación.",
+      "Usa consultas representativas y verifica los resultados con los usuarios previstos; la evaluación de calidad de búsqueda de Google no admite apps con varios almacenes de datos.",
+    ],
+    content: [
+      "Un despliegue exitoso de Gemini Enterprise comienza con un flujo de trabajo acotado y comprobable y con límites de acceso adecuados, no con la conexión de todas las fuentes disponibles. Esta lista convierte la documentación actual de administración de Google en una secuencia para el piloto. Confirma los requisitos vigentes de edición, región y facturación de tu organización antes de comprar o desplegar en producción. [1] [2]",
+      "### 1. Confirma la edición y el alcance del piloto",
+      "Anota el grupo de usuarios, la tarea que el piloto debería mejorar, las fuentes de datos necesarias y cómo el equipo evaluará los resultados. Consulta la comparación de ediciones para las ediciones de Cloud incluidas en el alcance. Google señala que la documentación de Business se mantiene por separado, así que no des por hecho que todas las instrucciones de configuración de Cloud se aplican a Business. [2]",
+      "Mantén el primer piloto lo bastante pequeño para probar los permisos y la calidad de las respuestas con usuarios representativos. Selecciona algunas preguntas recurrentes e identifica los documentos de origen que deberían respaldar cada respuesta. Así podrás probar la recuperación con consultas concretas en vez de depender de un prompt de demostración genérico.",
+      "### 2. Prepara el proyecto, la facturación, la región y el cifrado",
+      "Crea o selecciona el proyecto de Google Cloud que alojará la app y los almacenes de datos; después verifica la ruta de facturación y suscripción de la edición prevista. El pago por uso tiene requisitos de facturación y cargos de consumo propios; confirma sus condiciones actuales antes de habilitarlo. [1] [3]",
+      "Elige la multirregión de la app teniendo en cuenta los requisitos de residencia de datos. La guía de creación de apps de Google indica que la ubicación no se puede cambiar después de crearla. Si la app usará claves de cifrado administradas por el cliente, registra la clave antes de crear la app; las apps creadas antes del registro no quedan protegidas por esa clave. [4]",
+      "### 3. Separa el acceso de administradores, los roles de usuario y las licencias",
+      "Concede a los administradores solo los roles necesarios para sus tareas. La guía de IAM de Google distingue el rol Gemini Enterprise Admin de los roles para gestionar conectores y distribuir licencias relacionadas con la facturación. Los usuarios finales también necesitan el rol de Gemini Enterprise adecuado y una licencia del producto. [5]",
+      "Decide si los usuarios deben acceder a todas las apps del proyecto o solo a algunas. Para limitar el acceso a apps concretas, la guía de Google describe asignar el rol Restricted User en el proyecto y conceder el rol User en cada app autorizada; el rol restringido por sí solo no concede acceso a ninguna app. Prueba la combinación prevista con una cuenta piloto antes de invitar a un grupo más amplio. [5]",
+      "### 4. Conecta las fuentes y verifica la autorización",
+      "Crea la app y los almacenes de datos con los flujos de conectores admitidos y, después, conecta los almacenes necesarios a la app. Conectar un almacén no equivale a autorizar el acceso del usuario: la guía de Google requiere autorizar el almacén conectado y describe el paso de autorización de usuario en la app. Valida este paso con la identidad y los grupos que usarán el piloto. [4] [6]",
+      "Prueba tanto el acceso esperado como la denegación esperada. Pide a un usuario piloto una respuesta cuya fuente esté permitida y luego prueba una pregunta similar sobre contenido al que no debería tener acceso. Revisa las fuentes y citas devueltas, no solo el texto de la respuesta.",
+      "### 5. Calcula las cuotas y la exposición a cargos por exceso",
+      "En las ediciones con licencia, las cuotas de funciones suelen agruparse entre los usuarios de la misma edición dentro de un proyecto y ubicación. La capacidad de almacenamiento e indexación de datos forma un grupo compartido separado para todos los usuarios y ediciones de ese proyecto y ubicación. Calcula el uso previsto de ambos grupos y vigílalos durante el piloto. [3]",
+      "El pago por uso no tiene límites de cuotas de funciones, pero cobra según el consumo. Las ediciones con licencia pueden ofrecer opciones de exceso con sus propios requisitos de facturación y configuración. Consulta la documentación vigente de cuotas y facturación para la suscripción concreta, en vez de copiar un límite de otra edición o de un artículo antiguo. [3]",
+      "### 6. Configura los controles de seguridad de forma deliberada",
+      "Model Armor es un control opcional que debe configurar un administrador para analizar los prompts y las respuestas del asistente; no se habilita solo por comprar una edición. Google indica que puede añadir latencia y que no elimina ni enmascara información personal identificable. Elige conscientemente el modo de aplicación y el comportamiento ante fallos del servicio, y luego prueba solicitudes permitidas y bloqueadas durante el piloto. [7]",
+      "### 7. Evalúa el piloto antes de ampliarlo",
+      "Mantén un conjunto repetible de consultas representativas y documentos de origen esperados. La evaluación de calidad de búsqueda de Google puede generar métricas agregadas y por consulta, como recall, precisión y NDCG, y ayudar a comparar cambios de configuración a lo largo del tiempo. El método documentado no admite apps con varios almacenes de datos, así que úsalo dentro de su alcance admitido y añade comprobaciones manuales para el resto del flujo. [8]",
+      "Antes del despliegue, registra qué pasó las pruebas, qué falló, qué casos de acceso se comprobaron, el uso observado de cuotas y quién se encargará de los siguientes pasos. Vuelve a verificar la matriz de ediciones, las condiciones de facturación, la autorización de las fuentes y la configuración de seguridad cuando cambie el alcance del piloto; la documentación y la disponibilidad del producto pueden cambiar.",
+    ],
+  },
   "gemini-3-architecture-agentic-scale": {
     category: "Modelos y arquitectura",
     title: "Arquitectura neuronal de Gemini 3.0 y 4.0: agentes autónomos y contexto extenso",

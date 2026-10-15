@@ -99,6 +99,8 @@ export const phrasesES: Record<string, string> = {
   "Could not copy link": "No se pudo copiar el enlace",
   "Reading progress": "Progreso de lectura",
   "Related articles": "Artículos relacionados",
+  "These official sources are provided for verification. Product availability and terms can change; consult the linked Google pages for current details.":
+    "Estas fuentes oficiales se incluyen para facilitar la verificación. La disponibilidad del producto y sus condiciones pueden cambiar; consulta las páginas de Google enlazadas para ver la información vigente.",
   "Read article": "Leer el artículo",
   "Key Takeaways": "Ideas clave",
   "min read": "min de lectura",
@@ -296,8 +298,6 @@ export const phrasesES: Record<string, string> = {
   // ---- connectors / agents ----
   "Gemini Enterprise enables grounded retrieval across third-party software, data warehouses, and custom tools. Every query is filtered through your organization's user permissions and authentication tokens.":
     "Gemini Enterprise permite la recuperación fundamentada en software de terceros, almacenes de datos y herramientas personalizadas. Cada consulta se filtra según los permisos de usuario de tu organización y sus tokens de autenticación.",
-  "Sources checked September 28, 2026. Product availability and terms can change; follow the linked Google pages for the latest details.":
-    "Fuentes consultadas el 28 de septiembre de 2026. La disponibilidad del producto y sus condiciones pueden cambiar; consulta las páginas de Google enlazadas para ver los detalles más recientes.",
   "Google states that Workspace data used with Gemini is not reviewed by humans or used to train generative AI models outside your domain without permission. For Gemini Enterprise Business, Standard, and Plus, Google says customer data is not used to train Google models or models for other customers. Review the governing terms for your service and subscription.":
     "Google afirma que los datos de Workspace utilizados con Gemini no son revisados por personas ni se usan para entrenar modelos de IA generativa fuera de tu dominio sin permiso. Para Gemini Enterprise Business, Standard y Plus, Google indica que los datos de los clientes no se utilizan para entrenar modelos de Google ni modelos de otros clientes. Revisa las condiciones aplicables a tu servicio y suscripción.",
   "Security teams should verify how identity, data access, retention, and audit controls apply to each AI workflow.":

@@ -284,7 +284,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
         {article.sources && article.sources.length > 0 && (
           <aside className="mt-14 rounded-2xl border border-border bg-muted/20 p-6" aria-labelledby="article-sources-heading">
             <h2 id="article-sources-heading" className="text-lg font-bold text-foreground">{t("Official sources")}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{t("Sources checked September 28, 2026. Product availability and terms can change; follow the linked Google pages for the latest details.")}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t("These official sources are provided for verification. Product availability and terms can change; consult the linked Google pages for current details.")}</p>
             <ol className="mt-4 space-y-2">
               {article.sources.map((source, index) => (
                 <li key={source.url} id={`source-${index + 1}`} className="scroll-mt-24 text-sm text-muted-foreground">
