@@ -42,15 +42,14 @@ const apps = [
 ];
 
 const navItems = [
-  { key: "features", href: "/features" },
-  { key: "plans", href: "/plans" },
-  { key: "mindmap", href: "/mindmap" },
-  { key: "models", href: "/models" },
-  { key: "compare", href: "/compare" },
-  { key: "pricing", href: "/pricing" },
-  { key: "enterprise", href: "/enterprise" },
-  { key: "security", href: "/security" },
-  { key: "articles", href: "/articles" },
+  { key: "features",   href: "/features",   show: "" },
+  { key: "plans",      href: "/plans",      show: "" },
+  { key: "mindmap",    href: "/mindmap",    show: "" },
+  { key: "compare",    href: "/compare",    show: "" },
+  { key: "models",     href: "/models",     show: "hidden xl:flex" },
+  { key: "pricing",    href: "/pricing",    show: "hidden xl:flex" },
+  { key: "enterprise", href: "/enterprise", show: "hidden 2xl:flex" },
+  { key: "articles",   href: "/articles",   show: "hidden 2xl:flex" },
 ] as const;
 
 type NavLabels = Dictionary["nav"];
@@ -145,7 +144,8 @@ export function Header({ labels }: { labels: NavLabels }) {
                   href={href(item.href)}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "relative rounded-full px-2.5 xl:px-3 py-1 text-[11px] xl:text-xs 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap",
+                    "relative rounded-full px-2.5 xl:px-3 py-1 text-[11px] xl:text-xs 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap items-center",
+                    item.show || "flex",
                     isActive
                       ? "text-violet-900 dark:text-violet-100 font-bold"
                       : "text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white"
@@ -257,6 +257,7 @@ export function Header({ labels }: { labels: NavLabels }) {
               <Link href={href("/compare")} className="text-base font-semibold text-foreground py-2.5 border-b border-border/60">{labels.compare}</Link>
               <Link href={href("/pricing")} className="text-base font-semibold text-foreground py-2.5 border-b border-border/60">{labels.pricing}</Link>
               <Link href={href("/plans")} className="text-base font-semibold text-foreground py-2.5 border-b border-border/60">{labels.plans}</Link>
+              <Link href={href("/mindmap")} className="text-base font-semibold text-foreground py-2.5 border-b border-border/60">{labels.mindmap}</Link>
 
               <div className="py-3 border-b border-border/60">
                 <span className="text-base font-semibold text-foreground block mb-3">{labels.apps}</span>
