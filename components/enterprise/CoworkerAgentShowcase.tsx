@@ -417,78 +417,341 @@ export function CoworkerAgentShowcase() {
         </div>
       </div>
 
-      {/* ── 5-Step How to Use & Deploy Architecture ──────────────────────────── */}
-      <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 space-y-6">
+      {/* ── 4-Pillar Operational Guide: Admin Activation, Agent Creation, Connectors, End-User Playbook ── */}
+      <AgentOperationsGuide />
+    </div>
+  );
+}
+
+// ─── Interactive Operational Guide Component ──────────────────────────────────
+function AgentOperationsGuide() {
+  const [activeTab, setActiveTab] = useState<"admin" | "create" | "connectors" | "users">("admin");
+
+  return (
+    <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 space-y-8 shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border/80 pb-6">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-google-blue block mb-1">
-            Enterprise Deployment Architecture
+            Complete Enterprise Implementation Guide
           </span>
-          <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-            How to Set Up & Deploy Coworker Agents in Google Workspace
+          <h3 className="text-2xl font-extrabold text-foreground tracking-tight">
+            Admin Setup, Agent Creation, Connectors & User Playbook
           </h3>
-          <p className="text-sm text-muted-foreground mt-1">
-            Coworker agents follow Google Cloud Identity security, Organizational Unit (OU) policy
-            isolation, and Model Context Protocol (MCP) tool integration.
+          <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
+            Everything administrators and end-users need to know: how to activate autonomous coworker
+            agents in the Google Workspace Admin console, build custom agents, integrate enterprise connectors,
+            and interact via daily Gmail and Calendar workflows.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <div className="rounded-2xl border border-border bg-background p-4 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center justify-center">
-              1
-            </span>
-            <h4 className="text-xs font-bold text-foreground">Provision Identity</h4>
-            <p className="text-[11px] text-muted-foreground leading-relaxed">
-              In Google Workspace Admin, create the agent profile with a dedicated email address
-              (@yourcompany.com) in an isolated Organizational Unit (OU).
-            </p>
-          </div>
+        {/* Tab switcher */}
+        <div className="flex flex-wrap p-1 rounded-2xl bg-muted border border-border shrink-0">
+          <button
+            onClick={() => setActiveTab("admin")}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              activeTab === "admin"
+                ? "bg-card text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />
+            <span>1. Admin Activation</span>
+          </button>
 
-          <div className="rounded-2xl border border-border bg-background p-4 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 font-bold text-xs flex items-center justify-center">
-              2
-            </span>
-            <h4 className="text-xs font-bold text-foreground">Scope Drive & Sources</h4>
-            <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Add the agent as a viewer or editor only to department-specific Shared Drives and
-              NotebookLM sources. It cannot read across unauthorized OUs.
-            </p>
-          </div>
+          <button
+            onClick={() => setActiveTab("create")}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              activeTab === "create"
+                ? "bg-card text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Bot className="w-3.5 h-3.5 text-purple-500" />
+            <span>2. Create an Agent</span>
+          </button>
 
-          <div className="rounded-2xl border border-border bg-background p-4 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold text-xs flex items-center justify-center">
-              3
-            </span>
-            <h4 className="text-xs font-bold text-foreground">Attach MCP Tools</h4>
-            <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Connect corporate endpoints (Salesforce, Jira, BigQuery, NetSuite) via standard Model
-              Context Protocol (MCP) servers with scoped OAuth credentials.
-            </p>
-          </div>
+          <button
+            onClick={() => setActiveTab("connectors")}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              activeTab === "connectors"
+                ? "bg-card text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Workflow className="w-3.5 h-3.5 text-indigo-500" />
+            <span>3. Connect Connectors</span>
+          </button>
 
-          <div className="rounded-2xl border border-border bg-background p-4 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold text-xs flex items-center justify-center">
-              4
-            </span>
-            <h4 className="text-xs font-bold text-foreground">Define Approval Gates</h4>
-            <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Configure human-in-the-loop triggers for high-stakes mutations (external emails, financial
-              updates, code deployments) with one-click manager sign-off.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-background p-4 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center">
-              5
-            </span>
-            <h4 className="text-xs font-bold text-foreground">Audit & Iterate</h4>
-            <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Every action is attributed to the agent's service principal in Cloud Logging and Workspace
-              audit reports with full prompt and tool parameter logging.
-            </p>
-          </div>
+          <button
+            onClick={() => setActiveTab("users")}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              activeTab === "users"
+                ? "bg-card text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Mail className="w-3.5 h-3.5 text-emerald-500" />
+            <span>4. How Users Use It</span>
+          </button>
         </div>
       </div>
+
+      {/* ── TAB 1: Admin Activation Guide ── */}
+      {activeTab === "admin" && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-4.5 space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Step 1 • Licensing</span>
+              <h4 className="text-sm font-bold text-foreground">Verify Plan Eligibility</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Autonomous coworker agents require <strong>Google Workspace Enterprise Standard/Plus</strong> or 
+                <strong>Gemini Enterprise Standalone</strong> licenses. Verify in <em>Admin Console &gt; Billing &gt; Subscriptions</em>.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-purple-500/20 bg-purple-500/5 p-4.5 space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Step 2 • Console Toggle</span>
+              <h4 className="text-sm font-bold text-foreground">Enable Coworker Agents</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Navigate to <em>Apps &gt; Google Workspace &gt; Gemini &gt; Autonomous Agents &amp; Studio</em>.
+                Toggle <strong>Service Status to ON</strong> for your organization or specific target departments.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4.5 space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Step 3 • OU Policy</span>
+              <h4 className="text-sm font-bold text-foreground">Dedicated Organizational Unit</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Create an isolated OU (e.g. <code className="text-primary font-mono text-[11px]">/Agents/Operations</code>).
+                Enforce keyless OAuth service account authentication, disable external password resets, and configure audit exports.
+              </p>
+            </div>
+          </div>
+
+          {/* Admin Policy Checklist */}
+          <div className="rounded-2xl border border-border bg-background/80 p-5 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-500" /> Essential Admin Console Policies to Enforce
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                <span><strong>Directory Visibility:</strong> Toggle whether the agent email appears in autocomplete and company Google Contacts.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                <span><strong>Shared Drive Isolation:</strong> Agents inherit zero implicit Drive access; permissions must be explicitly granted per folder.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                <span><strong>Data Loss Prevention (DLP):</strong> Enforce DLP inspection on all outbound emails generated by coworker agents.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                <span><strong>BigQuery Audit Export:</strong> Stream all agent invocation logs and tool calls into BigQuery for compliance audits.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── TAB 2: How to Create an Agent ── */}
+      {activeTab === "create" && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2">
+              <span className="w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center">1</span>
+              <h4 className="text-xs font-bold text-foreground">Profile &amp; Email Identity</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                In <em>Workspace Agent Studio</em>, click <strong>Create Agent</strong>. Set display name (e.g. <em>Sales RFP Assistant</em>),
+                avatar icon, and assign its corporate email: <code className="text-primary font-mono text-[10px]">rfp-agent@company.com</code>.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2">
+              <span className="w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center">2</span>
+              <h4 className="text-xs font-bold text-foreground">System Instructions</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Define the agent's core mission: role boundaries, preferred tone, output formatting (Docs/Sheets),
+                and instructions to refuse out-of-scope requests.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2">
+              <span className="w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center">3</span>
+              <h4 className="text-xs font-bold text-foreground">Grounding Sources</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Select authorized knowledge sources: specific Shared Drives, approved NotebookLM Enterprise notebooks,
+                or company policy folders. The agent grounds answers strictly in these files.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2">
+              <span className="w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center">4</span>
+              <h4 className="text-xs font-bold text-foreground">Human Approval Gates</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Configure sign-off triggers. For example: automatically draft external replies, but require a human sales
+                manager's email click before sending to the client.
+              </p>
+            </div>
+          </div>
+
+          {/* Sample System Instruction Template */}
+          <div className="rounded-2xl border border-border bg-slate-950 p-4 text-slate-100 font-mono text-xs space-y-2">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 border-b border-slate-800 pb-2">
+              <span>Example System Instruction (Workspace Studio)</span>
+              <span>Model: Gemini 2.5 Pro (Enterprise Grounded)</span>
+            </div>
+            <pre className="text-[11px] text-emerald-400 overflow-x-auto whitespace-pre-wrap leading-relaxed">
+{`You are the Project Operations Agent (pm-agent@company.com).
+Your mission: Monitor sprint progress, update tracking Sheets, and prepare standup briefings.
+Rules:
+1. Always ground project deadlines in the 'Q4 Launch Tracker' Shared Drive.
+2. If an engineer tags you with a blocker, query Jira (#ENG project) via MCP and log ticket status.
+3. NEVER reassign sprint tasks without manager email approval.
+4. Deliver completed executive summaries directly as a Google Doc link in your email response.`}
+            </pre>
+          </div>
+        </div>
+      )}
+
+      {/* ── TAB 3: How to Connect Connectors ── */}
+      {activeTab === "connectors" && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Pre-built Enterprise Connectors */}
+            <div className="rounded-2xl border border-border bg-background p-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                  <Workflow className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-foreground">Option A: 1-Click Pre-Built Connectors</h4>
+                  <span className="text-[11px] text-muted-foreground">Google Cloud Enterprise Connector Catalog</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Connect turnkey enterprise SaaS systems directly through the Google Cloud Console without writing integration code:
+              </p>
+              <ul className="space-y-2 text-xs text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Salesforce &amp; HubSpot:</strong> Authenticate via OAuth to read deals, leads, and update opportunity stages.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Jira &amp; ServiceNow:</strong> Create incidents, update sprint boards, and retrieve blocker tickets.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>BigQuery &amp; Snowflake:</strong> Execute read-only SQL queries to ground responses in corporate analytics tables.</span>
+                </li>
+              </ul>
+              <div className="pt-2">
+                <Link
+                  href="/enterprise/connectors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
+                >
+                  <span>Explore 50+ Pre-Built Connectors</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Custom MCP Servers */}
+            <div className="rounded-2xl border border-border bg-background p-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-foreground">Option B: Model Context Protocol (MCP)</h4>
+                  <span className="text-[11px] text-muted-foreground">Open Standard Custom Tool Calling</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                For proprietary internal databases and custom microservices, attach a custom MCP server:
+              </p>
+              <div className="rounded-xl border border-border/80 bg-slate-950 p-3 text-slate-100 font-mono text-[11px] overflow-x-auto space-y-1">
+                <span className="text-slate-400">// Register MCP Server in Google Cloud Agent Builder:</span>
+                <div className="text-purple-400">Endpoint: https://mcp.internal.company.com/v1/tools</div>
+                <div className="text-blue-400">Auth: OAuth 2.0 Client Credentials (VPC Scoped)</div>
+                <div className="text-emerald-400">Tools Exposed: [queryInventory, releasePo, checkHealth]</div>
+              </div>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Gemini automatically discovers tool schemas, validates input parameters, and passes execution tokens securely.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── TAB 4: How Users Use It (End-User Playbook) ── */}
+      {activeTab === "users" && (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2.5">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                <Mail className="w-4 h-4" />
+              </div>
+              <h4 className="text-xs font-bold text-foreground">1. Emailing the Agent</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Send an email directly or CC <code className="text-primary font-mono text-[10px]">agent@company.com</code>.
+                Attach files (PDFs, spreadsheets) with instructions. The agent replies with deliverables or creates drafts.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2.5">
+              <div className="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                <Calendar className="w-4 h-4" />
+              </div>
+              <h4 className="text-xs font-bold text-foreground">2. Google Calendar &amp; Meet</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Invite the agent to meetings as an attendee. It checks participant schedules, prepares pre-read docs,
+                enables "Take notes for me", and emails action item summaries.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2.5">
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                <Workflow className="w-4 h-4" />
+              </div>
+              <h4 className="text-xs font-bold text-foreground">3. Google Chat Spaces</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Add the agent into a team Chat space. Tag <code className="text-primary font-mono text-[10px]">@AgentName</code> with
+                high-level tasks like: <em>"Check Jira blockers and share a summary here"</em>.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-background p-4.5 space-y-2.5">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                <UserCheck className="w-4 h-4" />
+              </div>
+              <h4 className="text-xs font-bold text-foreground">4. One-Click Approvals</h4>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                When the agent prepares high-stakes actions (sending proposals, updating budgets), it sends an interactive
+                card to your inbox with <strong>[Approve]</strong> or <strong>[Edit Draft]</strong>.
+              </p>
+            </div>
+          </div>
+
+          {/* User Quick Prompt Card */}
+          <div className="rounded-2xl border border-border bg-muted/20 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <h4 className="text-xs font-bold text-foreground">Try This in Your Inbox Today:</h4>
+              <p className="text-xs text-muted-foreground">
+                <em>"Forward an email to your coworker agent with: 'Please extract key dates and create calendar invites for everyone on the thread.'"</em>
+              </p>
+            </div>
+            <Link
+              href="/plans"
+              className="px-4 py-2 bg-primary text-primary-foreground text-xs font-bold rounded-xl hover:bg-primary/90 transition-all shrink-0 text-center"
+            >
+              Check Enterprise Plan Inclusion
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
