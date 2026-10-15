@@ -97,10 +97,10 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
             </Link>
             <Link
               href={href("/enterprise/agents")}
-              className="inline-flex items-center gap-2 px-6 py-3.5 border border-border bg-card hover:bg-muted text-foreground font-semibold rounded-xl transition-all shadow-sm text-sm"
+              className="inline-flex items-center gap-2 px-6 py-3.5 border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 text-foreground font-semibold rounded-xl transition-all shadow-sm text-sm"
             >
               <Terminal className="w-4 h-4 text-gemini-purple" />
-              Model Context Protocol (MCP)
+              Autonomous Agents &amp; MCP
             </Link>
             <Link
               href={href("/security")}
