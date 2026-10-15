@@ -15,7 +15,7 @@ export const categories: Category[] = [
     description: "Generative drafting, contextual email summarization, and AI smart replies in Gmail.",
     iconName: "Mail",
     accentColor: "#EA4335",
-    featuresCount: 3,
+    featuresCount: 5,
   },
   {
     id: "docs",

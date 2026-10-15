@@ -11,9 +11,15 @@ export const applications: Application[] = [
     accentColor: "#EA4335",
     category: "Communication",
     iconName: "Mail",
-    featuresCount: 3,
-    keyAIFeatures: ["Help me write", "Email summaries (side panel)", "Contextual smart replies"],
-    overview: "Gmail AI operates across web and mobile surfaces, utilizing context from previous correspondence to draft responses, summarize multi-recipient chains, and highlight urgent action items.",
+    featuresCount: 5,
+    keyAIFeatures: [
+      "AI Inbox & Daily Digest",
+      "Help me write",
+      "Email summaries (side panel)",
+      "Contextual smart replies",
+      "Smart Compose",
+    ],
+    overview: "Gmail AI operates across web and mobile surfaces, utilizing context from previous correspondence to organize incoming mail with proactive AI Inbox digests, draft responses, summarize multi-recipient chains, and highlight urgent action items.",
     enterpriseValue: "Reduces repetitive email composition time by an estimated 35%, ensuring polished, brand-aligned communication with full DLP and enterprise data privacy protections.",
   },
   {

@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
+import { AiInboxShowcase } from "@/components/gmail/AiInboxShowcase";
 interface AppDetailPageProps {
   params: Promise<{
     locale: string;
@@ -186,6 +187,15 @@ export default async function AppDetailPage({ params }: AppDetailPageProps) {
           </div>
         </div>
       </section>
+
+      {/* AI Inbox Showcase for Gmail */}
+      {app.slug === "gmail" && (
+        <section className="py-12 border-b border-border/60 bg-muted/5">
+          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+            <AiInboxShowcase />
+          </div>
+        </section>
+      )}
 
       {/* Features Catalog for this App */}
       <section className="py-20">
