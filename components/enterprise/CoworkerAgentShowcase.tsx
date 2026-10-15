@@ -673,7 +673,7 @@ Rules:
                 For proprietary internal databases and custom microservices, attach a custom MCP server:
               </p>
               <div className="rounded-xl border border-border/80 bg-slate-950 p-3 text-slate-100 font-mono text-[11px] overflow-x-auto space-y-1">
-                <span className="text-slate-400">// Register MCP Server in Google Cloud Agent Builder:</span>
+                <span className="text-slate-400">{"// Register MCP Server in Google Cloud Agent Builder:"}</span>
                 <div className="text-purple-400">Endpoint: https://mcp.internal.company.com/v1/tools</div>
                 <div className="text-blue-400">Auth: OAuth 2.0 Client Credentials (VPC Scoped)</div>
                 <div className="text-emerald-400">Tools Exposed: [queryInventory, releasePo, checkHealth]</div>
