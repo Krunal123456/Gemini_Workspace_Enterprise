@@ -15,7 +15,7 @@ export const categories: Category[] = [
     description: "Generative drafting, contextual email summarization, and AI smart replies in Gmail.",
     iconName: "Mail",
     accentColor: "#EA4335",
-    featuresCount: 3,
+    featuresCount: 5,
   },
   {
     id: "docs",
@@ -46,6 +46,14 @@ export const categories: Category[] = [
     name: "Google Chat",
     description: "Thread summarization, automatic multi-language translation, and workspace AI side panel.",
     iconName: "MessageSquare",
+    accentColor: "#34A853",
+    featuresCount: 3,
+  },
+  {
+    id: "voice",
+    name: "Google Voice",
+    description: "Cloud telephony with AI-powered voicemail transcription, multi-level auto attendant, and eDiscovery.",
+    iconName: "Phone",
     accentColor: "#34A853",
     featuresCount: 3,
   },

@@ -1,25 +1,15 @@
-import React from "react";
+import Image from "next/image";
 
-export function MarketStarLogo({ className = "h-5 w-auto" }: { className?: string }) {
+export function MarketStarLogo({ className = "h-5 w-auto object-contain" }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 160 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-label="MarketStar Logo"
-    >
-      <text
-        x="0"
-        y="24"
-        fill="currentColor"
-        fontSize="22"
-        fontWeight="700"
-        fontFamily="Inter, system-ui, sans-serif"
-        letterSpacing="-0.02em"
-      >
-        MarketStar
-      </text>
-    </svg>
+    <span className="inline-flex shrink-0 items-center justify-center rounded-md bg-slate-900 px-2.5 py-1.5 shadow-sm ring-1 ring-black/10">
+      <Image
+        src="/brand/marketstar-logo.png"
+        alt="MarketStar"
+        width={349}
+        height={47}
+        className={className}
+      />
+    </span>
   );
 }

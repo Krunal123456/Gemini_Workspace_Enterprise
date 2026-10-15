@@ -1,135 +1,127 @@
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Sparkles } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
+import { Sparkles } from "lucide-react";
+import { localizeHref } from "@/lib/i18n/href";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-const platformLinks = [
-  { name: "All Features", href: "/features" },
-  { name: "Compare Plans", href: "/compare" },
-  { name: "Applications", href: "/apps" },
-  { name: "NotebookLM", href: "/apps/notebooklm" },
-  { name: "Enterprise AI", href: "/enterprise" },
+type FooterLabels = Dictionary["footer"];
+
+type FooterLink = { name: string; href: string };
+
+// Product names in the Applications column are brand names, so they stay as-is.
+const platformLinks: FooterLink[] = [
+  { name: "allFeatures", href: "/features" },
+  { name: "comparePlans", href: "/compare" },
+  { name: "apps", href: "/apps" },
+  { name: "notebooklm", href: "/apps/notebooklm" },
+  { name: "enterpriseAi", href: "/enterprise" },
 ];
 
-const enterpriseLinks = [
-  { name: "Connectors", href: "/enterprise/connectors" },
-  { name: "Agents & MCP", href: "/enterprise/agents" },
-  { name: "Security & Governance", href: "/security" },
-  { name: "Articles", href: "/articles" },
-  { name: "Pricing", href: "/compare#pricing" },
+const enterpriseLinks: FooterLink[] = [
+  { name: "connectors", href: "/enterprise/connectors" },
+  { name: "agentsMcp", href: "/enterprise/agents" },
+  { name: "securityGovernance", href: "/security" },
+  { name: "articles", href: "/articles" },
+  { name: "pricing", href: "/pricing#pricing-overview" },
 ];
 
-const applicationLinks = [
-  { name: "Gmail", href: "/apps/gmail" },
-  { name: "Google Docs", href: "/apps/docs" },
-  { name: "Google Sheets", href: "/apps/sheets" },
-  { name: "Google Meet", href: "/apps/meet" },
-  { name: "Google Chat", href: "/apps/chat" },
-  { name: "Google Slides", href: "/apps/slides" },
-  { name: "Google Vids", href: "/apps/vids" },
-  { name: "Google Drive", href: "/apps/drive" },
+const applicationNames = [
+  "Gmail",
+  "Google Docs",
+  "Google Sheets",
+  "Google Meet",
+  "Google Chat",
+  "Google Slides",
+  "Google Vids",
+  "Google Drive",
 ];
 
-export function Footer() {
+const applicationLinks: FooterLink[] = applicationNames.map((name, index) => ({
+  name,
+  href: `/apps/${["gmail", "docs", "sheets", "meet", "chat", "slides", "vids", "drive"][index]}`,
+}));
+
+function LinkColumn({
+  heading,
+  links,
+  labels,
+  href,
+}: {
+  heading: string;
+  links: FooterLink[];
+  labels: FooterLabels;
+  href: (path: string) => string;
+}) {
   return (
-    <footer className="w-full bg-gray-50 dark:bg-dark-surface border-t border-border">
+    <div>
+      <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-6">
+        {heading}
+      </h4>
+      <ul className="space-y-4">
+        {links.map((link) => (
+          <li key={`${link.href}-${link.name}`}>
+            <Link
+              href={href(link.href)}
+              className="text-sm text-muted-foreground hover:text-foreground transition-all duration-200 inline-block hover:translate-x-1"
+            >
+              {link.name in labels ? labels[link.name as keyof FooterLabels] : link.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function Footer({
+  labels,
+  locale,
+}: {
+  labels: FooterLabels;
+  locale: Locale;
+}) {
+  const href = (path: string) => localizeHref(locale, path);
+
+  return (
+    <footer className="w-full bg-white/60 dark:bg-slate-950/60 backdrop-blur-2xl border-t border-white/40 dark:border-white/10 shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.05)]">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-        {/* Main content py-16, grid */}
         <div className="py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          
-          {/* Column 1 - Brand */}
           <div className="flex flex-col space-y-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-5 h-5 text-gemini-purple" />
-                <h3 className="text-lg font-semibold text-foreground">Gemini Intelligence</h3>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Gemini Intelligence
+                </h3>
               </div>
-              <p className="text-sm font-medium text-muted-foreground">by MarketStar</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                {labels.by}
+              </p>
             </div>
-            
+
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+              {labels.blurb}
             </p>
-            
-            <div className="flex items-center gap-4 pt-2">
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10" aria-label="GitHub">
-                <Github className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10" aria-label="Twitter">
-                <Twitter className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10" aria-label="LinkedIn">
-                <Linkedin className="w-5 h-5" />
-              </Link>
-            </div>
           </div>
 
-          {/* Column 2 - Platform */}
-          <div>
-            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-6">
-              Platform
-            </h4>
-            <ul className="space-y-4">
-              {platformLinks.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-all duration-200 inline-block hover:translate-x-1"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3 - Enterprise */}
-          <div>
-            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-6">
-              Enterprise
-            </h4>
-            <ul className="space-y-4">
-              {enterpriseLinks.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-all duration-200 inline-block hover:translate-x-1"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4 - Applications */}
-          <div>
-            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-6">
-              Applications
-            </h4>
-            <ul className="space-y-4">
-              {applicationLinks.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-all duration-200 inline-block hover:translate-x-1"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-        </div>
-
-        {/* Bottom bar */}
-        <div className="py-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground text-center sm:text-left">
-            © 2025 MarketStar. All rights reserved. Google Workspace and Gemini are trademarks of Google LLC.
-          </p>
-          <div className="shrink-0">
-            <ThemeToggle />
-          </div>
+          <LinkColumn
+            heading={labels.platform}
+            links={platformLinks}
+            labels={labels}
+            href={href}
+          />
+          <LinkColumn
+            heading={labels.enterprise}
+            links={enterpriseLinks}
+            labels={labels}
+            href={href}
+          />
+          <LinkColumn
+            heading={labels.applications}
+            links={applicationLinks}
+            labels={labels}
+            href={href}
+          />
         </div>
       </div>
     </footer>

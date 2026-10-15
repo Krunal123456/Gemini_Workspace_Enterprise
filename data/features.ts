@@ -1,43 +1,144 @@
 import { Feature, PlanId, PlanAvailability } from "@/types";
 
-// Helper to quickly generate availability record across all 11 plans
+// Fill mapped feature availability for editions with reviewed catalog entries.
+//
+// Propagation hierarchy (explicit map always wins over auto-propagation):
+//   business-standard → gemini-business-addon, ai-expanded
+//   enterprise-standard/plus → gemini-enterprise-addon, gemini-enterprise-business,
+//                              gemini-enterprise-standard, gemini-enterprise-plus,
+//                              gemini-enterprise-payg, frontline
+//   gemini-enterprise-business → gemini-enterprise-standard, gemini-enterprise-plus,
+//                                 gemini-enterprise-payg, frontline
+//   Standalone add-ons (google-voice-*, appsheet-core, workspace-additional-storage,
+//   ai-security, ai-meetings-messaging): ONLY available if explicitly mapped.
 function makeAvailability(
   map: Partial<Record<PlanId, Partial<PlanAvailability>>>
-): Record<PlanId, PlanAvailability> {
-  const allPlanIds: PlanId[] = [
+): Partial<Record<PlanId, PlanAvailability>> {
+  const mappedPlanIds: PlanId[] = [
     "business-starter",
     "business-standard",
     "business-plus",
     "enterprise-standard",
     "enterprise-plus",
+    "gemini-business-addon",
+    "gemini-enterprise-addon",
+    "ai-meetings-messaging",
+    "ai-security",
     "ai-expanded",
-    "ai-ultra",
     "gemini-enterprise-business",
     "gemini-enterprise-standard",
     "gemini-enterprise-plus",
+    "gemini-enterprise-payg",
+    "google-voice-starter",
+    "google-voice-standard",
+    "google-voice-premier",
+    "appsheet-core",
+    "workspace-additional-storage",
     "frontline",
   ];
 
-  const result = {} as Record<PlanId, PlanAvailability>;
+  const result: Partial<Record<PlanId, PlanAvailability>> = {};
 
-  for (const pid of allPlanIds) {
-    if (map[pid]) {
-      result[pid] = {
-        available: map[pid]!.available ?? true,
-        status: map[pid]!.status ?? (map[pid]!.available === false ? "no" : "yes"),
-        note: map[pid]!.note,
-        limit: map[pid]!.limit,
-      };
-    } else {
-      result[pid] = {
-        available: false,
-        status: "no",
+  // ── Source helpers ─────────────────────────────────────────────────────────
+  const wsStd    = map["business-standard"];
+  const wsEntStd = map["enterprise-standard"];
+  const wsEntPls = map["enterprise-plus"];
+  const wsEntSrc = wsEntStd ?? wsEntPls;
+  const geBiz    = map["gemini-enterprise-business"];
+  const geStd    = map["gemini-enterprise-standard"];
+  const gePls    = map["gemini-enterprise-plus"];
+  const geFront  = map["frontline"];
+
+  const hasWsStd   = Boolean(wsStd?.available);
+  const hasWsEnt   = Boolean(wsEntSrc?.available);
+  const hasGeBiz   = Boolean(geBiz?.available);
+  const hasGeStd   = Boolean(geStd?.available);
+  const hasGePls   = Boolean(gePls?.available);
+  const hasGeFront = Boolean(geFront?.available);
+
+  // Best GE source for PayGo / Frontline fallback
+  const geBestSrc = geStd ?? gePls ?? geBiz ?? wsEntSrc;
+  const hasAnyGe  = hasGeBiz || hasGeStd || hasGePls;
+
+  function normEntry(src: Partial<PlanAvailability>, defaultNote?: string): PlanAvailability {
+    return {
+      available: src.available ?? true,
+      status:    src.status ?? "yes",
+      note:      src.note ?? defaultNote,
+      limit:     src.limit,
+    };
+  }
+
+  function resolve(pid: PlanId): PlanAvailability {
+    // ① Explicit mapping always wins
+    if (map[pid] !== undefined) {
+      const m = map[pid]!;
+      return {
+        available: m.available ?? true,
+        status:    m.status ?? (m.available === false ? "no" : "yes"),
+        note:      m.note,
+        limit:     m.limit,
       };
     }
+
+    // ② gemini-business-addon — inherits from Business Standard
+    if (pid === "gemini-business-addon" && hasWsStd) {
+      return normEntry(wsStd!, "Included with Gemini Business add-on");
+    }
+
+    // ③ gemini-enterprise-addon — inherits from Enterprise Standard/Plus
+    if (pid === "gemini-enterprise-addon" && (hasWsEnt || hasWsStd)) {
+      const src = wsEntSrc ?? wsStd!;
+      return normEntry(src, "Included with Gemini Enterprise add-on");
+    }
+
+    // ④ gemini-enterprise-business — inherits from Workspace Enterprise
+    if (pid === "gemini-enterprise-business" && hasWsEnt) {
+      return normEntry(wsEntSrc!, wsEntSrc!.note);
+    }
+
+    // ⑤ gemini-enterprise-standard — inherits from GE Business or Workspace Enterprise
+    if (pid === "gemini-enterprise-standard") {
+      if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
+      if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
+    }
+
+    // ⑥ gemini-enterprise-plus — inherits from GE Standard → GE Business → WS Enterprise
+    if (pid === "gemini-enterprise-plus") {
+      if (hasGeStd)  return normEntry(geStd!, geStd!.note);
+      if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
+      if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
+    }
+
+    // ⑦ gemini-enterprise-payg — inherits from best GE source
+    if (pid === "gemini-enterprise-payg" && (hasAnyGe || hasWsEnt) && geBestSrc) {
+      return normEntry(geBestSrc, "Usage-based billing");
+    }
+
+    // ⑧ frontline — inherits from GE Standard/Business if available
+    if (pid === "frontline" && !hasGeFront) {
+      if (hasGeStd)  return normEntry(geStd!, "Frontline seat access");
+      if (hasGeBiz)  return normEntry(geBiz!, "Frontline seat access");
+    }
+
+    // ⑨ ai-expanded — higher limits for Workspace Standard features
+    if (pid === "ai-expanded" && hasWsStd) {
+      return { available: true, status: "higher_limits", note: "Higher limits with AI Expanded Access", limit: wsStd!.limit };
+    }
+
+    // ⑩ Standalone plans — NEVER auto-propagated:
+    //    google-voice-*, appsheet-core, workspace-additional-storage,
+    //    ai-security, ai-meetings-messaging
+    return { available: false, status: "no" };
+  }
+
+  for (const pid of mappedPlanIds) {
+    result[pid] = resolve(pid);
   }
 
   return result;
 }
+
 
 export const features: Feature[] = [
   // ==========================================
@@ -69,7 +170,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -226,7 +326,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -252,7 +351,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
       "frontline": { available: true, status: "yes" },
@@ -272,7 +370,6 @@ export const features: Feature[] = [
     enterpriseAvailability: "standard",
     plans: makeAvailability({
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher priority" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest priority" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -296,7 +393,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher limits" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -340,7 +436,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes", limit: "20 / day" },
       "enterprise-plus": { available: true, status: "yes", limit: "20 / day" },
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher quota" },
-      "ai-ultra": { available: true, status: "higher_limits", note: "Highest quota" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -515,7 +610,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -536,7 +630,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -557,7 +650,43 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
+    }),
+  },
+  {
+    id: "gmail-ai-inbox",
+    slug: "gmail-ai-inbox",
+    name: "Gmail AI Inbox & Proactive Daily Digest",
+    category: "gmail",
+    application: "gmail",
+    description: "Proactive Gemini AI inbox that organizes unread messages into intelligent daily briefings, prioritizes VIP threads, and powers conversational search.",
+    whatItDoes: "Transforms Gmail from a simple chronological inbox into an intelligent assistant. Generates morning executive digests, surfaces pending deadlines and unanswered questions, highlights VIP senders, and enables natural language conversational search across your entire email history.",
+    howItWorks: "Powered by Gemini 2.5 on-device and cloud reasoning. Synthesizes inbound email threads using privacy-preserving models, surfaces inline AI Overviews at the top of complex message chains, extracts commitment dates, and syncs actionable tasks with Google Calendar and Tasks.",
+    useCases: [
+      "Reviewing a morning bullet-point digest of 50+ overnight emails in 30 seconds",
+      "Conversational search: 'Find the contract revisions Jason sent last Thursday'",
+      "Surfacing urgent client inquiries with automatic VIP and priority sender tagging",
+      "Extracting action items from email chains into Google Tasks with one click",
+      "Catching up on 20+ message vendor negotiations via top-of-thread AI Overviews",
+    ],
+    capabilities: [
+      "Proactive daily email briefing card",
+      "Inline AI Overviews across complex message threads",
+      "Natural language conversational search across mail and Drive",
+      "VIP and priority sender intelligence",
+      "One-click action item to Google Tasks synchronization",
+      "Custom refinement prompts for drafting responses",
+    ],
+    enterpriseAvailability: "all",
+    plans: makeAvailability({
+      "business-standard": { available: true, status: "yes", note: "Standard AI Inbox & Daily Summaries" },
+      "business-plus": { available: true, status: "yes", note: "Full AI Inbox with Vault Retention & eDiscovery" },
+      "enterprise-standard": { available: true, status: "yes", note: "Enterprise AI Inbox with Contextual Grounding" },
+      "enterprise-plus": { available: true, status: "yes", note: "Enterprise AI Inbox with Advanced DLP & Audit Logging" },
+      "gemini-enterprise-business": { available: true, status: "yes" },
+      "gemini-enterprise-standard": { available: true, status: "yes" },
+      "gemini-enterprise-plus": { available: true, status: "yes" },
+      "gemini-enterprise-addon": { available: true, status: "yes" },
+      "frontline": { available: true, status: "yes" },
     }),
   },
   {
@@ -578,7 +707,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -620,7 +748,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -641,7 +768,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -662,7 +788,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -683,7 +808,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -726,7 +850,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -747,7 +870,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -767,7 +889,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -793,7 +914,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -814,7 +934,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -835,7 +954,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -856,7 +974,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -877,7 +994,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -912,7 +1028,6 @@ export const features: Feature[] = [
     isNew: true,
     plans: makeAvailability({
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -931,7 +1046,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -974,7 +1088,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -995,7 +1108,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1016,7 +1128,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1172,7 +1283,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1193,7 +1303,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1214,7 +1323,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -1239,7 +1347,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1260,7 +1367,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1280,7 +1386,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
     }),
   },
   {
@@ -1301,7 +1406,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
 
@@ -1326,7 +1430,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1347,7 +1450,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1368,7 +1470,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -1410,7 +1511,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -1433,7 +1533,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes", note: "Enterprise limits" },
       "enterprise-plus": { available: true, status: "yes", note: "Highest limits" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -1554,7 +1653,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -1577,7 +1675,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -1597,7 +1694,6 @@ export const features: Feature[] = [
     isNew: true,
     plans: makeAvailability({
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
   },
@@ -1714,7 +1810,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -1982,7 +2077,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "higher_limits" },
-      "ai-ultra": { available: true, status: "higher_limits" },
     }),
   },
   {
@@ -2003,7 +2097,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -2022,7 +2115,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
     }),
   },
   {
@@ -2045,7 +2137,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -2072,7 +2163,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -2093,7 +2183,6 @@ export const features: Feature[] = [
     plans: makeAvailability({
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
     }),
@@ -2122,7 +2211,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -2259,7 +2347,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-      "ai-ultra": { available: true, status: "yes" },
       "gemini-enterprise-business": { available: true, status: "yes" },
       "gemini-enterprise-standard": { available: true, status: "yes" },
       "gemini-enterprise-plus": { available: true, status: "yes" },
@@ -2400,4 +2487,140 @@ export const features: Feature[] = [
       "frontline": { available: true, status: "yes" },
     }),
   },
+  {
+    id: "gemini-workspace-coworker-agent-email",
+    slug: "gemini-workspace-coworker-agent-email",
+    name: "Gemini Workspace Coworker Agents (Dedicated Email & Identity)",
+    category: "studio",
+    application: "workspace-studio",
+    description: "Autonomous AI coworker agents provisioned with their own Google Workspace account, corporate email address (@company.com), calendar, and organizational role.",
+    whatItDoes: "Enables organizations to deploy persistent AI agents with their own inbox, Google Calendar, and Drive. Human coworkers can email the agent directly, invite it to meetings, or assign multi-step objectives across Gmail, Docs, Sheets, Salesforce, Jira, and Slack.",
+    howItWorks: "Configured via Google Workspace Admin console. Agents receive dedicated corporate email addresses (e.g. agent-pm@company.com), authenticate through organizational IAM, execute tools via Model Context Protocol (MCP), log independent audit trails, and adhere to admin-defined human-in-the-loop approval thresholds.",
+    useCases: [
+      "Project Operations: Inbound email monitoring, meeting scheduling, Docs/Sheets tracking",
+      "Sales & RFP Triage: Parsing customer RFPs received via email and drafting proposal responses",
+      "Finance & Invoicing: Ingesting receipts and vendor invoices from email and reconciling in Sheets",
+      "Customer Experience: Direct inbox triage, automated ticket routing, and contextual customer drafting",
+      "Cross-Platform Orchestration: Executing tasks across Jira, Salesforce, Slack, and Google Workspace",
+    ],
+    capabilities: [
+      "Dedicated company email identity (@company.com)",
+      "Autonomous multi-step planning and tool execution",
+      "Google Calendar and Meet automated coordination",
+      "Independent audit logging and IAM attribution",
+      "Admin-governed human-in-the-loop approvals",
+      "Cross-system MCP tool integration (Jira, Salesforce, Slack)",
+    ],
+    enterpriseAvailability: "enterprise-only",
+    plans: makeAvailability({
+      "enterprise-standard": { available: true, status: "yes", note: "Enterprise Workspace Agent Provisioning" },
+      "enterprise-plus": { available: true, status: "yes", note: "Full Agent Provisioning with Advanced DLP & Audit" },
+      "gemini-enterprise-standard": { available: true, status: "yes", note: "Dedicated Coworker Agent Identity" },
+      "gemini-enterprise-plus": { available: true, status: "yes", note: "Dedicated Coworker Agent with CMEK & Custom MCP" },
+      "gemini-enterprise-addon": { available: true, status: "yes", note: "Attachable Coworker Agent license" },
+    }),
+  },
+  {
+    id: "voice-ai-voicemail-transcription",
+    slug: "voice-ai-voicemail-transcription",
+    name: "AI Voicemail Transcription & Summaries",
+    category: "voice",
+    application: "voice",
+    description: "Automatically transcribe incoming voicemails using neural speech recognition, delivered with summaries directly to Gmail and the Voice mobile/web apps.",
+    whatItDoes: "Transcribes caller speech into text and delivers it directly to your inbox so you can read voicemails silently and act on them instantly without listening to audio.",
+    howItWorks: "Feeds voicemail audio through Google's low-latency neural speech-to-text models, creating formatted text transcripts and identifying key action items.",
+    useCases: ["Reviewing urgent client voicemails during meetings", "Archiving customer request text for CRM records", "Searching historical voicemails via Gmail search"],
+    capabilities: ["Neural speech-to-text transcription", "Gmail inbox delivery", "Multi-language voicemail recognition"],
+    enterpriseAvailability: "add-on",
+    plans: makeAvailability({
+      "google-voice-starter": { available: true, status: "yes" },
+      "google-voice-standard": { available: true, status: "yes" },
+      "google-voice-premier": { available: true, status: "yes" },
+    }),
+  },
+  {
+    id: "voice-auto-attendant-ivr",
+    slug: "voice-auto-attendant-ivr",
+    name: "Smart Multi-Level Auto Attendant (IVR)",
+    category: "voice",
+    application: "voice",
+    description: "Automated multi-level interactive voice response (IVR) phone tree routing callers to specific departments, hunt groups, or employees.",
+    whatItDoes: "Directs incoming calls to the right team or individual with customizable greeting menus, business hour rules, and multi-language prompt support.",
+    howItWorks: "Configured in Google Workspace Admin console with visual call flows, dial-by-name directory options, and scheduled routing rules.",
+    useCases: ["Routing sales calls to regional teams", "Handling after-hours emergency support lines", "Directing callers to bilingual staff"],
+    capabilities: ["Multi-level IVR menus", "Business hours routing", "Custom text-to-speech greetings"],
+    enterpriseAvailability: "add-on",
+    plans: makeAvailability({
+      "google-voice-standard": { available: true, status: "yes" },
+      "google-voice-premier": { available: true, status: "yes" },
+    }),
+  },
+  {
+    id: "voice-call-recording-ediscovery",
+    slug: "voice-call-recording-ediscovery",
+    name: "Call Recording & Vault eDiscovery",
+    category: "voice",
+    application: "voice",
+    description: "Automated call recording with centralized Google Vault retention, compliance holds, and BigQuery call telemetry export.",
+    whatItDoes: "Captures and archives organizational call recordings, SMS messages, and call metadata for regulatory compliance, training, and legal discovery.",
+    howItWorks: "Records calls server-side and stores encrypted audio artifacts in Google Vault with configurable retention rules and BigQuery streaming export.",
+    useCases: ["Financial compliance audit trails", "Quality assurance and agent training", "Legal eDiscovery hold requests"],
+    capabilities: ["Automatic compliance recording", "Google Vault legal holds", "BigQuery telemetry export"],
+    enterpriseAvailability: "add-on",
+    plans: makeAvailability({
+      "google-voice-premier": { available: true, status: "yes" },
+    }),
+  },
 ];
+
+// Attach specialized add-on availability for AI Meetings & Messaging, AI Security, Voice, AppSheet, and Storage
+for (const feature of features) {
+  // AI Meetings and Messaging add-on covers Meet and Chat AI capabilities
+  if (feature.application === "meet" || feature.application === "chat") {
+    const isAvailableInMeetings =
+      feature.plans["enterprise-standard"]?.available ||
+      feature.plans["business-standard"]?.available ||
+      feature.plans["business-plus"]?.available;
+    if (isAvailableInMeetings) {
+      feature.plans["ai-meetings-messaging"] = {
+        available: true,
+        status: "yes",
+        note: "Included in AI Meetings and Messaging add-on",
+      };
+    }
+  }
+
+  // AI Security add-on covers automated classification, DLP, and client-side encryption controls
+  if (
+    feature.id.includes("classification") ||
+    feature.id.includes("dlp") ||
+    feature.id.includes("client-side-encryption") ||
+    feature.id.includes("security-gemini-ai")
+  ) {
+    feature.plans["ai-security"] = {
+      available: true,
+      status: "yes",
+      note: "Included in Google Workspace AI Security add-on",
+    };
+  }
+
+  // AppSheet Core add-on
+  if (feature.application === "appsheet" || feature.id.includes("appsheet")) {
+    feature.plans["appsheet-core"] = {
+      available: true,
+      status: "yes",
+      note: "Included in AppSheet Core add-on & Enterprise Plus",
+    };
+  }
+
+  // Workspace Additional Storage add-on
+  if (feature.id.includes("storage") || feature.category === "drive") {
+    feature.plans["workspace-additional-storage"] = {
+      available: true,
+      status: "yes",
+      note: "+10 TB pooled storage increment",
+    };
+  }
+}
+
+

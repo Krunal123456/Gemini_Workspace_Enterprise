@@ -1,0 +1,198 @@
+- generic [active] [ref=f6e1]:
+  - banner [ref=f6e2]:
+    - generic [ref=f6e4]:
+      - link "MarketStar Gemini Intelligence" [ref=f6e5] [cursor=pointer]:
+        - /url: /
+        - img "MarketStar" [ref=f6e7]
+        - generic [ref=f6e9]: Gemini Intelligence
+      - navigation [ref=f6e10]:
+        - link "Features" [ref=f6e11] [cursor=pointer]:
+          - /url: /features
+        - link "Models" [ref=f6e12] [cursor=pointer]:
+          - /url: /models
+        - link "Compare" [ref=f6e13] [cursor=pointer]:
+          - /url: /compare
+        - link "Pricing" [ref=f6e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Enterprise" [ref=f6e15] [cursor=pointer]:
+          - /url: /enterprise
+        - link "Security" [ref=f6e16] [cursor=pointer]:
+          - /url: /security
+        - link "Articles" [ref=f6e17] [cursor=pointer]:
+          - /url: /articles
+        - button "Apps" [ref=f6e20] [cursor=pointer]
+      - button "Search the site" [ref=f6e25] [cursor=pointer]
+  - main [ref=f6e29]:
+    - article [ref=f6e31]:
+      - link "Back to all Articles" [ref=f6e34] [cursor=pointer]:
+        - /url: /articles
+      - generic [ref=f6e38]:
+        - generic [ref=f6e39]:
+          - generic [ref=f6e40]: Gemini
+          - generic [ref=f6e41]: 5 min read
+          - generic [ref=f6e46]: 2026-09-28
+        - 'heading "Gemini in Google Workspace: What editions include and how limits differ" [level=1] [ref=f6e50]'
+        - paragraph [ref=f6e51]: Separate AI inside Workspace apps from the Gemini app, Notebook, and optional expanded access when comparing plans.
+        - generic [ref=f6e52]:
+          - generic [ref=f6e53]: MS
+          - generic [ref=f6e54]:
+            - generic [ref=f6e55]: MarketStar Research
+            - generic [ref=f6e56]: Product research • MarketStar
+      - generic [ref=f6e57]:
+        - generic [ref=f6e58]:
+          - heading "Key Executive Takeaways" [level=2] [ref=f6e59]
+          - list [ref=f6e62]:
+            - listitem [ref=f6e63]:
+              - generic [ref=f6e67]: Google's Workspace feature tables distinguish core Gemini features from advanced features and list availability by edition and add-on.
+            - listitem [ref=f6e68]:
+              - generic [ref=f6e72]: Gemini in Workspace apps, the Gemini app, and Gemini Notebook have separate access and usage limits.
+            - listitem [ref=f6e73]:
+              - generic [ref=f6e77]: Workspace Intelligence lets administrators control which Workspace sources Gemini can search, and it respects the user's existing content permissions.
+            - listitem [ref=f6e78]:
+              - generic [ref=f6e82]: Google's current edition tables contain promotional access and scheduled limit changes; recheck the official comparison before setting expectations.
+        - generic [ref=f6e83]:
+          - paragraph [ref=f6e84]:
+            - text: Google Workspace does not offer one identical Gemini allowance across every plan. Google's current Workspace comparison separates Gemini features from advanced Gemini features and shows availability and usage by Business edition, Enterprise edition, and AI Expanded Access. Starter, Standard, Plus, and Enterprise should therefore be compared against the exact feature your team needs, not grouped under a single 'Gemini included' label.
+            - link "Jump to source 1" [ref=f6e85] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+            - link "Jump to source 2" [ref=f6e86] [cursor=pointer]:
+              - /url: "#source-2"
+              - text: "[2]"
+          - heading "Keep the Gemini surfaces distinct" [level=3] [ref=f6e87]
+          - paragraph [ref=f6e88]:
+            - text: Google documents separate limits for Gemini features inside Workspace apps and for the Gemini app. Gemini Notebook has its own access levels as well. A limit in one product surface should not be assumed to represent the allowance in another. Check Google's live feature and usage tables for the specific surface and plan.
+            - link "Jump to source 1" [ref=f6e89] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+            - link "Jump to source 2" [ref=f6e90] [cursor=pointer]:
+              - /url: "#source-2"
+              - text: "[2]"
+          - heading "Workspace Intelligence and source access" [level=3] [ref=f6e91]
+          - paragraph [ref=f6e92]:
+            - text: Workspace Intelligence can provide Gemini context from Gmail, Drive and Docs (including Sheets, Slides, PDFs, images, and Vids), Calendar, and Chat. Administrators can turn individual source services on or off; Google says changes may take up to 48 hours. The feature respects the user's existing permissions, so Gemini should only ground responses in material that person can access.
+            - link "Jump to source 3" [ref=f6e93] [cursor=pointer]:
+              - /url: "#source-3"
+              - text: "[3]"
+          - heading "Plan and rollout checks" [level=3] [ref=f6e94]
+          - paragraph [ref=f6e95]:
+            - text: Before purchase or launch, confirm the edition and add-on, the exact Gemini feature and product surface, user-level limits, administrative source settings, region and rollout status, and whether a promotional allowance has an end date. The published plan page can show temporary pricing or feature promotions, while the Help Center tables describe service availability and limits. Compare both close to the decision date.
+            - link "Jump to source 1" [ref=f6e96] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+            - link "Jump to source 2" [ref=f6e97] [cursor=pointer]:
+              - /url: "#source-2"
+              - text: "[2]"
+            - link "Jump to source 4" [ref=f6e98] [cursor=pointer]:
+              - /url: "#source-4"
+              - text: "[4]"
+          - paragraph [ref=f6e99]:
+            - text: As of September 28, 2026, Google's Workspace edition tables identify some promotional access with scheduled limit enforcement dates, including Workspace Studio on October 1. Treat date-specific allowances as a snapshot and verify the updated table after a policy or rollout date passes.
+            - link "Jump to source 1" [ref=f6e100] [cursor=pointer]:
+              - /url: "#source-1"
+              - text: "[1]"
+            - link "Jump to source 2" [ref=f6e101] [cursor=pointer]:
+              - /url: "#source-2"
+              - text: "[2]"
+        - complementary [ref=f6e102]:
+          - heading "Official sources" [level=2] [ref=f6e103]
+          - paragraph [ref=f6e104]: Sources checked September 28, 2026. Product availability and terms can change; follow the linked Google pages for the latest details.
+          - list [ref=f6e105]:
+            - listitem [ref=f6e106]:
+              - generic [ref=f6e107]: "[1]"
+              - link "Compare Google Workspace Business editions" [ref=f6e108] [cursor=pointer]:
+                - /url: https://knowledge.workspace.google.com/admin/getting-started/editions/compare-business-editions
+              - text: (Google)
+            - listitem [ref=f6e109]:
+              - generic [ref=f6e110]: "[2]"
+              - link "Compare Google Workspace Enterprise editions" [ref=f6e111] [cursor=pointer]:
+                - /url: https://knowledge.workspace.google.com/admin/getting-started/editions/compare-enterprise-editions
+              - text: (Google)
+            - listitem [ref=f6e112]:
+              - generic [ref=f6e113]: "[3]"
+              - link "Control Workspace Intelligence for generative AI features" [ref=f6e114] [cursor=pointer]:
+                - /url: https://knowledge.workspace.google.com/admin/generative-ai/workspace-intelligence/control-workspace-intelligence
+              - text: (Google)
+            - listitem [ref=f6e115]:
+              - generic [ref=f6e116]: "[4]"
+              - link "Google Workspace plans and pricing" [ref=f6e117] [cursor=pointer]:
+                - /url: https://workspace.google.com/pricing?hl=en
+              - text: (Google)
+        - generic [ref=f6e118]:
+          - link "Back to all Articles" [ref=f6e119] [cursor=pointer]:
+            - /url: /articles
+          - link "Compare all 11 listed plans" [ref=f6e122] [cursor=pointer]:
+            - /url: /compare
+  - contentinfo [ref=f6e125]:
+    - generic [ref=f6e126]:
+      - generic [ref=f6e127]:
+        - generic [ref=f6e128]:
+          - generic [ref=f6e129]:
+            - heading "Gemini Intelligence" [level=3] [ref=f6e133]
+            - paragraph [ref=f6e134]: by MarketStar
+          - paragraph [ref=f6e135]: The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+        - generic [ref=f6e136]:
+          - heading "Platform" [level=4] [ref=f6e137]
+          - list [ref=f6e138]:
+            - listitem [ref=f6e139]:
+              - link "All Features" [ref=f6e140] [cursor=pointer]:
+                - /url: /features
+            - listitem [ref=f6e141]:
+              - link "Compare Plans" [ref=f6e142] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=f6e143]:
+              - link "Applications" [ref=f6e144] [cursor=pointer]:
+                - /url: /apps
+            - listitem [ref=f6e145]:
+              - link "NotebookLM" [ref=f6e146] [cursor=pointer]:
+                - /url: /apps/notebooklm
+            - listitem [ref=f6e147]:
+              - link "Enterprise AI" [ref=f6e148] [cursor=pointer]:
+                - /url: /enterprise
+        - generic [ref=f6e149]:
+          - heading "Enterprise" [level=4] [ref=f6e150]
+          - list [ref=f6e151]:
+            - listitem [ref=f6e152]:
+              - link "Connectors" [ref=f6e153] [cursor=pointer]:
+                - /url: /enterprise/connectors
+            - listitem [ref=f6e154]:
+              - link "Agents & MCP" [ref=f6e155] [cursor=pointer]:
+                - /url: /enterprise/agents
+            - listitem [ref=f6e156]:
+              - link "Security & Governance" [ref=f6e157] [cursor=pointer]:
+                - /url: /security
+            - listitem [ref=f6e158]:
+              - link "Articles" [ref=f6e159] [cursor=pointer]:
+                - /url: /articles
+            - listitem [ref=f6e160]:
+              - link "Pricing" [ref=f6e161] [cursor=pointer]:
+                - /url: /pricing#pricing-overview
+        - generic [ref=f6e162]:
+          - heading "Applications" [level=4] [ref=f6e163]
+          - list [ref=f6e164]:
+            - listitem [ref=f6e165]:
+              - link "Gmail" [ref=f6e166] [cursor=pointer]:
+                - /url: /apps/gmail
+            - listitem [ref=f6e167]:
+              - link "Google Docs" [ref=f6e168] [cursor=pointer]:
+                - /url: /apps/docs
+            - listitem [ref=f6e169]:
+              - link "Google Sheets" [ref=f6e170] [cursor=pointer]:
+                - /url: /apps/sheets
+            - listitem [ref=f6e171]:
+              - link "Google Meet" [ref=f6e172] [cursor=pointer]:
+                - /url: /apps/meet
+            - listitem [ref=f6e173]:
+              - link "Google Chat" [ref=f6e174] [cursor=pointer]:
+                - /url: /apps/chat
+            - listitem [ref=f6e175]:
+              - link "Google Slides" [ref=f6e176] [cursor=pointer]:
+                - /url: /apps/slides
+            - listitem [ref=f6e177]:
+              - link "Google Vids" [ref=f6e178] [cursor=pointer]:
+                - /url: /apps/vids
+            - listitem [ref=f6e179]:
+              - link "Google Drive" [ref=f6e180] [cursor=pointer]:
+                - /url: /apps/drive
+      - paragraph [ref=f6e182]: © 2025 MarketStar. All rights reserved. Google Workspace and Gemini are trademarks of Google LLC.
+  - alert [ref=f6e183]

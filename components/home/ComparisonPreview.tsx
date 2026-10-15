@@ -1,215 +1,105 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
-import { Check, Minus, Info, ArrowRight, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { getPlans } from "@/lib/i18n/data";
+import type { Plan } from "@/types";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getFeatures } from "@/lib/i18n/features";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
-type FeatureStatus = "included" | "limited" | "none";
+const previewPlanIds = [
+  "business-standard",
+  "business-plus",
+  "gemini-enterprise-business",
+  "gemini-enterprise-standard",
+] as const;
 
-interface FeatureRow {
-  name: string;
-  tooltip: string;
-  businessStandard: { status: FeatureStatus; text?: string };
-  enterprisePlus: { status: FeatureStatus; text?: string };
-  aiExpanded: { status: FeatureStatus; text?: string };
-  geminiEnterprisePlus: { status: FeatureStatus; text?: string };
+
+function getPriceLabel(plan: Plan, labels: ReturnType<typeof getDictionary>["comparison"]) {
+  if (plan.annualPriceUSD) return `${formatCurrency(plan.annualPriceUSD)} ${labels.perUser}`;
+  if (plan.startingPriceUSD) return `${labels.from} ${formatCurrency(plan.startingPriceUSD)} ${labels.perSeat}`;
+  return plan.pricingNote || labels.checkPricing;
 }
 
-const features: FeatureRow[] = [
-  {
-    name: "Gemini Chat in Workspace",
-    tooltip: "Gmail, Docs, Sheets, Meet integration",
-    businessStandard: { status: "none" },
-    enterprisePlus: { status: "none" },
-    aiExpanded: { status: "included" },
-    geminiEnterprisePlus: { status: "included" },
-  },
-  {
-    name: "Deep Research Reports Quota",
-    tooltip: "Automated synthesis of complex topics",
-    businessStandard: { status: "none" },
-    enterprisePlus: { status: "none" },
-    aiExpanded: { status: "limited", text: "Standard Quota" },
-    geminiEnterprisePlus: { status: "included", text: "Highest Quota" },
-  },
-  {
-    name: "NotebookLM Source Limits",
-    tooltip: "Audio/Video Overviews & source capacity",
-    businessStandard: { status: "limited", text: "Standard Limits" },
-    enterprisePlus: { status: "limited", text: "Standard Limits" },
-    aiExpanded: { status: "included", text: "Expanded Limits" },
-    geminiEnterprisePlus: { status: "included", text: "Enterprise Limits" },
-  },
-  {
-    name: "Enterprise Third-Party Connectors",
-    tooltip: "Salesforce, Jira, Confluence, etc.",
-    businessStandard: { status: "none" },
-    enterprisePlus: { status: "none" },
-    aiExpanded: { status: "none" },
-    geminiEnterprisePlus: { status: "included" },
-  },
-  {
-    name: "Model Context Protocol (MCP)",
-    tooltip: "Custom Agents & API Extensibility",
-    businessStandard: { status: "none" },
-    enterprisePlus: { status: "none" },
-    aiExpanded: { status: "none" },
-    geminiEnterprisePlus: { status: "included" },
-  },
-  {
-    name: "Veo 3.1 & Video Generation",
-    tooltip: "Video generation in Google Vids",
-    businessStandard: { status: "none" },
-    enterprisePlus: { status: "none" },
-    aiExpanded: { status: "included" },
-    geminiEnterprisePlus: { status: "included" },
-  },
-  {
-    name: "Real-Time Speech Translation",
-    tooltip: "Cross-Language Translation in Meet",
-    businessStandard: { status: "none" },
-    enterprisePlus: { status: "included", text: "Included (69+ languages)" },
-    aiExpanded: { status: "included" },
-    geminiEnterprisePlus: { status: "included" },
-  },
-  {
-    name: "Enterprise Security",
-    tooltip: "Model Armor & Cloud Audit Logging",
-    businessStandard: { status: "none" },
-    enterprisePlus: { status: "limited", text: "Audit Logging Only" },
-    aiExpanded: { status: "none" },
-    geminiEnterprisePlus: { status: "included", text: "Full Stack Protection" },
-  },
-];
-
 export default function ComparisonPreview() {
+  const { locale, href } = useLocale();
+  const labels = getDictionary(locale).comparison;
+  const plans = getPlans(locale);
+  const features = getFeatures(locale);
+  const previewPlans = previewPlanIds
+    .map((id) => plans.find((plan) => plan.id === id))
+    .filter((plan) => plan !== undefined);
   return (
-    <section className="atlas-section py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="atlas-kicker mb-3">Decision intelligence</p>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Compare Enterprise AI Capabilities
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Understand the critical differences between standard Workspace plans, AI Add-ons, and the flagship Gemini Enterprise standalone platform.
-          </p>
+    <section className="atlas-section bg-background py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 flex flex-col gap-6 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <p className="atlas-kicker mb-3">{labels.kicker}</p>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              {labels.heading}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              {labels.body}
+            </p>
+          </div>
+          <Link href={href("/compare")} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition hover:opacity-90">
+            {labels.openMatrix.replace("{count}", String(plans.length))} <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
 
-        <div className="overflow-x-auto pb-8">
-          <table className="w-full text-left border-collapse min-w-[1000px]">
+        <div className="overflow-x-auto rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
+          <table className="min-w-[920px] w-full border-separate border-spacing-0 text-left">
             <thead>
-              <tr>
-                <th className="w-1/4 pb-8 pl-4 pr-4 align-bottom">
-                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Features</span>
-                </th>
-
-                {/* Business Standard */}
-                <th className="w-[18%] pb-8 px-4 align-bottom">
-                  <div className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold text-muted-foreground uppercase">Google Workspace</span>
-                    <span className="text-xl font-bold text-foreground">Business Standard</span>
-                    <span className="text-sm text-muted-foreground">\$14/user/mo</span>
-                  </div>
-                </th>
-
-                {/* Enterprise Plus */}
-                <th className="w-[18%] pb-8 px-4 align-bottom">
-                  <div className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold text-muted-foreground uppercase">Google Workspace</span>
-                    <span className="text-xl font-bold text-foreground">Enterprise Plus</span>
-                    <span className="text-sm text-muted-foreground">Contact Sales</span>
-                  </div>
-                </th>
-
-                {/* AI Expanded Access */}
-                <th className="w-[18%] pb-8 px-4 align-bottom">
-                  <div className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold text-muted-foreground uppercase">Add-on</span>
-                    <span className="text-xl font-bold text-foreground">AI Expanded Access</span>
-                    <span className="text-sm text-muted-foreground">\$20/user/mo</span>
-                  </div>
-                </th>
-
-                {/* Gemini Enterprise Plus */}
-                <th className="w-[22%] px-6 align-bottom relative bg-gemini-spark/5 rounded-t-2xl border-x border-t border-gemini-spark/20">
-                  <div className="mb-3 flex justify-center">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-gemini-spark px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow-md">
-                    <Sparkles className="w-3 h-3" /> Recommended for Enterprise
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-2 pb-8">
-                    <span className="text-sm font-semibold text-gemini-spark uppercase">Standalone Flagship</span>
-                    <span className="text-xl font-bold text-foreground">Gemini Enterprise Plus</span>
-                    <span className="text-sm text-muted-foreground">\$50/user/mo</span>
-                  </div>
-                </th>
+              <tr className="bg-slate-50/80 text-xs uppercase tracking-wider text-muted-foreground dark:bg-white/[0.03]">
+                <th className="sticky left-0 z-10 min-w-48 border-b border-border/80 bg-slate-50/90 px-5 py-4 font-semibold backdrop-blur dark:bg-slate-900/90">{labels.detail}</th>
+                {previewPlans.map((plan) => (
+                  <th key={plan.id} className="min-w-52 border-b border-border/80 px-5 py-4 align-top">
+                    <span className="block text-[10px] font-semibold text-google-blue">{plan.category}</span>
+                    <Link href={href(`/plans/${plan.slug}`)} className="mt-2 block text-base font-bold normal-case tracking-normal text-foreground hover:text-google-blue">{plan.name}</Link>
+                  </th>
+                ))}
               </tr>
             </thead>
-
-            <tbody className="divide-y divide-border">
-              {features.map((feature, idx) => (
-                <tr key={idx} className="atlas-row hover:bg-muted/40 transition-colors">
-                  <td className="py-4 pl-4 pr-4">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium text-foreground">{feature.name}</span>
-                      <div className="group relative cursor-help">
-                        <Info className="w-4 h-4 text-muted-foreground/60" />
-                        <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block w-48 bg-popover text-popover-foreground text-xs rounded py-1 px-2 text-center z-10 shadow-lg border border-border">
-                          {feature.tooltip}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-popover" />
-                        </div>
-                      </div>
-                    </div>
+            <tbody className="text-sm">
+              <tr>
+                <th className="sticky left-0 border-b border-border/60 bg-white/80 px-5 py-5 font-semibold text-foreground backdrop-blur dark:bg-slate-950/80">{labels.publishedRate}</th>
+                {previewPlans.map((plan) => (
+                  <td key={plan.id} className="border-b border-border/60 px-5 py-5 align-top">
+                    <span className="font-semibold text-foreground">{getPriceLabel(plan, labels)}</span>
+                    <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">{plan.annualPriceUSD ? labels.annualNote : labels.startingNote}</span>
                   </td>
-
-                  <StatusCell status={feature.businessStandard.status} text={feature.businessStandard.text} />
-                  <StatusCell status={feature.enterprisePlus.status} text={feature.enterprisePlus.text} />
-                  <StatusCell status={feature.aiExpanded.status} text={feature.aiExpanded.text} />
-                  <StatusCell status={feature.geminiEnterprisePlus.status} text={feature.geminiEnterprisePlus.text} highlight={true} />
-                </tr>
-              ))}
+                ))}
+              </tr>
+              <tr>
+                <th className="sticky left-0 border-b border-border/60 bg-white/80 px-5 py-5 font-semibold text-foreground backdrop-blur dark:bg-slate-950/80">{labels.storage}</th>
+                {previewPlans.map((plan) => (
+                  <td key={plan.id} className="border-b border-border/60 px-5 py-5 align-top leading-relaxed text-muted-foreground">{plan.storage}</td>
+                ))}
+              </tr>
+              <tr>
+                <th className="sticky left-0 bg-white/80 px-5 py-5 font-semibold text-foreground backdrop-blur dark:bg-slate-950/80">{labels.summary}</th>
+                {previewPlans.map((plan) => (
+                  <td key={plan.id} className="px-5 py-5 align-top leading-relaxed text-muted-foreground">{plan.tagline}</td>
+                ))}
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <div className="mt-12 text-center">
-          <Link href="/compare" className="inline-flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3 rounded-full font-medium hover:bg-foreground/90 transition-colors shadow-sm">
-            Open Full 11-Plan Availability Matrix (94 Features)
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+        <div className="mt-5 flex flex-col gap-4 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-3xl leading-relaxed">
+            {labels.catalogView
+              .replace("{plans}", String(plans.length))
+              .replace("{features}", String(features.length))}
+          </p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <a href="https://workspace.google.com/pricing" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-semibold text-google-blue hover:underline">{labels.workspacePrices} <ExternalLink className="h-3 w-3" /></a>
+            <a href="https://cloud.google.com/gemini-enterprise" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-semibold text-google-blue hover:underline">{labels.geminiPrices} <ExternalLink className="h-3 w-3" /></a>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function StatusCell({ status, text, highlight = false }: { status: FeatureStatus; text?: string; highlight?: boolean }) {
-  return (
-    <td className={cn("py-4 px-4 text-center", highlight && "bg-gemini-spark/5 border-x border-gemini-spark/20 last:rounded-b-2xl last:border-b")}>
-      <div className="flex items-center justify-center">
-        {status === "included" && (
-          <div className="flex items-center gap-1 text-green-500">
-            <div className="w-6 h-6 rounded-full bg-green-500/15 flex items-center justify-center shrink-0">
-              <Check className="w-4 h-4 stroke-[3]" />
-            </div>
-            {text && <span className="text-sm font-medium ml-1">{text}</span>}
-          </div>
-        )}
-        {status === "limited" && (
-          <div className="flex items-center gap-1 text-yellow-500">
-            <div className="px-2 py-1 bg-yellow-500/15 rounded text-xs font-semibold whitespace-nowrap">
-              {text || "Limited"}
-            </div>
-          </div>
-        )}
-        {status === "none" && (
-          <div className="text-muted-foreground/30 flex justify-center">
-            <Minus className="w-5 h-5 stroke-[3]" />
-          </div>
-        )}
-      </div>
-    </td>
   );
 }

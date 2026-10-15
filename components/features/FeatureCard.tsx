@@ -1,12 +1,15 @@
 "use client";
 
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { formatEnterpriseAvailability } from "@/lib/i18n/featureLabels";
+import { useLocale } from "@/lib/i18n/locale-context";
+
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Flame } from "lucide-react";
 import { Feature, PlanId } from "@/types";
 import { cn } from "@/lib/utils";
-import { applications } from "@/data/apps";
 
 interface FeatureCardProps {
   feature: Feature;
@@ -15,22 +18,30 @@ interface FeatureCardProps {
 }
 
 export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps) {
+  const { applications } = useLocalizedData();
+  const { locale, href, tp } = useLocale();
+
   // Try to find the app to get its color
   const appInfo = applications.find(
     (app) => app.id === feature.application || app.name === feature.application
   );
-  
+
   const isGeminiChat = feature.application === "gemini";
   const appColor = isGeminiChat ? "#8B5CF6" : appInfo?.accentColor || "var(--google-blue)";
-  const applicationLabel = feature.application === "gemini" ? "Gemini Chat" : appInfo?.name || feature.application;
-  const categoryLabel = feature.category === "gemini" ? "Chat App" : feature.category;
-  
+  const applicationLabel = isGeminiChat ? "Gemini" : appInfo?.shortName || appInfo?.name || (feature.application.charAt(0).toUpperCase() + feature.application.slice(1));
+  const rawCategory = feature.category === "gemini" ? "Gemini" : feature.category;
+  const isRedundantCategory =
+    !rawCategory ||
+    rawCategory.toLowerCase() === applicationLabel.toLowerCase() ||
+    rawCategory.toLowerCase() === feature.application.toLowerCase() ||
+    (feature.category === "gemini" && isGeminiChat);
+
   // 5 key tiers for preview: Starter, Standard, Plus, AI Add-on, Enterprise Plus
   const previewTiers: PlanId[] = [
     "business-starter",
     "business-standard",
     "business-plus",
-    "ai-ultra",
+    "ai-expanded",
     "enterprise-plus",
   ];
 
@@ -41,43 +52,29 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
     }
   };
 
-  const formatEnterpriseAvailability = (av: string) => {
-    switch (av) {
-      case "enterprise-only":
-        return "Enterprise Only";
-      case "add-on":
-        return "Add-on Available";
-      case "all":
-        return "All Plans";
-      case "plus":
-        return "Plus Plans";
-      case "standard":
-        return "Standard & Up";
-      default:
-        return av;
-    }
-  };
 
   return (
     <motion.div
       whileHover={{ y: -4 }}
       className={cn(
-        "atlas-interactive group relative flex flex-col justify-between overflow-hidden rounded-2xl border bg-background p-5 text-left transition-all duration-300 hover:-translate-y-1",
-        isSelected ? "border-primary ring-1 ring-primary" : "border-border hover:border-primary/30"
+        "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/50 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 text-left shadow-sm transition-all duration-300 hover:shadow-xl hover:border-violet-500/40 hover:-translate-y-1",
+        isSelected ? "border-violet-500 ring-2 ring-violet-500/30" : "hover:border-violet-500/30"
       )}
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3.5">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-1.5 rounded-full border border-border/50 bg-muted/30 px-2 py-0.5 text-xs font-medium text-muted-foreground">
+            <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/40 backdrop-blur-xs px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
               {isGeminiChat ? <Sparkles className="atlas-icon h-3 w-3" style={{ color: appColor }} /> : <span className="h-2 w-2 rounded-full" style={{ backgroundColor: appColor }} />}
               {applicationLabel}
             </div>
-            <div className="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">
-              {categoryLabel}
-            </div>
+            {!isRedundantCategory && (
+              <div className="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">
+                {rawCategory}
+              </div>
+            )}
           </div>
-          
+
           {(feature.isNew || feature.isPopular) && (
             <div className="flex gap-1">
               {feature.isNew && (
@@ -128,7 +125,7 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
         <div className="flex items-center justify-between border-t border-border/50 pt-3">
           <div className="flex flex-col gap-1">
             <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-              {formatEnterpriseAvailability(feature.enterpriseAvailability)}
+              {formatEnterpriseAvailability(feature.enterpriseAvailability, locale)}
             </span>
             <div className="flex items-center gap-1">
               {previewTiers.map((tierId) => {
@@ -153,15 +150,15 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
             onClick={handleSelect}
             className="flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
-            Inspect Details
+            {tp("Inspect Details")}
             <ArrowRight className="atlas-arrow h-4 w-4" />
           </button>
         ) : (
           <Link
-            href={`/features/${feature.slug}`}
+            href={href(`/features/${feature.slug}`)}
             className="flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
-            Inspect Details
+            {tp("Inspect Details")}
             <ArrowRight className="atlas-arrow h-4 w-4" />
           </Link>
         )}

@@ -1,0 +1,188 @@
+- generic [active] [ref=f9e1]:
+  - banner [ref=f9e2]:
+    - generic [ref=f9e4]:
+      - link "MarketStar Gemini Intelligence" [ref=f9e5] [cursor=pointer]:
+        - /url: /
+        - img "MarketStar" [ref=f9e7]
+        - generic [ref=f9e9]: Gemini Intelligence
+      - navigation [ref=f9e10]:
+        - link "Features" [ref=f9e11] [cursor=pointer]:
+          - /url: /features
+        - link "Models" [ref=f9e12] [cursor=pointer]:
+          - /url: /models
+        - link "Compare" [ref=f9e13] [cursor=pointer]:
+          - /url: /compare
+        - link "Pricing" [ref=f9e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Enterprise" [ref=f9e15] [cursor=pointer]:
+          - /url: /enterprise
+        - link "Security" [ref=f9e16] [cursor=pointer]:
+          - /url: /security
+        - link "Articles" [ref=f9e17] [cursor=pointer]:
+          - /url: /articles
+        - button "Apps" [ref=f9e19] [cursor=pointer]
+      - generic [ref=f9e22]:
+        - radiogroup "Theme selector" [ref=f9e23]:
+          - radio "Light theme" [ref=f9e24] [cursor=pointer]
+          - radio "System theme" [checked] [ref=f9e31] [cursor=pointer]
+          - radio "Dark theme" [ref=f9e34] [cursor=pointer]
+        - button "Search the site" [ref=f9e37] [cursor=pointer]
+  - main [ref=f9e41]:
+    - generic [ref=f9e43]:
+      - link "Back to all Plans" [ref=f9e46] [cursor=pointer]:
+        - /url: /plans
+      - generic [ref=f9e51]:
+        - generic [ref=f9e52]:
+          - generic [ref=f9e53]: Google Workspace
+          - heading "Enterprise Standard" [level=1] [ref=f9e56]
+          - paragraph [ref=f9e57]: Enterprise management, flexible storage, and advanced Workspace security.
+          - generic [ref=f9e58]:
+            - strong [ref=f9e59]: "Target Audience:"
+            - text: Mid-market to large enterprises requiring robust data governance, domain-wide controls, and advanced video capabilities.
+        - generic [ref=f9e60]:
+          - generic [ref=f9e61]:
+            - generic [ref=f9e62]: Commercial Rate
+            - generic [ref=f9e63]:
+              - generic [ref=f9e64]:
+                - generic [ref=f9e65]: $27
+                - generic [ref=f9e66]: / user / mo
+              - generic [ref=f9e67]: Annual commitment rate per user per month; billing cadence depends on your subscription terms.
+          - link "Model a rollout scenario" [ref=f9e68] [cursor=pointer]:
+            - /url: /compare?tab=calculator&plan=enterprise-standard
+      - generic [ref=f9e71]:
+        - generic [ref=f9e72]:
+          - generic [ref=f9e73]: Technical Architecture
+          - heading "Core AI & Platform Capabilities" [level=2] [ref=f9e74]
+          - generic [ref=f9e75]:
+            - generic [ref=f9e76]:
+              - generic [ref=f9e77]: Generative AI Integration
+              - paragraph [ref=f9e78]: Gemini features in eligible Workspace apps and the Gemini app
+            - generic [ref=f9e79]:
+              - generic [ref=f9e80]: Model Checkpoint Access
+              - paragraph [ref=f9e81]: Models and limits depend on the Gemini feature and surface
+            - generic [ref=f9e82]:
+              - generic [ref=f9e83]: Grounding & Citations
+              - paragraph [ref=f9e84]: Workspace Intelligence sources under administrator and user access controls
+            - generic [ref=f9e85]:
+              - generic [ref=f9e86]: Deep Research Quota
+              - paragraph [ref=f9e87]: Limits vary by feature; check Google's current edition table
+            - generic [ref=f9e88]:
+              - generic [ref=f9e89]: Gemini Notebook access
+              - paragraph [ref=f9e90]: Higher Gemini Notebook access; feature limits vary
+            - generic [ref=f9e91]:
+              - generic [ref=f9e92]: Workspace context and data sources
+              - paragraph [ref=f9e93]: Google Cloud Search covers Google services; this is separate from Gemini Enterprise connectors
+            - generic [ref=f9e94]:
+              - generic [ref=f9e95]: Workspace automation and agents
+              - paragraph [ref=f9e96]: Workspace Studio availability and limits depend on current edition rules; no Gemini Enterprise MCP entitlement
+            - generic [ref=f9e97]:
+              - generic [ref=f9e98]: Security & administration
+              - paragraph [ref=f9e99]: Enterprise-grade Workspace security and management controls
+            - generic [ref=f9e100]:
+              - generic [ref=f9e101]: Audit & activity records
+              - paragraph [ref=f9e102]: Check Google's current Enterprise edition comparison for event and export coverage
+        - generic [ref=f9e103]:
+          - generic [ref=f9e104]:
+            - generic [ref=f9e105]:
+              - heading "Highlighted Entitlements" [level=3] [ref=f9e106]
+              - paragraph [ref=f9e107]: 81 of 103 catalog features marked available in this edition
+            - link "Inspect all in side-by-side matrix" [ref=f9e108] [cursor=pointer]:
+              - /url: /compare
+          - generic [ref=f9e111]:
+            - generic [ref=f9e112]: 5 TB pooled storage per user; request more as needed
+            - generic [ref=f9e117]: 500 participant meetings and live streaming
+            - generic [ref=f9e122]: Enterprise security and data controls
+            - generic [ref=f9e127]: Gemini features in eligible Workspace apps
+            - generic [ref=f9e132]: Google Cloud Search for Google services
+            - generic [ref=f9e137]: Workspace Studio (domain verification and current limits apply)
+        - complementary [ref=f9e142]:
+          - heading "Official plan references" [level=2] [ref=f9e143]
+          - paragraph [ref=f9e144]: Checked September 28, 2026. Pricing, feature access, and limits can change; use these Google pages for current purchase details.
+          - list [ref=f9e145]:
+            - listitem [ref=f9e146]:
+              - link "Google Workspace Enterprise edition comparison" [ref=f9e147] [cursor=pointer]:
+                - /url: https://knowledge.workspace.google.com/admin/getting-started/editions/compare-enterprise-editions
+            - listitem [ref=f9e152]:
+              - link "Google Workspace plan pricing" [ref=f9e153] [cursor=pointer]:
+                - /url: https://workspace.google.com/pricing?hl=en
+            - listitem [ref=f9e158]:
+              - link "Google Meet limits by Workspace edition" [ref=f9e159] [cursor=pointer]:
+                - /url: https://knowledge.workspace.google.com/admin/meet/compare-meet-features-across-google-workspace-editions
+        - generic [ref=f9e164]:
+          - link "Back to all Plans" [ref=f9e165] [cursor=pointer]:
+            - /url: /plans
+          - link "Compare Enterprise Standard in the 11-Plan Matrix" [ref=f9e168] [cursor=pointer]:
+            - /url: /compare
+  - contentinfo [ref=f9e171]:
+    - generic [ref=f9e172]:
+      - generic [ref=f9e173]:
+        - generic [ref=f9e174]:
+          - generic [ref=f9e175]:
+            - heading "Gemini Intelligence" [level=3] [ref=f9e179]
+            - paragraph [ref=f9e180]: by MarketStar
+          - paragraph [ref=f9e181]: The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+        - generic [ref=f9e182]:
+          - heading "Platform" [level=4] [ref=f9e183]
+          - list [ref=f9e184]:
+            - listitem [ref=f9e185]:
+              - link "All Features" [ref=f9e186] [cursor=pointer]:
+                - /url: /features
+            - listitem [ref=f9e187]:
+              - link "Compare Plans" [ref=f9e188] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=f9e189]:
+              - link "Applications" [ref=f9e190] [cursor=pointer]:
+                - /url: /apps
+            - listitem [ref=f9e191]:
+              - link "NotebookLM" [ref=f9e192] [cursor=pointer]:
+                - /url: /apps/notebooklm
+            - listitem [ref=f9e193]:
+              - link "Enterprise AI" [ref=f9e194] [cursor=pointer]:
+                - /url: /enterprise
+        - generic [ref=f9e195]:
+          - heading "Enterprise" [level=4] [ref=f9e196]
+          - list [ref=f9e197]:
+            - listitem [ref=f9e198]:
+              - link "Connectors" [ref=f9e199] [cursor=pointer]:
+                - /url: /enterprise/connectors
+            - listitem [ref=f9e200]:
+              - link "Agents & MCP" [ref=f9e201] [cursor=pointer]:
+                - /url: /enterprise/agents
+            - listitem [ref=f9e202]:
+              - link "Security & Governance" [ref=f9e203] [cursor=pointer]:
+                - /url: /security
+            - listitem [ref=f9e204]:
+              - link "Articles" [ref=f9e205] [cursor=pointer]:
+                - /url: /articles
+            - listitem [ref=f9e206]:
+              - link "Pricing" [ref=f9e207] [cursor=pointer]:
+                - /url: /pricing#pricing-overview
+        - generic [ref=f9e208]:
+          - heading "Applications" [level=4] [ref=f9e209]
+          - list [ref=f9e210]:
+            - listitem [ref=f9e211]:
+              - link "Gmail" [ref=f9e212] [cursor=pointer]:
+                - /url: /apps/gmail
+            - listitem [ref=f9e213]:
+              - link "Google Docs" [ref=f9e214] [cursor=pointer]:
+                - /url: /apps/docs
+            - listitem [ref=f9e215]:
+              - link "Google Sheets" [ref=f9e216] [cursor=pointer]:
+                - /url: /apps/sheets
+            - listitem [ref=f9e217]:
+              - link "Google Meet" [ref=f9e218] [cursor=pointer]:
+                - /url: /apps/meet
+            - listitem [ref=f9e219]:
+              - link "Google Chat" [ref=f9e220] [cursor=pointer]:
+                - /url: /apps/chat
+            - listitem [ref=f9e221]:
+              - link "Google Slides" [ref=f9e222] [cursor=pointer]:
+                - /url: /apps/slides
+            - listitem [ref=f9e223]:
+              - link "Google Vids" [ref=f9e224] [cursor=pointer]:
+                - /url: /apps/vids
+            - listitem [ref=f9e225]:
+              - link "Google Drive" [ref=f9e226] [cursor=pointer]:
+                - /url: /apps/drive
+      - paragraph [ref=f9e228]: © 2025 MarketStar. All rights reserved. Google Workspace and Gemini are trademarks of Google LLC.
+  - alert [ref=f9e229]

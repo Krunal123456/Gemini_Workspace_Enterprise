@@ -1,40 +1,65 @@
 "use client";
 
-const changes = [
-  { date: "2026-09-22", title: "Gemini Enterprise environment refreshed", detail: "Grounding and connector signals reviewed for enterprise readiness." },
-  { date: "2026-08-12", title: "NotebookLM enterprise workflow updates", detail: "Research and source-grounding guidance revised for hybrid teams." },
-  { date: "2026-07-10", title: "Google Workspace AI pricing refresh", detail: "Price and plan availability checks updated across all editions." },
-  { date: "2026-06-04", title: "MCP and agent governance notes revised", detail: "Enterprise security and access patterns updated for MCP rollout guidance." },
+import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
+const sources = [
+  {
+    title: "Google Workspace pricing",
+    description: "Current plan rates and regional offers",
+    href: "https://workspace.google.com/pricing",
+  },
+  {
+    title: "Gemini Enterprise editions",
+    description: "Edition limits, connector access, and pooled storage",
+    href: "https://docs.cloud.google.com/gemini/enterprise/docs/editions",
+  },
+  {
+    title: "AI Expanded Access",
+    description: "Eligible Workspace plans and feature limits",
+    href: "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini/ai-expanded-access",
+  },
 ];
 
 export function FreshnessPanel() {
+  const { locale } = useLocale();
+  const t = createPhraseTranslator(locale);
   return (
     <section className="atlas-card rounded-2xl border p-6 sm:p-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="atlas-kicker mb-2">Content freshness</p>
-          <h2 className="text-2xl font-bold text-foreground">Verified and current</h2>
-        </div>
-        <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-          <span className="rounded-full border border-border bg-muted/50 px-3 py-1.5">Verified September 2026</span>
-          <span className="rounded-full border border-border bg-muted/50 px-3 py-1.5">Source updated</span>
-          <span className="rounded-full border border-border bg-muted/50 px-3 py-1.5">Pricing last checked</span>
-          <span className="rounded-full border border-border bg-muted/50 px-3 py-1.5">Feature status changed</span>
-        </div>
+      <div>
+        <p className="atlas-kicker mb-2">{t("Source notes")}</p>
+        <h2 className="text-2xl font-bold text-foreground">{t("Confirm changing details with Google")}</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          {t("Plans, regional prices, quotas, and feature availability can change. Use these Google pages to confirm details for your location and subscription before making a purchase decision.")}
+        </p>
       </div>
 
-      <div className="mt-6 grid gap-3 md:grid-cols-2">
-        {changes.map((item) => (
-          <div key={item.date} className="rounded-xl border border-border bg-muted/20 p-4">
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-xs font-bold uppercase tracking-wider text-google-blue">{item.date}</p>
-              <span className="rounded-full bg-google-green/10 px-2 py-1 text-[10px] font-semibold uppercase text-google-green">Updated</span>
-            </div>
-            <p className="mt-3 text-sm font-semibold text-foreground">{item.title}</p>
-            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{item.detail}</p>
-          </div>
+      <ul className="mt-6 divide-y divide-border border-y border-border">
+        {sources.map((source) => (
+          <li key={source.href}>
+            <a
+              href={source.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center justify-between gap-4 py-4"
+            >
+              <span>
+                <span className="block font-semibold text-foreground group-hover:text-google-blue">{t(source.title)}</span>
+                <span className="mt-1 block text-sm text-muted-foreground">{t(source.description)}</span>
+              </span>
+              <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-google-blue">
+                Open <ExternalLink className="h-3.5 w-3.5" />
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
+
+      <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+        <ArrowUpRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-google-blue" />
+        This catalog is a research aid. Confirm edition-specific entitlements and contract terms with Google or your reseller.
+      </p>
     </section>
   );
 }

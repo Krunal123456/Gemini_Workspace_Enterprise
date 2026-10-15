@@ -13,11 +13,20 @@ export type PlanId =
   | "business-plus"
   | "enterprise-standard"
   | "enterprise-plus"
+  | "gemini-business-addon"
+  | "gemini-enterprise-addon"
+  | "ai-meetings-messaging"
+  | "ai-security"
   | "ai-expanded"
-  | "ai-ultra"
   | "gemini-enterprise-business"
   | "gemini-enterprise-standard"
   | "gemini-enterprise-plus"
+  | "gemini-enterprise-payg"
+  | "google-voice-starter"
+  | "google-voice-standard"
+  | "google-voice-premier"
+  | "appsheet-core"
+  | "workspace-additional-storage"
   | "frontline";
 
 export interface FeatureCitation {
@@ -40,7 +49,7 @@ export interface Feature {
   useCases: string[];
   capabilities: string[];
   includedCapabilities?: string[];
-  plans: Record<PlanId, PlanAvailability>;
+  plans: Partial<Record<PlanId, PlanAvailability>>;
   enterpriseAvailability: "standard" | "plus" | "add-on" | "all" | "enterprise-only";
   enterpriseConsiderations?: string;
   securityConsiderations?: string;
@@ -57,16 +66,20 @@ export interface Plan {
   name: string;
   shortName: string;
   type: "workspace" | "addon" | "gemini-enterprise";
-  category: "Google Workspace" | "AI Add-ons" | "Gemini Enterprise";
+  category: "Google Workspace" | "AI Add-ons" | "Workspace Add-ons" | "Gemini Enterprise";
   tagline: string;
   description: string;
   idealFor: string;
   monthlyPriceUSD?: number;
   annualPriceUSD?: number;
+  startingPriceUSD?: number;
+  pricingNote?: string;
+  pricingUrl?: string;
   currency: string;
   storage: string;
   participantLimit?: number;
   highlightedFeatures: string[];
+  officialSources?: FeatureCitation[];
   coreCapabilities: {
     generativeAI: string;
     modelAccess: string;
@@ -128,8 +141,7 @@ export interface SecurityLayer {
   capabilities: {
     name: string;
     description: string;
-    plansSupported: string[];
-    isEnterpriseOnly: boolean;
+    reviewQuestion: string;
   }[];
 }
 
@@ -148,6 +160,10 @@ export interface Article {
   };
   content: string[];
   keyTakeaways: string[];
+  sources?: {
+    title: string;
+    url: string;
+  }[];
   relatedFeatures?: string[];
   relatedArticles?: string[];
 }

@@ -1,16 +1,24 @@
 "use client";
 
-import React, { useState } from 'react';
-import { plans } from '@/data/plans';
+import { useLocalizedData } from "@/lib/i18n/use-localized-data";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
+
+import React, { useEffect, useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Download, TrendingUp, Users, BriefcaseBusiness, ArrowRight } from 'lucide-react';
 import { cn, formatCurrency } from '@/lib/utils';
 
 import confetti from 'canvas-confetti';
 
-export function PricingCalculator() {
+function PricingCalculatorInner() {
+  const { plans } = useLocalizedData();
+  const { locale } = useLocale();
+  const t = createPhraseTranslator(locale);
+  const searchParams = useSearchParams();
   const [seats, setSeats] = useState<number>(100);
   const [isAnnual, setIsAnnual] = useState<boolean>(true);
-  const [selectedPlanId, setSelectedPlanId] = useState<string>('gemini-enterprise-standard');
+  const [selectedPlanId, setSelectedPlanId] = useState<string>('business-standard');
   const [rolloutMode, setRolloutMode] = useState<'pilot' | 'full'>('pilot');
   const [pilotSeats, setPilotSeats] = useState(25);
   const [seatMix, setSeatMix] = useState({ knowledgeWorkers: 65, managers: 25, executives: 10 });
@@ -19,59 +27,67 @@ export function PricingCalculator() {
   const [averageHourlyRate, setAverageHourlyRate] = useState(50);
 
   const selectedPlan = plans.find((p) => p.id === selectedPlanId) || plans[0];
+  const requestedPlan = searchParams.get('plan');
+  const hasFixedTermRates = typeof selectedPlan.monthlyPriceUSD === 'number' && typeof selectedPlan.annualPriceUSD === 'number';
 
-  const baseMonthlyPrice = selectedPlan.monthlyPriceUSD || 30;
-  const baseAnnualPrice = selectedPlan.annualPriceUSD || Math.round(baseMonthlyPrice * 0.83);
+  useEffect(() => {
+    if (requestedPlan && plans.some((plan) => plan.id === requestedPlan)) {
+      setSelectedPlanId(requestedPlan);
+    }
+  }, [requestedPlan, plans]);
 
-  const perUserPrice = isAnnual ? baseAnnualPrice : baseMonthlyPrice;
-  const monthlyTotal = perUserPrice * seats;
-  const annualTotal = monthlyTotal * 12;
+  useEffect(() => {
+    const plan = plans.find((item) => item.id === selectedPlanId);
+    setIsAnnual(Boolean(plan?.annualPriceUSD));
+  }, [selectedPlanId, plans]);
 
   const activeSeats = rolloutMode === 'pilot' ? pilotSeats : seats;
+  const perUserPrice = isAnnual ? selectedPlan.annualPriceUSD : selectedPlan.monthlyPriceUSD;
+  const monthlyInvestment = typeof perUserPrice === 'number' ? perUserPrice * activeSeats : null;
+  const annualInvestment = monthlyInvestment === null ? null : monthlyInvestment * 12;
   const monthlyValueGenerated = activeSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate;
   const annualValue = monthlyValueGenerated * 12;
-  const roi = monthlyTotal > 0 ? ((monthlyValueGenerated - monthlyTotal) / monthlyTotal) * 100 : 0;
-  const breakEvenMonths = monthlyValueGenerated > 0 ? Math.max(0, monthlyTotal / monthlyValueGenerated) : 0;
+  const roi = monthlyInvestment && monthlyInvestment > 0 ? ((monthlyValueGenerated - monthlyInvestment) / monthlyInvestment) * 100 : null;
+  const breakEvenMonths = monthlyInvestment !== null && monthlyValueGenerated > 0 ? Math.max(0, monthlyInvestment / monthlyValueGenerated) : null;
 
-  const pilotMonthly = perUserPrice * pilotSeats;
-  const fullMonthly = perUserPrice * seats;
+  const pilotMonthly = typeof perUserPrice === 'number' ? perUserPrice * pilotSeats : null;
+  const fullMonthly = typeof perUserPrice === 'number' ? perUserPrice * seats : null;
 
   const segmentBreakdown = [
-    { label: 'Knowledge workers', percentage: seatMix.knowledgeWorkers, seats: Math.round((seats * seatMix.knowledgeWorkers) / 100), color: 'bg-google-blue' },
-    { label: 'Managers', percentage: seatMix.managers, seats: Math.round((seats * seatMix.managers) / 100), color: 'bg-gemini-indigo' },
-    { label: 'Executives', percentage: seatMix.executives, seats: Math.round((seats * seatMix.executives) / 100), color: 'bg-google-green' },
+    { key: 'knowledgeWorkers' as const, label: 'Knowledge workers', percentage: seatMix.knowledgeWorkers, seats: Math.round((seats * seatMix.knowledgeWorkers) / 100), color: 'bg-google-blue' },
+    { key: 'managers' as const, label: 'Managers', percentage: seatMix.managers, seats: Math.round((seats * seatMix.managers) / 100), color: 'bg-gemini-indigo' },
+    { key: 'executives' as const, label: 'Executives', percentage: seatMix.executives, seats: Math.round((seats * seatMix.executives) / 100), color: 'bg-google-green' },
   ];
 
   const scenarioComparison = [
     {
-      name: 'Pilot',
+      name: t('Pilot'),
       seats: pilotSeats,
-      investment: perUserPrice * pilotSeats,
+      investment: typeof perUserPrice === 'number' ? perUserPrice * pilotSeats : null,
       value: pilotSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate,
-      payback: pilotSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate > 0 ? (perUserPrice * pilotSeats) / (pilotSeats * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate) : 0,
+      payback: typeof perUserPrice === 'number' && hoursSavedPerUserMonth * adoptionRate * averageHourlyRate > 0 ? perUserPrice / (hoursSavedPerUserMonth * adoptionRate / 100 * averageHourlyRate) : null,
     },
     {
-      name: 'Phased',
+      name: t('Phased'),
       seats: Math.round(seats * 0.6),
-      investment: perUserPrice * Math.round(seats * 0.6),
+      investment: typeof perUserPrice === 'number' ? perUserPrice * Math.round(seats * 0.6) : null,
       value: Math.round(seats * 0.6) * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate,
-      payback: Math.round(seats * 0.6) * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate > 0 ? (perUserPrice * Math.round(seats * 0.6)) / (Math.round(seats * 0.6) * (hoursSavedPerUserMonth * adoptionRate / 100) * averageHourlyRate) : 0,
+      payback: typeof perUserPrice === 'number' && hoursSavedPerUserMonth * adoptionRate * averageHourlyRate > 0 ? perUserPrice / (hoursSavedPerUserMonth * adoptionRate / 100 * averageHourlyRate) : null,
     },
     {
-      name: 'Full rollout',
+      name: t('Full rollout'),
       seats,
-      investment: monthlyTotal,
+      investment: monthlyInvestment,
       value: monthlyValueGenerated,
       payback: breakEvenMonths,
     },
   ];
 
-  const recommendation =
-    roi > 150
-      ? `Recommend ${selectedPlan.name} with a phased deployment to capture strong productivity returns while keeping governance risk controlled.`
-      : rolloutMode === 'pilot'
-        ? `Recommend starting with a pilot of ${pilotSeats} seats and validating adoption before expanding.`
-        : `Recommend ${selectedPlan.name} once security controls, data governance, and adoption metrics are approved.`;
+  const recommendation = roi === null
+    ? t("{plan} has no fixed per-seat price in this calculator, so cost-based ROI is not available. Use Google's current quote or usage estimate.", { plan: selectedPlan.name })
+    : roi > 150
+      ? t("Under these editable assumptions, modeled value is higher than the listed software rate. Validate actual adoption and time saved in a pilot.")
+      : t("Use this scenario as a starting point, then validate adoption and measured time saved before estimating organization-wide value.");
 
   const handleSeatMixChange = (key: 'knowledgeWorkers' | 'managers' | 'executives', value: number) => {
     const next = { ...seatMix, [key]: value };
@@ -104,23 +120,25 @@ export function PricingCalculator() {
     }
 
     const content = `
-Gemini Enterprise Quote Summary
+Plan Scenario Summary
 -----------------------------
 Plan: ${selectedPlan.name} (${selectedPlan.category})
-Seats: ${seats}
-Billing Cycle: ${isAnnual ? 'Annual Commitment (Billed Annually)' : 'Monthly Flexible'}
+Modeled seats: ${activeSeats}
+Billing basis: ${isAnnual ? 'Annual commitment rate per user/month' : 'Flexible monthly rate'}
 
 Investment:
-Price per User: ${formatCurrency(perUserPrice)} / month
-Total Monthly Commitment: ${formatCurrency(monthlyTotal)}
-Total Annual Commitment: ${formatCurrency(annualTotal)}
+Price per User: ${typeof perUserPrice === 'number' ? formatCurrency(perUserPrice) + ' / month' : selectedPlan.pricingNote || 'Not published'}
+Total Monthly Investment: ${monthlyInvestment === null ? 'Not available' : formatCurrency(monthlyInvestment)}
+Annualized Investment: ${annualInvestment === null ? 'Not available' : formatCurrency(annualInvestment)}
 
 Productivity & ROI Metrics:
 Estimated Hours Saved: ${hoursSavedPerUserMonth} hours / user / month
 Estimated Monthly Value: ${formatCurrency(monthlyValueGenerated)} / month
 Estimated Annual Value: ${formatCurrency(annualValue)} / year
-Estimated ROI: ${roi.toFixed(0)}%
-Break-Even: ${breakEvenMonths.toFixed(1)} months
+Estimated ROI: ${roi === null ? 'Not available' : `${roi.toFixed(0)}%`}
+Break-Even: ${breakEvenMonths === null ? 'Not available' : `${breakEvenMonths.toFixed(1)} months`}
+
+Note: Value and ROI are illustrative and depend on the assumptions entered in the calculator.
 
 Generated by MarketStar Gemini Enterprise Intelligence Platform
     `;
@@ -129,7 +147,7 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `gemini-quote-${seats}-seats.txt`);
+    link.setAttribute('download', `plan-scenario-${activeSeats}-seats.txt`);
     link.click();
   };
 
@@ -137,31 +155,31 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
     <div className="flex flex-col gap-8">
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="w-full lg:w-2/3 flex flex-col gap-8">
-          <div className="atlas-card rounded-2xl border p-6">
-            <h3 className="text-lg font-semibold text-foreground">Rollout scenario</h3>
-            <p className="mt-1 text-sm text-muted-foreground">Model a controlled pilot before committing to the full organization.</p>
+          <div className="rounded-3xl border border-white/40 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-7 shadow-sm">
+            <h3 className="text-lg font-semibold text-foreground">{t("Rollout scenario")}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{t("Model a controlled pilot before committing to the full organization.")}</p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <button type="button" onClick={() => setRolloutMode('pilot')} className={cn('rounded-xl border p-4 text-left transition', rolloutMode === 'pilot' ? 'border-google-blue bg-google-blue/10' : 'border-border hover:bg-muted')}>
-                <span className="block font-semibold text-foreground">Pilot rollout</span>
-                <span className="mt-1 block text-xs text-muted-foreground">{pilotSeats} users · {formatCurrency(pilotMonthly)}/month</span>
+              <button type="button" onClick={() => setRolloutMode('pilot')} className={cn('rounded-2xl border p-4 text-left transition-all', rolloutMode === 'pilot' ? 'border-google-blue bg-google-blue/10 ring-1 ring-google-blue/30' : 'border-white/40 dark:border-white/10 bg-background/50 hover:bg-muted/40')}>
+                <span className="block font-semibold text-foreground">{t("Pilot rollout")}</span>
+                <span className="mt-1 block text-xs text-muted-foreground">{pilotSeats} {t("users")} · {pilotMonthly === null ? t("pricing unavailable") : `${formatCurrency(pilotMonthly)}/${t("month")}`}</span>
               </button>
-              <button type="button" onClick={() => setRolloutMode('full')} className={cn('rounded-xl border p-4 text-left transition', rolloutMode === 'full' ? 'border-google-blue bg-google-blue/10' : 'border-border hover:bg-muted')}>
-                <span className="block font-semibold text-foreground">Full rollout</span>
-                <span className="mt-1 block text-xs text-muted-foreground">{seats.toLocaleString()} users · {formatCurrency(fullMonthly)}/month</span>
+              <button type="button" onClick={() => setRolloutMode('full')} className={cn('rounded-2xl border p-4 text-left transition-all', rolloutMode === 'full' ? 'border-google-blue bg-google-blue/10 ring-1 ring-google-blue/30' : 'border-white/40 dark:border-white/10 bg-background/50 hover:bg-muted/40')}>
+                <span className="block font-semibold text-foreground">{t("Full rollout")}</span>
+                <span className="mt-1 block text-xs text-muted-foreground">{seats.toLocaleString()} {t("users")} · {fullMonthly === null ? t("pricing unavailable") : `${formatCurrency(fullMonthly)}/${t("month")}`}</span>
               </button>
             </div>
-            <label className="mt-5 block text-sm font-medium text-foreground">Pilot seats: <span className="font-mono text-google-blue">{pilotSeats}</span></label>
-            <input aria-label="Pilot seats" type="range" min="5" max={Math.max(5, seats)} step="5" value={pilotSeats} onChange={(event) => setPilotSeats(Number(event.target.value))} className="mt-3 h-2 w-full accent-google-blue" />
+            <label className="mt-5 block text-sm font-medium text-foreground">{t("Pilot seats:")} <span className="font-mono text-google-blue">{pilotSeats}</span></label>
+            <input aria-label={t("Pilot seats")} type="range" min="5" max={Math.max(5, seats)} step="5" value={pilotSeats} onChange={(event) => setPilotSeats(Number(event.target.value))} className="mt-3 h-2 w-full accent-google-blue" />
           </div>
 
-          <div className="bg-card p-6 rounded-2xl border border-border">
+          <div className="bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-7 rounded-3xl border border-white/40 dark:border-white/10 shadow-sm">
             <div className="flex justify-between items-end mb-4">
               <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">Organization Size</h3>
-                <p className="text-sm text-muted-foreground">Adjust the number of user licenses needed.</p>
+                <h3 className="text-lg font-semibold text-foreground mb-1">{t("Organization Size")}</h3>
+                <p className="text-sm text-muted-foreground">{t("Adjust the number of user licenses needed.")}</p>
               </div>
-              <div className="text-3xl font-bold font-mono bg-background text-foreground px-4 py-2 rounded-xl border border-border">
-                {seats.toLocaleString()} <span className="text-base text-muted-foreground font-sans font-normal">seats</span>
+              <div className="text-3xl font-bold font-mono bg-background/80 backdrop-blur text-foreground px-4 py-2 rounded-2xl border border-border/80 shadow-xs">
+                {seats.toLocaleString()} <span className="text-base text-muted-foreground font-sans font-normal">{t("seats")}</span>
               </div>
             </div>
 
@@ -171,7 +189,11 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
               max="5000"
               step="5"
               value={seats}
-              onChange={(e) => setSeats(parseInt(e.target.value))}
+              onChange={(e) => {
+                const nextSeats = parseInt(e.target.value, 10);
+                setSeats(nextSeats);
+                setPilotSeats((current) => Math.min(current, nextSeats));
+              }}
               className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-google-blue"
             />
             <div className="flex justify-between text-xs text-muted-foreground mt-2 font-mono">
@@ -181,20 +203,20 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
             </div>
           </div>
 
-          <div className="bg-card p-6 rounded-2xl border border-border">
+          <div className="bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-7 rounded-3xl border border-white/40 dark:border-white/10 shadow-sm">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">Seat segmentation</h3>
-                <p className="text-sm text-muted-foreground">Model who is actually using the platform across the org.</p>
+                <h3 className="text-lg font-semibold text-foreground mb-1">{t("Seat segmentation")}</h3>
+                <p className="text-sm text-muted-foreground">{t("Model who is actually using the platform across the org.")}</p>
               </div>
             </div>
 
             <div className="space-y-5">
               {segmentBreakdown.map((segment) => (
-                <div key={segment.label}>
+                <div key={segment.key} >
                   <div className="mb-2 flex items-center justify-between text-sm">
-                    <span className="font-medium text-foreground">{segment.label}</span>
-                    <span className="font-mono text-muted-foreground">{segment.percentage}% · {segment.seats} seats</span>
+                    <span className="font-medium text-foreground">{t(segment.label)}</span>
+                    <span className="font-mono text-muted-foreground">{segment.percentage}% · {segment.seats} {t("seats")}</span>
                   </div>
                   <input
                     type="range"
@@ -203,7 +225,7 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
                     value={segment.percentage}
                     onChange={(event) => {
                       const nextValue = Number(event.target.value);
-                      const targetKey = segment.label === 'Knowledge workers' ? 'knowledgeWorkers' : segment.label === 'Managers' ? 'managers' : 'executives';
+                      const targetKey = segment.key;
                       const remaining = 100 - nextValue;
                       const otherTwo = ['knowledgeWorkers', 'managers', 'executives'].filter((key) => key !== targetKey);
 
@@ -236,169 +258,178 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
             </div>
           </div>
 
-          <div className="bg-card p-6 rounded-2xl border border-border">
+          <div className="bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-7 rounded-3xl border border-white/40 dark:border-white/10 shadow-sm">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">Select Plan</h3>
-                <p className="text-sm text-muted-foreground">Choose the tier that fits your needs.</p>
+                <h3 className="text-lg font-semibold text-foreground mb-1">{t("Select Plan")}</h3>
+                <p className="text-sm text-muted-foreground">{t("Select a plan to see its published rate or pricing note.")}</p>
               </div>
 
-              <div className="flex items-center gap-2 p-1 bg-muted rounded-lg border border-border">
+              <div className="flex items-center gap-2 p-1 bg-muted/60 backdrop-blur rounded-xl border border-border/80">
                 <button
+                  type="button"
+                  disabled={!hasFixedTermRates}
                   onClick={() => setIsAnnual(false)}
+                  aria-pressed={!isAnnual}
                   className={cn(
-                    'px-3 py-1.5 text-sm rounded-md transition-colors',
-                    !isAnnual ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
+                    'px-3 py-1.5 text-sm font-semibold rounded-lg transition-all disabled:cursor-not-allowed disabled:opacity-40',
+                    !isAnnual && hasFixedTermRates ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
-                  Monthly
+                  {t("Flexible monthly")}
                 </button>
                 <button
+                  type="button"
+                  disabled={!hasFixedTermRates}
                   onClick={() => setIsAnnual(true)}
+                  aria-pressed={isAnnual && hasFixedTermRates}
                   className={cn(
-                    'px-3 py-1.5 text-sm rounded-md transition-colors flex items-center gap-1',
-                    isAnnual ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
+                    'px-3 py-1.5 text-sm font-semibold rounded-lg transition-all flex items-center gap-1 disabled:cursor-not-allowed disabled:opacity-40',
+                    isAnnual && hasFixedTermRates ? 'bg-card text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
-                  Annual <span className="text-[10px] bg-google-green/20 text-google-green px-1.5 py-0.5 rounded-full">Save ~17%</span>
+                  {t("Annual commitment")} <span className="text-[10px] bg-google-green/20 text-google-green px-1.5 py-0.5 rounded-full">{hasFixedTermRates ? t("rate") : t("N/A")}</span>
                 </button>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {plans.map((plan) => (
-                <div
+                <button
                   key={plan.id}
+                  type="button"
                   onClick={() => setSelectedPlanId(plan.id)}
+                  aria-pressed={selectedPlanId === plan.id}
                   className={cn(
-                    'p-4 rounded-xl border cursor-pointer transition-all hover:border-google-blue/50 relative',
-                    selectedPlanId === plan.id ? 'bg-google-blue/5 border-google-blue ring-1 ring-google-blue' : 'bg-background border-border hover:bg-muted/30'
+                    'w-full p-4.5 rounded-2xl border text-left transition-all hover:border-google-blue/50 relative backdrop-blur-md',
+                    selectedPlanId === plan.id ? 'bg-google-blue/10 border-google-blue ring-1 ring-google-blue' : 'bg-background/60 border-border/80 hover:bg-muted/40'
                   )}
                 >
                   {selectedPlanId === plan.id && <div className="absolute top-3 right-3 w-3 h-3 rounded-full bg-google-blue shadow-[0_0_8px_rgba(66,133,244,0.5)]" />}
                   <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{plan.category}</div>
                   <div className="font-semibold text-foreground mb-2">{plan.name}</div>
                   <div className="text-sm text-muted-foreground line-clamp-2">{plan.description}</div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
 
-          <div className="atlas-card rounded-2xl border p-6">
-            <h3 className="text-lg font-semibold text-foreground">Adoption assumptions</h3>
+          <div className="rounded-3xl border border-white/40 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-7 shadow-sm">
+            <h3 className="text-lg font-semibold text-foreground">{t("Adoption assumptions")}</h3>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t("Illustrative inputs only. Measure time saved and adoption in your own pilot before using these outputs as a forecast.")}</p>
             <div className="mt-5 grid gap-5 sm:grid-cols-3">
               <label className="text-sm text-foreground">
-                Adoption: <strong>{adoptionRate}%</strong>
-                <input aria-label="Adoption rate" type="range" min="10" max="100" step="5" value={adoptionRate} onChange={(event) => setAdoptionRate(Number(event.target.value))} className="mt-3 w-full accent-google-blue" />
+                {t("Adoption:")} <strong>{adoptionRate}%</strong>
+                <input aria-label={t("Adoption rate")} type="range" min="10" max="100" step="5" value={adoptionRate} onChange={(event) => setAdoptionRate(Number(event.target.value))} className="mt-3 w-full accent-google-blue" />
               </label>
               <label className="text-sm text-foreground">
-                Hours saved/user: <strong>{hoursSavedPerUserMonth}</strong>
-                <input aria-label="Hours saved per user" type="range" min="1" max="40" value={hoursSavedPerUserMonth} onChange={(event) => setHoursSavedPerUserMonth(Number(event.target.value))} className="mt-3 w-full accent-google-blue" />
+                {t("Hours saved/user:")} <strong>{hoursSavedPerUserMonth}</strong>
+                <input aria-label={t("Hours saved per user")} type="range" min="1" max="40" value={hoursSavedPerUserMonth} onChange={(event) => setHoursSavedPerUserMonth(Number(event.target.value))} className="mt-3 w-full accent-google-blue" />
               </label>
               <label className="text-sm text-foreground">
-                Hourly value: <strong>${averageHourlyRate}</strong>
-                <input aria-label="Hourly value" type="range" min="20" max="200" step="5" value={averageHourlyRate} onChange={(event) => setAverageHourlyRate(Number(event.target.value))} className="mt-3 w-full accent-google-blue" />
+                {t("Hourly value:")} <strong>${averageHourlyRate}</strong>
+                <input aria-label={t("Hourly value")} type="range" min="20" max="200" step="5" value={averageHourlyRate} onChange={(event) => setAverageHourlyRate(Number(event.target.value))} className="mt-3 w-full accent-google-blue" />
               </label>
             </div>
           </div>
         </div>
 
         <div className="w-full lg:w-1/3">
-          <div className="sticky top-24 bg-card p-6 rounded-2xl border border-border shadow-xl">
-            <h3 className="text-xl font-bold text-foreground mb-6">Investment Summary</h3>
+          <div className="sticky top-24 bg-white/80 dark:bg-slate-900/70 backdrop-blur-2xl p-6 sm:p-7 rounded-3xl border border-white/50 dark:border-white/10 shadow-xl">
+            <h3 className="text-xl font-bold text-foreground mb-6">{t("Investment Summary")}</h3>
 
             <div className="space-y-6">
-              <div className="pb-6 border-b border-border">
-                <div className="text-sm text-muted-foreground mb-1">Per User / Month</div>
-                <div className="text-4xl font-bold font-mono text-foreground">{formatCurrency(perUserPrice)}</div>
-                <div className="text-xs text-muted-foreground mt-2">Billed {isAnnual ? 'annually' : 'monthly'}</div>
+              <div className="pb-6 border-b border-border/60">
+                <div className="text-sm text-muted-foreground mb-1">{t("Per User / Month")}</div>
+                <div className="text-2xl font-bold font-mono text-foreground">{typeof perUserPrice === 'number' ? formatCurrency(perUserPrice) : t("Not published")}</div>
+                <div className="text-xs text-muted-foreground mt-2">{typeof perUserPrice === 'number' ? (isAnnual ? t('Annual commitment rate per user/month') : t('Flexible monthly rate')) : selectedPlan.pricingNote}</div>
               </div>
 
-              <div className="space-y-3 pb-6 border-b border-border">
+              <div className="space-y-3 pb-6 border-b border-border/60">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Monthly Total</span>
-                  <span className="font-mono font-medium text-foreground">{formatCurrency(monthlyTotal)}</span>
+                  <span className="text-sm text-muted-foreground">{t("Monthly Total")}</span>
+                  <span className="font-mono font-medium text-foreground">{monthlyInvestment === null ? t("Not available") : formatCurrency(monthlyInvestment)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Annual Total</span>
-                  <span className="font-mono font-bold text-lg text-foreground">{formatCurrency(annualTotal)}</span>
+                  <span className="text-sm text-muted-foreground">{t("Annual Total")}</span>
+                  <span className="font-mono font-bold text-lg text-foreground">{annualInvestment === null ? t("Not available") : formatCurrency(annualInvestment)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Estimated annual value</span>
+                  <span className="text-sm text-muted-foreground">{t("Estimated annual value")}</span>
                   <span className="font-mono font-bold text-foreground">{formatCurrency(annualValue)}</span>
                 </div>
               </div>
 
-              <div className="bg-gemini-indigo/10 p-4 rounded-xl border border-gemini-indigo/20">
-                <div className="text-sm font-semibold text-gemini-indigo mb-2">Estimated ROI Impact</div>
+              <div className="bg-gemini-indigo/10 p-5 rounded-2xl border border-gemini-indigo/20 backdrop-blur-md">
+                <div className="text-sm font-semibold text-gemini-indigo mb-2">{t("Estimated ROI Impact")}</div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Time Saved</span>
-                    <span className="font-medium text-foreground">~{hoursSavedPerUserMonth} hrs/mo</span>
+                    <span className="text-muted-foreground">{t("Time Saved")}</span>
+                    <span className="font-medium text-foreground">~{hoursSavedPerUserMonth} {t("hrs/mo")}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Value Generated</span>
-                    <span className="font-medium text-google-green">+{formatCurrency(monthlyValueGenerated)}/mo</span>
+                    <span className="text-muted-foreground">{t("Value Generated")}</span>
+                    <span className="font-medium text-google-green">+{formatCurrency(monthlyValueGenerated)}/{t("mo")}</span>
                   </div>
                   <div className="flex justify-between mt-2 pt-2 border-t border-gemini-indigo/20">
-                    <span className="font-semibold text-foreground">Est. Efficiency ROI</span>
-                    <span className="font-bold text-google-green">{roi.toFixed(0)}%</span>
+                    <span className="font-semibold text-foreground">{t("Est. Efficiency ROI")}</span>
+                    <span className="font-bold text-google-green">{roi === null ? t("Not available") : `${roi.toFixed(0)}%`}</span>
                   </div>
                   <div className="flex justify-between border-t border-gemini-indigo/20 pt-2">
-                    <span className="text-muted-foreground">Break-even</span>
-                    <span className="font-medium text-foreground">{breakEvenMonths.toFixed(1)} months</span>
+                    <span className="text-muted-foreground">{t("Break-even")}</span>
+                    <span className="font-medium text-foreground">{breakEvenMonths === null ? t("Not available") : `${breakEvenMonths.toFixed(1)} ${t("months")}`}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-google-blue/20 bg-google-blue/5 p-4">
-                <p className="text-xs font-bold uppercase tracking-wider text-google-blue">Plan recommendation</p>
+              <div className="rounded-2xl border border-google-blue/20 bg-google-blue/5 p-4 backdrop-blur-md">
+                <p className="text-xs font-bold uppercase tracking-wider text-google-blue">{t("Scenario note")}</p>
                 <p className="mt-2 text-sm text-foreground">{recommendation}</p>
               </div>
 
               <button
                 onClick={handleExport}
-                className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
+                className="w-full py-3.5 bg-gradient-to-r from-google-blue to-gemini-indigo text-white hover:opacity-95 rounded-2xl font-semibold flex items-center justify-center gap-2 transition-all shadow-md"
               >
                 <Download className="w-4 h-4" />
-                Export Quote Summary
+                {t("Export Scenario Summary")}
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-6">
+      <div className="rounded-3xl border border-white/40 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-7 shadow-sm">
         <div className="mb-6 flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-google-blue">Scenario comparison</p>
-            <h3 className="mt-1 text-xl font-semibold text-foreground">Pilot vs full rollout economics</h3>
+            <p className="text-xs font-bold uppercase tracking-wider text-google-blue">{t("Scenario comparison")}</p>
+            <h3 className="mt-1 text-xl font-semibold text-foreground">{t("Pilot vs full rollout economics")}</h3>
           </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1.5 text-sm text-muted-foreground">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/60 backdrop-blur-xs px-3.5 py-1.5 text-sm font-medium text-muted-foreground">
             <TrendingUp className="h-4 w-4 text-google-green" />
-            Value-focused planning
+            {t("Value-focused planning")}
           </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
           {scenarioComparison.map((scenario) => (
-            <div key={scenario.name} className="rounded-xl border border-border bg-background p-4">
+            <div key={scenario.name} className="rounded-2xl border border-border/80 bg-background/60 backdrop-blur-md p-5 shadow-xs">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-semibold text-foreground">{scenario.name}</span>
-                <span className="rounded-full bg-google-blue/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-google-blue">{scenario.seats} seats</span>
+                <span className="rounded-full bg-google-blue/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-google-blue border border-google-blue/20">{scenario.seats} {t("seats")}</span>
               </div>
               <div className="mt-4 space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Investment</span>
-                  <span className="font-mono font-medium text-foreground">{formatCurrency(scenario.investment)}</span>
+                  <span className="text-muted-foreground">{t("Investment")}</span>
+                  <span className="font-mono font-medium text-foreground">{scenario.investment === null ? t("Not available") : formatCurrency(scenario.investment)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Monthly value</span>
+                  <span className="text-muted-foreground">{t("Monthly value")}</span>
                   <span className="font-mono font-medium text-google-green">{formatCurrency(scenario.value)}</span>
                 </div>
-                <div className="flex justify-between border-t border-border pt-2">
-                  <span className="text-muted-foreground">Break-even</span>
-                  <span className="font-mono font-medium text-foreground">{scenario.payback.toFixed(1)} mo</span>
+                <div className="flex justify-between border-t border-border/60 pt-2">
+                  <span className="text-muted-foreground">{t("Break-even")}</span>
+                  <span className="font-mono font-medium text-foreground">{scenario.payback === null ? t("Not available") : `${scenario.payback.toFixed(1)} ${t("mo")}`}</span>
                 </div>
               </div>
             </div>
@@ -406,5 +437,14 @@ Generated by MarketStar Gemini Enterprise Intelligence Platform
         </div>
       </div>
     </div>
+  );
+}
+
+/** Self-contained export — Suspense boundary included so useSearchParams never throws in Next.js 15. */
+export function PricingCalculator() {
+  return (
+    <Suspense fallback={<div className="h-64 flex items-center justify-center text-sm text-muted-foreground animate-pulse">Loading calculator…</div>}>
+      <PricingCalculatorInner />
+    </Suspense>
   );
 }

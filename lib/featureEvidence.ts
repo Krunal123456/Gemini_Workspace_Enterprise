@@ -3,14 +3,13 @@ import { Feature } from "@/types";
 export type FeatureEvidence = {
   sourceUrl?: string;
   sourceLabel: string;
-  confidence: "Official source" | "Curated catalog";
-  verifiedDate: string;
+  sourceCoverage: "Feature-specific link" | "General product links";
+  sourceNote: string;
   availabilityNotes: string[];
   restrictions: string[];
   officialSources: Array<{ label: string; url: string }>;
 };
 
-const verifiedDate = "September 22, 2026";
 const GEMINI_PRODUCT_URL = "https://workspace.google.com/products/gemini/?exp=none";
 const WORKSPACE_HOME_URL = "https://workspace.google.com/";
 const NOTEBOOKLM_URL = "https://notebooklm.google.com/";
@@ -123,12 +122,15 @@ export function getFeatureEvidence(feature: Feature): FeatureEvidence {
     : feature.documentationUrl
       ? [{ label: "Official Google documentation", url: feature.documentationUrl }]
       : defaultGoogleSources(feature);
+  const hasFeatureSpecificSource = Boolean(feature.officialSources?.length || feature.documentationUrl);
 
   return {
     sourceUrl: officialSources[0]?.url,
     sourceLabel: officialSources[0]?.label ?? "Google official source",
-    confidence: officialSources[0]?.url ? "Official source" : "Curated catalog",
-    verifiedDate,
+    sourceCoverage: hasFeatureSpecificSource ? "Feature-specific link" : "General product links",
+    sourceNote: hasFeatureSpecificSource
+      ? "A Google documentation link is associated with this feature. Confirm edition-specific limits in the source."
+      : "These links cover the broader product; they do not verify every detail of this catalog entry.",
     availabilityNotes: [...new Set(availabilityNotes)].slice(0, 4),
     restrictions,
     officialSources,
