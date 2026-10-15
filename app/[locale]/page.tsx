@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/hero/Hero";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { resolveLocale, type Locale } from "@/lib/i18n/config";
-import { getFeatures, getFeatureCount } from "@/lib/i18n/features";
+import { defaultLocale, resolveLocale, type Locale } from "@/lib/i18n/config";
+import { localizedAlternates } from "@/lib/seo";
+import { getFeatureCount } from "@/lib/i18n/features";
 import ComparisonPreview from "@/components/home/ComparisonPreview";
 import EnterpriseSection from "@/components/home/EnterpriseSection";
 import ArticlesTeaser from "@/components/home/ArticlesTeaser";
@@ -32,14 +33,30 @@ export function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   return params.then(({ locale: raw }) => {
-    return { ...homeMetadata[resolveLocale(raw)] };
+    const locale = resolveLocale(raw);
+    const metadata = homeMetadata[locale];
+
+    return {
+      ...metadata,
+      alternates: localizedAlternates("/", locale),
+      openGraph: {
+        type: "website",
+        title: metadata.title,
+        description: metadata.description,
+        url: locale === defaultLocale ? "/" : `/${locale}`,
+      },
+      twitter: {
+        card: "summary",
+        title: metadata.title,
+        description: metadata.description,
+      },
+    };
   });
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  const features = getFeatures(locale);
   return (
     <div className="flex min-h-screen flex-col">
       <Hero labels={getDictionary(locale).hero} />

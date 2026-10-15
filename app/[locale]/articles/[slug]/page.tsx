@@ -1,14 +1,14 @@
-import {
-  getPlans,
-} from "@/lib/i18n/data";
+import { getArticleBySlug, getArticles, getPlans } from "@/lib/i18n/data";
 import { getFeatures } from "@/lib/i18n/features";
-import { defaultLocale, isLocale, type Locale } from "@/lib/i18n/config";
-import React from "react";
+import { htmlLang, type Locale } from "@/lib/i18n/config";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import { getArticleBySlug, getArticles } from "@/lib/i18n/data";
+import type { Metadata } from "next";
 import { resolveLocale } from "@/lib/i18n/config";
+import { ArticleReaderTools } from "@/components/articles/ArticleReaderTools";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { siteUrl } from "@/lib/siteUrl";
+import { localizedAlternates } from "@/lib/seo";
 
 import {
   ArrowLeft,
@@ -16,10 +16,7 @@ import {
   Calendar,
   Sparkles,
   CheckCircle2,
-  Building2,
-  Share2,
   ArrowRight,
-  BookOpen
 } from "lucide-react";
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
@@ -58,9 +55,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
-  const locale: Locale = resolveLocale(rawLocale);
-  const t = createPhraseTranslator(locale);
-  const article = getArticleBySlug(slug, resolveLocale(rawLocale));
+  const locale = resolveLocale(rawLocale);
+  const article = getArticleBySlug(slug, locale);
 
   if (!article) {
     return {
@@ -68,9 +64,28 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     };
   }
 
+  const title = `${article.title} | MarketStar Enterprise Advisory`;
+  const description = article.excerpt;
+  const articlePath = `/articles/${slug}`;
+
   return {
-    title: `${article.title} | MarketStar Enterprise Advisory`,
-    description: article.excerpt,
+    title,
+    description,
+    alternates: localizedAlternates(articlePath, locale),
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: localizedAlternates(articlePath, locale).canonical,
+      publishedTime: article.date,
+      authors: [article.author.name],
+      tags: [article.category],
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
   };
 }
 
@@ -81,6 +96,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   const t = createPhraseTranslator(locale);
   const plans = getPlans(locale);
   const article = getArticleBySlug(slug, locale);
+  const allArticles = getArticles(locale);
 
   if (!article) {
     notFound();
@@ -90,9 +106,64 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   const relatedFeatureItems = (article.relatedFeatures || [])
     .map((fid) => features.find((f) => f.id === fid || f.slug === fid))
     .filter(Boolean);
+  const articleSections = article.content.flatMap((paragraph, index) =>
+    paragraph.startsWith("### ")
+      ? [{ id: `article-section-${index}`, title: paragraph.slice(4) }]
+      : [],
+  );
+  const explicitRelatedArticles = (article.relatedArticles ?? []).flatMap((relatedSlug) => {
+    const relatedArticle = allArticles.find((candidate) => candidate.slug === relatedSlug);
+    return relatedArticle && relatedArticle.slug !== article.slug ? [relatedArticle] : [];
+  });
+  const relatedArticleItems = [
+    ...explicitRelatedArticles,
+    ...allArticles.filter(
+      (candidate) =>
+        candidate.slug !== article.slug &&
+        candidate.category === article.category &&
+        !explicitRelatedArticles.some((relatedArticle) => relatedArticle.slug === candidate.slug),
+    ),
+  ].slice(0, 3);
+  const articleUrl = new URL(
+    localizedAlternates(`/articles/${slug}`, locale).canonical,
+    siteUrl,
+  ).toString();
+  const homeUrl = new URL(localizedAlternates("/", locale).canonical, siteUrl).toString();
+  const articlesUrl = new URL(
+    localizedAlternates("/articles", locale).canonical,
+    siteUrl,
+  ).toString();
 
   return (
     <article className="min-h-screen bg-background text-foreground pb-24">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Article",
+              "@id": `${articleUrl}#article`,
+              url: articleUrl,
+              mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+              headline: article.title,
+              description: article.excerpt,
+              datePublished: article.date,
+              author: { "@type": "Organization", name: article.author.name },
+              publisher: { "@id": `${siteUrl}/#organization` },
+              articleSection: article.category,
+              inLanguage: htmlLang(locale),
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: t("Home"), item: homeUrl },
+                { "@type": "ListItem", position: 2, name: t("Articles"), item: articlesUrl },
+                { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
+              ],
+            },
+          ],
+        }}
+      />
       {/* Top Breadcrumb Header */}
       <div className="border-b border-border/60 bg-muted/20">
         <div className="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 py-4">
@@ -151,7 +222,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       </header>
 
       {/* Main Content Area */}
-      <div className="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 py-16">
+      <div id="article-reading-content" className="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 py-16">
         {/* Key Takeaways Box */}
         <div className="mb-14 rounded-2xl border-2 border-google-blue/30 bg-google-blue/5 p-8 shadow-sm">
           <h2 className="text-sm font-bold uppercase tracking-wider text-google-blue mb-4 flex items-center gap-2">
@@ -167,6 +238,20 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           </ul>
         </div>
 
+        <ArticleReaderTools
+          title={article.title}
+          excerpt={article.excerpt}
+          sections={articleSections}
+          labels={{
+            contents: t("In this article"),
+            share: t("Share"),
+            copyLink: t("Copy link"),
+            copied: t("Link copied"),
+            copyFailed: t("Could not copy link"),
+            readingProgress: t("Reading progress"),
+          }}
+        />
+
         {/* Prose Body */}
         <div className="space-y-6 text-foreground/90 text-base sm:text-lg leading-relaxed font-normal">
           {article.content.map((paragraph, idx) => {
@@ -174,7 +259,8 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
               return (
                 <h3
                   key={idx}
-                  className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground pt-8 pb-2 border-b border-border/60"
+                  id={`article-section-${idx}`}
+                  className="scroll-mt-28 text-2xl sm:text-3xl font-bold tracking-tight text-foreground pt-8 pb-2 border-b border-border/60"
                 >
                   {renderCitations(paragraph.replace("### ", ""), article.sources?.length ?? 0)}
                 </h3>
@@ -243,6 +329,33 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
               ))}
             </div>
           </div>
+        )}
+
+        {relatedArticleItems.length > 0 && (
+          <section className="mt-16 border-t border-border pt-10" aria-labelledby="related-articles-heading">
+            <h2 id="related-articles-heading" className="mb-5 text-2xl font-bold text-foreground">
+              {t("Related articles")}
+            </h2>
+            <div className="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedArticleItems.map((relatedArticle) => (
+                <Link
+                  key={relatedArticle.slug}
+                  href={`/articles/${relatedArticle.slug}`}
+                  className="group flex flex-col border-t border-border py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-google-blue"
+                >
+                  <span className="text-xs font-semibold text-google-blue">
+                    {relatedArticle.category} · {relatedArticle.readTime}
+                  </span>
+                  <h3 className="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-google-blue">
+                    {relatedArticle.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                    {relatedArticle.excerpt}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
         )}
 
         {/* Navigation Footer */}

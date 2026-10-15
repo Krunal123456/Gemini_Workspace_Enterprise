@@ -11,12 +11,12 @@ import { PageTransition } from "@/components/navigation/PageTransition";
 import { Geist, Outfit } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { siteUrl } from "@/lib/siteUrl";
+import { JsonLd } from "@/components/seo/JsonLd";
 import {
   defaultLocale,
   htmlLang,
   isLocale,
   locales,
-  stripLocaleFromPathname,
   type Locale,
 } from "@/lib/i18n/config";
 import { LocaleProvider } from "@/lib/i18n/locale-context";
@@ -57,22 +57,13 @@ export async function generateMetadata({
       shortcut: "/favicon.ico",
     },
     metadataBase: new URL(siteUrl),
-    alternates: {
-      canonical: `/${locale === defaultLocale ? "" : locale}`,
-      languages: {
-        ...Object.fromEntries(
-          locales.map((l) => [htmlLang(l), l === defaultLocale ? "/" : `/${l}`]),
-        ),
-        "x-default": "/",
-      },
-    },
     openGraph: {
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
       siteName: "Gemini Enterprise AI Intelligence",
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
     },
     robots: {
       index: true,
@@ -131,6 +122,28 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="relative min-h-screen bg-background text-foreground antialiased selection:bg-blue-500/25 selection:text-foreground overflow-x-hidden">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                "@id": `${siteUrl}/#organization`,
+                name: "MarketStar",
+                url: siteUrl,
+                logo: `${siteUrl}/brand/marketstar-logo.png`,
+              },
+              {
+                "@type": "WebSite",
+                "@id": `${siteUrl}/#website`,
+                name: "Gemini Enterprise AI Intelligence",
+                url: siteUrl,
+                inLanguage: locales.map(htmlLang),
+                publisher: { "@id": `${siteUrl}/#organization` },
+              },
+            ],
+          }}
+        />
         {/* Ambient Subtle Accent Lighting (CSS-composited for zero scroll lag) */}
         <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(124,58,237,0.08),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(124,58,237,0.12),transparent_70%)]" aria-hidden="true" />
 

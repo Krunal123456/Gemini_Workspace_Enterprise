@@ -21,6 +21,7 @@ const staticRoutes = [
   "/pricing",
   "/models",
   "/compare",
+  "/mindmap",
   "/enterprise",
   "/enterprise/onboarding",
   "/enterprise/onboarding/business",
