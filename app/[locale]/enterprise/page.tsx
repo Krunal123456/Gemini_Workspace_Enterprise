@@ -31,10 +31,15 @@ import {
 
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
-export const metadata: Metadata = {
-  title: "Enterprise AI Architecture | Gemini Enterprise, Connectors & MCP",
-  description: "Review Gemini Enterprise connectors, agents, MCP options, and product-specific security controls using current Google documentation.",
-};
+import { withLocalizedAlternates } from "@/lib/seo";
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = resolveLocale(rawLocale);
+  return withLocalizedAlternates({
+    title: "Enterprise AI Architecture | Gemini Enterprise, Connectors & MCP",
+    description: "Review Gemini Enterprise connectors, agents, MCP options, and product-specific security controls using current Google documentation.",
+  }, "/enterprise", locale);
+}
 
 export default async function EnterprisePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;

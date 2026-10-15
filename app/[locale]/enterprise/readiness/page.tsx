@@ -5,6 +5,7 @@ import { ReadinessPlanner } from "@/components/enterprise/ReadinessPlanner";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { localizeHref } from "@/lib/i18n/href";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
+import { withLocalizedAlternates } from "@/lib/seo";
 
 const pageCopy: Record<Locale, { title: string; description: string }> = {
   en: {
@@ -26,7 +27,7 @@ export function generateMetadata({
 }): Promise<Metadata> {
   return params.then(({ locale: raw }) => {
     const locale = resolveLocale(raw);
-    return { ...pageCopy[locale] };
+    return withLocalizedAlternates(pageCopy[locale], "/enterprise/readiness", locale);
   });
 }
 

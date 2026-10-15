@@ -17,12 +17,17 @@ import { getPlans } from "@/lib/i18n/data";
 import { getFeatures } from "@/lib/i18n/features";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { PlanMindMap } from "@/components/mindmap/PlanMindMap";
+import { withLocalizedAlternates } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Plan Mind Map | Gemini Enterprise AI Intelligence",
-  description:
-    "Explore the comprehensive visual architecture of all 20 Google Workspace and Gemini Enterprise plans. Discover plan connections, capabilities, and feature entitlements.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = resolveLocale(rawLocale);
+  return withLocalizedAlternates({
+    title: "Plan Mind Map | Gemini Enterprise AI Intelligence",
+    description:
+      "Explore the comprehensive visual architecture of all 20 Google Workspace and Gemini Enterprise plans. Discover plan connections, capabilities, and feature entitlements.",
+  }, "/mindmap", locale);
+}
 
 export default async function MindMapPage({
   params,

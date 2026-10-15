@@ -7,6 +7,7 @@ import { FeaturesExportButton } from "@/components/features/FeaturesExportButton
 import { getFeatures } from "@/lib/i18n/features";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
+import { withLocalizedAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -16,10 +17,10 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
   const t = createPhraseTranslator(locale);
-  return {
+  return withLocalizedAlternates({
     title: t("Google Workspace & Gemini AI Features Directory"),
     description: t("Search, filter, and inspect every generative AI feature across Gmail, Docs, Sheets, Meet, NotebookLM, Vids, and the Gemini Enterprise Chat App."),
-  };
+  }, "/features", locale);
 }
 
 export default async function FeaturesPage({

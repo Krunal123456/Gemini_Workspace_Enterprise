@@ -4,6 +4,7 @@ import {
   locales,
   type Locale,
 } from "@/lib/i18n/config";
+import type { Metadata } from "next";
 
 export function localizedAlternates(pathname: string, locale: Locale) {
   const cleanPath = `/${pathname.split("/").filter(Boolean).join("/")}`.replace(/\/$/, "");
@@ -20,5 +21,16 @@ export function localizedAlternates(pathname: string, locale: Locale) {
       ),
       "x-default": pathForLocale(defaultLocale),
     },
+  };
+}
+
+export function withLocalizedAlternates(
+  metadata: Metadata,
+  pathname: string,
+  locale: Locale,
+): Metadata {
+  return {
+    ...metadata,
+    alternates: localizedAlternates(pathname, locale),
   };
 }

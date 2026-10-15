@@ -20,10 +20,16 @@ import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
 
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
-export const metadata: Metadata = {
-  title: "About | MarketStar Gemini Enterprise AI Intelligence",
-  description: "Learn about the Gemini Enterprise Intelligence platform created by MarketStar, Google Cloud ecosystem partner guiding global enterprises in AI deployment.",
-};
+import { withLocalizedAlternates } from "@/lib/seo";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = resolveLocale(rawLocale);
+  return withLocalizedAlternates({
+    title: "About | MarketStar Gemini Enterprise AI Intelligence",
+    description: "Learn about the Gemini Enterprise Intelligence platform created by MarketStar, Google Cloud ecosystem partner guiding global enterprises in AI deployment.",
+  }, "/about", locale);
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;

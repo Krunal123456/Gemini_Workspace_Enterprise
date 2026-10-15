@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 
 import { createPhraseTranslator, type PhraseTranslator } from "@/lib/i18n/translate";
+import { withLocalizedAlternates } from "@/lib/seo";
 const governanceControls = (t: PhraseTranslator) => [
   {
     title: t("Data residency"),
@@ -92,10 +93,10 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
   const t = createPhraseTranslator(locale);
-  return {
+  return withLocalizedAlternates({
     title: t("Gemini Enterprise Security & Governance Guide"),
     description: t("Review Google Workspace and Gemini Enterprise security controls, edition requirements, configuration questions, and official privacy documentation."),
-  };
+  }, "/security", locale);
 }
 
 export default async function SecurityPage({ params }: { params: Promise<{ locale: string }> }) {

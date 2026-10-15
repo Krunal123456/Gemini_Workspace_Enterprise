@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
+import { withLocalizedAlternates } from "@/lib/seo";
 interface PlanDetailPageProps {
   params: Promise<{
     locale: string;
@@ -48,10 +49,10 @@ export async function generateMetadata({ params }: PlanDetailPageProps): Promise
     };
   }
 
-  return {
+  return withLocalizedAlternates({
     title: `${plan.name} AI Capabilities & Pricing | Gemini Intelligence`,
     description: plan.description,
-  };
+  }, `/plans/${slug}`, locale);
 }
 
 export default async function PlanDetailPage({ params }: PlanDetailPageProps) {

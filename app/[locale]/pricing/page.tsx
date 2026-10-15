@@ -5,6 +5,7 @@ import { PricingOverview } from "@/components/pricing/PricingOverview";
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
+import { withLocalizedAlternates } from "@/lib/seo";
 export async function generateMetadata({
   params,
 }: {
@@ -13,10 +14,10 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
   const t = createPhraseTranslator(locale);
-  return {
+  return withLocalizedAlternates({
     title: t("Gemini Enterprise Pricing | Compare AI Plans"),
     description: t("Model Gemini Enterprise pricing by deployment type, seats, and billing commitment."),
-  };
+  }, "/pricing", locale);
 }
 
 export default async function PricingPage({

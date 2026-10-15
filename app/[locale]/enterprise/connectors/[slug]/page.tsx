@@ -6,6 +6,7 @@ import { getConnectors, getConnectorBySlug } from "@/lib/i18n/data";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { localizeHref } from "@/lib/i18n/href";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
+import { withLocalizedAlternates } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return getConnectors("en").map((connector) => ({ slug: connector.id }));
@@ -13,8 +14,13 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const connector = getConnectorBySlug(slug, resolveLocale(locale));
-  return { title: connector ? `${connector.name} Connector | Gemini Enterprise` : "Connector Not Found" };
+  const resolvedLocale = resolveLocale(locale);
+  const connector = getConnectorBySlug(slug, resolvedLocale);
+  return withLocalizedAlternates(
+    { title: connector ? `${connector.name} Connector | Gemini Enterprise` : "Connector Not Found" },
+    `/enterprise/connectors/${slug}`,
+    resolvedLocale,
+  );
 }
 
 export default async function ConnectorDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {

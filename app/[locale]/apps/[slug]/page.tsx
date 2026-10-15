@@ -28,6 +28,7 @@ import {
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { AiInboxShowcase } from "@/components/gmail/AiInboxShowcase";
+import { withLocalizedAlternates } from "@/lib/seo";
 interface AppDetailPageProps {
   params: Promise<{
     locale: string;
@@ -66,10 +67,10 @@ export async function generateMetadata({ params }: AppDetailPageProps): Promise<
     };
   }
 
-  return {
+  return withLocalizedAlternates({
     title: `${app.name} AI Capabilities & Gemini Features | Gemini Intelligence`,
     description: app.description,
-  };
+  }, `/apps/${slug}`, locale);
 }
 
 export default async function AppDetailPage({ params }: AppDetailPageProps) {

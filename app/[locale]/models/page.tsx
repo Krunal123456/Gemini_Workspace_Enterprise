@@ -7,6 +7,7 @@ import { ModelCostCalculator } from "@/components/models/ModelCostCalculator";
 import { AmbientAuroraGlow } from "@/components/ui/AmbientAuroraGlow";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
+import { withLocalizedAlternates } from "@/lib/seo";
 
 const workloadRows = [
   { workload: "Flagship GA reasoning, enterprise agentic workflows & complex multi-step tasks", model: "Gemini 4 Argon (GA)", note: "Most capable GA frontier model · 1M-token context · Adjustable thinking" },
@@ -30,10 +31,10 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
   const t = createPhraseTranslator(locale);
-  return {
+  return withLocalizedAlternates({
     title: t("Gemini Models Catalog & Pricing Comparison"),
     description: t("Compare current Gemini model families by capability, token limits, and API pricing."),
-  };
+  }, "/models", locale);
 }
 
 export default async function ModelsPage({

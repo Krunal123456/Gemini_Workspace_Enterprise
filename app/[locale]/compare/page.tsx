@@ -8,10 +8,17 @@ import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { getFeatures } from '@/lib/i18n/features';
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
-export const metadata = {
-  title: 'Compare Plans | Gemini Enterprise Intelligence',
-  description: 'Compare listed Workspace and Gemini Enterprise plan details, feature notes, and editable rollout assumptions.',
-};
+import { withLocalizedAlternates } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = resolveLocale(rawLocale);
+  return withLocalizedAlternates({
+    title: 'Compare Plans | Gemini Enterprise Intelligence',
+    description: 'Compare listed Workspace and Gemini Enterprise plan details, feature notes, and editable rollout assumptions.',
+  }, "/compare", locale);
+}
 
 export default async function ComparePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;

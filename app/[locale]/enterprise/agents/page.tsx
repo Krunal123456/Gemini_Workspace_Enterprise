@@ -23,6 +23,7 @@ import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { localizeHref } from "@/lib/i18n/href";
 import { CoworkerAgentShowcase } from "@/components/enterprise/CoworkerAgentShowcase";
+import { withLocalizedAlternates } from "@/lib/seo";
 export async function generateMetadata({
   params,
 }: {
@@ -30,10 +31,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const t = createPhraseTranslator(resolveLocale(rawLocale));
-  return {
+  return withLocalizedAlternates({
     title: 'Model Context Protocol (MCP) & Enterprise AI Agents | Gemini Intelligence',
     description: t('Learn how Gemini Enterprise implements the open Model Context Protocol (MCP) to safely interface with corporate APIs, databases, and multi-step reasoning agents.'),
-  };
+  }, "/enterprise/agents", resolveLocale(rawLocale));
 }
 
 export default async function AgentsAndMcpPage({

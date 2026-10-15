@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { ActionButtons } from "./ClientButtons";
 import { PlanId } from "@/types";
 import { getFeatureEvidence } from "@/lib/featureEvidence";
+import { withLocalizedAlternates } from "@/lib/seo";
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 type Props = {
@@ -38,14 +39,14 @@ export async function generateMetadata({ params }: Props) {
     return { title: "Feature Not Found" };
   }
 
-  return {
+  return withLocalizedAlternates({
     title: `${feature.name} | Gemini Enterprise Intelligence`,
     description: feature.description,
     openGraph: {
       title: `${feature.name} - Gemini Enterprise Features`,
       description: feature.description,
     },
-  };
+  }, `/features/${slug}`, locale);
 }
 
 export default async function FeatureDetailPage({ params }: Props) {

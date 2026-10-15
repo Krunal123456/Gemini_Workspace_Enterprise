@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { ArrowRight, BrainCircuit, CheckCircle2, Database, ShieldCheck, Sparkles } from "lucide-react";
 import { GeminiProductExplorer } from "@/components/products/GeminiProductExplorer";
+import { withLocalizedAlternates } from "@/lib/seo";
 
 /** Icons are positional and stay fixed; only the pillar copy is localized. */
 const PILLAR_ICONS = [BrainCircuit, Database, ShieldCheck];
@@ -20,7 +21,8 @@ export function generateMetadata({
 }): Promise<Metadata> {
   return params.then(({ locale: raw }) => {
     const copy = geminiProductCopy[resolveLocale(raw)];
-    return { title: copy.metadataTitle, description: copy.metadataDescription };
+    const locale = resolveLocale(raw);
+    return withLocalizedAlternates({ title: copy.metadataTitle, description: copy.metadataDescription }, "/products/gemini", locale);
   });
 }
 

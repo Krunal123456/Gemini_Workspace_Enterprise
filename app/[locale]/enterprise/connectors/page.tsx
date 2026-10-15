@@ -14,10 +14,15 @@ import { ConnectorSearchList } from "@/components/enterprise/ConnectorSearchList
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { localizeHref } from "@/lib/i18n/href";
-export const metadata: Metadata = {
-  title: "Enterprise Connectors | Gemini & Google Cloud Integration Connectors",
-  description: "Explore curated Gemini Enterprise grounding connectors and the full Google Cloud Integration Connectors catalogue.",
-};
+import { withLocalizedAlternates } from "@/lib/seo";
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = resolveLocale(rawLocale);
+  return withLocalizedAlternates({
+    title: "Enterprise Connectors | Gemini & Google Cloud Integration Connectors",
+    description: "Explore curated Gemini Enterprise grounding connectors and the full Google Cloud Integration Connectors catalogue.",
+  }, "/enterprise/connectors", locale);
+}
 
 export default async function ConnectorsPage({
   params,

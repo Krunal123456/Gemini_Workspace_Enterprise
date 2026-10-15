@@ -4,11 +4,16 @@ import { ArrowLeft, Building2 } from "lucide-react";
 import { ConnectorDetector } from "@/components/enterprise/ConnectorDetector";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
+import { withLocalizedAlternates } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Gemini Enterprise Connector Detector | Readiness Check",
-  description: "Match your company's tools to Gemini Enterprise connectors with an instant readiness check.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = resolveLocale(rawLocale);
+  return withLocalizedAlternates({
+    title: "Gemini Enterprise Connector Detector | Readiness Check",
+    description: "Match your company's tools to Gemini Enterprise connectors with an instant readiness check.",
+  }, "/enterprise/connector-detector", locale);
+}
 
 export default async function ConnectorDetectorPage({
   params,

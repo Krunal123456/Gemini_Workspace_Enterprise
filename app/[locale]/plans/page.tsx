@@ -5,6 +5,7 @@ import { getPlans, getCategories } from "@/lib/i18n/data";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatCurrency } from "@/lib/utils";
+import { withLocalizedAlternates } from "@/lib/seo";
 import {
   CreditCard,
   CheckCircle2,
@@ -38,7 +39,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  return plansPageMeta[resolveLocale(locale)];
+  return withLocalizedAlternates(plansPageMeta[locale], "/plans", locale);
 }
 
 export default async function PlansPage({

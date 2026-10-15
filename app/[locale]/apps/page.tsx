@@ -7,6 +7,7 @@ import { getFeatures } from "@/lib/i18n/features";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import {  localizeHref } from "@/lib/i18n/href";
+import { withLocalizedAlternates } from "@/lib/seo";
 import {
   Mail,
   FileText,
@@ -44,7 +45,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  return appPageMeta[resolveLocale(locale)];
+  return withLocalizedAlternates(appPageMeta[locale], "/apps", locale);
 }
 
 const iconMap: Record<string, React.ElementType> = {

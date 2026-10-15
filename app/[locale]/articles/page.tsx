@@ -5,6 +5,7 @@ import { getArticles } from "@/lib/i18n/data";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { articlesPageUi } from "@/lib/i18n/page-copy/articles";
+import { withLocalizedAlternates } from "@/lib/seo";
 import {
   BookOpen,
   Clock,
@@ -36,7 +37,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  return articlesPageMeta[resolveLocale(locale)];
+  return withLocalizedAlternates(articlesPageMeta[locale], "/articles", locale);
 }
 
 export default async function ArticlesPage({
