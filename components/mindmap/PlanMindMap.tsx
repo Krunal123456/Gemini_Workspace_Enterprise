@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
+import { useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import {
   X,
@@ -506,6 +507,7 @@ export function PlanMindMap({
   plans: Plan[];
   features: Feature[];
 }) {
+  const reduceMotion = useReducedMotion();
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -872,8 +874,8 @@ export function PlanMindMap({
                 const pathD = `M ${startX} ${startY} C ${midX} ${startY}, ${midX} ${endY}, ${endX} ${endY}`;
 
                 return (
+                  <React.Fragment key={`c-plan-${pNode.plan.id}`}>
                   <path
-                    key={`c-plan-${pNode.plan.id}`}
                     d={pathD}
                     fill="none"
                     stroke={style.glow}
@@ -881,6 +883,19 @@ export function PlanMindMap({
                     strokeOpacity={isSelected ? 1 : isHovered ? 0.8 : isHighlighted ? 0.5 : 0.15}
                     className="transition-all duration-200"
                   />
+                  {isSelected && !reduceMotion && (
+                    <circle r="4" fill={style.glow} pointerEvents="none">
+                      <animateMotion dur="0.85s" repeatCount="1" path={pathD} />
+                      <animate
+                        attributeName="opacity"
+                        values="0;0.95;0"
+                        keyTimes="0;0.2;1"
+                        dur="0.85s"
+                        repeatCount="1"
+                      />
+                    </circle>
+                  )}
+                  </React.Fragment>
                 );
               })}
 

@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Check, Minus, Plus, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -21,6 +22,7 @@ function PlanComparatorInner() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const reduceMotion = useReducedMotion();
 
   const defaultSelected = DEFAULT_SELECTED;
 
@@ -117,16 +119,26 @@ function PlanComparatorInner() {
         <div className="flex flex-col gap-2.5">
           <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Select up to 4 plans to compare")}</h3>
           <div className="flex flex-wrap gap-2">
-            {selectedPlans.map(plan => (
-              <div key={plan.id} className="flex items-center gap-2 px-3.5 py-1.5 bg-background/80 backdrop-blur border border-border/80 rounded-full text-sm font-medium text-foreground shadow-xs">
+            <AnimatePresence initial={false}>
+              {selectedPlans.map(plan => (
+              <motion.div
+                key={plan.id}
+                layout={!reduceMotion}
+                initial={reduceMotion ? false : { opacity: 0, y: 5, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -3, scale: 0.97 }}
+                transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: "easeOut" }}
+                className="flex items-center gap-2 px-3.5 py-1.5 bg-background/80 backdrop-blur border border-border/80 rounded-full text-sm font-medium text-foreground shadow-xs"
+              >
                 <span>{plan.name}</span>
                 {selectedPlanIds.length > 2 && (
                   <button onClick={() => removePlan(plan.id)} className="hover:text-google-red transition-colors text-muted-foreground">
                     <X className="w-3.5 h-3.5" />
                   </button>
                 )}
-              </div>
-            ))}
+              </motion.div>
+              ))}
+            </AnimatePresence>
             {selectedPlanIds.length < 4 && (
               <div className="relative group">
                 <button className="flex items-center gap-1.5 px-3.5 py-1.5 border border-dashed border-border/80 text-muted-foreground hover:text-foreground hover:border-violet-500 rounded-full text-sm font-medium transition-all bg-background/40 backdrop-blur">
