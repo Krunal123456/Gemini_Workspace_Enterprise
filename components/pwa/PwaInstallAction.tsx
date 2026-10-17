@@ -20,8 +20,9 @@ export function PwaInstallAction({ open }: { open: boolean }) {
   const { locale } = useLocale();
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [isIos, setIsIos] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
-  const [showIosHelp, setShowIosHelp] = useState(false);
+  const [showInstallHelp, setShowInstallHelp] = useState(false);
   const isSpanish = locale === "es";
 
   useEffect(() => {
@@ -29,9 +30,11 @@ export function PwaInstallAction({ open }: { open: boolean }) {
       ("standalone" in navigator && Boolean((navigator as Navigator & { standalone?: boolean }).standalone));
     const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const mobile = ios || /Android|Mobile/i.test(navigator.userAgent);
 
     setIsInstalled(standalone);
     setIsIos(ios);
+    setIsMobile(mobile);
 
     const handleInstallPrompt = (event: InstallPromptEvent) => {
       event.preventDefault();
@@ -55,11 +58,11 @@ export function PwaInstallAction({ open }: { open: boolean }) {
     };
   }, []);
 
-  if (!open || isInstalled || (!isIos && !installPrompt)) return null;
+  if (!open || isInstalled || (!isMobile && !installPrompt)) return null;
 
   const handleInstall = async () => {
-    if (isIos) {
-      setShowIosHelp((current) => !current);
+    if (isIos || !installPrompt) {
+      setShowInstallHelp((current) => !current);
       return;
     }
     if (!installPrompt) return;
@@ -89,10 +92,18 @@ export function PwaInstallAction({ open }: { open: boolean }) {
         <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
       </button>
 
-      {isIos && showIosHelp && (
+      {showInstallHelp && (
         <p className="mt-2 flex items-start gap-2 rounded-xl bg-background/80 px-3 py-2.5 text-xs leading-relaxed text-muted-foreground">
           <Share className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />
-          <span>{isSpanish ? "En Safari, toca Compartir y luego “Añadir a pantalla de inicio”." : "In Safari, tap Share, then “Add to Home Screen”."}</span>
+          <span>
+            {isIos
+              ? isSpanish
+                ? "En Safari, toca Compartir y luego “Añadir a pantalla de inicio”."
+                : "In Safari, tap Share, then “Add to Home Screen”."
+              : isSpanish
+                ? "Abre el menú del navegador y elige “Instalar aplicación” o “Añadir a pantalla de inicio”."
+                : "Open your browser menu and choose “Install app” or “Add to Home Screen”."}
+          </span>
         </p>
       )}
     </div>

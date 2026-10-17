@@ -17,13 +17,13 @@ const featureCount = getFeatureCount();
 const homeMetadata: Record<Locale, { title: string; description: string }> = {
   en: {
     title:
-      "Gemini Enterprise AI Intelligence | Discover Every Google Workspace AI Capability",
-    description: `Explore ${featureCount} Google Workspace and Gemini capabilities, current Gemini models, plan comparisons, enterprise connectors, and security controls.`,
+      "Google Workspace Plans & Gemini AI Features | Plan Comparison",
+    description: `Compare Google Workspace plans and Gemini Enterprise options. Explore ${featureCount} documented AI features, pricing context, plan differences, models, and enterprise capabilities.`,
   },
   es: {
     title:
-      "Gemini Enterprise AI Intelligence | Descubre todas las capacidades de IA de Google Workspace",
-    description: `Explora ${featureCount} capacidades de Google Workspace y Gemini, los modelos actuales de Gemini, comparativas de planes, conectores empresariales y controles de seguridad.`,
+      "Planes de Google Workspace y funciones de Gemini | Comparativa",
+    description: `Compara los planes de Google Workspace y las opciones de Gemini Enterprise. Explora ${featureCount} funciones de IA documentadas, precios, diferencias entre planes, modelos y capacidades empresariales.`,
   },
 };
 

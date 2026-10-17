@@ -15,10 +15,27 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#0b0f19",
     lang: "en-US",
     categories: ["business", "productivity"],
+    prefer_related_applications: false,
     icons: [
       { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
       { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+    ],
+    shortcuts: [
+      {
+        name: "Compare plans",
+        short_name: "Compare",
+        description: "Compare Workspace and Gemini plans",
+        url: "/compare",
+        icons: [{ src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" }],
+      },
+      {
+        name: "Explore apps",
+        short_name: "Apps",
+        description: "Explore Gemini across Workspace apps",
+        url: "/apps",
+        icons: [{ src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" }],
+      },
     ],
   };
 }

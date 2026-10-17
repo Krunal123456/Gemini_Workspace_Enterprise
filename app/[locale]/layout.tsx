@@ -55,7 +55,7 @@ export async function generateMetadata({
     description: siteDescriptions[locale],
     keywords: dictionary.metadata.keywords,
     authors: [{ name: "MarketStar" }],
-    creator: "MarketStar",
+    creator: "Krunal Tote",
     appleWebApp: {
       capable: true,
       statusBarStyle: "black-translucent",
