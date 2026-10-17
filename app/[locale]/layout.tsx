@@ -56,9 +56,15 @@ export async function generateMetadata({
     keywords: dictionary.metadata.keywords,
     authors: [{ name: "MarketStar" }],
     creator: "MarketStar",
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "black-translucent",
+      title: "MarketStar",
+    },
     icons: {
       icon: "/favicon.ico",
       shortcut: "/favicon.ico",
+      apple: "/icons/apple-touch-icon.png",
     },
     metadataBase: new URL(siteUrl),
     openGraph: {
@@ -78,7 +84,7 @@ export async function generateMetadata({
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
     { media: "(prefers-color-scheme: dark)", color: "#0B0F19" },
   ],
   width: "device-width",

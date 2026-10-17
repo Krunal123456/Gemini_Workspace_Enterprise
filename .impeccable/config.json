@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-10-17T19:55:15.422Z",
         "reason": "Project design decision: the Gemini model count uses the Gemini violet accent as a semantic product marker; this is not a gradient or a multi-hue dark palette."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "app/globals.css"
+        ],
+        "createdAt": "2026-10-17T20:17:48.535Z",
+        "reason": "Project brand decision: the reusable product-name gradient uses Google blue and green accents for Workspace and Gemini titles; this is an established brand treatment, not decorative copy introduced by this task."
       }
     ]
   }

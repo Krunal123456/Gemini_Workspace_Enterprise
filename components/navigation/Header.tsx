@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { PwaInstallAction } from "@/components/pwa/PwaInstallAction";
 import { useLocale } from "@/lib/i18n/locale-context";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -456,6 +457,7 @@ export function Header({ labels }: { labels: NavLabels }) {
           </motion.div>
         )}
       </AnimatePresence>
+      <PwaInstallAction open={mobileMenuOpen} />
     </header>
   );
 }
