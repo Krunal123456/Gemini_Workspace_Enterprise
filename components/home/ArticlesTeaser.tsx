@@ -5,7 +5,7 @@ import { useLocale } from "@/lib/i18n/locale-context";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 import Link from "next/link";
-import { ArrowRight, Sparkles, Clock, Calendar } from "lucide-react";
+import { ArrowRight, Clock, Calendar } from "lucide-react";
 
 export default function ArticlesTeaser() {
   const { locale, href } = useLocale();
@@ -30,65 +30,38 @@ export default function ArticlesTeaser() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 divide-y divide-border border-y border-border md:grid-cols-3 md:divide-x md:divide-y-0">
           {featuredArticles.map((article) => (
             <Link
               key={article.slug}
               href={href(`/articles/${article.slug}`)}
-              className="group flex flex-col h-full rounded-3xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-2xl shadow-sm hover:shadow-xl hover:border-violet-500/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="group flex min-h-full flex-col px-1 py-7 transition-colors first:pt-7 md:px-7 md:first:pl-0 md:last:pr-0 md:hover:bg-blue-50/50 dark:md:hover:bg-white/[0.025] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-google-blue"
             >
-              <div className="p-7 sm:p-8 flex flex-col flex-grow">
-                <div className="flex items-center justify-between gap-4 mb-5">
-                  <span className="bg-violet-500/10 dark:bg-violet-500/20 text-violet-700 dark:text-violet-300 border border-violet-500/20 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full backdrop-blur-sm">
-                    {article.category}
-                  </span>
-                </div>
+              <h3 className="text-xl font-semibold leading-snug text-foreground transition-colors group-hover:text-google-blue-text">
+                {article.title}
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{article.subtitle}</p>
 
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors leading-snug">
-                  {article.title}
-                </h3>
+              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+                <span className="font-medium text-google-blue-text">{article.category}</span>
+                <span className="inline-flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" />{new Date(article.date).toLocaleDateString(locale === "es" ? "es-ES" : "en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{article.readTime}</span>
+              </div>
 
-                <p className="text-muted-foreground text-sm mb-6 flex-grow leading-relaxed">
-                  {article.subtitle}
-                </p>
+              <ul className="mt-6 space-y-3">
+                {article.keyTakeaways.slice(0, 2).map((takeaway) => (
+                  <li key={takeaway} className="flex items-start gap-2 text-xs leading-5 text-foreground/80">
+                    <span aria-hidden="true" className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-google-blue" />
+                    <span className="line-clamp-3">{takeaway}</span>
+                  </li>
+                ))}
+              </ul>
 
-                <div className="bg-slate-50/70 dark:bg-slate-950/40 border border-border/50 rounded-2xl p-5 mb-6 backdrop-blur-sm">
-                  <h4 className="text-xs font-bold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <Sparkles className="w-3.5 h-3.5 text-violet-500" />
-                    {t("Key Takeaways")}
-                  </h4>
-                  <ul className="space-y-2">
-                    {article.keyTakeaways.slice(0, 2).map((takeaway, idx) => (
-                      <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2 leading-relaxed">
-                        <span className="text-violet-500 mt-0.5 shrink-0 font-bold">•</span>
-                        <span className="line-clamp-2">{takeaway}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-auto pt-5 border-t border-border/60">
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {new Date(article.date).toLocaleDateString(locale === "es" ? "es-ES" : "en-US", { month: "short", day: "numeric", year: "numeric" })}
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
-                      {article.readTime}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-tr from-google-blue to-gemini-indigo text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
-                      MS
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-foreground">{article.author.name}</div>
-                      <div className="text-xs text-muted-foreground">{article.author.company}</div>
-                    </div>
-                  </div>
-                </div>
+              <div className="mt-auto flex items-center justify-between gap-3 pt-7 text-xs text-muted-foreground">
+                <span>{article.author.name}</span>
+                <span className="inline-flex items-center gap-1.5 font-semibold text-google-blue-text group-hover:underline">
+                  {t("Read article")} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </span>
               </div>
             </Link>
           ))}

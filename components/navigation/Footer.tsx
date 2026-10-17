@@ -21,7 +21,7 @@ const platformLinks: FooterLink[] = [
 
 const enterpriseLinks: FooterLink[] = [
   { name: "migrationGuide", href: "/migration" },
-  { name: "Business (Workspace) Onboarding", href: "/enterprise/onboarding/business", badge: "admin.google.com" },
+  { name: "Gemini Enterprise Business Setup", href: "/enterprise/onboarding/business", badge: "Agent Designer" },
   { name: "Standard & Plus (Cloud) Onboarding", href: "/enterprise/onboarding/cloud", badge: "console.cloud.google.com" },
   { name: "connectors", href: "/enterprise/connectors" },
   { name: "agentsMcp", href: "/enterprise/agents" },
@@ -95,7 +95,7 @@ export function Footer({
                 Standard ($30/mo)
               </span>
               <span className="rounded-lg border border-border bg-card/60 px-2.5 py-1 text-[11px] font-semibold text-gemini-purple">
-                Plus ($30+/mo)
+                Plus ($50/mo)
               </span>
             </div>
 
@@ -217,6 +217,14 @@ export function Footer({
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Model Armor & DLP
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={href("/compliance")}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Compliance & certifications
                 </Link>
               </li>
               <li>

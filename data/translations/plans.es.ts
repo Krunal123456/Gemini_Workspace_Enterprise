@@ -212,7 +212,7 @@ export const plansES: PlanTranslations = {
     idealFor:
       "Organizaciones que necesitan un acceso amplio a conectores, disponibilidad prioritaria de modelos y controles empresariales.",
     pricingNote:
-      "Standard y Plus empiezan en 30 USD por usuario/mes. Contacta con Google Cloud para precios por edición y por región.",
+      "Standard empieza en 30 USD por usuario/mes. Contacta con Google Cloud para precios por edición y por región.",
     storage: "30 GiB por usuario, agrupados para almacenamiento e indexación de datos",
     highlightedFeatures: [
       "30 GiB de almacenamiento e indexación de datos agrupados por usuario",
@@ -231,7 +231,7 @@ export const plansES: PlanTranslations = {
     idealFor:
       "Organizaciones que necesitan una mayor capacidad de indexación agrupada y el conjunto completo de capacidades de la edición empresarial.",
     pricingNote:
-      "Standard y Plus empiezan en 30 USD por usuario/mes. Contacta con Google Cloud para precios por edición y por región.",
+      "Este sitio muestra Gemini Enterprise Plus a 50 USD por usuario/mes. Google publica Standard / Plus desde 30 USD; confirma el precio de Plus para tu región, contrato y periodo de suscripción con Google Cloud.",
     storage: "75 GiB por usuario, agrupados para almacenamiento e indexación de datos",
     highlightedFeatures: [
       "75 GiB de almacenamiento e indexación de datos agrupados por usuario",
@@ -304,35 +304,35 @@ export const plansES: PlanTranslations = {
     tagline:
       "Telefonía empresarial en la nube con operadora automática multinivel, teléfonos de escritorio y eDiscovery.",
     description:
-      "Google Voice Standard ofrece funciones integrales de telefonía empresarial para Google Workspace con usuarios ilimitados, operadora automática multinivel (IVR), grupos de timbre, compatibilidad con teléfonos de escritorio y ATA, y eDiscovery de Google Vault.",
+      "Google Voice Standard es un complemento de Workspace con licencia por usuario que incluye operadoras automáticas multinivel, grupos de timbre, toma de notas con IA y compatibilidad con teléfonos de escritorio. Confirma la disponibilidad y el precio en tu país.",
     idealFor:
-      "Empresas en crecimiento y equipos que necesitan usuarios ilimitados, árboles telefónicos IVR automatizados, enrutamiento de llamadas y archivado para cumplimiento normativo.",
+      "Organizaciones que necesitan enrutamiento telefónico compartido, operadoras automáticas multinivel, grupos de timbre, notas con IA o teléfonos de escritorio.",
     storage: "Hereda el almacenamiento base de Workspace",
     highlightedFeatures: [
-      "Usuarios y ubicaciones nacionales ilimitados",
+      "Suscripción por usuario; las ubicaciones admitidas dependen del país",
       "Operadora automática multinivel (árbol telefónico automatizado / IVR)",
       "Grupos de timbre (distribución de llamadas para ventas y soporte)",
       "Compatibilidad con teléfonos de escritorio SIP / ATA y auriculares",
-      "Retención, búsqueda y eDiscovery en Google Vault para registros de llamadas y mensajes",
-      "Transcripción de buzón de voz por IA, filtrado de spam y grabación de llamadas",
+      "Toma de notas con IA en llamadas",
+      "Transcripción del buzón de voz y protección contra llamadas no deseadas",
     ],
   },
   "google-voice-premier": {
     name: "Google Voice Premier",
     shortName: "Voice Premier",
     tagline:
-      "Sistema telefónico global en la nube con sedes internacionales, grabación automática y analítica en BigQuery.",
+      "Complemento de Google Voice con grabación automática y generación de informes en BigQuery.",
     description:
-      "Google Voice Premier está diseñado para organizaciones multinacionales. Admite sedes internacionales ilimitadas, grabación centralizada automática de llamadas, telemetría avanzada y exportación directa a BigQuery para calidad y auditoría de llamadas.",
+      "Google Voice Premier añade grabación automática e informes avanzados con BigQuery para clientes de Workspace que cumplen los requisitos. La disponibilidad depende del país, la licencia y la función.",
     idealFor:
-      "Grandes corporaciones y empresas multinacionales que requieren cumplimiento telefónico internacional, grabación automática y analítica avanzada con BigQuery.",
+      "Organizaciones que necesitan las funciones de informes y grabación automática documentadas para Voice Premier.",
     storage: "Hereda el almacenamiento base de Workspace",
     highlightedFeatures: [
-      "Usuarios y ubicaciones nacionales e internacionales ilimitados",
-      "Grabación automática y centralizada de llamadas con gobernanza de cumplimiento",
-      "Analítica avanzada de telefonía y exportación automatizada de auditoría a BigQuery",
+      "Suscripción por usuario; consulta los países y regiones de llamadas admitidos",
+      "Grabación automática de llamadas",
+      "Informes avanzados con BigQuery",
       "Operadoras automáticas multinivel, grupos de timbre y portabilidad numérica internacional",
-      "eDiscovery en Google Vault, retenciones legales y políticas de retención empresarial",
+      "Funciones de informes de Google Voice descritas para la suscripción seleccionada",
       "Implementación global en teléfonos de escritorio, auriculares y aplicaciones móviles",
     ],
   },

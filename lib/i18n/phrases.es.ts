@@ -407,8 +407,8 @@ export const phrasesES: Record<string, string> = {
     "Este catálogo es una ayuda de investigación. Confirma con Google los derechos por edición y las condiciones contractuales antes de tomar una decisión de compra.",
   "Annual commitment rate per user per month; billing cadence depends on your subscription terms.":
     "Tarifa con compromiso anual por usuario y mes; la cadencia de facturación depende de las condiciones de tu suscripción.",
-  "Checked September 28, 2026. Pricing, feature access, and limits can change; use these Google pages for current terms.":
-    "Consultado el 28 de septiembre de 2026. Los precios, el acceso a funciones y los límites pueden cambiar; usa estas páginas de Google para ver las condiciones actuales.",
+  "These Google references provide plan information. Source coverage varies; confirm current pricing, availability, and terms with Google before purchase.":
+    "Estas referencias de Google ofrecen información sobre los planes. La cobertura de fuentes varía; confirma con Google los precios, la disponibilidad y las condiciones actuales antes de comprar.",
   "MCP and agent capabilities depend on the Gemini product, edition, and configuration. Verify Google documentation for your specific setup.":
     "Las capacidades de MCP y de los agentes dependen del producto, la edición y la configuración de Gemini. Verifica la documentación de Google para tu configuración concreta.",
   "Google documents product-specific data protections for Gemini Enterprise. Model Armor is available on all editions at no additional cost.":
@@ -533,6 +533,8 @@ export const phrasesES: Record<string, string> = {
   // ---- home: latest model showcase ----
   "Model catalog · verified Sep 24, 2026":
     "Catálogo de modelos · verificado el 24 de septiembre de 2026",
+  "Model catalog · updated Oct 14, 2026 · Gemini 4 Argon GA":
+    "Catálogo de modelos · actualizado el 14 de octubre de 2026 · Gemini 4 Argon GA",
   "The right Gemini model for the work.":
     "El modelo de Gemini adecuado para el trabajo.",
   "Compare current API model families by capability and release status. API list pricing is separate from Google Workspace and Gemini Enterprise licensing.":
@@ -566,6 +568,11 @@ export const phrasesES: Record<string, string> = {
   "Keep a person in the loop.": "Mantén a una persona en el bucle.",
   "Review generated drafts, verify source material, and authorize actions before an agent changes external systems.":
     "Revisa los borradores generados, verifica el material de origen y autoriza las acciones antes de que un agente modifique sistemas externos.",
+  "Keep people in control.": "Mantén el control en manos de las personas.",
+  "Review generated work, verify source material, and define approval steps before an agent acts across systems.":
+    "Revisa el trabajo generado, verifica las fuentes y define pasos de aprobación antes de que un agente actúe en distintos sistemas.",
+  "Agents · review · approvals": "Agentes · revisión · aprobaciones",
+  "Explore agent guidance": "Explorar la guía de agentes",
   "Draft · verify · approve": "Redactar · verificar · aprobar",
   "Explore agent controls": "Explorar los controles de agentes",
   "Choose a model for the task.":

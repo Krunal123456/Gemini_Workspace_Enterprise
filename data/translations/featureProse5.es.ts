@@ -44,35 +44,35 @@ export const featureProseES5: Record<string, FeatureTranslation> = {
   },
   "security-vault-ediscovery": {
     description:
-      "Conserva, bloquea, busca y exporta datos de Gmail, Drive, Chat, grabaciones de Meet e interacciones con Gemini.",
+      "Google Vault admite retención, bloqueos, búsqueda y exportación para datos de Workspace elegibles. La cobertura de servicios e interacciones con Gemini depende de la documentación actual y la edición de la cuenta.",
     whatItDoes:
-      "Proporciona descubrimiento legal institucional y retención de registros legales en todos los mensajes de colaboración e interacciones de IA.",
+      "Ayuda a las organizaciones elegibles a gestionar la retención y el eDiscovery de los tipos de datos de Workspace cubiertos por Vault.",
     howItWorks:
-      "Aplica retenciones legales inmutables y políticas de conservación, indexando metadatos para una búsqueda rápida por palabras clave y custodios.",
+      "Los administradores configuran reglas de retención y bloqueos para los servicios compatibles y después buscan o exportan los datos correspondientes.",
   },
   "security-dlp": {
     description:
-      "Evita la filtración de datos sensibles en Gmail, Drive, Chat y las entradas de Gemini en tiempo real.",
+      "Google Workspace DLP aplica reglas de administrador a servicios y contenidos compatibles. La cobertura y las acciones varían; no garantiza proteger todas las solicitudes o flujos de Gemini.",
     whatItDoes:
-      "Detecta datos sensibles como tarjetas de crédito, números de seguridad social, historiales médicos y claves de API secretas, bloqueando automáticamente la exfiltración externa.",
+      "Permite que los administradores definan reglas de protección de datos para servicios de Workspace compatibles y revisen sus coincidencias.",
     howItWorks:
-      "Usa expresiones regulares preconfiguradas y personalizadas junto con detectores de aprendizaje automático para inspeccionar los mensajes salientes y los archivos subidos.",
+      "Las reglas utilizan condiciones y detectores compatibles, con acciones y herramientas de investigación específicas por servicio.",
   },
   "security-model-armor": {
     description:
-      "Cortafuegos empresarial activo de IA que protege frente a inyecciones indirectas de prompts, jailbreaks y filtraciones de datos sensibles.",
+      "Google Cloud Model Armor es un servicio de seguridad que se configura por separado para inspeccionar solicitudes y respuestas compatibles. No viene incluido automáticamente en los planes de Workspace o Gemini Enterprise.",
     whatItDoes:
-      "Ofrece una defensa empresarial avanzada frente a ataques adversarios sofisticados que intentan manipular el comportamiento del modelo o extraer datos confidenciales.",
+      "Ofrece filtros configurables para interacciones de IA compatibles; la protección depende de la integración, la política y la cobertura del servicio.",
     howItWorks:
-      "Inspecciona prompts, incrustaciones de documentos y salidas del modelo mediante un proxy inteligente que neutraliza los patrones de carga útil adversaria.",
+      "Las solicitudes deben pasar por una integración y filtros configurados de Model Armor. No protege automáticamente todas las experiencias ni flujos de Gemini.",
   },
   "security-data-residency": {
     description:
-      "Almacenamiento geográfico garantizado de los datos de los clientes y de la inferencia de IA dentro de las jurisdicciones regulatorias especificadas.",
+      "Los controles de residencia pueden aplicarse a servicios y tipos de datos concretos; no son una garantía general para toda inferencia de IA.",
     whatItDoes:
-      "Garantiza que tanto los datos en reposo como la ejecución del modelo de IA en tránsito cumplan las leyes nacionales y continentales de residencia.",
+      "Ayuda a los administradores a seleccionar ubicaciones geográficas para los datos elegibles cuando Google ofrece ese control.",
     howItWorks:
-      "Dirige las solicitudes a zonas regionales de centros de datos de Google Cloud que cumplen los límites legales de tratamiento de datos.",
+      "La cobertura depende del producto, servicio, edición, estado de los datos, región y contrato.",
   },
   "security-vpc-service-controls": {
     description:
@@ -84,10 +84,10 @@ export const featureProseES5: Record<string, FeatureTranslation> = {
   },
   "security-hipaa-compliance": {
     description:
-      "Configuraciones de cumplimiento de HIPAA para conversaciones de Gemini que no conservan información de pacientes identificable (PHI).",
+      "Las organizaciones que manejan información médica protegida deben confirmar el BAA aplicable de Google, los servicios cubiertos, la edición y la configuración antes de usar Workspace con PHI.",
     whatItDoes:
-      "Permite el procesamiento conforme a HIPAA de conversaciones que contienen información médica protegida, bajo contrato empresarial.",
+      "Dirige a los administradores a los requisitos del BAA y la guía de implementación de Google. Usar Workspace no hace que una organización cumpla HIPAA automáticamente.",
     howItWorks:
-      "Desactiva el historial y el registro de conversaciones en los flujos de trabajo conformes, limitando la retención de datos a la sesión.",
+      "La cobertura depende de las condiciones del BAA y los servicios incluidos; el cliente sigue siendo responsable de sus obligaciones y configuración.",
   },
 };

@@ -10,6 +10,7 @@ import { featureProseES3 } from "@/data/translations/featureProse3.es";
 import { featureProseES4 } from "@/data/translations/featureProse4.es";
 import { featureProseES5 } from "@/data/translations/featureProse5.es";
 import { featureProseES6 } from "@/data/translations/featureProse6.es";
+import { getFeatureVideos } from "@/data/featureVideos";
 
 /**
  * Spanish copy is split across files by catalog section so translators can work
@@ -53,7 +54,12 @@ function mergeFeatureTranslations(
  * apps/plans/connectors. `slug` is the stable key.
  */
 export function getFeatures(locale: Locale): Feature[] {
-  return localizeByKey(features, mergeFeatureTranslations(locale), locale, "slug");
+  return localizeByKey(features, mergeFeatureTranslations(locale), locale, "slug").map((feature) => ({
+    ...feature,
+    videoSources: [...new Map(
+      [...getFeatureVideos(feature.id), ...(feature.videoSources ?? [])].map((video) => [video.url, video]),
+    ).values()],
+  }));
 }
 
 export function getFeatureBySlug(slug: string, locale: Locale): Feature | undefined {

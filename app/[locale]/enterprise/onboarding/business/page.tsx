@@ -16,14 +16,14 @@ import { withLocalizedAlternates } from "@/lib/seo";
 
 const pageCopy: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: "Gemini Enterprise Business Edition Onboarding Guide (Google Workspace) | Gemini Enterprise Guide",
+    title: "Gemini Enterprise Business Edition Onboarding Guide | Gemini Enterprise Guide",
     description:
-      "Step-by-step administrator onboarding blueprint for Gemini Enterprise – Business edition: Google Workspace Admin console setup (admin.google.com), Generative AI service status, OU scoping, license distribution, 25 GiB pooled indexing, and Gemini Notebook.",
+      "Step-by-step guide to Gemini Enterprise Business edition: distinguish direct signup from sales or partner provisioning, set up team access, connect approved data, build agents with Agent Designer, and review sharing and schedules.",
   },
   es: {
-    title: "Guía de incorporación de Gemini Enterprise Business (Google Workspace) | Gemini Enterprise Guide",
+    title: "Guía de incorporación de Gemini Enterprise Business | Gemini Enterprise Guide",
     description:
-      "Manual de incorporación para administradores de Gemini Enterprise – Business edition: configuración en la consola de Google Workspace (admin.google.com), estado del servicio de IA generativa, unidades organizativas, distribución de licencias e indexación agrupada de 25 GiB.",
+      "Guía de Gemini Enterprise Business: distingue el registro directo de la provisión por ventas o socios, configura el acceso del equipo, conecta datos aprobados y crea agentes con Agent Designer.",
   },
 };
 
@@ -77,7 +77,7 @@ export default async function BusinessOnboardingPage({
           <div className="max-w-4xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-google-blue/20 bg-google-blue/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-google-blue">
               <Laptop className="h-3.5 w-3.5" />
-              {t("Google Workspace Admin Console Guide")}
+              {t("Gemini Enterprise Business Setup Guide")}
             </div>
 
             <h1 className="fluid-h1 font-extrabold tracking-tight">
@@ -85,28 +85,28 @@ export default async function BusinessOnboardingPage({
               <span className="gradient-text">{t("Gemini Enterprise")}</span>
               <br className="hidden sm:inline" />
               <span className="text-xl sm:text-2xl font-bold text-muted-foreground ml-0 sm:ml-2">
-                {t("Business Edition (Google Workspace Associated)")}
+                {t("Business Edition")}
               </span>
             </h1>
 
             <p className="fluid-body mt-6 max-w-3xl leading-relaxed text-muted-foreground">
               {t(
-                "An operational deployment guide for Google Workspace administrators. Procure licenses through admin.google.com, configure Generative AI service status, scope deployments by Organizational Unit (OU), assign licenses to users, enable Gemini in Gmail, Docs, Sheets, and Meet, and configure source-grounded Gemini Notebooks with 25 GiB pooled storage and indexing per user (up to 300 seats)."
+                "Gemini Enterprise Business is a separate app subscription from Google Workspace Business plans. This guide distinguishes direct signup from sales or partner provisioning, then covers team access, approved data connections, Agent Designer, safe sharing, and schedules. The edition lists 25 GiB pooled storage and indexing per user; verify current terms with Google."
               )}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <span className="rounded-lg border border-border bg-card/80 px-3 py-1.5 text-xs font-semibold text-foreground">
                 <Building2 className="inline mr-1.5 h-3.5 w-3.5 text-google-blue" />
-                Google Workspace Admin Console (admin.google.com)
+                Direct: business.gemini.google · Sales/partner: Admin Console
               </span>
               <span className="rounded-lg border border-border bg-card/80 px-3 py-1.5 text-xs font-semibold text-foreground">
                 <Users className="inline mr-1.5 h-3.5 w-3.5 text-google-green" />
-                Up to 300 Seats ($21/seat/mo)
+                Separate from Workspace Business plans
               </span>
               <span className="rounded-lg border border-border bg-card/80 px-3 py-1.5 text-xs font-semibold text-foreground">
                 <ShieldCheck className="inline mr-1.5 h-3.5 w-3.5 text-gemini-purple" />
-                25 GiB Pooled Indexing & Zero Model Training
+                25 GiB pooled storage/indexing per user
               </span>
             </div>
           </div>
@@ -125,10 +125,10 @@ export default async function BusinessOnboardingPage({
         <div className="mx-auto flex max-w-4xl flex-col sm:flex-row items-start sm:items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <div>
             <h4 className="text-sm font-bold text-foreground">
-              {t("Need more than 300 seats, VPC Service Controls, or CMEK?")}
+              {t("Need Standard or Plus features?")}
             </h4>
             <p className="mt-1 text-xs text-muted-foreground">
-              {t("Explore Gemini Enterprise Standard (30 GiB) and Plus (75 GiB) on Google Cloud Console.")}
+              {t("Compare Gemini Enterprise Standard (30 GiB) and Plus (75 GiB), provisioned through Google Cloud.")}
             </p>
           </div>
           <Link

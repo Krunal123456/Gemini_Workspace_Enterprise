@@ -74,7 +74,7 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
               href={href("/enterprise/onboarding/business")}
               className="inline-flex items-center gap-2 px-5 py-3.5 bg-gradient-to-r from-google-blue via-gemini-indigo to-gemini-purple text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-google-blue/20 transition-all text-sm shadow-sm"
             >
-              <Laptop className="w-4 h-4" />{t("Business (Workspace) Onboarding")}<ArrowRight className="w-4 h-4" />
+              <Laptop className="w-4 h-4" />{t("Gemini Enterprise Business Setup")}<ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href={href("/enterprise/onboarding/cloud")}

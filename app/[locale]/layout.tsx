@@ -62,8 +62,8 @@ export async function generateMetadata({
       title: "Workspace Gemini",
     },
     icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
+      icon: "/icon.svg",
+      shortcut: "/icon.svg",
       apple: "/icons/apple-touch-icon.png",
     },
     metadataBase: new URL(siteUrl),
@@ -153,8 +153,7 @@ export default async function RootLayout({
             ],
           }}
         />
-        {/* Ambient Subtle Accent Lighting (CSS-composited for zero scroll lag) */}
-        <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(124,58,237,0.08),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(124,58,237,0.12),transparent_70%)]" aria-hidden="true" />
+        <div className="site-atmosphere pointer-events-none fixed inset-0 -z-10" aria-hidden="true" />
 
         <LocaleProvider locale={locale}>
           <LenisProvider>

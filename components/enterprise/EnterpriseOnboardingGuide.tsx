@@ -139,8 +139,8 @@ export function EnterpriseOnboardingGuide({
   const exportChecklistMarkdown = () => {
     let md = `# Gemini Enterprise (${selectedEdition.toUpperCase()}) Onboarding Checklist\n`;
     if (selectedEdition === "business") {
-      md += `Management Console: Google Workspace Admin Console (admin.google.com)\n`;
-      md += `Base Platform: Google Workspace Domain Verified\n`;
+      md += `Management Console: Depends on signup route (direct Business team settings or Google Admin Console for sales/partner subscriptions)\n`;
+      md += `Base Platform: Gemini Enterprise Business edition\n`;
     } else {
       md += `Management Console: Google Cloud Console (console.cloud.google.com)\n`;
       md += `Organization Hierarchy: ${orgStatus === "org" ? "Domain Organization Node" : "No Organization (Standalone / Migration Required)"}\n`;
@@ -189,7 +189,7 @@ export function EnterpriseOnboardingGuide({
             {allowedModes === "business-only" ? (
               <div className="rounded-xl border border-google-blue/30 bg-google-blue/10 px-3.5 py-2 text-xs font-semibold text-google-blue flex items-center gap-1.5">
                 <Laptop className="h-3.5 w-3.5" />
-                Business Edition (Google Workspace)
+                Gemini Enterprise Business
               </div>
             ) : allowedModes === "cloud-only" ? (
               <div className="rounded-xl border border-border bg-muted/30 p-1">
@@ -231,7 +231,7 @@ export function EnterpriseOnboardingGuide({
                     }`}
                   >
                     <Laptop className="h-3.5 w-3.5" />
-                    Business (Workspace)
+                    Business edition
                   </button>
                   <button
                     type="button"
@@ -263,7 +263,7 @@ export function EnterpriseOnboardingGuide({
             {selectedEdition === "business" ? (
               <div className="inline-flex items-center gap-2 rounded-xl border border-google-blue/30 bg-google-blue/10 px-3.5 py-2 text-xs font-semibold text-google-blue">
                 <Laptop className="h-3.5 w-3.5" />
-                {t("admin.google.com Admin Console")}
+                {t("Admin path depends on signup route")}
               </div>
             ) : (
               <div className="rounded-xl border border-border bg-muted/30 p-1">
@@ -312,7 +312,7 @@ export function EnterpriseOnboardingGuide({
                 href={href("/enterprise/onboarding/business")}
                 className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-2 text-xs font-semibold text-google-blue hover:bg-muted transition-all"
               >
-                <span>{t("Business (Workspace) Guide")}</span>
+                <span>{t("Business edition Guide")}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             )}
@@ -371,10 +371,10 @@ export function EnterpriseOnboardingGuide({
             <Info className="h-5 w-5 shrink-0 text-google-blue mt-0.5" />
             <div>
               <span className="font-bold text-foreground">
-                Gemini Enterprise – Business Edition (Google Workspace Associated):{" "}
+                Gemini Enterprise Business edition: {" "}
               </span>
               {t(
-                "Managed centrally via the Google Workspace Admin console (admin.google.com). Features 25 GiB pooled storage and data indexing per seat, up to 300 seats, native grounding across Gmail, Docs, Sheets, and Drive, plus Gemini Notebook. Requires no Google Cloud infrastructure or GCP project setup."
+                "This is a Gemini Enterprise app subscription, not a Google Workspace Business plan. Direct subscribers manage the team in the Business product; sales/partner subscriptions also use Admin Console for service and licensing. The edition lists 25 GiB pooled storage and indexing per user. Confirm current eligibility and included features with Google."
               )}
             </div>
           </div>

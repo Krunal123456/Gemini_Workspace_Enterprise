@@ -40,17 +40,28 @@ const sitePages = [
   { id: "pricing-page", title: "Pricing overview", description: "Review published Workspace and Gemini Enterprise pricing information.", href: "/pricing", keywords: "cost price billing procurement" },
   { id: "compare-page", title: "Compare plans", description: "Compare features and availability across listed plans.", href: "/compare", keywords: "matrix comparison availability included" },
   { id: "enterprise-index", title: "Enterprise overview", description: "Explore enterprise architecture, sources, and deployment guidance.", href: "/enterprise", keywords: "architecture deployment business" },
-  { id: "onboarding-business", title: "Gemini Enterprise Business Onboarding (Google Workspace)", description: "Step-by-step administrator guide for Google Workspace Admin console, OU scoping, licenses, and Gemini Notebook.", href: "/enterprise/onboarding/business", keywords: "business workspace onboarding runbook admin ou licenses notebook" },
+  { id: "onboarding-business", title: "Gemini Enterprise Business onboarding", description: "Set up Gemini Enterprise Business, understand the Agent Designer, and prepare users and administrators.", href: "/enterprise/onboarding/business", keywords: "business workspace onboarding setup agents agent designer admin licenses notebook" },
   { id: "onboarding-cloud", title: "Gemini Enterprise Standard & Plus Onboarding (Google Cloud)", description: "Step-by-step administrator guide for billing accounts, APIs, IAM roles, Agent Builder apps, and data stores.", href: "/enterprise/onboarding/cloud", keywords: "standard plus cloud gcp onboarding billing licenses apis iam datastores" },
   { id: "readiness-page", title: "Enterprise readiness checklist", description: "Assess deployment readiness, governance, and implementation requirements.", href: "/enterprise/readiness", keywords: "checklist assessment readiness governance" },
   { id: "connector-detector", title: "Connector detector", description: "Explore connector discovery and source assessment.", href: "/enterprise/connector-detector", keywords: "source discovery integrations questionnaire" },
   { id: "connectors-index", title: "Enterprise connectors", description: "Browse supported data connector profiles and source requirements.", href: "/enterprise/connectors", keywords: "data source integration systems" },
   { id: "agents-page", title: "Enterprise agents", description: "Review agent patterns, workflows, and governance considerations.", href: "/enterprise/agents", keywords: "workflow builder custom tools mcp" },
   { id: "security-page", title: "Security and governance", description: "Review identity, data protection, AI safety, retention, compliance, and audit topics.", href: "/security", keywords: "privacy security model armor identity audit compliance" },
+  { id: "model-armor-templates", title: "Model Armor templates", description: "Create reusable prompt and response screening policies with configurable safety filters and thresholds.", href: "/security#model-armor-guide", keywords: "model armor template templates create manage prompt response injection jailbreak sensitive data protection malicious url uri responsible ai filters thresholds confidence inspect block inspect only" },
+  { id: "compliance-page", title: "Compliance and certifications", description: "See Google Cloud and Workspace compliance frameworks, scope notes, and official reports.", href: "/compliance", keywords: "compliance certifications attestations SOC SOC1 SOC2 SOC3 ISO 27001 27017 27018 27701 GDPR HIPAA FedRAMP PCI DSS CSA STAR privacy reports compliance reports manager" },
   { id: "articles-index", title: "Research and articles", description: "Read product explainers, comparisons, and current research notes.", href: "/articles", keywords: "guides reports updates research" },
   { id: "google-ai-updates", title: "Google AI updates for customer engineers", description: "Review current Gemini API, Gemini Enterprise, and Workspace releases with status, migration notes, and rollout checks.", href: "/google-ai-updates", keywords: "release notes changelog migration deprecation availability rollout updates" },
   { id: "about-page", title: "About this research", description: "Learn about this product intelligence resource.", href: "/about", keywords: "about company contact" },
+  { id: "affiliate-page", title: "Affiliate disclosure", description: "How referrals and commercial relationships are disclosed.", href: "/affiliate-disclosure", keywords: "affiliate transparency referral commission" },
+  { id: "mindmap-page", title: "Product ecosystem map", description: "Explore how Google AI products and capabilities connect.", href: "/mindmap", keywords: "map ecosystem diagram relationships" },
 ];
+
+function searchableText(value: unknown): string {
+  if (typeof value === "string" || typeof value === "number") return String(value);
+  if (Array.isArray(value)) return value.map(searchableText).join(" ");
+  if (value && typeof value === "object") return Object.entries(value).map(([key, nested]) => `${key} ${searchableText(nested)}`).join(" ");
+  return "";
+}
 
 type SearchType = "feature" | "app" | "plan" | "article" | "connector" | "model" | "security" | "page";
 
@@ -191,19 +202,7 @@ export function CommandPalette() {
       }
     };
 
-    addMatches(features, (f) => [
-        f.name,
-        f.description,
-        f.whatItDoes,
-        f.howItWorks,
-        f.application,
-        f.category,
-        f.enterpriseConsiderations,
-        f.securityConsiderations,
-        ...f.useCases,
-        ...f.capabilities,
-        ...(f.officialSources ?? []).flatMap((source) => [source.label, source.url]),
-      ].join(" "), (f) => ({
+    addMatches(features, searchableText, (f) => ({
         id: f.id || f.name,
         type: "feature",
         title: f.name,
@@ -213,16 +212,7 @@ export function CommandPalette() {
         icon: <Sparkles className="h-4 w-4 text-gemini-purple" />,
       }));
 
-    addMatches(applications, (a) => [
-        a.name,
-        a.shortName,
-        a.tagline,
-        a.description,
-        a.category,
-        a.overview,
-        a.enterpriseValue,
-        ...a.keyAIFeatures,
-      ].join(" "), (a) => ({
+    addMatches(applications, searchableText, (a) => ({
         id: a.id || a.name,
         type: "app",
         title: a.name,
@@ -232,19 +222,7 @@ export function CommandPalette() {
         icon: <Layers className="h-4 w-4 text-google-blue" />,
       }));
 
-    addMatches(plans, (p) => [
-        p.name,
-        p.shortName,
-        p.tagline,
-        p.description,
-        p.category,
-        p.idealFor,
-        p.storage,
-        p.pricingNote,
-        ...p.highlightedFeatures,
-        ...Object.values(p.coreCapabilities),
-        ...(p.officialSources ?? []).flatMap((source) => [source.label, source.url]),
-      ].join(" "), (p) => ({
+    addMatches(plans, searchableText, (p) => ({
         id: p.id || p.name,
         type: "plan",
         title: p.name,
@@ -253,17 +231,7 @@ export function CommandPalette() {
         icon: <CreditCard className="h-4 w-4 text-google-green" />,
       }));
 
-    addMatches(articles, (a) => [
-        a.title,
-        a.subtitle,
-        a.excerpt,
-        a.category,
-        a.author.name,
-        a.author.company,
-        ...a.keyTakeaways,
-        ...a.content,
-        ...(a.sources ?? []).map((source) => source.title),
-      ].join(" "), (a) => ({
+    addMatches(articles, searchableText, (a) => ({
         id: a.slug,
         type: "article",
         title: a.title,
@@ -273,17 +241,7 @@ export function CommandPalette() {
         icon: <FileText className="h-4 w-4 text-google-blue" />,
       }));
 
-    addMatches(connectors, (c) => [
-        c.name,
-        c.description,
-        c.category,
-        c.type,
-        c.status,
-        c.enterpriseRequirements,
-        ...c.supportedEditions,
-        ...c.dataTypes,
-        ...c.groundingCapabilities,
-      ].join(" "), (c) => ({
+    addMatches(connectors, searchableText, (c) => ({
         id: c.id || c.name,
         type: "connector",
         title: c.name,
@@ -293,15 +251,7 @@ export function CommandPalette() {
         icon: <Plug className="h-4 w-4 text-google-red" />,
       }));
 
-    addMatches(models, (model) => [
-      model.name,
-      model.apiId,
-      model.status,
-      model.family,
-      model.summary,
-      model.pricingNote,
-      ...model.bestFor,
-    ].join(" "), (model) => ({
+    addMatches(models, searchableText, (model) => ({
       id: model.id,
       type: "model",
       title: model.name,
@@ -311,12 +261,7 @@ export function CommandPalette() {
       icon: <Cpu className="h-4 w-4 text-gemini-purple" />,
     }));
 
-    addMatches(securityLayers, (layer) => [
-      layer.name,
-      layer.tagline,
-      layer.description,
-      ...layer.capabilities.flatMap((capability) => [capability.name, capability.description, capability.reviewQuestion]),
-    ].join(" "), (layer) => ({
+    addMatches(securityLayers, searchableText, (layer) => ({
       id: layer.id,
       type: "security",
       title: layer.name,

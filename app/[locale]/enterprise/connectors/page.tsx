@@ -56,13 +56,47 @@ export default async function ConnectorsPage({
             <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground mb-6">{t("Connect Gemini to your")}<span className="gradient-text">single source</span> of truth.
             </h1>
             <p className="fluid-body text-muted-foreground leading-relaxed">
-              {t("Gemini Enterprise enables grounded retrieval across third-party software, data warehouses, and custom tools. Every query is filtered through your organization's user permissions and authentication tokens.")}
+              {t("Connect approved data sources and tools to Gemini Enterprise. Authentication, synchronization, permission behavior, regions, and available actions vary by connector, app, and subscription—check the provider setup before promising a workflow.")}
             </p>
             <Link
               href={href("/enterprise/connector-detector")}
               className="mt-7 inline-flex items-center gap-2 rounded-xl bg-google-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-google-blue/90"
             >{t("Check connector readiness")}<ChevronRight className="h-4 w-4" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border bg-card/40 py-16" aria-labelledby="connector-paths">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <h2 id="connector-paths" className="text-3xl font-bold tracking-tight text-foreground">Two connector paths serve different jobs</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">A data-store connector grounds app search and answers. A Workflow Builder connector gives a specific agent step tools to search or change records. They are related, but they are not the same setup.</p>
+          </div>
+          <div className="mt-7 grid gap-5 lg:grid-cols-2">
+            <article className="rounded-2xl border border-border bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground">Add a connector to an agent action</h3>
+              <ol className="mt-4 list-inside list-decimal space-y-2 text-sm leading-6 text-muted-foreground">
+                <li>Open the Gemini Enterprise web app and edit the workflow.</li>
+                <li>Select the Gemini Agent step, then find the connector under Connected apps.</li>
+                <li>Switch it on and complete the requested authorization if prompted.</li>
+                <li>Expand it and enable only the needed Search For Data actions; set query filters and test them.</li>
+                <li>Leave Add Or Update Data off until read-only tests pass. It is a connector-level permission; enable its supporting lookup/search actions and add human review for changes.</li>
+              </ol>
+              <a className="mt-5 inline-flex text-sm font-semibold text-google-blue hover:underline" href="https://docs.cloud.google.com/gemini/enterprise/docs/workflow-builder/workflows#configure_agent_node_connectors_and_actions" target="_blank" rel="noreferrer">Google: Configure connectors and actions ↗</a>
+              <a className="mt-3 inline-flex text-sm font-semibold text-google-blue hover:underline" href="https://www.youtube.com/watch?v=f2MrZ5DHbKg" target="_blank" rel="noreferrer">Google video: Getting started with connectors ↗</a>
+            </article>
+            <article className="rounded-2xl border border-border bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground">Connect a data store to the app</h3>
+              <ol className="mt-4 list-inside list-decimal space-y-2 text-sm leading-6 text-muted-foreground">
+                <li>In Google Cloud Console, select the Gemini Enterprise project and app.</li>
+                <li>Choose the Google or third-party source and follow its app-specific authorization/setup.</li>
+                <li>For third-party sources, choose the entities and synchronization frequency that fit the use case.</li>
+                <li>Attach the data store to the app, verify user access and source coverage, then evaluate search answers before launch.</li>
+              </ol>
+              <p className="mt-3 text-xs leading-5 text-muted-foreground">A catalogue entry does not mean that the connector is provisioned, enabled for every edition, or available in every region. Check the provider-specific Google documentation and the feature/preview status.</p>
+              <a className="mt-5 inline-flex text-sm font-semibold text-google-blue hover:underline" href="https://docs.cloud.google.com/gemini/enterprise/docs/apps-data-stores" target="_blank" rel="noreferrer">Google: Apps and data stores ↗</a>
+            </article>
           </div>
         </div>
       </section>

@@ -79,20 +79,20 @@ export default async function EnterpriseOnboardingPage({
               <span className="gradient-text">{t("Gemini Enterprise")}</span>
               <br className="hidden sm:inline" />
               <span className="text-xl sm:text-2xl font-bold text-muted-foreground ml-0 sm:ml-2">
-                {t("Business (Workspace), Standard & Plus (Cloud)")}
+                {t("Gemini Enterprise Business, Standard & Plus")}
               </span>
             </h1>
 
             <p className="fluid-body mt-6 max-w-3xl leading-relaxed text-muted-foreground">
               {t(
-                "An end-to-end operational guide for Google Workspace and Google Cloud administrators. Manage Google Workspace Admin Console settings for Business edition (up to 300 seats, 25 GiB pooled indexing), or configure Google Cloud Console projects, billing, APIs, IAM, and Discovery Engine data stores for Standard and Plus editions."
+                "An end-to-end operational guide distinguishing Workspace Studio, Gemini Enterprise Business edition, and Gemini Enterprise Standard/Plus on Google Cloud, with setup steps for administrators, data sources, agents, and governance."
               )}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <span className="rounded-lg border border-border bg-card/80 px-3 py-1.5 text-xs font-semibold text-foreground">
                 <Building2 className="inline mr-1.5 h-3.5 w-3.5 text-google-blue" />
-                Google Workspace Admin Console
+                Business signup route or Google Cloud Console
               </span>
               <span className="rounded-lg border border-border bg-card/80 px-3 py-1.5 text-xs font-semibold text-foreground">
                 <Terminal className="inline mr-1.5 h-3.5 w-3.5 text-google-green" />

@@ -39,9 +39,9 @@ export const securityLayers: SecurityLayer[] = [
     level: 4,
     name: "AI safety controls",
     tagline: "Understand what a screening control does and how it is configured.",
-    description: "Google documents Model Armor screening for Gemini Enterprise. Administrators configure templates and enforcement behavior; screening can add latency and does not mask personally identifiable information.",
+    description: "Model Armor templates define how prompts and responses are screened. Gemini Enterprise administrators must configure and attach separate input and output templates; integration coverage, enforcement, logging, and data masking have product-specific limits.",
     capabilities: [
-      { name: "Model Armor", description: "Model Armor is supported on all Gemini Enterprise editions at no additional cost and can screen prompts and responses when configured.", reviewQuestion: "Which templates, regions, enforcement mode, and failure behavior will administrators use?" },
+      { name: "Model Armor", description: "Model Armor can screen prompts and responses when an administrator creates templates and attaches them to a supported Gemini Enterprise app. Coverage differs for custom agents built outside the app.", reviewQuestion: "Which templates, regions, enforcement mode, failure behavior, and agent runtimes are in scope?" },
       { name: "Prompt and response review", description: "Set policies for the kinds of content to inspect and understand when a request is blocked or allowed.", reviewQuestion: "How will teams validate screening behavior and handle false positives?" },
     ],
   },

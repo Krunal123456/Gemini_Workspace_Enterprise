@@ -7,6 +7,7 @@ import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
 import { SecurityArchitectureMap } from "@/components/security/SecurityArchitectureMap";
+import { ModelArmorPlaybook } from "@/components/security/ModelArmorPlaybook";
 
 import {
   ShieldCheck,
@@ -149,6 +150,8 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
           <SecurityArchitectureMap />
         </div>
       </section>
+
+      <ModelArmorPlaybook />
 
       <section className="py-20 bg-muted/20 border-t border-border/60">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">

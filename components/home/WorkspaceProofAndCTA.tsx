@@ -1,105 +1,27 @@
 "use client";
 
-import { useLocalizedData } from "@/lib/i18n/use-localized-data";
 import { useLocale } from "@/lib/i18n/locale-context";
-import { createPhraseTranslator } from "@/lib/i18n/translate";
-
-import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
-import { Clock3, Layers3, ListChecks, ShieldCheck, Workflow } from "lucide-react";
-
-const buildMetrics = (features: unknown[], plans: unknown[], securityLayers: unknown[], applications: unknown[]) => [
-  { value: features.length, suffix: "+", label: "Workspace and Gemini capabilities indexed", icon: ListChecks },
-  { value: plans.length, suffix: "", label: "Plan editions mapped for comparison", icon: Layers3 },
-  { value: securityLayers.length, suffix: "", label: "Security and governance layers catalogued", icon: ShieldCheck },
-  { value: applications.length, suffix: "", label: "Workspace app surfaces indexed", icon: Workflow },
-];
-
-function CountUp({ value, suffix }: { value: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.8 });
-  const reduceMotion = useReducedMotion();
-  const count = useMotionValue(reduceMotion ? value : 0);
-  const rounded = useTransform(count, (current) => String(Math.round(current)));
-
-  useEffect(() => {
-    if (!isInView) return;
-    if (reduceMotion) {
-      count.set(value);
-      return;
-    }
-    const controls = animate(count, value, { duration: 1.15, ease: "easeOut" });
-    return controls.stop;
-  }, [count, isInView, reduceMotion, value]);
-
-  return <span ref={ref}><motion.span>{rounded}</motion.span>{suffix}</span>;
-}
-
-export function WorkspaceProofMetrics() {
-  const { features, plans, securityLayers, applications } = useLocalizedData();
-  const { locale } = useLocale();
-  const t = createPhraseTranslator(locale);
-  const METRICS = buildMetrics(features, plans, securityLayers, applications);
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <section className="relative overflow-hidden border-y border-border bg-background/50 py-16 backdrop-blur-md md:py-20">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-        <div className="mb-9 grid gap-4 md:grid-cols-[1fr_0.65fr] md:items-end">
-          <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.15em] text-violet-800 dark:text-violet-200">{t("The intelligence index")}</p>
-            <h2 className="max-w-2xl text-3xl font-bold leading-tight text-foreground sm:text-4xl">{t("Grounded in the details that matter.")}</h2>
-          </div>
-          <p className="max-w-lg text-sm leading-6 text-muted-foreground md:justify-self-end">{t("Live catalog counts, not productivity estimates. Model context applies to the cited Gemini API model, not every Workspace plan.")}</p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {METRICS.map(({ value, suffix, label, icon: Icon }, index) => (
-            <motion.div
-              key={label}
-              data-spotlight
-              whileHover={reduceMotion ? undefined : { y: -3 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="group relative flex min-h-36 items-center gap-4 rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-6 backdrop-blur-2xl shadow-sm hover:shadow-md hover:border-violet-400/40 dark:hover:border-violet-500/30 transition-all duration-300"
-            >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/10 text-violet-700 dark:text-violet-300 border border-violet-500/20 backdrop-blur-sm">
-                <Icon className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-3xl font-bold tabular-nums text-foreground"><CountUp value={value} suffix={suffix} /></p>
-                <p className="mt-1 max-w-52 text-xs leading-5 text-muted-foreground">{t(label)}</p>
-              </div>
-              <span className="absolute right-4 top-4 font-mono text-[10px] font-semibold text-muted-foreground/50">0{index + 1}</span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+import { ArrowRight } from "lucide-react";
 
 export function CinematicWorkspaceCTA() {
   const { locale, href } = useLocale();
-  const t = createPhraseTranslator(locale);
   return (
-    <section className="relative overflow-hidden bg-background py-20 text-foreground dark:bg-[#07080e] dark:text-white md:py-28 border-b border-border">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_115%,rgba(124,58,237,0.15),transparent_48%),radial-gradient(ellipse_at_8%_18%,rgba(66,133,244,0.08),transparent_32%)] dark:bg-[radial-gradient(ellipse_at_50%_115%,rgba(124,58,237,0.3),transparent_48%),radial-gradient(ellipse_at_8%_18%,rgba(66,133,244,0.12),transparent_32%)]" />
-      <div className="relative mx-auto max-w-[1100px] px-4 text-center sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl rounded-3xl border border-border/80 bg-card p-8 sm:p-12 md:p-16 shadow-xl dark:border-white/15 dark:bg-white/[0.04] backdrop-blur-2xl">
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-500/20 bg-violet-500/10 text-violet-700 dark:text-violet-300 backdrop-blur-md shadow-sm">
-            <Clock3 className="h-6 w-6" />
-          </div>
-          <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl text-foreground">{t("Ready to shape your enterprise AI workflow?")}</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">{t("Explore plan availability and governance controls for Gemini in Workspace.")}</p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link
-              href={href("/compare")}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-google-blue to-gemini-purple px-8 text-sm font-bold text-white shadow-md transition-all hover:opacity-90 hover:shadow-lg"
-            >
-              <Layers3 className="h-4 w-4" />{t("Compare Workspace plans")}
-            </Link>
-          </div>
+    <section className="border-b border-border bg-[#eaf5ff] py-16 text-[#102a43] dark:bg-[#0b223a] dark:text-white md:py-20">
+      <div className="mx-auto grid max-w-[1200px] items-center gap-8 px-4 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8">
+        <div>
+          <h2 className="max-w-3xl text-3xl font-bold leading-tight sm:text-4xl">{locale === "es" ? "De la evaluación a un plan de implementación." : "Move from product research to a rollout plan."}</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-[#425d78] dark:text-blue-100/75 sm:text-base">
+            {locale === "es" ? "Usa la evaluación de preparación para revisar edición, acceso, datos, seguridad y objetivos del piloto antes de configurar." : "Use the readiness assessment to map edition, access, data, security, and pilot questions before setup."}
+          </p>
         </div>
+        <Link
+          href={href("/enterprise/readiness")}
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1769d2] px-6 text-sm font-semibold text-white shadow-[0_12px_26px_-12px_rgba(23,105,210,.55)] transition hover:-translate-y-0.5 hover:bg-[#1558b0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1769d2] focus-visible:ring-offset-2"
+        >
+          {locale === "es" ? "Revisar preparación" : "Check deployment readiness"}
+          <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
     </section>
   );

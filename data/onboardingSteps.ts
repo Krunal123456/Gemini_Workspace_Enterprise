@@ -341,7 +341,7 @@ export const onboardingSteps: OnboardingStep[] = [
         id: "5-1-choose-edition",
         title: "Select Edition: Gemini Enterprise Standard vs. Plus",
         description:
-          "Choose between Standard ($30/seat/month, 30 GiB pooled indexing/user) or Plus ($30+/seat/month, 75 GiB pooled indexing/user with high-assurance governance and advanced compliance).",
+          "Choose between Standard ($30/seat/month, 30 GiB pooled indexing/user) or Plus ($50/seat/month, 75 GiB pooled indexing/user with high-assurance governance and advanced compliance). Confirm current regional and contract pricing with Google Cloud.",
         standardVsPlusNote:
           "Standard: 30 GiB/user pooled indexing, full data connectors, Agent Marketplace, priority model access. Plus: 75 GiB/user pooled indexing, enterprise-grade compliance guardrails, and premium support eligibility.",
         consolePath: "Google Cloud Console > Gemini Enterprise > Subscription",
@@ -576,292 +576,187 @@ export const onboardingSteps: OnboardingStep[] = [
 
 export const workspaceBusinessSteps: OnboardingStep[] = [
   {
-    id: "ws-step-1-procurement",
+    id: "business-step-1-signup",
     stepNumber: 1,
-    title: "Google Workspace Domain & Subscription Procurement",
-    shortTitle: "Workspace Setup",
-    tagline: "Purchase Gemini Enterprise – Business edition (up to 300 seats, 25 GiB pooled indexing) in Google Admin console.",
+    title: "Identify your Gemini Enterprise Business signup route",
+    shortTitle: "Choose signup route",
+    tagline: "Direct signup and sales/partner provisioning use different admin paths.",
     summary:
-      "Gemini Enterprise Business edition is an add-on or platform subscription associated directly with your Google Workspace domain. Administrators purchase seats through the Google Workspace Admin console (admin.google.com) or an authorized Google Workspace partner.",
+      "Gemini Enterprise Business edition is a Gemini Enterprise app product. It is not the same as Google Workspace Business Starter, Standard, Plus, or Workspace Studio. First check whether the team signed up directly or through Google sales/a Cloud partner; the available billing and admin workflow depends on that route.",
     subtasks: [
       {
-        id: "ws-1-1-verify-workspace-domain",
-        title: "Verify Google Workspace Base Domain & Super Admin Access",
+        id: "business-1-1-check-signup-route",
+        title: "Check the team signup route",
         description:
-          "Log into admin.google.com with your Super Administrator account. Verify your Google Workspace base edition (Business Starter, Business Standard, Business Plus, or Enterprise).",
-        consolePath: "Google Workspace Admin Console (admin.google.com) > Account > Domains",
+          "Open the Gemini Enterprise Business team settings page and select Team. If you see team administration there, the team signed up directly. If you are redirected to Google Admin Console Users, the organization signed up through Google sales or a Cloud partner.",
+        consolePath: "https://business.gemini.google > Team",
         notes:
-          "Domain verification is mandatory for Google Workspace services. Subscriptions cannot be attached to unverified personal Google accounts.",
+          "The Google Admin Console purchase and license steps apply only to the sales/partner signup route. Direct signup follows the Gemini Business team setup flow.",
       },
       {
-        id: "ws-1-2-purchase-subscription",
-        title: "Procure Gemini Enterprise – Business Edition",
+        id: "business-1-2-confirm-edition",
+        title: "Confirm edition and current subscription terms",
         description:
-          "Navigate to Billing > Subscriptions > Add or upgrade a subscription. Select 'Gemini Enterprise – Business edition' ($21/seat/month). Choose your seat count (between 1 and 300 seats).",
-        consolePath: "Admin console > Billing > Subscriptions > Add or upgrade a subscription",
-        standardVsPlusNote:
-          "Business Edition stays in the Google Workspace Admin console and is capped at 300 seats with 25 GiB pooled storage and indexing per user. If you later need >300 seats or stricter cloud governance, review Standard or Plus as an upgrade path without changing the core Workspace provisioning flow.",
-      },
-      {
-        id: "ws-1-3-check-pooled-quotas",
-        title: "Review Team Pooled Quotas (25 GiB per Paid Seat)",
-        description:
-          "Review pooled team allowances. Total indexing storage and daily content generation queries are pooled across all purchased seats (e.g., 50 seats = 1,250 GiB pooled indexing).",
-        consolePath: "Admin console > Billing > Subscriptions > Gemini Enterprise – Business",
+          "Gemini Enterprise Business currently lists 25 GiB pooled storage and data indexing per user. Confirm seat count, current price, contract, eligibility, and the included feature set with the current Google edition page or your seller before planning rollout.",
+        consolePath: "Google Cloud documentation > Gemini Enterprise > Compare editions",
       },
     ],
     citations: [
       {
-        label: "Purchase Gemini for Google Workspace Subscriptions",
-        url: "https://support.google.com/a/answer/13623623",
-        description: "Official Google Workspace administrator guide for purchasing add-on subscriptions.",
+        label: "Google: Add and set up Gemini Enterprise Business (sales/partner route)",
+        url: "https://knowledge.workspace.google.com/admin/generative-ai/gemini-enterprise/add-and-set-up-gemini-enterprise-business-edition",
+        description: "Explains which signup route uses Admin Console and how to identify direct signup.",
       },
       {
-        label: "Gemini Enterprise Public Pricing & Editions",
-        url: "https://cloud.google.com/gemini-enterprise",
-        description: "Public pricing table, $21/seat/mo starting tier, and 300 seat limit specifications.",
-      },
-    ],
-    commonTroubleshooting: [
-      {
-        issue: "Subscription is not visible under 'Add or upgrade a subscription'",
-        resolution:
-          "If your Google Workspace domain is managed by a Google Cloud / Workspace Partner or reseller, contact your reseller to add Gemini Enterprise Business licenses to your contract.",
-      },
-      {
-        issue: "Cannot exceed 300 seats",
-        resolution:
-          "The Business edition has a hard cap of 300 seats. For organizations requiring 301+ seats, upgrade to Gemini Enterprise Standard or Plus.",
-      },
-    ],
-  },
-  {
-    id: "ws-step-2-service-status",
-    stepNumber: 2,
-    title: "Configure Generative AI Service Status & OU Scoping",
-    shortTitle: "Service Status",
-    tagline: "Turn Service Status to ON for the domain, specific Organizational Units (OUs), or Access Groups.",
-    summary:
-      "All Gemini Enterprise settings in Google Workspace are centralized under 'Generative AI'. Even after assigning a license, Gemini features remain inactive until the administrator explicitly turns the Service Status to ON for the target Organizational Unit (OU) or group.",
-    subtasks: [
-      {
-        id: "ws-2-1-navigate-genai-menu",
-        title: "Access the Centralized Generative AI Menu",
-        description:
-          "In the Google Workspace Admin console, navigate to Generative AI > Gemini Enterprise. Google centralizes all generative AI controls and prompt settings here.",
-        consolePath: "Google Admin Console > Generative AI > Gemini Enterprise",
-        notes:
-          "In older console versions, this was under Apps > Additional Google services > Gemini. It is now unified under Generative AI.",
-      },
-      {
-        id: "ws-2-2-select-ou-scope",
-        title: "Select Scoping: Entire Domain vs. Pilot Organizational Unit",
-        description:
-          "Choose your rollout scope in the left Organizational Units tree: select the root domain to enable for all licensed users, or select a sub-OU (e.g. /Pilot, /Sales, /Marketing) for a phased deployment.",
-        consolePath: "Admin console > Generative AI > Gemini Enterprise > Organizational Units",
-      },
-      {
-        id: "ws-2-3-enable-service-status",
-        title: "Set Service Status to 'ON'",
-        description:
-          "Set the Service Status to 'ON for everyone' in the selected OU and click 'Save'. Changes typically propagate across Workspace within minutes.",
-        consolePath: "Admin console > Generative AI > Gemini Enterprise > Service status > ON",
-      },
-    ],
-    citations: [
-      {
-        label: "Turn Gemini On or Off for Users",
-        url: "https://support.google.com/a/answer/13623624",
-        description: "Official guide on configuring service status across organizational units and access groups.",
-      },
-      {
-        label: "Centralized Generative AI Settings in Admin Console",
-        url: "https://support.google.com/a/answer/14089851",
-        description: "Reference guide for managing generative AI policies and tenant controls.",
-      },
-    ],
-    commonTroubleshooting: [
-      {
-        issue: "Users with licenses cannot see the Gemini side panel in Docs or Gmail",
-        resolution:
-          "Verify that the user's specific Organizational Unit has Service Status set to ON. Also verify that their Workspace language is set to a supported language (English US recommended for newest features).",
-      },
-    ],
-  },
-  {
-    id: "ws-step-3-assign-licenses",
-    stepNumber: 3,
-    title: "Distribute & Assign Licenses to Users",
-    shortTitle: "Assign Licenses",
-    tagline: "Assign seats via Google Admin directory, bulk CSV upload, or OU auto-assignment.",
-    summary:
-      "Unlike Google Cloud Console project-level allocation, Google Workspace licenses are assigned directly to user identities in the Workspace directory. Admins can assign licenses individually, upload a batch CSV, or automate assignment by department/OU.",
-    subtasks: [
-      {
-        id: "ws-3-1-individual-assignment",
-        title: "Assign Licenses Individually via Directory > Users",
-        description:
-          "Navigate to Directory > Users. Click on the target user, scroll to the 'Licenses' section, toggle 'Gemini Enterprise – Business edition' to ON, and save.",
-        consolePath: "Admin console > Directory > Users > [User Name] > Licenses",
-      },
-      {
-        id: "ws-3-2-bulk-csv-assignment",
-        title: "Bulk License Assignment via CSV File",
-        description:
-          "For larger teams, click 'Bulk update users' in Directory > Users. Download the CSV template, set the Gemini Enterprise license column to 'TRUE' for eligible email addresses, and upload.",
-        consolePath: "Admin console > Directory > Users > Bulk update users > Upload CSV",
-      },
-      {
-        id: "ws-3-3-auto-assign-ou",
-        title: "Configure Automatic License Provisioning by OU",
-        description:
-          "In Billing > Subscriptions > Gemini Enterprise – Business, enable 'Auto-assign licenses' for specific OUs so new employees joining the department receive a license automatically.",
-        consolePath: "Admin console > Billing > Subscriptions > Auto-assign rules",
-      },
-    ],
-    citations: [
-      {
-        label: "Assign Gemini Licenses to Users",
-        url: "https://support.google.com/a/answer/13623625",
-        description: "Official step-by-step instructions for assigning add-on licenses in Google Workspace.",
-      },
-      {
-        label: "Auto-assign Licenses by Organizational Unit",
-        url: "https://support.google.com/a/answer/6211843",
-        description: "Configuring automated license assignment rules for Google Workspace add-ons.",
-      },
-    ],
-  },
-  {
-    id: "ws-step-4-apps-notebooklm",
-    stepNumber: 4,
-    title: "Core Workspace Apps & Gemini Notebook Integration",
-    shortTitle: "Apps & Notebook",
-    tagline: "Activate Gemini across Gmail, Docs, Sheets, Meet, Drive, and configure Gemini Notebook.",
-    summary:
-      "Gemini Enterprise Business seamlessly integrates into daily Workspace workflows. Users gain generative writing, summarization, and data structuring across Docs, Sheets, and Gmail, alongside Gemini Notebook for grounded research.",
-    subtasks: [
-      {
-        id: "ws-4-1-verify-workspace-apps",
-        title: "Verify Gemini Assistance in Gmail, Docs, Sheets & Meet",
-        description:
-          "Confirm 'Help me write' appears in Gmail and Docs, 'Help me organize' is enabled in Google Sheets, and studio lighting/sound is accessible in Google Meet.",
-        consolePath: "Google Workspace Apps (mail.google.com, docs.google.com, sheets.google.com)",
-      },
-      {
-        id: "ws-4-2-configure-gemini-notebook",
-        title: "Set Up Gemini Notebook for Source-Grounded Workspaces",
-        description:
-          "Verify user access to Gemini Notebook. Users can create secure, source-backed notebooks, upload corporate PDFs and briefs, and generate synthesis with exact source citations.",
-        consolePath: "Gemini Notebook (notebooklm.google.com or admin console > Generative AI)",
-        notes:
-          "Gemini Notebook provides enterprise data protections: uploaded notes and sources remain private to the user's Workspace tenant.",
-      },
-      {
-        id: "ws-4-3-drive-docs-permissions",
-        title: "Review Drive & Docs Sharing and Export Controls",
-        description:
-          "Ensure that Google Drive external sharing policies align with enterprise requirements. Gemini respects all existing file permissions and folder-level access control lists (ACLs).",
-        consolePath: "Admin console > Apps > Google Workspace > Drive and Docs > Sharing settings",
-      },
-    ],
-    citations: [
-      {
-        label: "Gemini Features in Google Workspace",
-        url: "https://support.google.com/a/answer/13623626",
-        description: "Complete list of generative AI capabilities across Gmail, Docs, Sheets, and Meet.",
-      },
-      {
-        label: "Gemini Notebook for Teams",
-        url: "https://support.google.com/a/answer/14138120",
-        description: "Using Gemini Notebook for team knowledge synthesis with enterprise privacy controls.",
-      },
-    ],
-  },
-  {
-    id: "ws-step-5-connectors",
-    stepNumber: 5,
-    title: "Connect Segment-Relevant Data Sources",
-    shortTitle: "Data Connectors",
-    tagline: "Connect Google Workspace Drive, Microsoft 365, Jira, GitHub, and Slack.",
-    summary:
-      "Gemini Enterprise Business includes access to segment-relevant data connectors. Admins can ground AI interactions in Google Drive files as well as external repositories like Jira, Slack, and Microsoft 365 without complex infrastructure setup.",
-    subtasks: [
-      {
-        id: "ws-5-1-native-workspace-grounding",
-        title: "Validate Native Google Workspace Grounding",
-        description:
-          "Google Workspace files (Docs, Sheets, Slides, Drive PDFs) are automatically groundable by users with permission. Test that search respects user-level permissions.",
-        consolePath: "Gemini App / Side Panel > @Drive search",
-      },
-      {
-        id: "ws-5-2-configure-segment-connectors",
-        title: "Configure Third-Party Connectors (Jira, GitHub, Slack, M365)",
-        description:
-          "In the Gemini Enterprise admin panel, configure segment connectors for Jira issues, GitHub pull requests, Slack channels, or Microsoft 365 documents.",
-        consolePath: "Admin console > Generative AI > Connectors",
-        notes:
-          "Connectors in Business edition require no custom VPC or cloud firewall rules—they authenticate securely via OAuth 2.0 or service credentials.",
-      },
-    ],
-    citations: [
-      {
-        label: "Gemini Enterprise Connectors",
-        url: "https://cloud.google.com/gemini/enterprise/agent-search/docs/connectors",
-        description: "Official guide on connectors, data ingestion, and search federation.",
-      },
-    ],
-  },
-  {
-    id: "ws-step-6-governance-upgrade",
-    stepNumber: 6,
-    title: "Data Governance, Audit Logs & Escalation to Standard/Plus",
-    shortTitle: "Governance & Scale",
-    tagline: "Enforce data protection, review Admin Audit Logs, and plan the upgrade path for >300 seats.",
-    summary:
-      "Ensure adherence to enterprise privacy standards: prompts and Workspace data are never used to train foundation models. Monitor usage in Admin Audit Logs and understand the migration path to Standard/Plus when scaling.",
-    subtasks: [
-      {
-        id: "ws-6-1-verify-privacy-commitments",
-        title: "Confirm Enterprise Privacy & Zero Model Training Guarantees",
-        description:
-          "Review Google Workspace's contractual privacy protections: your company's data, customer emails, documents, and Gemini prompts are never used to train foundation models.",
-        consolePath: "Google Workspace Data Protection Terms & Compliance Center",
-      },
-      {
-        id: "ws-6-2-review-admin-audit-logs",
-        title: "Monitor License & Service Activity in Audit Logs",
-        description:
-          "Navigate to Reporting > Audit and investigation > Admin log events to track license assignments, service status toggles, and administrative configuration changes.",
-        consolePath: "Admin console > Reporting > Audit and investigation > Admin log events",
-      },
-      {
-        id: "ws-6-3-evaluate-upgrade-triggers",
-        title: "Evaluate Triggers for Upgrading to Standard or Plus",
-        description:
-          "If your organization exceeds 300 seats, requires >25 GiB pooled indexing, or needs Google Cloud infrastructure controls (VPC Service Controls, CMEK, custom fine-tuning), plan the transition to Gemini Enterprise Standard or Plus. Business onboarding remains Admin-console based; the Cloud tier only applies when you need the enhanced Google Cloud governance layer.",
-        consolePath: "Google Cloud Console (console.cloud.google.com/gemini) for Standard/Plus only",
-        standardVsPlusNote:
-          "Standard ($30/seat/mo, 30 GiB pooled) and Plus (75 GiB pooled) unlock unlimited seats, Agent Marketplace, and Google Cloud project-level governance for organizations that outgrow the Business Workspace model.",
-      },
-    ],
-    citations: [
-      {
-        label: "Google Workspace Gemini Privacy and Data Protection",
-        url: "https://workspace.google.com/terms/dpa_terms.html",
-        description: "Official contractual privacy guarantees, SOC 2/3, ISO 27001, and HIPAA compliance.",
-      },
-      {
-        label: "Google Workspace Admin Audit Logs",
-        url: "https://support.google.com/a/answer/45795",
-        description: "Tracking administrative events, license modifications, and security policies.",
-      },
-      {
-        label: "Gemini Enterprise Edition Details & Comparison",
+        label: "Google: Compare Gemini Enterprise editions",
         url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions",
-        description: "Comparison matrix between Business, Standard, and Plus editions.",
+        description: "Current edition feature and pooled storage comparison.",
+      },
+    ],
+  },
+  {
+    id: "business-step-2-access",
+    stepNumber: 2,
+    title: "Enable the service and assign users",
+    shortTitle: "Users & licenses",
+    tagline: "Set up access using the route your organization actually purchased.",
+    summary:
+      "For a Google sales/partner subscription, a Workspace administrator turns the service on and assigns Gemini Enterprise Business licenses in Admin Console. For a direct signup, manage the team in Gemini Enterprise Business team settings. Do not apply one route's instructions to the other.",
+    subtasks: [
+      {
+        id: "business-2-1-admin-setup",
+        title: "Complete route-specific service and license setup",
+        description:
+          "Sales/partner route: follow Google’s add-and-set-up guide to enable the service and assign licenses; assign at least one license to the administrator who initializes the team. Direct route: follow the direct-signup onboarding and manage your team from its Business edition admin settings.",
+        consolePath: "Admin console (sales/partner only) or business.gemini.google (direct signup)",
+        notes:
+          "Google says a Business edition organization cannot purchase this edition if it already has a different Gemini Enterprise plan. Check with your administrator if the subscription option is unavailable.",
+      },
+      {
+        id: "business-2-2-initialize-team",
+        title: "Initialize the Business edition workspace",
+        description:
+          "For the sales/partner route, the assigned admin must sign in to business.gemini.google once to initialize the environment. For direct signups, use the team setup steps shown in the product.",
+        consolePath: "https://business.gemini.google",
+      },
+    ],
+    citations: [
+      {
+        label: "Google: Add and set up Gemini Enterprise Business",
+        url: "https://knowledge.workspace.google.com/admin/generative-ai/gemini-enterprise/add-and-set-up-gemini-enterprise-business-edition",
+        description: "Admin Console enablement, license assignment, and environment initialization for the sales/partner route.",
+      },
+      {
+        label: "Google: Get started with Gemini Enterprise Business",
+        url: "https://support.google.com/g/answer/16539553?hl=en",
+        description: "Direct signup and team onboarding help center.",
+      },
+    ],
+  },
+  {
+    id: "business-step-3-data",
+    stepNumber: 3,
+    title: "Connect only the data and tools the team needs",
+    shortTitle: "Connect data",
+    tagline: "Configure approved sources before creating an agent that depends on them.",
+    summary:
+      "Business edition agents can use connectors and files that the team has enabled. Connector availability, authorization, supported actions, and data access vary. Verify a source is available in your tenant and connect it before building an agent around it.",
+    subtasks: [
+      {
+        id: "business-3-1-choose-source",
+        title: "Select approved sources and authorize them",
+        description:
+          "An administrator should approve the connector and its access scope. Complete the connector sign-in/authorization, test retrieval, and use the narrowest practical source scope. Review attached files and connected sources before sharing an agent.",
+        consolePath: "Gemini Enterprise Business > Admin settings / Connect apps and third-party data",
+        notes:
+          "Sharing a Business edition agent also gives recipients a way to query its associated data sources and uploaded files through the agent. Review access before sharing.",
+      },
+    ],
+    citations: [
+      {
+        label: "Google: Connect apps and third-party data for Gemini Business",
+        url: "https://support.google.com/g/answer/16550932?hl=en",
+        description: "Business edition connector setup and data source authorization.",
+      },
+      {
+        label: "Workspace Gemini connector catalogue",
+        url: "/enterprise/connectors",
+        description: "Our sourced catalogue and notes about edition, preview, and connector setup differences.",
+      },
+    ],
+  },
+  {
+    id: "business-step-4-agent",
+    stepNumber: 4,
+    title: "Create and test a no-code agent in Agent Designer",
+    shortTitle: "Build an agent",
+    tagline: "Build inside the Gemini Enterprise Business app—not in Workspace Studio or Cloud Console.",
+    summary:
+      "The current Business edition help names the builder Agent Designer. Start with an agent prompt, choose the connected data, preview the result, inspect its instructions and tool access, and publish only after testing. The UI can differ as Google rolls out builder updates.",
+    subtasks: [
+      {
+        id: "business-4-1-create-chat-agent",
+        title: "Create a first agent from a specific prompt",
+        description:
+          "Sign in at business.gemini.google > Agents > Create agent. Open Manage your data and select the approved sources. Describe the job, users, output, data boundaries, and what to do when information is missing. Submit, preview, and select Create to publish.",
+        consolePath: "Gemini Enterprise Business app > Agents > Create agent",
+      },
+      {
+        id: "business-4-2-build-multi-step",
+        title: "Add flow logic only when the task needs it",
+        description:
+          "Select Proceed to Builder to configure the agent’s name, description, instructions, model, data/tools, knowledge files, and starter prompts. Add subagents, connectors, and schedule settings deliberately. Preview representative good, ambiguous, missing-data, and denied-access cases before selecting Create.",
+        consolePath: "Agent Designer > Flow / Preview / Schedule",
+      },
+    ],
+    citations: [
+      {
+        label: "Google: Create and manage Business edition agents",
+        url: "https://support.google.com/g/answer/16540723?hl=en",
+        description: "Current Agent Designer path, configuration fields, testing, sharing, schedules, and prompt-writing guidance.",
+      },
+      {
+        label: "Google: Manage Business edition agents as an administrator",
+        url: "https://support.google.com/g/answer/17571220?hl=en",
+        description: "Admin review, permissions, preview, enable/disable, suspend, and delete workflows.",
+      },
+    ],
+  },
+  {
+    id: "business-step-5-governance",
+    stepNumber: 5,
+    title: "Review sharing, schedules, and operating ownership",
+    shortTitle: "Govern & operate",
+    tagline: "Set ownership and access controls before agents become team dependencies.",
+    summary:
+      "Decide who can use each agent, who maintains its connectors and instructions, and how scheduled runs are checked. For Business edition schedules, user credentials expire every 14 days and need refresh; actions involving other people pause for review and approval according to the current Business help documentation.",
+    subtasks: [
+      {
+        id: "business-5-1-share-safely",
+        title: "Share only after checking attached data access",
+        description:
+          "Review the agent’s connected sources and uploaded knowledge files before sharing with users. Recipients can ask the agent about these associated sources, even if they cannot open the original source directly. An administrator can review agents under the team’s Manage team > Agents page.",
+        consolePath: "Gemini Enterprise Business > Agents; admin: Team > Manage team > Agents",
+      },
+      {
+        id: "business-5-2-test-and-maintain-schedules",
+        title: "Test scheduled runs and refresh credentials",
+        description:
+          "Run a schedule in preview first. Confirm who receives or is affected by its actions. Refresh schedule credentials at least every 14 days and review failures after connector, permission, or prompt changes.",
+        consolePath: "Agent Designer > Schedule; Agents > Refresh existing schedules",
+      },
+    ],
+    citations: [
+      {
+        label: "Google: Create and manage Business edition agents",
+        url: "https://support.google.com/g/answer/16540723?hl=en",
+        description: "Business edition sharing, approvals, scheduling limits, and credential refresh instructions.",
+      },
+      {
+        label: "Google: Manage Business edition agents as an administrator",
+        url: "https://support.google.com/g/answer/17571220?hl=en",
+        description: "Administrative review and response controls for published agents.",
       },
     ],
   },
 ];
-

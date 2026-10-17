@@ -132,11 +132,11 @@ export const featureProseES6: Record<string, FeatureTranslation> = {
   },
   "security-gemini-app-with-enterprise-grade-data-protection": {
     description:
-      "Garantía contractual de que los prompts, documentos y salidas generadas de los clientes empresariales nunca se utilizan para entrenar modelos.",
+      "Las cuentas comerciales de Workspace que cumplen los requisitos reciben las protecciones de datos que Google describe para Gemini. La protección depende de la cuenta y la edición.",
     whatItDoes:
-      "Proporciona un perímetro de IA soberano y seguro que garantiza que los datos corporativos confidenciales permanecen aislados dentro del límite de nube del cliente.",
+      "Describe el tratamiento que Google indica para los prompts y el contenido generado en experiencias Gemini aptas de Workspace.",
     howItWorks:
-      "Todas las solicitudes se rigen por las condiciones empresariales de Google Cloud, sin revisión humana ni retención para el entrenamiento de modelos.",
+      "Google indica que el contenido de Workspace apto no se revisa por personas ni se usa para entrenar modelos fuera del dominio del cliente sin permiso. Esto no significa retención cero.",
   },
   "security-context-aware-access": {
     description:
@@ -148,11 +148,11 @@ export const featureProseES6: Record<string, FeatureTranslation> = {
   },
   "security-data-regions-basic-single-policy": {
     description:
-      "Elige una ubicación geográfica (EE. UU. o Europa) para los datos de Workspace y Gemini en reposo cubiertos.",
+      "Data Regions de Workspace puede cubrir determinados servicios y datos en ediciones aptas. La cobertura varía según el servicio, el tipo y estado de los datos, la edición y la versión.",
     whatItDoes:
-      "Garantiza que los datos principales del cliente en reposo residan dentro de un límite geográfico específico para cumplir los requisitos básicos de residencia de datos.",
+      "Permite a los administradores aplicar políticas de ubicación geográfica a los datos de Workspace que Google identifica como cubiertos.",
     howItWorks:
-      "Restringe las asignaciones de almacenamiento en la red global de centros de datos de Google a los territorios designados.",
+      "Consulta las tablas de servicios, tipos de datos y ediciones cubiertos; una política no cubre automáticamente todos los datos de Workspace o Gemini.",
   },
   "security-enterprise-data-regions-per-ou-policies": {
     description:
@@ -164,11 +164,11 @@ export const featureProseES6: Record<string, FeatureTranslation> = {
   },
   "security-client-side-encryption": {
     description:
-      "Cifra Google Docs, Sheets, Slides, archivos de Drive y llamadas de Meet en el navegador antes de que los datos lleguen a los servidores de Google.",
+      "El cifrado del lado del cliente de Workspace es una opción administrada para datos y ediciones compatibles. Verifica la cobertura actual por servicio antes de depender de ella.",
     whatItDoes:
-      "Garantiza que Google nunca tenga acceso a las claves criptográficas necesarias para descifrar tus archivos, lo que te brinda soberanía total.",
+      "Permite a organizaciones aptas usar un servicio de claves externo para contenido cifrado compatible.",
     howItWorks:
-      "Se integra con servicios de identidad y gestión de claves (KMS) de terceros gestionados por el cliente mediante las API criptográficas estándar del navegador.",
+      "La cobertura depende del servicio, el tipo de contenido, la edición y la configuración. No presupongas que cubre todos los archivos, el procesamiento de Gemini o las llamadas de Meet.",
   },
   "security-gemini-ai-security-protections": {
     description:
@@ -180,19 +180,19 @@ export const featureProseES6: Record<string, FeatureTranslation> = {
   },
   "security-vault-dlp-data-regions-cover-labs-services": {
     description:
-      "La gobernanza empresarial, el eDiscovery y las protecciones de residencia se extienden por completo a las herramientas experimentales de IA de Google Labs.",
+      "La cobertura de Vault, DLP y Data Regions se limita a los servicios y datos que Google documenta. No se presupone cobertura de funciones experimentales de Labs.",
     whatItDoes:
-      "Permite que las organizaciones empresariales prueben herramientas innovadoras de Google Labs sin renunciar al cumplimiento y la retención institucionales.",
+      "Señala que los administradores deben verificar los controles y términos de cada función de Labs antes de habilitarla con datos administrados.",
     howItWorks:
-      "Aplica la herencia de políticas empresariales a los endpoints de Labs y al historial de interacción del usuario.",
+      "Revisa los términos, controles de administrador y tablas de cobertura de cada servicio; no asumas que las políticas se heredan automáticamente.",
   },
   "security-enterprise-grade-security-and-compliance": {
     description:
-      "Certificaciones completas de cumplimiento, incluidas SOC 1/2/3, ISO 27001/27017/27018 y alineación con el RGPD.",
+      "Google publica certificaciones y atestaciones de sus servicios. Los informes y compromisos aplicables dependen del servicio, la configuración y el contrato; una certificación no hace que la implementación del cliente cumpla automáticamente.",
     whatItDoes:
-      "Satisface los estándares de auditores independientes de terceros sobre seguridad de datos en la nube, confidencialidad y resiliencia operativa.",
+      "Ofrece documentación para evaluar la postura de seguridad y cumplimiento de los servicios de Google.",
     howItWorks:
-      "Mantiene auditorías de certificación independientes continuas y publica informes SOC mediante el Compliance Reports Manager de Google Cloud.",
+      "Google publica materiales de cumplimiento y el cliente debe verificar su alcance y configurar su propio entorno y procesos.",
   },
   "security-customer-managed-encryption-keys-cmek": {
     description:

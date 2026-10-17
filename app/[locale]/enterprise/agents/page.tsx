@@ -1,40 +1,25 @@
-import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
-import { 
-  Terminal, 
-  ArrowLeft, 
-  ArrowRight, 
-  Workflow, 
-  Cpu, 
-  Network, 
-  Lock, 
-  CheckCircle2, 
-  Layers, 
-  Boxes,
-  ShieldCheck,
-  Server,
-  Zap,
-  Mail,
-  Bot
-} from "lucide-react";
-
-import { createPhraseTranslator } from "@/lib/i18n/translate";
-import { resolveLocale, type Locale } from "@/lib/i18n/config";
-import { localizeHref } from "@/lib/i18n/href";
+import { ArrowLeft, ArrowRight, Bot, ShieldCheck } from "lucide-react";
+import { AgentBuildPlaybook } from "@/components/enterprise/AgentBuildPlaybook";
 import { CoworkerAgentShowcase } from "@/components/enterprise/CoworkerAgentShowcase";
+import { resolveLocale } from "@/lib/i18n/config";
+import { localizeHref } from "@/lib/i18n/href";
+import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { withLocalizedAlternates } from "@/lib/seo";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
-  const t = createPhraseTranslator(resolveLocale(rawLocale));
+  const locale = resolveLocale(rawLocale);
+  const t = createPhraseTranslator(locale);
   return withLocalizedAlternates({
-    title: 'Model Context Protocol (MCP) & Enterprise AI Agents | Gemini Intelligence',
-    description: t('Learn how Gemini Enterprise implements the open Model Context Protocol (MCP) to safely interface with corporate APIs, databases, and multi-step reasoning agents.'),
-  }, "/enterprise/agents", resolveLocale(rawLocale));
+    title: t("Gemini Enterprise Agents: How to Build, Prompt, Connect Tools, and Govern"),
+    description: t("A sourced guide to Google Workspace Studio, Gemini Enterprise Business, Standard and Plus agents, connectors, Agent Platform, example prompts, and Model Armor safeguards."),
+  }, "/enterprise/agents", locale);
 }
 
 export default async function AgentsAndMcpPage({
@@ -43,162 +28,50 @@ export default async function AgentsAndMcpPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = resolveLocale(rawLocale);
-  const href = (path: string) => localizeHref(locale, path);
+  const locale = resolveLocale(rawLocale);
   const t = createPhraseTranslator(locale);
+  const href = (path: string) => localizeHref(locale, path);
+
   return (
-    <div className="min-h-screen bg-background text-foreground pb-24">
-      {/* Breadcrumb Header */}
+    <div className="min-h-screen bg-background pb-24 text-foreground">
       <div className="border-b border-border/60 bg-muted/20">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-4">
-          <Link
-            href={href("/enterprise")}
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />{t("Back to Enterprise Architecture")}</Link>
+        <div className="mx-auto max-w-[1400px] px-4 py-4 sm:px-6 lg:px-8">
+          <Link href={href("/enterprise")} className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+            <ArrowLeft className="h-4 w-4" />{t("Back to Enterprise Architecture")}
+          </Link>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 pb-20 border-b border-border bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(139,92,246,0.12),transparent_70%)]">
-        <div className="absolute top-1/2 left-1/3 w-[500px] h-[500px] bg-gemini-purple/15 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gemini-purple/10 text-gemini-purple text-xs font-semibold uppercase tracking-wider mb-4 border border-gemini-purple/20">
-              <Terminal className="w-3.5 h-3.5" /> {t("Open Agent Standards")}
+      <section className="relative overflow-hidden border-b border-border bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(66,133,244,0.14),transparent_70%)] py-20">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-google-blue/20 bg-google-blue/10 px-3.5 py-1.5 text-xs font-semibold text-google-blue">
+              <Bot className="h-4 w-4" />
+              {t("Agent builder and deployment guide")}
             </div>
-            <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground mb-6">{t("Model Context Protocol (MCP) & ")}<span className="gradient-text">{t("Agentes autónomos")}</span>
+            <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground">
+              {t("Build useful Gemini agents—with clear permissions and a path to production.")}
             </h1>
-            <p className="fluid-body text-muted-foreground leading-relaxed mb-8">
-              {t("Open standard architecture for secure tool calling, private database grounding, and multi-step organizational workflows. Gemini Enterprise bridges conversational reasoning with your internal systems through standardized MCP servers.")}
+            <p className="mt-6 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+              {t("Understand what an agent can do, which product you need, where to create it, how to connect approved data, and what to test before users rely on it.")}
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href={href("/compare")}
-                className="px-6 py-3 bg-gradient-to-r from-gemini-indigo to-gemini-purple text-white font-semibold rounded-xl hover:shadow-lg transition-all text-sm shadow-sm"
-              >{t("Compare Enterprise Editions")}</Link>
-              <Link
-                href={href("/enterprise/connectors")}
-                className="px-6 py-3 border border-border bg-card hover:bg-muted text-foreground font-semibold rounded-xl transition-all text-sm shadow-sm"
-              >{t("View Pre-Built Connectors")}</Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#agent-types" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-google-blue px-5 text-sm font-semibold text-white hover:bg-blue-700">
+                {t("Choose an agent builder")}<ArrowRight className="h-4 w-4" />
+              </a>
+              <Link href={href("/security#model-armor-guide")} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 text-sm font-semibold text-foreground hover:bg-muted">
+                <ShieldCheck className="h-4 w-4 text-google-blue" />{t("Model Armor setup")}
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Custom MCP server setup overview */}
-      <section className="py-20 border-b border-border bg-background">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+      <AgentBuildPlaybook href={href} />
+
+      <section className="border-t border-border py-16">
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
           <CoworkerAgentShowcase />
-        </div>
-      </section>
-
-      {/* Architecture Flow Diagram */}
-      <section className="py-20 border-b border-border bg-muted/20">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-google-blue block mb-2">{t("System Architecture")}</span>
-            <h2 className="fluid-h2 font-bold text-foreground">{t("How Gemini Orchestrates MCP Tools")}</h2>
-            <p className="text-muted-foreground mt-2 leading-relaxed">
-              Every tool execution passes through tenant identity, permission checks, and policy boundaries before touching external APIs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Step 1 */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm relative hover:border-google-blue/40 transition-all">
-              <div className="w-10 h-10 rounded-lg bg-google-blue/10 text-google-blue flex items-center justify-center font-bold mb-4 border border-google-blue/20">
-                01
-              </div>
-              <h3 className="font-bold text-foreground mb-2">{t("User Query & Intent")}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                The employee inputs a multi-step objective (e.g., {t("Analyze customer churn in Salesforce and create a Jira remediation epic")}).
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm relative hover:border-gemini-purple/40 transition-all">
-              <div className="w-10 h-10 rounded-lg bg-gemini-purple/10 text-gemini-purple flex items-center justify-center font-bold mb-4 border border-gemini-purple/20">
-                02
-              </div>
-              <h3 className="font-bold text-foreground mb-2">{t("Gemini Enterprise agents")}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {t("Gemini plans the execution sequence, evaluates available MCP schemas, and generates structured tool-call arguments.")}
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm relative hover:border-gemini-cyan/40 transition-all">
-              <div className="w-10 h-10 rounded-lg bg-gemini-cyan/10 text-gemini-cyan flex items-center justify-center font-bold mb-4 border border-gemini-cyan/20">
-                03
-              </div>
-              <h3 className="font-bold text-foreground mb-2">{t("Secure MCP Gateway")}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                The enterprise MCP gateway verifies the user's OAuth tokens, enforces ACL policies, and safely executes tool calls against internal endpoints.
-              </p>
-            </div>
-
-            {/* Step 4 */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm relative hover:border-google-green/40 transition-all">
-              <div className="w-10 h-10 rounded-lg bg-google-green/10 text-google-green flex items-center justify-center font-bold mb-4 border border-google-green/20">
-                04
-              </div>
-              <h3 className="font-bold text-foreground mb-2">{t("Grounded Synthesis")}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Results are returned with verifiable citations, structured tabular output, or completed transaction receipts.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enterprise Agent Capabilities */}
-      <section className="py-20 bg-background">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="w-12 h-12 rounded-xl bg-google-blue/10 text-google-blue flex items-center justify-center mb-6 border border-google-blue/20">
-                <Workflow className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{t("Multi-Step Reasoning Workflows")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Enterprise agents don't just output text; they complete workflows across systems. From reconciling procurement POs in ERP to updating CRM opportunities and sending team notifications in Google Chat, agents operate autonomously within predefined guardrails.
-              </p>
-              <ul className="space-y-2.5 text-xs text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-google-green shrink-0" /> Human-in-the-loop approval step before external state mutation
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-google-green shrink-0" /> Comprehensive audit trails written to Cloud Logging
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-google-green shrink-0" /> Granular capability gating by department and organizational unit (OU)
-                </li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="w-12 h-12 rounded-xl bg-gemini-purple/10 text-gemini-purple flex items-center justify-center mb-6 border border-gemini-purple/20">
-                <Server className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{t("Custom Local & Remote MCP Servers")}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Developers can build custom MCP servers in TypeScript or Python using standard SDKs. Host them inside your Google Cloud VPC or on-premise infrastructure, exposing internal databases and microservices without exposing sensitive keys to clients.
-              </p>
-              <ul className="space-y-2.5 text-xs text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-google-green shrink-0" /> Standard JSON-RPC protocol compliance
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-google-green shrink-0" /> Automatic schema discovery and typing in Gemini prompts
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-google-green shrink-0" /> Compatible with Gemini Enterprise Plus standalone editions
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
       </section>
     </div>

@@ -184,7 +184,7 @@ export const featuresES: Record<string, FeatureTranslation> = {
     name: "Protecciones de seguridad de Gemini AI",
   },
   "security-vault-dlp-data-regions-cover-labs-services": {
-    name: "Vault, DLP y regiones de datos cubren los servicios de Labs",
+    name: "Cobertura de gobernanza de Workspace para servicios de Labs",
   },
   "security-model-armor": { name: "Model Armor" },
   "security-enterprise-grade-security-and-compliance": {

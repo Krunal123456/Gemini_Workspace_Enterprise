@@ -143,9 +143,9 @@ export function Header({ labels }: { labels: NavLabels }) {
               aria-haspopup="dialog"
               aria-keyshortcuts="Control+K Meta+K"
               title={`${labels.search} (⌘K)`}
-              className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm transition-colors hover:border-violet-300 hover:bg-violet-50 hover:text-violet-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 sm:inline-flex dark:border-white/20 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 sm:inline-flex dark:border-white/20 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
             >
-              <Search className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+              <Search className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               <span className="sr-only">{labels.searchPlaceholder}</span>
             </button>
           </div>
@@ -165,14 +165,14 @@ export function Header({ labels }: { labels: NavLabels }) {
                       "relative rounded-full px-2.5 xl:px-3 py-1 text-[11px] xl:text-xs 2xl:text-sm font-semibold transition-all duration-200 whitespace-nowrap items-center",
                       item.show || "flex",
                       isActive
-                        ? "text-violet-900 dark:text-violet-100 font-bold"
+                        ? "text-blue-900 dark:text-blue-100 font-bold"
                         : "text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white"
                     )}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 rounded-full border border-violet-300/60 bg-white shadow-sm dark:border-violet-400/30 dark:bg-violet-500/25 dark:shadow-[0_0_15px_rgba(168,85,247,0.3)]"
+                        className="absolute inset-0 rounded-full border border-blue-300/60 bg-white shadow-sm dark:border-blue-400/30 dark:bg-blue-500/25 dark:shadow-[0_0_15px_rgba(168,85,247,0.3)]"
                         transition={{ duration: 0.25, ease: "easeOut" }}
                       />
                     )}
@@ -216,7 +216,7 @@ export function Header({ labels }: { labels: NavLabels }) {
                         <Link
                           href={href("/apps")}
                           onClick={() => setAppsDropdownOpen(false)}
-                          className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2.5 py-2 text-xs font-semibold text-violet-700 transition hover:bg-violet-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 dark:text-violet-300 dark:hover:bg-violet-500/10"
+                          className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2.5 py-2 text-xs font-semibold text-blue-700 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-blue-300 dark:hover:bg-blue-500/10"
                         >
                           Browse all
                           <ArrowRight className="h-3.5 w-3.5" />
@@ -228,7 +228,7 @@ export function Header({ labels }: { labels: NavLabels }) {
                             key={app.name}
                             href={href(app.href)}
                             onClick={() => setAppsDropdownOpen(false)}
-                            className="group flex min-h-16 min-w-0 flex-col items-center justify-center gap-1.5 rounded-xl border border-slate-200/70 bg-slate-50/70 px-2 py-2.5 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:bg-violet-50 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-violet-400/40 dark:hover:bg-violet-500/10"
+                            className="group flex min-h-16 min-w-0 flex-col items-center justify-center gap-1.5 rounded-xl border border-slate-200/70 bg-slate-50/70 px-2 py-2.5 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-blue-400/40 dark:hover:bg-blue-500/10"
                           >
                             <app.icon
                               className={cn(
@@ -245,25 +245,25 @@ export function Header({ labels }: { labels: NavLabels }) {
 
                       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200/70 px-1 pt-3 text-[11px] font-semibold text-slate-600 dark:border-white/10 dark:text-slate-300">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Explore</span>
-                        <Link href={href("/models")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                        <Link href={href("/models")} className="hover:text-blue-600 dark:hover:text-white transition-colors">
                           {labels.models}
                         </Link>
-                        <Link href={href("/pricing")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                        <Link href={href("/pricing")} className="hover:text-blue-600 dark:hover:text-white transition-colors">
                           {labels.pricing}
                         </Link>
-                        <Link href={href("/mindmap")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                        <Link href={href("/mindmap")} className="hover:text-blue-600 dark:hover:text-white transition-colors">
                           {labels.mindmap}
                         </Link>
-                        <Link href={href("/enterprise")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                        <Link href={href("/enterprise")} className="hover:text-blue-600 dark:hover:text-white transition-colors">
                           {labels.enterprise}
                         </Link>
-                        <Link href={href("/migration")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                        <Link href={href("/migration")} className="hover:text-blue-600 dark:hover:text-white transition-colors">
                           {tp("Migration guide")}
                         </Link>
-                        <Link href={href("/articles")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                        <Link href={href("/articles")} className="hover:text-blue-600 dark:hover:text-white transition-colors">
                           {labels.articles}
                         </Link>
-                        <Link href={href("/google-ai-updates")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                        <Link href={href("/google-ai-updates")} className="hover:text-blue-600 dark:hover:text-white transition-colors">
                           {labels.updates}
                         </Link>
                       </div>
@@ -287,7 +287,7 @@ export function Header({ labels }: { labels: NavLabels }) {
               type="button"
               onClick={handleGetStartedClick}
               data-tour-trigger
-              className="hidden md:inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-slate-950 px-4 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-violet-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-950 dark:hover:bg-violet-100"
+              className="hidden md:inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-slate-950 px-4 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
             >
               <span>{labels.getStarted}</span>
               <ArrowRight className="h-3.5 w-3.5 shrink-0" />
@@ -301,7 +301,7 @@ export function Header({ labels }: { labels: NavLabels }) {
                 aria-haspopup="dialog"
                 aria-keyshortcuts="Control+K Meta+K"
                 title={`${labels.search} (⌘K)`}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
               >
                 <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
@@ -310,7 +310,7 @@ export function Header({ labels }: { labels: NavLabels }) {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-expanded={mobileMenuOpen}
                 aria-label={labels.toggleMenu}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
               >
                 {mobileMenuOpen ? (
                   <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -335,11 +335,11 @@ export function Header({ labels }: { labels: NavLabels }) {
           >
             {/* Mobile Search Bar inside Drawer */}
             <div className="relative mb-4">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-violet-500" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-500" />
               <input
                 type="text"
                 placeholder={labels.searchPlaceholder}
-                className="w-full pl-10 pr-12 py-2.5 rounded-2xl border border-slate-200/80 bg-slate-50/80 text-sm shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 dark:border-white/10 dark:bg-white/[0.04]"
+                className="w-full pl-10 pr-12 py-2.5 rounded-2xl border border-slate-200/80 bg-slate-50/80 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-white/10 dark:bg-white/[0.04]"
                 onClick={handleSearchClick}
                 readOnly
               />
@@ -353,7 +353,7 @@ export function Header({ labels }: { labels: NavLabels }) {
               type="button"
               onClick={handleGetStartedClick}
               data-tour-trigger
-              className="mb-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-violet-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-950 dark:hover:bg-violet-100"
+              className="mb-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
             >
               <span>{labels.getStarted}</span>
               <ArrowRight className="h-4 w-4" />
@@ -441,7 +441,7 @@ export function Header({ labels }: { labels: NavLabels }) {
                     <Link
                       key={app.name}
                       href={href(app.href)}
-                      className="flex min-h-11 min-w-0 items-center gap-2 rounded-xl border border-border/50 bg-background/80 px-2.5 py-2 text-left transition-all hover:border-violet-500/40 hover:bg-violet-500/5"
+                      className="flex min-h-11 min-w-0 items-center gap-2 rounded-xl border border-border/50 bg-background/80 px-2.5 py-2 text-left transition-all hover:border-blue-500/40 hover:bg-blue-500/5"
                     >
                       <app.icon className={cn("h-4 w-4 shrink-0", app.color)} />
                       <span className="min-w-0 truncate text-[11px] font-semibold text-foreground">

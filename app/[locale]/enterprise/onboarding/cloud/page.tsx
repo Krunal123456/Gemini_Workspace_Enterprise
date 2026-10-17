@@ -64,7 +64,7 @@ export default async function CloudOnboardingPage({
             href={href("/enterprise/onboarding/business")}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-google-blue hover:underline"
           >
-            {t("Business Edition (Workspace) Onboarding")}
+              {t("Gemini Enterprise Business Onboarding")}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -124,17 +124,17 @@ export default async function CloudOnboardingPage({
         <div className="mx-auto flex max-w-4xl flex-col sm:flex-row items-start sm:items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <div>
             <h4 className="text-sm font-bold text-foreground">
-              {t("Looking for Google Workspace setup under 300 seats?")}
+              {t("Looking for Google Workspace automations?")}
             </h4>
             <p className="mt-1 text-xs text-muted-foreground">
-              {t("Explore Gemini Enterprise – Business edition managed via admin.google.com with 25 GiB pooled storage per user.")}
+              {t("Workspace Studio is the separate flow builder available with eligible Google Workspace plans. Gemini Enterprise Business is another product with a different signup and admin path.")}
             </p>
           </div>
           <Link
             href={href("/enterprise/onboarding/business")}
             className="inline-flex items-center gap-2 rounded-xl bg-foreground px-5 py-2.5 text-xs font-semibold text-background hover:opacity-90 transition-all shrink-0"
           >
-            {t("View Business Edition (Workspace) Guide")}
+            {t("Compare Workspace Studio and Business edition")}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>

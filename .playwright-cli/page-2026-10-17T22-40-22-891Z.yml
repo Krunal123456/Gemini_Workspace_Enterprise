@@ -1,0 +1,413 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "Workspace Gemini Intelligence home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]:
+            - generic [ref=e8]: Workspace Gemini
+            - generic [ref=e9]: Product intelligence
+        - button "Search the site" [ref=e10] [cursor=pointer]:
+          - generic [ref=e14]: Search...
+      - navigation [ref=e16]:
+        - link "Features" [ref=e17] [cursor=pointer]:
+          - /url: /features
+        - link "Plans" [ref=e19] [cursor=pointer]:
+          - /url: /plans
+        - link "Compare" [ref=e21] [cursor=pointer]:
+          - /url: /compare
+        - link "Mind Map" [ref=e23] [cursor=pointer]:
+          - /url: /mindmap
+        - link "Models" [ref=e25] [cursor=pointer]:
+          - /url: /models
+        - link "Pricing" [ref=e27] [cursor=pointer]:
+          - /url: /pricing
+        - button "Apps" [ref=e30] [cursor=pointer]
+      - generic [ref=e33]:
+        - 'button "Language selector. Current language: English" [ref=e36] [cursor=pointer]':
+          - generic [ref=e40]: EN
+        - button "Get Started" [ref=e43] [cursor=pointer]
+  - main [ref=e47]:
+    - generic [ref=e49]:
+      - generic [ref=e51]:
+        - generic [ref=e52]: Product controls and configuration
+        - heading "Understand the security controls available for your setup." [level=1] [ref=e56]
+        - paragraph [ref=e57]: Review the controls Google documents for Workspace with Gemini and Gemini Enterprise. Availability depends on product, edition, region, and administrator configuration.
+        - generic [ref=e58]:
+          - generic [ref=e59]: Read the applicable data protection terms
+          - paragraph [ref=e63]: Google states that Workspace data used with Gemini is not reviewed by humans or used to train generative AI models outside your domain without permission. For Gemini Enterprise Business, Standard, and Plus, Google says customer data is not used to train Google models or models for other customers. Review the governing terms for your service and subscription.
+          - generic [ref=e64]:
+            - link "Workspace AI privacy" [ref=e65] [cursor=pointer]:
+              - /url: https://workspace.google.com/security/ai-privacy/
+            - link "Gemini Enterprise privacy" [ref=e66] [cursor=pointer]:
+              - /url: https://cloud.google.com/gemini-enterprise
+      - generic [ref=e68]:
+        - generic [ref=e69]:
+          - generic [ref=e70]: Architecture Blueprint
+          - heading "A seven-part security review" [level=2] [ref=e71]
+          - paragraph [ref=e72]: A conceptual map of controls to review. The services, editions, and configurations that support each control vary.
+        - generic [ref=e73]:
+          - tablist "Security review topics" [ref=e74]:
+            - tab "Topic 1 Identity and authentication" [selected] [ref=e75] [cursor=pointer]:
+              - generic [ref=e81]:
+                - generic [ref=e82]: Topic 1
+                - generic [ref=e83]: Identity and authentication
+            - tab "Topic 2 Access and device policies" [ref=e84] [cursor=pointer]:
+              - generic [ref=e89]:
+                - generic [ref=e90]: Topic 2
+                - generic [ref=e91]: Access and device policies
+            - tab "Topic 3 Data protection and encryption" [ref=e92] [cursor=pointer]:
+              - generic [ref=e98]:
+                - generic [ref=e99]: Topic 3
+                - generic [ref=e100]: Data protection and encryption
+            - tab "Topic 4 AI safety controls" [ref=e101] [cursor=pointer]:
+              - generic [ref=e106]:
+                - generic [ref=e107]: Topic 4
+                - generic [ref=e108]: AI safety controls
+            - tab "Topic 5 Retention and discovery" [ref=e109] [cursor=pointer]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: Topic 5
+                - generic [ref=e117]: Retention and discovery
+            - tab "Topic 6 Compliance scope" [ref=e118] [cursor=pointer]:
+              - generic [ref=e124]:
+                - generic [ref=e125]: Topic 6
+                - generic [ref=e126]: Compliance scope
+            - tab "Topic 7 Audit and monitoring" [ref=e127] [cursor=pointer]:
+              - generic [ref=e131]:
+                - generic [ref=e132]: Topic 7
+                - generic [ref=e133]: Audit and monitoring
+          - tabpanel [ref=e134]:
+            - generic [ref=e141]:
+              - paragraph [ref=e142]: Security review topic
+              - heading "Identity and authentication" [level=3] [ref=e143]
+              - paragraph [ref=e144]: Start with who can sign in and how their identity is verified.
+            - paragraph [ref=e145]: Identity settings are configured for an organization's directory and may differ across Workspace and Google Cloud products.
+            - generic [ref=e146]:
+              - article [ref=e147]:
+                - heading "Single sign-on and multi-factor authentication" [level=4] [ref=e152]
+                - paragraph [ref=e153]: Review the identity provider, login protections, and recovery paths used by the people who will access AI tools.
+                - paragraph [ref=e154]:
+                  - strong [ref=e155]: "Ask:"
+                  - text: Which Workspace or Cloud identity controls apply to these users?
+              - article [ref=e156]:
+                - heading "Account lifecycle" [level=4] [ref=e161]
+                - paragraph [ref=e162]: Check how user provisioning, deprovisioning, and role changes are handled across the services in scope.
+                - paragraph [ref=e163]:
+                  - strong [ref=e164]: "Ask:"
+                  - text: How quickly are access changes reflected in each connected service?
+      - region [ref=e165]:
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - heading "What Model Armor templates are—and what they are not" [level=2] [ref=e168]
+            - paragraph [ref=e169]: A Model Armor template is a reusable security policy for screening prompts and model responses. It stores enabled detection filters, confidence thresholds, enforcement behavior, region, and related settings. It is not an agent template, a prompt library, or a finished “Model Armor model.” For Gemini Enterprise, Google recommends separate templates for user prompts and response outputs because the two sides have different risks.
+          - generic [ref=e170]:
+            - article [ref=e171]:
+              - heading "Prompt input template" [level=3] [ref=e172]
+              - paragraph [ref=e173]: Prompt injection and jailbreak detection; sensitive-data detections appropriate to your data. Focus on blocking malicious or risky input before it reaches a model.
+            - article [ref=e174]:
+              - heading "Response output template" [level=3] [ref=e175]
+              - paragraph [ref=e176]: Sensitive-data detections, relevant responsible-AI categories, and malicious URL detection. Focus on preventing unsafe or disallowed material from reaching the user.
+          - generic [ref=e177]:
+            - article [ref=e178]:
+              - heading "What the filters inspect" [level=3] [ref=e179]
+              - list [ref=e180]:
+                - listitem [ref=e181]:
+                  - strong [ref=e182]: "Prompt injection and jailbreaks:"
+                  - text: instructions attempting to bypass the agent’s intended boundaries.
+                - listitem [ref=e183]:
+                  - strong [ref=e184]: "Responsible AI categories:"
+                  - text: configurable categories such as hate, harassment, sexually explicit, and dangerous content; CSAM has its own default behavior.
+                - listitem [ref=e185]:
+                  - strong [ref=e186]: "Sensitive Data Protection:"
+                  - text: detect configured sensitive information types; the available basic and advanced configuration choices differ.
+                - listitem [ref=e187]:
+                  - strong [ref=e188]: "Malicious URLs:"
+                  - text: screen URLs in prompts or generated responses.
+              - paragraph [ref=e189]: Thresholds are confidence levels, not “weak/medium/strong model” settings. Lower thresholds can increase false positives. Tune each category against representative good and bad examples.
+            - article [ref=e190]:
+              - heading "Create and attach the templates" [level=3] [ref=e191]
+              - list [ref=e192]:
+                - listitem [ref=e193]:
+                  - strong [ref=e194]: 1. Prepare the project.
+                  - text: In Google Cloud, select the project that owns your Gemini Enterprise app. Enable the Model Armor API and have an administrator grant Model Armor Admin (
+                  - code [ref=e195]: roles/modelarmor.admin
+                  - text: ) to the template creator. The app administrator needs Gemini Enterprise Admin.
+                - listitem [ref=e196]:
+                  - strong [ref=e197]: 2. Open template creation.
+                  - text: Go to
+                  - link "Google Cloud Console → Model Armor ↗" [ref=e198] [cursor=pointer]:
+                    - /url: https://console.cloud.google.com/security/modelarmor
+                  - text: ", confirm the project, then choose"
+                  - strong [ref=e199]: Create Template
+                  - text: .
+                - listitem [ref=e200]:
+                  - strong [ref=e201]: 3. Set the template identity and location.
+                  - text: Create a prompt template (for example,
+                  - code [ref=e202]: ge-user-prompts
+                  - text: ) and a response template (for example,
+                  - code [ref=e203]: ge-model-responses
+                  - text: "). Match the app’s region: for a Global app choose the US or EU multi-region; for a US or EU app choose its matching multi-region. Project, region, and template ID cannot be changed after creation."
+                - listitem [ref=e204]:
+                  - strong [ref=e205]: 4. Configure prompt detections.
+                  - text: For the user-prompt template, enable prompt injection and jailbreak detection, malicious URI screening, and the sensitive-data checks appropriate to your policy. Google recommends focusing this template on risky inputs; responsible-AI filters can be disabled here because Gemini has built-in user-prompt checks.
+                - listitem [ref=e206]:
+                  - strong [ref=e207]: 5. Configure response detections.
+                  - text: For the response template, choose sensitive-data detection, relevant Responsible AI categories and confidence levels, and malicious URI screening. Do not enable prompt-injection detection on responses; Google warns it can add false positives and latency.
+                - listitem [ref=e208]:
+                  - strong [ref=e209]: 6. Select enforcement and create.
+                  - text: Review data-residency settings and any optional filters. Console templates default to
+                  - emphasis [ref=e210]: Inspect and block
+                  - text: ; select
+                  - emphasis [ref=e211]: Inspect only
+                  - text: only for a deliberate observation phase. Then select
+                  - strong [ref=e212]: Create
+                  - text: . Avoid enabling template Cloud Logging for this integration.
+                - listitem [ref=e213]:
+                  - strong [ref=e214]: 7. Attach both resource names.
+                  - text: Open Cloud Console → Gemini Enterprise → your app →
+                  - strong [ref=e215]: Configurations → Assistant
+                  - text: . Enable Model Armor, paste the resource names from both templates, choose whether a screening outage allows or blocks interactions, then select
+                  - strong [ref=e216]: Save and publish
+                  - text: .
+                - listitem [ref=e217]:
+                  - strong [ref=e218]: 8. Test before broad rollout.
+                  - text: Test benign and unsafe prompts, uploaded files, and generated responses. Review false positives, latency, and fail-open/fail-closed behavior, then publish to the intended users.
+              - paragraph [ref=e219]:
+                - text: For a template in a different project, grant Model Armor User (
+                - code [ref=e220]: roles/modelarmor.user
+                - text: ") there to the Gemini Enterprise app service account:"
+                - code [ref=e221]: service-PROJECT_NUMBER@gcp-sa-discoveryengine.iam.gserviceaccount.com
+                - text: . Use only the app’s actual project number.
+          - generic [ref=e222]:
+            - heading "Important limits to include in your design" [level=3] [ref=e223]
+            - list [ref=e224]:
+              - listitem [ref=e225]: For the Gemini Enterprise app integration, Google says not to enable the prompt-injection detector on responses; it can add false positives and latency.
+              - listitem [ref=e226]: Model Armor does not remove or mask PII. Sensitive Data Protection can block source material, but its content policies are unavailable for Gemini Enterprise Business edition.
+              - listitem [ref=e227]: Google says this integration screens the assistant, Workflow Builder employee-made agents, and Google-made agents. It does not screen custom ADK, A2A, or Dialogflow agent interactions; protect those separately.
+              - listitem [ref=e228]: Google does not recommend enabling ordinary Cloud Logging in the templates for Gemini Enterprise because logs may expose sensitive content. Review Data Access audit logs or route logs to storage with stricter access controls.
+          - paragraph [ref=e229]: "Edition note: Google says the Model Armor integration is supported across Gemini Enterprise editions at no additional cost. Sensitive Data Protection content policies are a separate control and are not supported on Gemini Enterprise Business edition."
+          - generic [ref=e230]:
+            - heading "Using the templates with Gemini Notebook Enterprise" [level=3] [ref=e231]
+            - paragraph [ref=e232]: This is a separate integration path and is currently marked Preview. Google documents attaching the template resource names through the Gemini Notebook Enterprise project configuration API; the Gemini Enterprise app’s Assistant screen above is not the Notebook Enterprise setup path. Allow 10 minutes or more for the change to take effect, then test the screening behavior.
+            - 'link "Google: Configure Model Armor in Gemini Notebook Enterprise ↗" [ref=e233] [cursor=pointer]':
+              - /url: https://docs.cloud.google.com/gemini/enterprise/notebooklm-enterprise/docs/enable-model-armor
+          - generic [ref=e234]:
+            - link "Enable Model Armor in Gemini Enterprise ↗" [ref=e235] [cursor=pointer]:
+              - /url: https://docs.cloud.google.com/gemini/enterprise/docs/enable-model-armor
+            - link "Create and manage Model Armor templates ↗" [ref=e236] [cursor=pointer]:
+              - /url: https://docs.cloud.google.com/model-armor/manage-templates
+            - link "Model Armor filters and confidence levels ↗" [ref=e237] [cursor=pointer]:
+              - /url: https://docs.cloud.google.com/model-armor/overview
+          - generic [ref=e238]:
+            - heading "Google walkthrough videos" [level=3] [ref=e239]
+            - paragraph [ref=e240]: Google’s Gemini for Business learning hub notes that demonstrations can show an earlier interface.
+            - generic [ref=e241]:
+              - 'link "Model Armor: prompt injection & data leakage prevention ↗" [ref=e242] [cursor=pointer]':
+                - /url: https://www.youtube.com/watch?v=_w0A3VtQQbI
+              - link "Build no-code agents in the Gemini Enterprise app ↗" [ref=e243] [cursor=pointer]:
+                - /url: https://www.youtube.com/watch?v=yiY8soEdVUQ
+              - link "More Google tutorials ↗" [ref=e244] [cursor=pointer]:
+                - /url: https://cloud.google.com/gemini-enterprise/resources
+      - generic [ref=e246]:
+        - generic [ref=e247]:
+          - generic [ref=e248]: Admin & Governance
+          - heading "Enterprise controls for regulated AI deployment" [level=3] [ref=e249]
+          - paragraph [ref=e250]: Security teams should verify how identity, data access, retention, and audit controls apply to each AI workflow.
+        - generic [ref=e251]:
+          - generic [ref=e252]:
+            - heading "Data residency" [level=4] [ref=e258]
+            - paragraph [ref=e259]: Google Workspace Enterprise Data Regions can apply policy settings to supported services.
+            - paragraph [ref=e260]: Confirm which data, services, and regions are covered by your selected edition and configuration.
+          - generic [ref=e261]:
+            - heading "DLP" [level=4] [ref=e267]
+            - paragraph [ref=e268]: Workspace administrators can configure DLP policies for supported apps and content.
+            - paragraph [ref=e269]: Check which content types and AI surfaces are covered by your policies and selected edition.
+          - generic [ref=e270]:
+            - heading "CMEK" [level=4] [ref=e276]
+            - paragraph [ref=e277]: Customer-managed or client-side encryption is available for supported services and editions.
+            - paragraph [ref=e278]: Confirm supported apps, data types, regions, and administrative prerequisites before relying on it.
+          - generic [ref=e279]:
+            - heading "VPC Service Controls" [level=4] [ref=e284]
+            - paragraph [ref=e285]: VPC Service Controls define service perimeters for supported Google Cloud resources.
+            - paragraph [ref=e286]: Confirm whether the Gemini service and workflows you plan to use are supported inside your perimeter.
+          - generic [ref=e287]:
+            - heading "Audit logs" [level=4] [ref=e291]
+            - paragraph [ref=e292]: Workspace and Google Cloud products expose audit logs with different event coverage.
+            - paragraph [ref=e293]: Check which events are available, how to export them, and the retention period for your service.
+          - generic [ref=e294]:
+            - heading "Retention" [level=4] [ref=e300]
+            - paragraph [ref=e301]: Google Vault policies apply to supported Workspace services and data.
+            - paragraph [ref=e302]: Check whether the specific AI inputs, outputs, and files you care about are covered by Vault.
+          - generic [ref=e303]:
+            - heading "Access policies" [level=4] [ref=e309]
+            - paragraph [ref=e310]: Workspace and Google Cloud provide access controls for supported services and resources.
+            - paragraph [ref=e311]: Verify which administrators, users, connectors, and AI features are governed by each policy.
+          - generic [ref=e312]:
+            - heading "Model Armor" [level=4] [ref=e317]
+            - paragraph [ref=e318]: Model Armor can screen Gemini Enterprise prompts and responses using administrator-configured templates.
+            - paragraph [ref=e319]: It is supported on all Gemini Enterprise editions at no additional cost. It must be configured, can add latency, and does not mask PII.
+        - generic [ref=e320]:
+          - heading "Questions to validate before rollout" [level=4] [ref=e322]
+          - table [ref=e324]:
+            - rowgroup [ref=e325]:
+              - row [ref=e326]:
+                - columnheader "Control" [ref=e327]
+                - columnheader "Confirm for your service and edition" [ref=e328]
+            - rowgroup [ref=e329]:
+              - row [ref=e330]:
+                - cell "Data residency" [ref=e331]
+                - cell "Which services and data are covered by the selected region policy?" [ref=e332]
+              - row [ref=e333]:
+                - cell "DLP" [ref=e334]
+                - cell "Which AI surfaces and content types are covered by the configured policies?" [ref=e335]
+              - row [ref=e336]:
+                - cell "CMEK / client-side encryption" [ref=e337]
+                - cell "Which editions, services, and data types support the required key controls?" [ref=e338]
+              - row [ref=e339]:
+                - cell "VPC Service Controls" [ref=e340]
+                - cell "Is the exact Gemini service integration supported inside the perimeter?" [ref=e341]
+              - row [ref=e342]:
+                - cell "Audit logs" [ref=e343]
+                - cell "Which events are available, exportable, and retained for this product?" [ref=e344]
+              - row [ref=e345]:
+                - cell "Retention" [ref=e346]
+                - cell "Are the relevant AI inputs, outputs, and files covered by Vault policies?" [ref=e347]
+              - row [ref=e348]:
+                - cell "Access policies" [ref=e349]
+                - cell "Which users, admins, connectors, and AI features does each policy govern?" [ref=e350]
+              - row [ref=e351]:
+                - cell "Model Armor" [ref=e352]
+                - cell "Are prompt and response templates configured, and what is the failure behavior?" [ref=e353]
+              - row [ref=e354]:
+                - cell "HIPAA" [ref=e355]
+                - cell "Are the selected services on the included-functionality list, and is a BAA in place?" [ref=e356]
+      - generic [ref=e358]:
+        - generic [ref=e359]:
+          - heading "Check Google's compliance documentation" [level=3] [ref=e360]
+          - paragraph [ref=e361]: Certification and regulatory coverage applies to specific Google services and use cases. Confirm the scope in Google's current documentation and your contract.
+        - generic [ref=e362]:
+          - link "Workspace AI privacy Open Google source" [ref=e363] [cursor=pointer]:
+            - /url: https://workspace.google.com/security/ai-privacy/
+            - generic [ref=e364]: Workspace AI privacy
+            - generic [ref=e365]: Open Google source
+          - link "Gemini Enterprise editions Open Google source" [ref=e368] [cursor=pointer]:
+            - /url: https://docs.cloud.google.com/gemini/enterprise/docs/editions
+            - generic [ref=e369]: Gemini Enterprise editions
+            - generic [ref=e370]: Open Google source
+          - link "Model Armor setup Open Google source" [ref=e373] [cursor=pointer]:
+            - /url: https://docs.cloud.google.com/gemini/enterprise/docs/enable-model-armor
+            - generic [ref=e374]: Model Armor setup
+            - generic [ref=e375]: Open Google source
+          - link "HIPAA included functionality Open Google source" [ref=e378] [cursor=pointer]:
+            - /url: https://knowledge.workspace.google.com/admin/compliance/hipaa-compliance-with-google-workspace-and-cloud-identity
+            - generic [ref=e379]: HIPAA included functionality
+            - generic [ref=e380]: Open Google source
+        - link "Compare 16 listed plans" [ref=e384] [cursor=pointer]:
+          - /url: /compare
+  - contentinfo [ref=e387]:
+    - generic [ref=e389]:
+      - generic [ref=e390]: Independent Google Workspace and Gemini product research
+      - generic [ref=e391]: Product terms change; confirm details in the linked Google sources.
+    - generic [ref=e393]:
+      - generic [ref=e394]:
+        - generic [ref=e395]:
+          - generic [ref=e396]:
+            - generic [ref=e397]: Workspace Gemini
+            - generic [ref=e398]: Product intelligence
+          - paragraph [ref=e399]: by Independent Research
+        - paragraph [ref=e400]: The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+        - generic [ref=e401]:
+          - generic [ref=e402]: Business ($21/mo)
+          - generic [ref=e403]: Standard ($30/mo)
+          - generic [ref=e404]: Plus ($30+/mo)
+        - link "Compare Plans" [ref=e406] [cursor=pointer]:
+          - /url: /compare
+      - generic [ref=e412]:
+        - heading "Platform" [level=4] [ref=e413]
+        - list [ref=e414]:
+          - listitem [ref=e415]:
+            - link "All Features" [ref=e416] [cursor=pointer]:
+              - /url: /features
+          - listitem [ref=e417]:
+            - link "Compare Plans" [ref=e418] [cursor=pointer]:
+              - /url: /compare
+          - listitem [ref=e419]:
+            - link "Interactive Mind Map" [ref=e420] [cursor=pointer]:
+              - /url: /mindmap
+          - listitem [ref=e421]:
+            - link "models" [ref=e422] [cursor=pointer]:
+              - /url: /models
+          - listitem [ref=e423]:
+            - link "Pricing" [ref=e424] [cursor=pointer]:
+              - /url: /pricing
+      - generic [ref=e425]:
+        - heading "Enterprise" [level=4] [ref=e426]
+        - list [ref=e427]:
+          - listitem [ref=e428]:
+            - link "Claude to Gemini migration" [ref=e429] [cursor=pointer]:
+              - /url: /migration
+          - listitem [ref=e431]:
+            - link "Gemini Enterprise Business Setup Agent Designer" [ref=e432] [cursor=pointer]:
+              - /url: /enterprise/onboarding/business
+              - generic [ref=e433]: Gemini Enterprise Business Setup
+              - generic [ref=e434]: Agent Designer
+          - listitem [ref=e435]:
+            - link "Standard & Plus (Cloud) Onboarding console.cloud.google.com" [ref=e436] [cursor=pointer]:
+              - /url: /enterprise/onboarding/cloud
+              - generic [ref=e437]: Standard & Plus (Cloud) Onboarding
+              - generic [ref=e438]: console.cloud.google.com
+          - listitem [ref=e439]:
+            - link "Connectors" [ref=e440] [cursor=pointer]:
+              - /url: /enterprise/connectors
+          - listitem [ref=e442]:
+            - link "Agents & MCP" [ref=e443] [cursor=pointer]:
+              - /url: /enterprise/agents
+          - listitem [ref=e445]:
+            - link "Security & Governance" [ref=e446] [cursor=pointer]:
+              - /url: /security
+      - generic [ref=e448]:
+        - heading "Applications" [level=4] [ref=e449]
+        - generic [ref=e450]:
+          - link "Gmail" [ref=e451] [cursor=pointer]:
+            - /url: /apps/gmail
+          - link "Docs" [ref=e452] [cursor=pointer]:
+            - /url: /apps/docs
+          - link "Sheets" [ref=e453] [cursor=pointer]:
+            - /url: /apps/sheets
+          - link "Meet" [ref=e454] [cursor=pointer]:
+            - /url: /apps/meet
+          - link "Drive" [ref=e455] [cursor=pointer]:
+            - /url: /apps/drive
+          - link "NotebookLM" [ref=e456] [cursor=pointer]:
+            - /url: /apps/notebooklm
+          - link "Slides" [ref=e457] [cursor=pointer]:
+            - /url: /apps/slides
+          - link "Vids" [ref=e458] [cursor=pointer]:
+            - /url: /apps/vids
+      - generic [ref=e459]:
+        - heading "Governance & Insights" [level=4] [ref=e460]
+        - list [ref=e461]:
+          - listitem [ref=e462]:
+            - link "Articles" [ref=e463] [cursor=pointer]:
+              - /url: /articles
+          - listitem [ref=e465]:
+            - link "Google AI Updates Oct 2026" [ref=e466] [cursor=pointer]:
+              - /url: /google-ai-updates
+              - generic [ref=e467]: Google AI Updates
+              - generic [ref=e468]: Oct 2026
+          - listitem [ref=e469]:
+            - link "about" [ref=e470] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e472]:
+            - link "Affiliate disclosure" [ref=e473] [cursor=pointer]:
+              - /url: /affiliate-disclosure
+          - listitem [ref=e475]:
+            - link "Model Armor & DLP" [ref=e476] [cursor=pointer]:
+              - /url: /security
+          - listitem [ref=e477]:
+            - link "Readiness Assessment" [ref=e478] [cursor=pointer]:
+              - /url: /enterprise/readiness
+    - generic [ref=e480]:
+      - paragraph [ref=e481]: © 2026 Workspace Gemini Intelligence. Independent product research. Not affiliated with Google LLC. Google Workspace & Gemini are trademarks of Google LLC.
+      - button "Scroll back to top" [ref=e482] [cursor=pointer]:
+        - generic [ref=e483]: Back to top

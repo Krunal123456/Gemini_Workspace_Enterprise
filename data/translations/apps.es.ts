@@ -59,9 +59,9 @@ export const appsES: AppTranslations = {
   meet: {
     category: "Videoconferencias",
     tagline:
-      "Transcripción automática de reuniones, audio y vídeo de calidad de estudio y traducción en directo entre idiomas.",
+      "Toma de notas de reuniones, funciones de audio y vídeo y traducción de subtítulos cuando están disponibles.",
     description:
-      "Gemini en Google Meet revoluciona el trabajo híbrido. La IA puede capturar puntos de acción en tiempo real, generar iluminación de estudio profesional en cámaras básicas, traducir el audio en directo entre decenas de idiomas y responder preguntas sobre lo que te perdiste si te incorporaste tarde.",
+      "Gemini en Google Meet puede tomar notas y ofrecer funciones de audio, vídeo y traducción aptas para la cuenta. La disponibilidad, los idiomas, los límites y los controles de administrador dependen de la edición y el despliegue.",
     keyAIFeatures: [
       "Toma notas por mí",
       "Sonido, imagen e iluminación de estudio",
@@ -80,7 +80,7 @@ export const appsES: AppTranslations = {
     tagline:
       "Resumen de hilos, traducción automática entre idiomas y búsqueda de conocimiento del espacio de trabajo.",
     description:
-      "Gemini en Google Chat evita que los equipos de alto ritmo pierdan el contexto en los espacios con tanta actividad. Ponte al día con más de 100 mensajes sin leer mediante resúmenes estructurados y colabora con equipos internacionales con traducción integrada sin fisuras.",
+      "Gemini en Google Chat puede resumir conversaciones sin leer, y Chat también ofrece traducción automática. Los idiomas y la disponibilidad varían según la función y la cuenta.",
     keyAIFeatures: [
       "Panel lateral",
       "Resumir conversaciones",

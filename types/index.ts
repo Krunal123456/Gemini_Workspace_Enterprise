@@ -51,6 +51,7 @@ export interface Feature {
   securityConsiderations?: string;
   documentationUrl?: string;
   officialSources?: FeatureCitation[];
+  videoSources?: FeatureCitation[];
   /** `feature` only when the linked source documents this capability directly. */
   sourceSpecificity?: "feature" | "product";
   /** Date the linked product/feature claim was last checked against the source. */

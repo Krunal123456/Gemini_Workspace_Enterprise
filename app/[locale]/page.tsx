@@ -5,11 +5,10 @@ import { defaultLocale, resolveLocale, type Locale } from "@/lib/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 import { getFeatureCount } from "@/lib/i18n/features";
 import ComparisonPreview from "@/components/home/ComparisonPreview";
-import EnterpriseSection from "@/components/home/EnterpriseSection";
 import ArticlesTeaser from "@/components/home/ArticlesTeaser";
 import { LatestModelShowcase } from "@/components/home/LatestModelShowcase";
 import { EnterpriseTrustBento } from "@/components/home/EnterpriseTrustBento";
-import { WorkspaceProofMetrics, CinematicWorkspaceCTA } from "@/components/home/WorkspaceProofAndCTA";
+import { CinematicWorkspaceCTA } from "@/components/home/WorkspaceProofAndCTA";
 import { WorkflowStory } from "@/components/scroll/WorkflowStory";
 
 const featureCount = getFeatureCount();
@@ -75,11 +74,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <LatestModelShowcase />
       </div>
       <EnterpriseTrustBento />
-      <WorkspaceProofMetrics />
-
-      <section id="enterprise" data-tour="enterprise" className="scroll-mt-28 border-b border-border">
-        <EnterpriseSection />
-      </section>
 
       <section id="articles" data-tour="research" className="scroll-mt-28 border-b border-border">
         <ArticlesTeaser />

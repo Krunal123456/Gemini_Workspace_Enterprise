@@ -122,11 +122,11 @@ export const featureProseES: Record<string, FeatureTranslation> = {
   },
   "meet-translated-captions": {
     description:
-      "Subtítulos cerrados traducidos en tiempo real en decenas de idiomas globales.",
+      "La disponibilidad de subtítulos traducidos y traducción de voz depende de la función de Meet, el par de idiomas, la edición de Workspace y el despliegue.",
     whatItDoes:
-      "Permite que los participantes lean subtítulos en directo en su idioma preferido mientras los demás hablan en su lengua materna.",
+      "Muestra subtítulos traducidos para combinaciones de idiomas compatibles cuando la función está habilitada en la reunión.",
     howItWorks:
-      "Transmite el voz en tiempo real a través de la canalización de traducción neuronal de Google, superponiendo subtítulos de baja latencia en pantalla.",
+      "Consulta la documentación actual de Google para verificar idiomas admitidos, disponibilidad y límites antes de depender de una combinación concreta.",
   },
   "meet-adaptive-audio": {
     description:

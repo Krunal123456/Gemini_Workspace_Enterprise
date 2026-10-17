@@ -1,0 +1,366 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "Workspace Gemini Intelligence home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]:
+            - generic [ref=e8]: Workspace Gemini
+            - generic [ref=e9]: Product intelligence
+        - button "Search the site" [ref=e10] [cursor=pointer]:
+          - generic [ref=e14]: Search...
+      - navigation [ref=e16]:
+        - link "Features" [ref=e17] [cursor=pointer]:
+          - /url: /features
+        - link "Plans" [ref=e19] [cursor=pointer]:
+          - /url: /plans
+        - link "Compare" [ref=e21] [cursor=pointer]:
+          - /url: /compare
+        - link "Mind Map" [ref=e23] [cursor=pointer]:
+          - /url: /mindmap
+        - link "Models" [ref=e25] [cursor=pointer]:
+          - /url: /models
+        - link "Pricing" [ref=e27] [cursor=pointer]:
+          - /url: /pricing
+        - button "Apps" [ref=e30] [cursor=pointer]
+      - generic [ref=e33]:
+        - 'button "Language selector. Current language: English" [ref=e36] [cursor=pointer]':
+          - generic [ref=e40]: EN
+        - button "Get Started" [ref=e43] [cursor=pointer]
+  - main [ref=e47]:
+    - main [ref=e49]:
+      - generic [ref=e50]:
+        - link "Back to Features Directory" [ref=e51] [cursor=pointer]:
+          - /url: /features
+        - generic [ref=e54]:
+          - generic [ref=e55]:
+            - generic [ref=e56]: Security
+            - generic [ref=e58]: Seguridad
+            - generic [ref=e59]: Popular
+            - generic [ref=e62]: Enterprise Only
+          - generic [ref=e63]:
+            - generic [ref=e68]:
+              - paragraph [ref=e69]: Source coverage
+              - paragraph [ref=e70]: Feature-specific source
+              - paragraph [ref=e71]: The linked Google page documents this capability. Edition eligibility is mapped only where the edition comparison lists it.
+              - paragraph [ref=e72]:
+                - text: "Source checked:"
+                - time [ref=e73]: 2026-10-18
+            - generic [ref=e74]:
+              - paragraph [ref=e75]: Availability notes
+              - list [ref=e76]:
+                - listitem [ref=e77]: • Gemini Enterprise's Model Armor integration is not a Workspace Business plan entitlement.
+                - listitem [ref=e78]: • Gemini Enterprise's Model Armor integration is not a Workspace plan entitlement.
+                - listitem [ref=e79]: • Gemini Enterprise integration supported at no additional cost. Sensitive Data Protection content policies are not supported on Business edition.
+                - listitem [ref=e80]: • Gemini Enterprise integration supported at no additional cost.
+            - generic [ref=e81]:
+              - paragraph [ref=e82]: Restrictions
+              - paragraph [ref=e83]: Enterprise editions only
+            - link "Open Google reference" [ref=e84] [cursor=pointer]:
+              - /url: https://docs.cloud.google.com/gemini/enterprise/docs/enable-model-armor
+          - generic [ref=e89]:
+            - paragraph [ref=e90]: Google references
+            - list [ref=e91]:
+              - listitem [ref=e92]:
+                - link "Enable Model Armor in Gemini Enterprise (edition support, roles, and app setup)" [ref=e93] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/gemini/enterprise/docs/enable-model-armor
+              - listitem [ref=e98]:
+                - link "Create and manage Model Armor templates" [ref=e99] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/model-armor/manage-templates
+              - listitem [ref=e104]:
+                - link "Compare Gemini Enterprise editions" [ref=e105] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/gemini/enterprise/docs/editions
+              - listitem [ref=e110]:
+                - link "Sensitive Data Protection edition limits" [ref=e111] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/gemini/enterprise/docs/protect-sensitive-data
+              - listitem [ref=e116]:
+                - link "Google Workspace" [ref=e117] [cursor=pointer]:
+                  - /url: https://workspace.google.com/
+              - listitem [ref=e122]:
+                - link "Google Gemini product overview" [ref=e123] [cursor=pointer]:
+                  - /url: https://workspace.google.com/products/gemini/?exp=none
+            - generic [ref=e128]:
+              - paragraph [ref=e129]: Google video walkthroughs
+              - list [ref=e130]:
+                - listitem [ref=e131]:
+                  - 'link "Google Cloud: Model Armor prompt injection and data leakage prevention" [ref=e132] [cursor=pointer]':
+                    - /url: https://www.youtube.com/watch?v=_w0A3VtQQbI
+          - generic [ref=e137]:
+            - heading "Model Armor" [level=1] [ref=e138]
+            - paragraph [ref=e139]: Google Cloud Model Armor screens supported prompts and responses when configured. Google documents its Gemini Enterprise integration for all Gemini Enterprise editions at no additional cost; it is not included with Google Workspace plans.
+            - link "Official documentation" [ref=e141] [cursor=pointer]:
+              - /url: https://docs.cloud.google.com/gemini/enterprise/docs/enable-model-armor
+          - generic [ref=e142]:
+            - link "Official Documentation" [ref=e143] [cursor=pointer]:
+              - /url: https://docs.cloud.google.com/gemini/enterprise/docs/enable-model-armor
+            - link "Compare Plans" [ref=e148] [cursor=pointer]:
+              - /url: /compare
+            - button "Share" [ref=e149] [cursor=pointer]
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - paragraph [ref=e159]: Use case
+            - paragraph [ref=e160]: Safely ingesting untrusted third-party documents
+          - generic [ref=e161]:
+            - paragraph [ref=e162]: Where it is used
+            - list [ref=e163]:
+              - listitem [ref=e164]:
+                - generic [ref=e166]: Workspace search
+              - listitem [ref=e167]:
+                - generic [ref=e169]: Admin setup
+              - listitem [ref=e170]:
+                - generic [ref=e172]: Business operations
+          - generic [ref=e173]:
+            - paragraph [ref=e174]: How to use it
+            - list [ref=e175]:
+              - listitem [ref=e176]:
+                - generic [ref=e177]: "1"
+                - generic [ref=e178]: Review the connector requirements in the admin console.
+              - listitem [ref=e179]:
+                - generic [ref=e180]: "2"
+                - generic [ref=e181]: Approve permissions and source access for the target system.
+              - listitem [ref=e182]:
+                - generic [ref=e183]: "3"
+                - generic [ref=e184]: Ask Gemini for a grounded answer using the connected app context.
+        - generic [ref=e185]:
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - heading "What It Does" [level=2] [ref=e189]
+                - paragraph [ref=e190]: Lets administrators configure prompt and response screening policies for supported Gemini Enterprise interactions. It requires template creation and app configuration; it does not automatically protect every Gemini experience or custom agent runtime.
+              - generic [ref=e192]:
+                - heading "How It Works" [level=2] [ref=e193]
+                - paragraph [ref=e194]: Create separate Model Armor templates for user prompts and model responses, then attach both resource names to a Gemini Enterprise app. Template filters, enforcement mode, region, IAM, and app configuration determine coverage.
+              - generic [ref=e196]:
+                - heading "Included capabilities" [level=3] [ref=e197]
+                - generic [ref=e199]:
+                  - generic [ref=e200]: Prompt injection and jailbreak detection
+                  - generic [ref=e201]: Sensitive data detection
+                  - generic [ref=e202]: Responsible AI filters
+                  - generic [ref=e203]: Malicious URL screening
+                  - generic [ref=e204]: Configurable blocking or inspect-only enforcement
+              - generic [ref=e206]:
+                - heading "Key Use Cases" [level=3] [ref=e207]
+                - list [ref=e208]:
+                  - listitem [ref=e209]:
+                    - generic [ref=e213]: Safely ingesting untrusted third-party documents
+                  - listitem [ref=e214]:
+                    - generic [ref=e218]: Preventing AI agent hijack attacks
+                  - listitem [ref=e219]:
+                    - generic [ref=e223]: Detecting obfuscated sensitive data leaks
+            - generic [ref=e224]:
+              - generic [ref=e225]:
+                - heading "Plan Availability Matrix" [level=2] [ref=e226]
+                - paragraph [ref=e227]: Cataloged availability across 16 listed plans. Unmapped entries need source review.
+              - table [ref=e230]:
+                - rowgroup [ref=e231]:
+                  - row [ref=e232]:
+                    - columnheader "Plan Name" [ref=e233]
+                    - columnheader "Category" [ref=e234]
+                    - columnheader "Status" [ref=e235]
+                    - columnheader "Limits & Notes" [ref=e236]
+                - rowgroup [ref=e237]:
+                  - row [ref=e238]:
+                    - cell "Business Starter" [ref=e239]
+                    - cell "Google Workspace" [ref=e240]
+                    - cell "Unavailable" [ref=e241]
+                    - cell "Gemini Enterprise's Model Armor integration is not a Workspace Business plan entitlement." [ref=e245]
+                  - row [ref=e246]:
+                    - cell "Business Standard" [ref=e247]
+                    - cell "Google Workspace" [ref=e248]
+                    - cell "Unavailable" [ref=e249]
+                    - cell "Gemini Enterprise's Model Armor integration is not a Workspace Business plan entitlement." [ref=e253]
+                  - row [ref=e254]:
+                    - cell "Business Plus" [ref=e255]
+                    - cell "Google Workspace" [ref=e256]
+                    - cell "Unavailable" [ref=e257]
+                    - cell "Gemini Enterprise's Model Armor integration is not a Workspace Business plan entitlement." [ref=e261]
+                  - row [ref=e262]:
+                    - cell "Enterprise Standard" [ref=e263]
+                    - cell "Google Workspace" [ref=e264]
+                    - cell "Unavailable" [ref=e265]
+                    - cell "Gemini Enterprise's Model Armor integration is not a Workspace plan entitlement." [ref=e269]
+                  - row [ref=e270]:
+                    - cell "Enterprise Plus" [ref=e271]
+                    - cell "Google Workspace" [ref=e272]
+                    - cell "Unavailable" [ref=e273]
+                    - cell "Gemini Enterprise's Model Armor integration is not a Workspace plan entitlement." [ref=e277]
+                  - row [ref=e278]:
+                    - cell "AI Expanded Access" [ref=e279]
+                    - cell "AI Add-ons" [ref=e280]
+                    - cell "Unavailable" [ref=e281]
+                    - cell "Gemini Enterprise's Model Armor integration is not a Workspace plan entitlement." [ref=e285]
+                  - row [ref=e286]:
+                    - cell "Google Voice Starter" [ref=e287]
+                    - cell "Workspace Add-ons" [ref=e288]
+                    - cell "Unavailable" [ref=e289]
+                    - cell "Model Armor's Gemini Enterprise integration is not a Google Voice plan feature." [ref=e293]
+                  - row [ref=e294]:
+                    - cell "Google Voice Standard" [ref=e295]
+                    - cell "Workspace Add-ons" [ref=e296]
+                    - cell "Unavailable" [ref=e297]
+                    - cell "Model Armor's Gemini Enterprise integration is not a Google Voice plan feature." [ref=e301]
+                  - row [ref=e302]:
+                    - cell "Google Voice Premier" [ref=e303]
+                    - cell "Workspace Add-ons" [ref=e304]
+                    - cell "Unavailable" [ref=e305]
+                    - cell "Model Armor's Gemini Enterprise integration is not a Google Voice plan feature." [ref=e309]
+                  - row [ref=e310]:
+                    - cell "AppSheet Core" [ref=e311]
+                    - cell "Workspace Add-ons" [ref=e312]
+                    - cell "Unavailable" [ref=e313]
+                    - cell "Model Armor's Gemini Enterprise integration is not an AppSheet Core plan feature." [ref=e317]
+                  - row [ref=e318]:
+                    - cell "Workspace Additional Storage" [ref=e319]
+                    - cell "Workspace Add-ons" [ref=e320]
+                    - cell "Unavailable" [ref=e321]
+                    - cell "Model Armor's Gemini Enterprise integration is not a Workspace storage add-on feature." [ref=e325]
+                  - row [ref=e326]:
+                    - cell "Gemini Enterprise Business" [ref=e327]
+                    - cell "Gemini Enterprise" [ref=e328]
+                    - cell "Available" [ref=e329]
+                    - cell "Gemini Enterprise integration supported at no additional cost. Sensitive Data Protection content policies are not supported on Business edition." [ref=e334]
+                  - row [ref=e335]:
+                    - cell "Gemini Enterprise Standard" [ref=e336]
+                    - cell "Gemini Enterprise" [ref=e337]
+                    - cell "Available" [ref=e338]
+                    - cell "Gemini Enterprise integration supported at no additional cost." [ref=e343]
+                  - row [ref=e344]:
+                    - cell "Gemini Enterprise Plus" [ref=e345]
+                    - cell "Gemini Enterprise" [ref=e346]
+                    - cell "Available" [ref=e347]
+                    - cell "Gemini Enterprise integration supported at no additional cost." [ref=e352]
+                  - row [ref=e353]:
+                    - cell "Gemini Enterprise Pay-as-you-go" [ref=e354]
+                    - cell "Gemini Enterprise" [ref=e355]
+                    - cell "Available" [ref=e356]
+                    - cell "Gemini Enterprise integration supported at no additional cost." [ref=e361]
+                  - row [ref=e362]:
+                    - cell "Gemini Enterprise Frontline" [ref=e363]
+                    - cell "Gemini Enterprise" [ref=e364]
+                    - cell "Available" [ref=e365]
+                    - cell "Gemini Enterprise Frontline is included in Google's all-editions Model Armor support statement." [ref=e370]
+          - generic [ref=e372]:
+            - heading "Related Features" [level=3] [ref=e373]
+            - generic [ref=e374]:
+              - link "security Gemini app with enterprise-grade data protection Workspace accounts with qualifying commercial editions receive the data protections described in Google's Workspace Gemini privacy documentation. Protections differ for users without a qualifying work or school account." [ref=e375] [cursor=pointer]:
+                - /url: /features/security-gemini-app-with-enterprise-grade-data-protection
+                - generic [ref=e376]: security
+                - heading "Gemini app with enterprise-grade data protection" [level=4] [ref=e381]
+                - paragraph [ref=e382]: Workspace accounts with qualifying commercial editions receive the data protections described in Google's Workspace Gemini privacy documentation. Protections differ for users without a qualifying work or school account.
+              - link "security Vault (eDiscovery) Google Vault supports retention, holds, search, and export for eligible Workspace data. Supported services and Gemini interaction coverage depend on Google's current Vault documentation and the account's edition." [ref=e383] [cursor=pointer]:
+                - /url: /features/security-vault-ediscovery
+                - generic [ref=e384]: security
+                - heading "Vault (eDiscovery)" [level=4] [ref=e389]
+                - paragraph [ref=e390]: Google Vault supports retention, holds, search, and export for eligible Workspace data. Supported services and Gemini interaction coverage depend on Google's current Vault documentation and the account's edition.
+              - link "security DLP (Data Loss Prevention) Google Workspace DLP applies administrator-defined rules to supported services and content. Coverage, detection, and available actions vary by service, edition, and configuration; it is not a blanket guarantee for every Gemini prompt or data flow." [ref=e391] [cursor=pointer]:
+                - /url: /features/security-dlp
+                - generic [ref=e392]: security
+                - heading "DLP (Data Loss Prevention)" [level=4] [ref=e397]
+                - paragraph [ref=e398]: Google Workspace DLP applies administrator-defined rules to supported services and content. Coverage, detection, and available actions vary by service, edition, and configuration; it is not a blanket guarantee for every Gemini prompt or data flow.
+  - contentinfo [ref=e399]:
+    - generic [ref=e401]:
+      - generic [ref=e402]: Independent Google Workspace and Gemini product research
+      - generic [ref=e403]: Product terms change; confirm details in the linked Google sources.
+    - generic [ref=e405]:
+      - generic [ref=e406]:
+        - generic [ref=e407]:
+          - generic [ref=e408]:
+            - generic [ref=e409]: Workspace Gemini
+            - generic [ref=e410]: Product intelligence
+          - paragraph [ref=e411]: by Independent Research
+        - paragraph [ref=e412]: The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+        - generic [ref=e413]:
+          - generic [ref=e414]: Business ($21/mo)
+          - generic [ref=e415]: Standard ($30/mo)
+          - generic [ref=e416]: Plus ($30+/mo)
+        - link "Compare Plans" [ref=e418] [cursor=pointer]:
+          - /url: /compare
+      - generic [ref=e424]:
+        - heading "Platform" [level=4] [ref=e425]
+        - list [ref=e426]:
+          - listitem [ref=e427]:
+            - link "All Features" [ref=e428] [cursor=pointer]:
+              - /url: /features
+          - listitem [ref=e429]:
+            - link "Compare Plans" [ref=e430] [cursor=pointer]:
+              - /url: /compare
+          - listitem [ref=e431]:
+            - link "Interactive Mind Map" [ref=e432] [cursor=pointer]:
+              - /url: /mindmap
+          - listitem [ref=e433]:
+            - link "models" [ref=e434] [cursor=pointer]:
+              - /url: /models
+          - listitem [ref=e435]:
+            - link "Pricing" [ref=e436] [cursor=pointer]:
+              - /url: /pricing
+      - generic [ref=e437]:
+        - heading "Enterprise" [level=4] [ref=e438]
+        - list [ref=e439]:
+          - listitem [ref=e440]:
+            - link "Claude to Gemini migration" [ref=e441] [cursor=pointer]:
+              - /url: /migration
+          - listitem [ref=e443]:
+            - link "Gemini Enterprise Business Setup Agent Designer" [ref=e444] [cursor=pointer]:
+              - /url: /enterprise/onboarding/business
+              - generic [ref=e445]: Gemini Enterprise Business Setup
+              - generic [ref=e446]: Agent Designer
+          - listitem [ref=e447]:
+            - link "Standard & Plus (Cloud) Onboarding console.cloud.google.com" [ref=e448] [cursor=pointer]:
+              - /url: /enterprise/onboarding/cloud
+              - generic [ref=e449]: Standard & Plus (Cloud) Onboarding
+              - generic [ref=e450]: console.cloud.google.com
+          - listitem [ref=e451]:
+            - link "Connectors" [ref=e452] [cursor=pointer]:
+              - /url: /enterprise/connectors
+          - listitem [ref=e454]:
+            - link "Agents & MCP" [ref=e455] [cursor=pointer]:
+              - /url: /enterprise/agents
+          - listitem [ref=e457]:
+            - link "Security & Governance" [ref=e458] [cursor=pointer]:
+              - /url: /security
+      - generic [ref=e460]:
+        - heading "Applications" [level=4] [ref=e461]
+        - generic [ref=e462]:
+          - link "Gmail" [ref=e463] [cursor=pointer]:
+            - /url: /apps/gmail
+          - link "Docs" [ref=e464] [cursor=pointer]:
+            - /url: /apps/docs
+          - link "Sheets" [ref=e465] [cursor=pointer]:
+            - /url: /apps/sheets
+          - link "Meet" [ref=e466] [cursor=pointer]:
+            - /url: /apps/meet
+          - link "Drive" [ref=e467] [cursor=pointer]:
+            - /url: /apps/drive
+          - link "NotebookLM" [ref=e468] [cursor=pointer]:
+            - /url: /apps/notebooklm
+          - link "Slides" [ref=e469] [cursor=pointer]:
+            - /url: /apps/slides
+          - link "Vids" [ref=e470] [cursor=pointer]:
+            - /url: /apps/vids
+      - generic [ref=e471]:
+        - heading "Governance & Insights" [level=4] [ref=e472]
+        - list [ref=e473]:
+          - listitem [ref=e474]:
+            - link "Articles" [ref=e475] [cursor=pointer]:
+              - /url: /articles
+          - listitem [ref=e477]:
+            - link "Google AI Updates Oct 2026" [ref=e478] [cursor=pointer]:
+              - /url: /google-ai-updates
+              - generic [ref=e479]: Google AI Updates
+              - generic [ref=e480]: Oct 2026
+          - listitem [ref=e481]:
+            - link "about" [ref=e482] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e484]:
+            - link "Affiliate disclosure" [ref=e485] [cursor=pointer]:
+              - /url: /affiliate-disclosure
+          - listitem [ref=e487]:
+            - link "Model Armor & DLP" [ref=e488] [cursor=pointer]:
+              - /url: /security
+          - listitem [ref=e489]:
+            - link "Readiness Assessment" [ref=e490] [cursor=pointer]:
+              - /url: /enterprise/readiness
+    - generic [ref=e492]:
+      - paragraph [ref=e493]: © 2026 Workspace Gemini Intelligence. Independent product research. Not affiliated with Google LLC. Google Workspace & Gemini are trademarks of Google LLC.
+      - button "Scroll back to top" [ref=e494] [cursor=pointer]:
+        - generic [ref=e495]: Back to top

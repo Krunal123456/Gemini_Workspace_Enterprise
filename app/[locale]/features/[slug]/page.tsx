@@ -148,6 +148,7 @@ export default async function FeatureDetailPage({ params }: Props) {
                 </li>
               ))}
             </ul>
+            {feature.videoSources && feature.videoSources.length > 0 && <div className="mt-5 border-t border-border pt-4"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Google video walkthroughs")}</p><ul className="mt-3 space-y-2">{feature.videoSources.map((video) => <li key={video.url}><a href={video.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-google-blue hover:underline"><ExternalLink className="h-3.5 w-3.5" />{video.label}</a></li>)}</ul></div>}
           </section>
 
           <div>

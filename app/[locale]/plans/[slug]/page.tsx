@@ -249,7 +249,7 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
         {plan.officialSources && plan.officialSources.length > 0 && (
           <aside className="rounded-2xl border border-border bg-muted/20 p-6" aria-labelledby="plan-sources-heading">
             <h2 id="plan-sources-heading" className="text-lg font-bold text-foreground">{t("Official plan references")}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Checked September 28, 2026. Pricing, feature access, and limits can change; use these Google pages for current purchase details.</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t("These Google references provide plan information. Source coverage varies; confirm current pricing, availability, and terms with Google before purchase.")}</p>
             <ul className="mt-4 grid gap-2 sm:grid-cols-2">
               {plan.officialSources.map((source) => (
                 <li key={source.url}>

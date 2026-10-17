@@ -102,6 +102,38 @@ const defaultGoogleSources = (feature: Feature) => {
       { label: "Google Workspace product overview", url: WORKSPACE_HOME_URL },
       { label: "Google Workspace pricing", url: WORKSPACE_PRICING_URL },
     ],
+    "security-gemini-app-with-enterprise-grade-data-protection": [
+      { label: "Google Workspace Gemini privacy and data protections FAQ", url: "https://support.google.com/a/answer/14130944?hl=en-uk" },
+      { label: "Google Workspace security and data protection", url: "https://workspace.google.com/security/" },
+    ],
+    "security-data-regions-basic-single-policy": [
+      { label: "Google Workspace Data Regions coverage and eligibility", url: "https://knowledge.workspace.google.com/admin/compliance/data-covered-by-data-regions" },
+      { label: "Compare Google Workspace editions", url: "https://knowledge.workspace.google.com/admin/getting-started/editions/compare-business-editions" },
+    ],
+    "security-client-side-encryption": [
+      { label: "Google Workspace client-side encryption overview and supported editions", url: "https://knowledge.workspace.google.com/admin/security/client-side-encryption-user-experience-overview?hl=en" },
+    ],
+    "security-vpc-service-controls": [
+      { label: "Secure a Gemini Enterprise app with VPC Service Controls", url: "https://docs.cloud.google.com/gemini/enterprise/docs/use-vpc-service-controls?hl=en" },
+    ],
+    "meet-translated-captions": [
+      { label: "Supported languages for Google Workspace with Gemini", url: "https://support.google.com/meet/answer/14925782?hl=En" },
+      { label: "Google Workspace AI Expanded Access and usage limits", url: "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini/ai-expanded-access" },
+    ],
+    "security-vault-ediscovery": [
+      { label: "Google Vault Help Center", url: "https://support.google.com/vault/?hl=en" },
+    ],
+    "security-dlp": [
+      { label: "About DLP for Google Drive", url: "https://knowledge.workspace.google.com/admin/security/about-dlp-for-drive" },
+      { label: "Create DLP rules for Drive", url: "https://knowledge.workspace.google.com/admin/security/create-dlp-for-drive-rules-and-custom-content-detectors" },
+    ],
+    "security-enterprise-grade-security-and-compliance": [
+      { label: "Google Workspace security and data protection", url: "https://workspace.google.com/security/" },
+    ],
+    "security-hipaa-compliance": [
+      { label: "Google Workspace HIPAA implementation guide", url: "https://services.google.com/fh/files/misc/gsuite_cloud_identity_hipaa_implementation_guide.pdf" },
+      { label: "Google Workspace HIPAA Business Associate Addendum", url: "https://workspace.google.com/terms/2015/1/hipaa_baa/" },
+    ],
   };
 
   if (slugSpecificSources[slug]) {

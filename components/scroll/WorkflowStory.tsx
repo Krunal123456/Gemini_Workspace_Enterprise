@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -66,6 +66,8 @@ export function WorkflowStory() {
   const rootRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const activeIndexRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -113,11 +115,15 @@ export function WorkflowStory() {
       });
 
       timeline.eventCallback("onUpdate", () => {
-        const activeIndex = Math.min(panels.length - 1, Math.floor((timeline.progress() * (panels.length - 1)) + 0.12));
+        const currentIndex = Math.min(panels.length - 1, Math.floor((timeline.progress() * (panels.length - 1)) + 0.12));
+        if (activeIndexRef.current !== currentIndex) {
+          activeIndexRef.current = currentIndex;
+          setActiveIndex(currentIndex);
+        }
         stepRefs.current.forEach((step, index) => {
           if (!step) return;
-          step.dataset.active = String(index === activeIndex);
-          if (index === activeIndex) step.setAttribute("aria-current", "step");
+          step.dataset.active = String(index === currentIndex);
+          if (index === currentIndex) step.setAttribute("aria-current", "step");
           else step.removeAttribute("aria-current");
         });
       });
@@ -140,10 +146,9 @@ export function WorkflowStory() {
   }, []);
 
   return (
-    <section ref={rootRef} className="workflow-story relative border-y border-white/10 bg-[#0b0912] text-white">
+    <section ref={rootRef} className="workflow-story relative border-y border-white/10 bg-[#0b223a] text-white">
       <div className="workflow-stage mx-auto grid max-w-[1440px] gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-12 lg:py-16">
         <div className="workflow-intro max-w-xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-violet-200">{t("Workspace tools, connected")}</p>
           <h2 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{t("How Gemini moves work forward.")}</h2>
           <p className="mt-5 max-w-lg text-sm leading-7 text-white/60 sm:text-base">
             {t("From the first message to a reviewed next step, Gemini brings AI into the Workspace tools your teams already use.")}
@@ -153,26 +158,38 @@ export function WorkflowStory() {
             {WORKFLOWS.map((workflow, index) => {
               const Icon = workflow.icon;
               return (
-                <li key={workflow.id} ref={(element) => { stepRefs.current[index] = element; }} data-active={index === 0} aria-current={index === 0 ? "step" : undefined} className="workflow-step flex min-h-12 items-center gap-3 border-b border-white/10 py-3 text-sm text-white/45 transition-colors data-[active=true]:text-white">
-                  <span className="flex h-8 w-8 items-center justify-center border border-white/10 bg-white/[0.03] text-white/70"><Icon className="h-4 w-4" /></span>
-                  <span className="flex-1">{workflow.app}</span>
-                  <span className="h-1 w-1 rounded-full bg-violet-300 opacity-0 data-[active=true]:opacity-100" />
+                <li key={workflow.id} ref={(element) => { stepRefs.current[index] = element; }} data-active={activeIndex === index} aria-current={activeIndex === index ? "step" : undefined} className="workflow-step flex min-h-12 items-center border-b border-white/10 text-sm text-white/45 transition-colors data-[active=true]:text-white">
+                  <span className="hidden w-full items-center gap-3 py-3 lg:flex">
+                    <span className="flex h-8 w-8 items-center justify-center border border-white/10 bg-white/[0.03] text-white/70"><Icon className="h-4 w-4" /></span>
+                    <span className="flex-1">{workflow.app}</span>
+                    <span className="h-1 w-1 rounded-full bg-blue-300 opacity-0 data-[active=true]:opacity-100" />
+                  </span>
+                  <button
+                    type="button"
+                    aria-pressed={activeIndex === index}
+                    onClick={() => { activeIndexRef.current = index; setActiveIndex(index); }}
+                    className="flex min-h-12 w-full items-center gap-3 py-3 text-left lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center border border-white/10 bg-white/[0.03] text-white/70"><Icon className="h-4 w-4" /></span>
+                    <span className="flex-1">{workflow.app}</span>
+                    <span className="h-1 w-1 rounded-full bg-blue-300 opacity-0 data-[active=true]:opacity-100" />
+                  </button>
                 </li>
               );
             })}
           </ol>
 
           <div className="mt-8 hidden items-center gap-3 lg:flex" aria-hidden="true">
-            <div className="h-24 w-px overflow-hidden bg-white/10"><div ref={progressRef} className="h-full origin-top scale-y-0 bg-violet-300" /></div>
+            <div className="h-24 w-px overflow-hidden bg-white/10"><div ref={progressRef} className="h-full origin-top scale-y-0 bg-blue-300" /></div>
             <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-white/40">{t("Scroll to follow")}</span>
           </div>
         </div>
 
         <div className="workflow-stack relative grid min-h-[490px] gap-5 sm:min-h-[520px]">
-          {WORKFLOWS.map((workflow) => {
+          {WORKFLOWS.map((workflow, index) => {
             const Icon = workflow.icon;
             return (
-              <article key={workflow.id} data-spotlight className="workflow-panel spotlight-surface relative flex min-h-[430px] flex-col overflow-hidden border border-white/12 bg-[#13101b] p-5 shadow-[0_35px_90px_-55px_rgba(0,0,0,0.8)] sm:p-7" style={{ "--workflow-accent": workflow.color } as React.CSSProperties}>
+              <article key={workflow.id} data-spotlight className={`workflow-panel spotlight-surface relative min-h-[430px] flex-col overflow-hidden border border-white/12 bg-[#102f4e] p-5 shadow-[0_35px_90px_-55px_rgba(0,0,0,0.45)] sm:p-7 ${activeIndex === index ? "flex" : "hidden lg:flex"}`} style={{ "--workflow-accent": workflow.color } as React.CSSProperties}>
                 <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-[0.08] blur-[65px]" style={{ backgroundColor: workflow.color }} />
                 <div className="relative flex items-center justify-between border-b border-white/10 pb-4">
                   <div className="flex items-center gap-3">
@@ -196,7 +213,7 @@ export function WorkflowStory() {
                     <div className="flex items-center gap-2 border-b border-white/10 pb-3"><Icon className="h-4 w-4" style={{ color: workflow.color }} /><span className="text-xs font-medium text-white/75">{t(workflow.preview[0])}</span></div>
                     <p className="mt-3 text-[10px] text-white/40">{t(workflow.preview[1])}</p>
                     <div className="mt-4 space-y-2">
-                      {workflow.preview.slice(2).map((line, index) => <div key={line} className="flex gap-2 text-xs leading-5 text-white/70"><span className="font-mono text-violet-200/75">0{index + 1}</span><span>{t(line)}</span></div>)}
+                      {workflow.preview.slice(2).map((line, index) => <div key={line} className="flex gap-2 text-xs leading-5 text-white/70"><span className="font-mono text-blue-200/75">0{index + 1}</span><span>{t(line)}</span></div>)}
                     </div>
                     <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/40"><span>{t("Review before sharing")}</span><ArrowRight className="h-3.5 w-3.5" /></div>
                   </div>
