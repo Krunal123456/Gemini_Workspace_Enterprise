@@ -5,7 +5,13 @@ import { Sun, Moon, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
-export function ThemeToggle({ className }: { className?: string }) {
+export function ThemeToggle({
+  className,
+  compact = false,
+}: {
+  className?: string;
+  compact?: boolean;
+}) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -14,7 +20,33 @@ export function ThemeToggle({ className }: { className?: string }) {
   }, []);
 
   if (!mounted) {
-    return <div className={cn("h-8 w-24 bg-white/40 dark:bg-white/5 animate-pulse rounded-full border border-slate-200/50 dark:border-white/10", className)} />;
+    return (
+      <div
+        className={cn(
+          compact
+            ? "h-9 w-9 rounded-full bg-white/40 dark:bg-white/5 animate-pulse border border-slate-200/50 dark:border-white/10"
+            : "h-8 w-24 bg-white/40 dark:bg-white/5 animate-pulse rounded-full border border-slate-200/50 dark:border-white/10",
+          className
+        )}
+      />
+    );
+  }
+
+  if (compact) {
+    const isDark = theme === "dark";
+    return (
+      <button
+        onClick={() => setTheme(isDark ? "light" : "dark")}
+        aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+        title={isDark ? "Switch to light theme" : "Switch to dark theme"}
+        className={cn(
+          "flex h-9 w-9 items-center justify-center rounded-full border border-slate-200/80 bg-white/70 text-slate-700 shadow-sm backdrop-blur-xl transition-all duration-200 hover:border-violet-400/40 hover:bg-white hover:text-slate-950 hover:shadow-md dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.1] dark:hover:text-white shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50",
+          className
+        )}
+      >
+        {isDark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-violet-600" />}
+      </button>
+    );
   }
 
   return (

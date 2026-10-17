@@ -9,11 +9,11 @@ import Link from "next/link";
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 import { Clock3, Layers3, ListChecks, ShieldCheck, Workflow } from "lucide-react";
 
-const buildMetrics = (features: unknown[], plans: unknown[], securityLayers: unknown[]) => [
+const buildMetrics = (features: unknown[], plans: unknown[], securityLayers: unknown[], applications: unknown[]) => [
   { value: features.length, suffix: "+", label: "Workspace and Gemini capabilities indexed", icon: ListChecks },
   { value: plans.length, suffix: "", label: "Plan editions mapped for comparison", icon: Layers3 },
   { value: securityLayers.length, suffix: "", label: "Security and governance layers catalogued", icon: ShieldCheck },
-  { value: 2, suffix: "M", label: "Input-token context for Gemini 2.5 Pro API", icon: Workflow },
+  { value: applications.length, suffix: "", label: "Workspace app surfaces indexed", icon: Workflow },
 ];
 
 function CountUp({ value, suffix }: { value: number; suffix: string }) {
@@ -37,10 +37,10 @@ function CountUp({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export function WorkspaceProofMetrics() {
-  const { features, plans, securityLayers } = useLocalizedData();
+  const { features, plans, securityLayers, applications } = useLocalizedData();
   const { locale } = useLocale();
   const t = createPhraseTranslator(locale);
-  const METRICS = buildMetrics(features, plans, securityLayers);
+  const METRICS = buildMetrics(features, plans, securityLayers, applications);
   const reduceMotion = useReducedMotion();
 
   return (
@@ -82,19 +82,19 @@ export function CinematicWorkspaceCTA() {
   const { locale, href } = useLocale();
   const t = createPhraseTranslator(locale);
   return (
-    <section className="relative overflow-hidden bg-[#0b0912] py-20 text-white md:py-28">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_115%,rgba(124,58,237,0.3),transparent_48%),radial-gradient(ellipse_at_8%_18%,rgba(66,133,244,0.12),transparent_32%)]" />
+    <section className="relative overflow-hidden bg-background py-20 text-foreground dark:bg-[#07080e] dark:text-white md:py-28 border-b border-border">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_115%,rgba(124,58,237,0.15),transparent_48%),radial-gradient(ellipse_at_8%_18%,rgba(66,133,244,0.08),transparent_32%)] dark:bg-[radial-gradient(ellipse_at_50%_115%,rgba(124,58,237,0.3),transparent_48%),radial-gradient(ellipse_at_8%_18%,rgba(66,133,244,0.12),transparent_32%)]" />
       <div className="relative mx-auto max-w-[1100px] px-4 text-center sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl rounded-3xl border border-white/15 bg-white/[0.04] p-8 sm:p-12 md:p-16 backdrop-blur-2xl shadow-[0_30px_90px_-30px_rgba(124,58,237,0.35)]">
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-200/25 bg-violet-500/15 text-violet-200 backdrop-blur-md shadow-inner">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-border/80 bg-card p-8 sm:p-12 md:p-16 shadow-xl dark:border-white/15 dark:bg-white/[0.04] backdrop-blur-2xl">
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-500/20 bg-violet-500/10 text-violet-700 dark:text-violet-300 backdrop-blur-md shadow-sm">
             <Clock3 className="h-6 w-6" />
           </div>
-          <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{t("Ready to shape your enterprise AI workflow?")}</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">{t("Explore plan availability and governance controls for Gemini in Workspace.")}</p>
+          <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl text-foreground">{t("Ready to shape your enterprise AI workflow?")}</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">{t("Explore plan availability and governance controls for Gemini in Workspace.")}</p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href={href("/compare")}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-violet-300/40 bg-violet-600/30 px-8 text-sm font-semibold text-white shadow-lg backdrop-blur-md transition-all hover:bg-violet-600/50 hover:border-violet-300/60"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-google-blue to-gemini-purple px-8 text-sm font-bold text-white shadow-md transition-all hover:opacity-90 hover:shadow-lg"
             >
               <Layers3 className="h-4 w-4" />{t("Compare Workspace plans")}
             </Link>

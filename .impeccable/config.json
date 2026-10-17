@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "ai-color-palette",
+        "value": "*",
+        "files": [
+          "components/hero/Hero.tsx"
+        ],
+        "createdAt": "2026-10-17T19:55:15.422Z",
+        "reason": "Project design decision: the Gemini model count uses the Gemini violet accent as a semantic product marker; this is not a gradient or a multi-hue dark palette."
+      }
+    ]
+  }
+}

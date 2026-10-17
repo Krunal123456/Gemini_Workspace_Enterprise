@@ -5,6 +5,7 @@ import { useLocale } from "@/lib/i18n/locale-context";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -46,6 +47,7 @@ const sitePages = [
   { id: "agents-page", title: "Enterprise agents", description: "Review agent patterns, workflows, and governance considerations.", href: "/enterprise/agents", keywords: "workflow builder custom tools mcp" },
   { id: "security-page", title: "Security and governance", description: "Review identity, data protection, AI safety, retention, compliance, and audit topics.", href: "/security", keywords: "privacy security model armor identity audit compliance" },
   { id: "articles-index", title: "Research and articles", description: "Read product explainers, comparisons, and current research notes.", href: "/articles", keywords: "guides reports updates research" },
+  { id: "google-ai-updates", title: "Google AI updates for customer engineers", description: "Review current Gemini API, Gemini Enterprise, and Workspace releases with status, migration notes, and rollout checks.", href: "/google-ai-updates", keywords: "release notes changelog migration deprecation availability rollout updates" },
   { id: "about-page", title: "About MarketStar research", description: "Learn about this product intelligence resource.", href: "/about", keywords: "about company contact" },
 ];
 
@@ -479,17 +481,18 @@ export function CommandPalette() {
   };
 
   return (
-    <AnimatePresence>
+    typeof document !== "undefined" && createPortal(
+      <AnimatePresence>
       {isOpen && (
         <>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-slate-950/45 backdrop-blur-sm"
             aria-hidden="true"
           />
-          <div className="fixed inset-0 z-[70] flex items-start justify-center pt-[15vh] px-4 pointer-events-none">
+          <div className="pointer-events-none fixed inset-0 z-[100] grid place-items-center p-3 sm:p-6">
             <motion.div
               ref={modalRef}
               role="dialog"
@@ -500,11 +503,11 @@ export function CommandPalette() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 8 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="w-full max-w-2xl overflow-hidden rounded-[30px] border border-slate-200/80 bg-white/80 shadow-[0_35px_100px_-40px_rgba(59,130,246,0.65)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75 pointer-events-auto flex flex-col max-h-[72vh]"
+              className="pointer-events-auto flex max-h-[calc(100dvh-1.5rem)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.5)] sm:max-h-[calc(100dvh-3rem)] sm:rounded-3xl dark:border-white/15 dark:bg-slate-950"
             >
               <h2 id="command-palette-title" className="sr-only">{t("nav.searchSite")}</h2>
               <div className="relative border-b border-slate-200/80 px-4 py-4 dark:border-white/10">
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-3 py-3 shadow-inner shadow-slate-200/50 dark:border-white/10 dark:bg-slate-900/80 dark:shadow-none">
+                <div className="flex min-w-0 items-center gap-3 rounded-xl border border-slate-300 bg-white px-3 py-3 shadow-sm focus-within:border-violet-400 focus-within:ring-2 focus-within:ring-violet-500/20 dark:border-white/15 dark:bg-slate-900">
                   <Search className="h-5 w-5 shrink-0 text-slate-500 dark:text-slate-400" />
                   <input
                     ref={inputRef}
@@ -513,7 +516,7 @@ export function CommandPalette() {
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleInputKeyDown}
                     placeholder={tp("Search everything: features, plans, sources, models, guides...")}
-                    className="flex-1 bg-transparent text-base text-slate-800 outline-none placeholder:text-slate-500 dark:text-slate-100 dark:placeholder:text-slate-400"
+                    className="min-w-0 flex-1 bg-transparent text-base text-slate-800 outline-none placeholder:text-slate-500 dark:text-slate-100 dark:placeholder:text-slate-400"
                     aria-label={tp("Search all site content")}
                     role="combobox"
                     aria-autocomplete="list"
@@ -793,6 +796,8 @@ export function CommandPalette() {
           </div>
         </>
       )}
-    </AnimatePresence>
+      </AnimatePresence>,
+      document.body,
+    )
   );
 }

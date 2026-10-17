@@ -216,13 +216,13 @@ export function WorkspaceAtlas() {
               key={node.id}
               type="button"
               style={nodeStyle}
-              className={`${styles.node} ${KIND_CLASS[node.kind]} ${isActive ? styles.activeNode : ""}`}
+              className={`${styles.node} ${KIND_CLASS[node.kind]} ${node.left <= 18 ? styles.leftEdgeNode : ""} ${node.left >= 82 ? styles.rightEdgeNode : ""} ${isActive ? styles.activeNode : ""}`}
               onClick={() => setActiveNodeId(node.id)}
               aria-pressed={isActive}
               aria-label={`${node.name}, ${node.kindLabel}. ${isActive ? "Selected" : "Select"}`}
             >
               <Icon aria-hidden="true" />
-              <span>{node.name}</span>
+              <span>{node.id === "data-protection" ? tp("Data protection") : node.name}</span>
               <span className={styles.nodeSignal} aria-hidden="true" />
             </button>
           );

@@ -59,23 +59,29 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const locale: Locale = resolveLocale(rawLocale);
   return (
     <div className="flex min-h-screen flex-col">
-      <Hero labels={getDictionary(locale).hero} />
-      <WorkflowStory />
-      <LatestModelShowcase />
-      <EnterpriseTrustBento />
-      <WorkspaceProofMetrics />
-
-      <section id="compare" className="border-b border-border bg-background py-20 md:py-24">
+      <div data-tour="intro" className="scroll-mt-28">
+        <Hero labels={getDictionary(locale).hero} />
+      </div>
+      <section id="compare" data-tour="compare" className="scroll-mt-28 border-b border-border bg-background py-20 md:py-24">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <ComparisonPreview />
         </div>
       </section>
 
-      <section id="enterprise" className="border-b border-border">
+      <div data-tour="workflow" className="scroll-mt-28">
+        <WorkflowStory />
+      </div>
+      <div data-tour="models" className="scroll-mt-28">
+        <LatestModelShowcase />
+      </div>
+      <EnterpriseTrustBento />
+      <WorkspaceProofMetrics />
+
+      <section id="enterprise" data-tour="enterprise" className="scroll-mt-28 border-b border-border">
         <EnterpriseSection />
       </section>
 
-      <section id="articles" className="border-b border-border">
+      <section id="articles" data-tour="research" className="scroll-mt-28 border-b border-border">
         <ArticlesTeaser />
       </section>
 

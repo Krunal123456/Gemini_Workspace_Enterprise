@@ -32,6 +32,7 @@ const staticRoutes = [
   "/enterprise/agents",
   "/security",
   "/articles",
+  "/google-ai-updates",
   "/about",
 ];
 

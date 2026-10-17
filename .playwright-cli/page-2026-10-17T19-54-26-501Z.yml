@@ -1,0 +1,833 @@
+- generic [active] [ref=f2e1]:
+  - banner [ref=f2e2]:
+    - generic [ref=f2e4]:
+      - generic [ref=f2e5]:
+        - link "MarketStar — Gemini Intelligence home" [ref=f2e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f2e7]:
+            - img "MarketStar" [ref=f2e9]
+            - generic [ref=f2e11]: Gemini Intelligence
+        - button "Search the site" [ref=f2e15] [cursor=pointer]:
+          - generic [ref=f2e19]: Search...
+      - navigation [ref=f2e21]:
+        - link "Features" [ref=f2e22] [cursor=pointer]:
+          - /url: /features
+        - link "Plans" [ref=f2e24] [cursor=pointer]:
+          - /url: /plans
+        - link "Compare" [ref=f2e26] [cursor=pointer]:
+          - /url: /compare
+        - link "Mind Map" [ref=f2e28] [cursor=pointer]:
+          - /url: /mindmap
+        - link "Models" [ref=f2e30] [cursor=pointer]:
+          - /url: /models
+        - link "Pricing" [ref=f2e32] [cursor=pointer]:
+          - /url: /pricing
+        - button "Apps" [ref=f2e35] [cursor=pointer]
+      - generic [ref=f2e38]:
+        - 'button "Language selector. Current language: English" [ref=f2e41] [cursor=pointer]':
+          - generic [ref=f2e45]: EN
+        - button "Get Started" [ref=f2e48] [cursor=pointer]
+  - main [ref=f2e52]:
+    - generic [ref=f2e54]:
+      - generic [ref=f2e57]:
+        - generic [ref=f2e58]:
+          - generic [ref=f2e59]:
+            - generic [ref=f2e60]:
+              - img "Google Workspace" [ref=f2e63]
+              - generic [ref=f2e64]: +
+              - generic [ref=f2e65]: Gemini Enterprise
+              - generic [ref=f2e66]: · Reference Architecture
+            - heading "Google Workspace AI, Engineered for Enterprise Scale." [level=1] [ref=f2e67]:
+              - generic [ref=f2e68]: Google
+              - generic [ref=f2e69]: Workspace AI,
+              - generic [ref=f2e70]:
+                - generic [ref=f2e71]: Engineered for
+                - generic [ref=f2e72]: Enterprise Scale.
+            - paragraph [ref=f2e73]: Explore 108+ AI capabilities, Google Workspace plans, and Gemini Enterprise features. Compare pricing, storage, apps, and controls to find the right fit.
+            - generic [ref=f2e74]:
+              - link "Compare Plans & Quotas" [ref=f2e75] [cursor=pointer]:
+                - /url: /compare
+              - link "Interactive Mind Map" [ref=f2e81] [cursor=pointer]:
+                - /url: /mindmap
+            - generic [ref=f2e87]:
+              - text: "Quick lookups:"
+              - generic [ref=f2e88]:
+                - button "Deep Research" [ref=f2e89] [cursor=pointer]
+                - button "Salesforce Connector" [ref=f2e90] [cursor=pointer]
+                - button "25 GiB Pooled Quota" [ref=f2e91] [cursor=pointer]
+                - button "Model Armor" [ref=f2e92] [cursor=pointer]
+                - button "NotebookLM" [ref=f2e93] [cursor=pointer]
+                - button "Google Vids" [ref=f2e94] [cursor=pointer]
+          - region [ref=f2e96]:
+            - generic [ref=f2e97]:
+              - generic [ref=f2e98]:
+                - paragraph [ref=f2e99]: Google Workspace
+                - heading "Business plans at a glance" [level=2] [ref=f2e100]
+              - generic [ref=f2e101]: USD · annual commitment
+            - generic [ref=f2e102]:
+              - article [ref=f2e103]:
+                - paragraph [ref=f2e104]: Google Workspace
+                - heading "Business Starter" [level=3] [ref=f2e105]
+                - paragraph [ref=f2e106]:
+                  - text: $7
+                  - generic [ref=f2e107]: / user/mo
+                - generic [ref=f2e108]:
+                  - generic [ref=f2e109]:
+                    - paragraph [ref=f2e110]: Storage
+                    - paragraph [ref=f2e111]: 30 GB pooled per user
+                  - generic [ref=f2e112]:
+                    - paragraph [ref=f2e113]: Google Meet
+                    - paragraph [ref=f2e114]: 100 participants
+                  - paragraph [ref=f2e115]: Gemini in Gmail
+              - article [ref=f2e116]:
+                - paragraph [ref=f2e117]: Google Workspace
+                - heading "Business Standard" [level=3] [ref=f2e118]
+                - paragraph [ref=f2e119]:
+                  - text: $14
+                  - generic [ref=f2e120]: / user/mo
+                - generic [ref=f2e121]:
+                  - generic [ref=f2e122]:
+                    - paragraph [ref=f2e123]: Storage
+                    - paragraph [ref=f2e124]: 2 TB pooled per user
+                  - generic [ref=f2e125]:
+                    - paragraph [ref=f2e126]: Google Meet
+                    - paragraph [ref=f2e127]: 150 participants
+                  - paragraph [ref=f2e128]: Gemini across Gmail, Docs, Sheets, Slides, Meet, and other eligible Workspace apps
+              - article [ref=f2e129]:
+                - paragraph [ref=f2e130]: Google Workspace
+                - heading "Business Plus" [level=3] [ref=f2e131]
+                - paragraph [ref=f2e132]:
+                  - text: $22
+                  - generic [ref=f2e133]: / user/mo
+                - generic [ref=f2e134]:
+                  - generic [ref=f2e135]:
+                    - paragraph [ref=f2e136]: Storage
+                    - paragraph [ref=f2e137]: 5 TB pooled per user
+                  - generic [ref=f2e138]:
+                    - paragraph [ref=f2e139]: Google Meet
+                    - paragraph [ref=f2e140]: 500 participants
+                  - paragraph [ref=f2e141]: Expanded Gemini access across eligible Workspace apps
+            - generic [ref=f2e142]:
+              - link "See the full comparison" [ref=f2e143] [cursor=pointer]:
+                - /url: /compare
+              - link "Official source" [ref=f2e146] [cursor=pointer]:
+                - /url: https://knowledge.workspace.google.com/admin/getting-started/editions/compare-business-editions
+        - generic [ref=f2e152]:
+          - generic [ref=f2e153]:
+            - generic [ref=f2e154]: 108+
+            - generic [ref=f2e155]: Capabilities indexed
+          - generic [ref=f2e156]:
+            - generic [ref=f2e157]: "20"
+            - generic [ref=f2e158]: Plans compared
+          - generic [ref=f2e159]:
+            - generic [ref=f2e160]: "16"
+            - generic [ref=f2e161]: Workspace App Surfaces
+          - generic [ref=f2e162]:
+            - generic [ref=f2e163]: "14"
+            - generic [ref=f2e164]: Gemini Models (4 Argon)
+          - generic [ref=f2e165]:
+            - generic [ref=f2e166]: 100%
+            - generic [ref=f2e167]: Customer Data Isolation
+        - generic [ref=f2e171]:
+          - generic [ref=f2e174]:
+            - generic [ref=f2e175]: Google Workspace
+            - generic [ref=f2e176]: Native
+          - generic [ref=f2e177]:
+            - img "Google Gemini Logo" [ref=f2e178]
+            - generic [ref=f2e180]:
+              - generic [ref=f2e181]: Gemini Enterprise
+              - generic [ref=f2e182]: Native
+          - generic [ref=f2e183]:
+            - img "Google Cloud Logo" [ref=f2e184]
+            - generic [ref=f2e189]:
+              - generic [ref=f2e190]: Google Cloud
+              - generic [ref=f2e191]: Cloud
+          - generic [ref=f2e192]:
+            - img "MarketStar" [ref=f2e195]
+            - generic [ref=f2e196]:
+              - generic [ref=f2e197]: MarketStar
+              - generic [ref=f2e198]: Partner
+          - generic [ref=f2e199]:
+            - img "Salesforce" [ref=f2e200]
+            - generic [ref=f2e202]:
+              - generic [ref=f2e203]: Salesforce
+              - generic [ref=f2e204]: MCP Ready
+          - generic [ref=f2e205]:
+            - img "Jira" [ref=f2e206]
+            - generic [ref=f2e210]:
+              - generic [ref=f2e211]: Jira
+              - generic [ref=f2e212]: MCP Ready
+          - generic [ref=f2e213]:
+            - img "Confluence" [ref=f2e214]
+            - generic [ref=f2e217]:
+              - generic [ref=f2e218]: Confluence
+              - generic [ref=f2e219]: MCP Ready
+          - generic [ref=f2e220]:
+            - img "SharePoint" [ref=f2e221]
+            - generic [ref=f2e227]:
+              - generic [ref=f2e228]: SharePoint
+              - generic [ref=f2e229]: MCP Ready
+          - generic [ref=f2e230]:
+            - img "Slack" [ref=f2e231]
+            - generic [ref=f2e237]:
+              - generic [ref=f2e238]: Slack
+              - generic [ref=f2e239]: MCP Ready
+          - generic [ref=f2e240]:
+            - img "Box" [ref=f2e241]
+            - generic [ref=f2e243]:
+              - generic [ref=f2e244]: Box
+              - generic [ref=f2e245]: MCP Ready
+          - generic [ref=f2e246]:
+            - img "GitHub" [ref=f2e247]
+            - generic [ref=f2e249]:
+              - generic [ref=f2e250]: GitHub
+              - generic [ref=f2e251]: MCP Ready
+          - generic [ref=f2e258]:
+            - generic [ref=f2e259]: BigQuery
+            - generic [ref=f2e260]: Native
+          - generic [ref=f2e265]:
+            - generic [ref=f2e266]: Model Context Protocol
+            - generic [ref=f2e267]: MCP Ready
+          - generic [ref=f2e270]:
+            - generic [ref=f2e271]: Google Workspace
+            - generic [ref=f2e272]: Native
+          - generic [ref=f2e273]:
+            - img "Google Gemini Logo" [ref=f2e274]
+            - generic [ref=f2e276]:
+              - generic [ref=f2e277]: Gemini Enterprise
+              - generic [ref=f2e278]: Native
+          - generic [ref=f2e279]:
+            - img "Google Cloud Logo" [ref=f2e280]
+            - generic [ref=f2e285]:
+              - generic [ref=f2e286]: Google Cloud
+              - generic [ref=f2e287]: Cloud
+          - generic [ref=f2e288]:
+            - img "MarketStar" [ref=f2e291]
+            - generic [ref=f2e292]:
+              - generic [ref=f2e293]: MarketStar
+              - generic [ref=f2e294]: Partner
+          - generic [ref=f2e295]:
+            - img "Salesforce" [ref=f2e296]
+            - generic [ref=f2e298]:
+              - generic [ref=f2e299]: Salesforce
+              - generic [ref=f2e300]: MCP Ready
+          - generic [ref=f2e301]:
+            - img "Jira" [ref=f2e302]
+            - generic [ref=f2e306]:
+              - generic [ref=f2e307]: Jira
+              - generic [ref=f2e308]: MCP Ready
+          - generic [ref=f2e309]:
+            - img "Confluence" [ref=f2e310]
+            - generic [ref=f2e313]:
+              - generic [ref=f2e314]: Confluence
+              - generic [ref=f2e315]: MCP Ready
+          - generic [ref=f2e316]:
+            - img "SharePoint" [ref=f2e317]
+            - generic [ref=f2e323]:
+              - generic [ref=f2e324]: SharePoint
+              - generic [ref=f2e325]: MCP Ready
+          - generic [ref=f2e326]:
+            - img "Slack" [ref=f2e327]
+            - generic [ref=f2e333]:
+              - generic [ref=f2e334]: Slack
+              - generic [ref=f2e335]: MCP Ready
+          - generic [ref=f2e336]:
+            - img "Box" [ref=f2e337]
+            - generic [ref=f2e339]:
+              - generic [ref=f2e340]: Box
+              - generic [ref=f2e341]: MCP Ready
+          - generic [ref=f2e342]:
+            - img "GitHub" [ref=f2e343]
+            - generic [ref=f2e345]:
+              - generic [ref=f2e346]: GitHub
+              - generic [ref=f2e347]: MCP Ready
+          - generic [ref=f2e354]:
+            - generic [ref=f2e355]: BigQuery
+            - generic [ref=f2e356]: Native
+          - generic [ref=f2e361]:
+            - generic [ref=f2e362]: Model Context Protocol
+            - generic [ref=f2e363]: MCP Ready
+      - generic [ref=f2e367]:
+        - generic [ref=f2e368]:
+          - generic [ref=f2e369]:
+            - paragraph [ref=f2e370]: Plan comparison
+            - heading "Start with the differences that shape your rollout." [level=2] [ref=f2e371]
+            - paragraph [ref=f2e372]: Compare listed prices and storage figures, then check Google's plan pages for regional pricing and current terms.
+          - link "Open 20-plan matrix" [ref=f2e373] [cursor=pointer]:
+            - /url: /compare
+        - table [ref=f2e377]:
+          - rowgroup [ref=f2e378]:
+            - row [ref=f2e379]:
+              - columnheader "Plan detail" [ref=f2e380]
+              - columnheader "Google Workspace Business Standard" [ref=f2e381]:
+                - generic [ref=f2e382]: Google Workspace
+                - link "Business Standard" [ref=f2e383] [cursor=pointer]:
+                  - /url: /plans/business-standard
+              - columnheader "Google Workspace Business Plus" [ref=f2e384]:
+                - generic [ref=f2e385]: Google Workspace
+                - link "Business Plus" [ref=f2e386] [cursor=pointer]:
+                  - /url: /plans/business-plus
+              - columnheader "Gemini Enterprise Gemini Enterprise Business" [ref=f2e387]:
+                - generic [ref=f2e388]: Gemini Enterprise
+                - link "Gemini Enterprise Business" [ref=f2e389] [cursor=pointer]:
+                  - /url: /plans/gemini-enterprise-business
+              - columnheader "Gemini Enterprise Gemini Enterprise Standard" [ref=f2e390]:
+                - generic [ref=f2e391]: Gemini Enterprise
+                - link "Gemini Enterprise Standard" [ref=f2e392] [cursor=pointer]:
+                  - /url: /plans/gemini-enterprise-standard
+          - rowgroup [ref=f2e393]:
+            - row [ref=f2e394]:
+              - rowheader "Published rate" [ref=f2e395]
+              - cell "$14 / user / month Annual commitment rate; US list reference" [ref=f2e396]:
+                - text: $14 / user / month
+                - generic [ref=f2e397]: Annual commitment rate; US list reference
+              - cell "$22 / user / month Annual commitment rate; US list reference" [ref=f2e398]:
+                - text: $22 / user / month
+                - generic [ref=f2e399]: Annual commitment rate; US list reference
+              - cell "From $21 / seat / month Starting rate; confirm edition and contract price" [ref=f2e400]:
+                - text: From $21 / seat / month
+                - generic [ref=f2e401]: Starting rate; confirm edition and contract price
+              - cell "From $30 / seat / month Starting rate; confirm edition and contract price" [ref=f2e402]:
+                - text: From $30 / seat / month
+                - generic [ref=f2e403]: Starting rate; confirm edition and contract price
+            - row [ref=f2e404]:
+              - rowheader "Storage / indexing" [ref=f2e405]
+              - cell "2 TB pooled per user" [ref=f2e406]
+              - cell "5 TB pooled per user" [ref=f2e407]
+              - cell "25 GiB per user, pooled for storage and data indexing" [ref=f2e408]
+              - cell "30 GiB per user, pooled for storage and data indexing" [ref=f2e409]
+            - row [ref=f2e410]:
+              - rowheader "Plan summary" [ref=f2e411]
+              - cell "Expanded storage, recording, and enhanced AI productivity." [ref=f2e412]
+              - cell "Advanced security, compliance eDiscovery, and 5 TB storage." [ref=f2e413]
+              - cell "Enterprise AI with permission-aware search and 25 GiB pooled indexing per user." [ref=f2e414]
+              - cell "Full connector ecosystem, priority model access, and 30 GiB pooled indexing per user." [ref=f2e415]
+        - generic [ref=f2e416]:
+          - paragraph [ref=f2e417]: "Catalog view: 20 listed plan options · 108 feature entries. Features without an edition-specific mapping are marked for review in the full matrix."
+          - generic [ref=f2e418]:
+            - link "Workspace prices" [ref=f2e419] [cursor=pointer]:
+              - /url: https://workspace.google.com/pricing
+            - link "Gemini Enterprise prices" [ref=f2e424] [cursor=pointer]:
+              - /url: https://cloud.google.com/gemini-enterprise
+      - generic [ref=f2e431]:
+        - generic [ref=f2e432]:
+          - paragraph [ref=f2e433]: Workspace tools, connected
+          - heading "How Gemini moves work forward." [level=2] [ref=f2e434]
+          - paragraph [ref=f2e435]: From the first message to a reviewed next step, Gemini brings AI into the Workspace tools your teams already use.
+          - list "Workflow steps" [ref=f2e436]:
+            - listitem [ref=f2e437]:
+              - generic [ref=f2e442]: Gmail
+            - listitem [ref=f2e444]:
+              - generic [ref=f2e449]: Google Docs
+            - listitem [ref=f2e451]:
+              - generic [ref=f2e455]: Google Sheets
+            - listitem [ref=f2e457]:
+              - generic [ref=f2e462]: Google Meet
+          - generic [ref=f2e466]: Scroll to follow
+        - generic [ref=f2e467]:
+          - article [ref=f2e468]:
+            - generic [ref=f2e469]:
+              - generic [ref=f2e475]:
+                - paragraph [ref=f2e476]: Communication
+                - paragraph [ref=f2e477]: Gmail
+              - generic [ref=f2e478]: Ready
+            - generic [ref=f2e480]:
+              - generic [ref=f2e481]:
+                - heading "Clear the noise. Keep the context." [level=3] [ref=f2e482]
+                - paragraph [ref=f2e483]: Summarize long conversations, draft replies in your voice, and bring the relevant Drive context into Gmail.
+                - list [ref=f2e484]:
+                  - listitem [ref=f2e485]: Thread summaries
+                  - listitem [ref=f2e487]: Context-aware drafting
+                  - listitem [ref=f2e489]: Human review before send
+              - generic [ref=f2e491]:
+                - generic [ref=f2e492]:
+                  - generic [ref=f2e493]: Workspace preview
+                  - generic [ref=f2e494]: Illustrative interface
+                - generic [ref=f2e495]: Q3 renewal thread
+                - paragraph [ref=f2e500]: 12 messages · 4 participants
+                - generic [ref=f2e501]:
+                  - generic [ref=f2e502]:
+                    - generic [ref=f2e503]: "01"
+                    - generic [ref=f2e504]: "Decision: extend the pilot into EMEA"
+                  - generic [ref=f2e505]:
+                    - generic [ref=f2e506]: "02"
+                    - generic [ref=f2e507]: "Next: prepare revised scope for review"
+                - generic [ref=f2e508]: Review before sharing
+          - article [ref=f2e512]:
+            - generic [ref=f2e513]:
+              - generic [ref=f2e519]:
+                - paragraph [ref=f2e520]: Creation
+                - paragraph [ref=f2e521]: Google Docs
+              - generic [ref=f2e522]: Ready
+            - generic [ref=f2e524]:
+              - generic [ref=f2e525]:
+                - heading "Turn source material into a first draft." [level=3] [ref=f2e526]
+                - paragraph [ref=f2e527]: Work from selected files and meeting notes to outline, draft, and refine a document alongside your team.
+                - list [ref=f2e528]:
+                  - listitem [ref=f2e529]: Source-aware drafting
+                  - listitem [ref=f2e531]: Tone and length controls
+                  - listitem [ref=f2e533]: Collaborative editing
+              - generic [ref=f2e535]:
+                - generic [ref=f2e536]:
+                  - generic [ref=f2e537]: Workspace preview
+                  - generic [ref=f2e538]: Illustrative interface
+                - generic [ref=f2e539]: Customer success plan
+                - paragraph [ref=f2e544]: Source set · 6 selected files
+                - generic [ref=f2e545]:
+                  - generic [ref=f2e546]:
+                    - generic [ref=f2e547]: "01"
+                    - generic [ref=f2e548]: Outline created from account goals
+                  - generic [ref=f2e549]:
+                    - generic [ref=f2e550]: "02"
+                    - generic [ref=f2e551]: Open questions kept for owner review
+                - generic [ref=f2e552]: Review before sharing
+          - article [ref=f2e556]:
+            - generic [ref=f2e557]:
+              - generic [ref=f2e562]:
+                - paragraph [ref=f2e563]: Analysis
+                - paragraph [ref=f2e564]: Google Sheets
+              - generic [ref=f2e565]: Ready
+            - generic [ref=f2e567]:
+              - generic [ref=f2e568]:
+                - heading "Ask the table. Inspect the answer." [level=3] [ref=f2e569]
+                - paragraph [ref=f2e570]: Use natural language to understand a selected range, surface patterns, and build a formula you can review.
+                - list [ref=f2e571]:
+                  - listitem [ref=f2e572]: Range-aware analysis
+                  - listitem [ref=f2e574]: Formula assistance
+                  - listitem [ref=f2e576]: Results remain editable
+              - generic [ref=f2e578]:
+                - generic [ref=f2e579]:
+                  - generic [ref=f2e580]: Workspace preview
+                  - generic [ref=f2e581]: Illustrative interface
+                - generic [ref=f2e582]: Regional pipeline · Q3
+                - paragraph [ref=f2e586]: Selected range · 1,240 rows
+                - generic [ref=f2e587]:
+                  - generic [ref=f2e588]:
+                    - generic [ref=f2e589]: "01"
+                    - generic [ref=f2e590]: "Largest movement: West · Enterprise"
+                  - generic [ref=f2e591]:
+                    - generic [ref=f2e592]: "02"
+                    - generic [ref=f2e593]: Formula suggestion ready to inspect
+                - generic [ref=f2e594]: Review before sharing
+          - article [ref=f2e598]:
+            - generic [ref=f2e599]:
+              - generic [ref=f2e605]:
+                - paragraph [ref=f2e606]: Collaboration
+                - paragraph [ref=f2e607]: Google Meet
+              - generic [ref=f2e608]: Ready
+            - generic [ref=f2e610]:
+              - generic [ref=f2e611]:
+                - heading "Leave the meeting with the next steps." [level=3] [ref=f2e612]
+                - paragraph [ref=f2e613]: Capture notes, identify decisions, and turn an approved summary into follow-up work across Workspace.
+                - list [ref=f2e614]:
+                  - listitem [ref=f2e615]: Meeting notes
+                  - listitem [ref=f2e617]: Decision summaries
+                  - listitem [ref=f2e619]: Follow-up draft
+              - generic [ref=f2e621]:
+                - generic [ref=f2e622]:
+                  - generic [ref=f2e623]: Workspace preview
+                  - generic [ref=f2e624]: Illustrative interface
+                - generic [ref=f2e625]: Design review · 42 minutes
+                - paragraph [ref=f2e630]: Notes prepared for host review
+                - generic [ref=f2e631]:
+                  - generic [ref=f2e632]:
+                    - generic [ref=f2e633]: "01"
+                    - generic [ref=f2e634]: 2 decisions · 3 open questions
+                  - generic [ref=f2e635]:
+                    - generic [ref=f2e636]: "02"
+                    - generic [ref=f2e637]: Follow-up draft ready in Google Docs
+                - generic [ref=f2e638]: Review before sharing
+      - generic [ref=f2e644]:
+        - generic [ref=f2e645]:
+          - generic [ref=f2e646]:
+            - generic [ref=f2e647]:
+              - img "Google Gemini Logo" [ref=f2e648]
+              - generic [ref=f2e650]: Model catalog · updated Oct 14, 2026 · Gemini 4 Argon GA
+            - heading "The right Gemini model for the work." [level=2] [ref=f2e651]
+            - paragraph [ref=f2e652]: Compare current API model families by capability and release status. API list pricing is separate from Google Workspace and Gemini Enterprise licensing.
+          - link "Full model catalog" [ref=f2e653] [cursor=pointer]:
+            - /url: /models
+        - generic [ref=f2e656]:
+          - generic [ref=f2e659]:
+            - generic [ref=f2e660]:
+              - generic [ref=f2e661]:
+                - img "Google Gemini Logo" [ref=f2e662]
+                - generic [ref=f2e664]:
+                  - generic [ref=f2e665]: Flagship Frontier Reasoning
+                  - generic [ref=f2e666]: GA
+              - code [ref=f2e667]: gemini-4-argon
+            - heading "Gemini 4 Argon" [level=3] [ref=f2e668]
+            - paragraph [ref=f2e669]: Google's most capable generally available frontier model — featuring a 1M-token unified context window, adjustable thinking levels (low, medium, high), deep multi-step reasoning, advanced coding, science, and full multimodal understanding. Powers Gemini Enterprise connectors across Gmail, Drive, Calendar, and Chat.
+            - generic [ref=f2e670]:
+              - generic [ref=f2e671]:
+                - generic [ref=f2e672]: Complex multi-step reasoning
+                - generic [ref=f2e673]: Advanced software engineering
+              - link "Model details" [ref=f2e674] [cursor=pointer]:
+                - /url: https://ai.google.dev/gemini-api/docs/models
+          - generic [ref=f2e681]:
+            - generic [ref=f2e682]:
+              - generic [ref=f2e683]:
+                - img "Google Gemini Logo" [ref=f2e684]
+                - generic [ref=f2e686]:
+                  - generic [ref=f2e687]: Frontier Intelligence
+                  - generic [ref=f2e688]: Preview
+              - code [ref=f2e689]: gemini-3.0-pro-preview
+            - heading "Gemini 3.0 Pro" [level=3] [ref=f2e690]
+            - paragraph [ref=f2e691]: Google's next-generation frontier foundation model featuring autonomous multi-agent planning, 4M+ multimodal context, native code execution, and deep cross-domain synthesis.
+            - generic [ref=f2e692]:
+              - generic [ref=f2e693]:
+                - generic [ref=f2e694]: Autonomous agent swarms
+                - generic [ref=f2e695]: 4M+ context analysis
+              - link "Model details" [ref=f2e696] [cursor=pointer]:
+                - /url: https://ai.google.dev/gemini-api/docs/models
+          - generic [ref=f2e703]:
+            - generic [ref=f2e704]:
+              - generic [ref=f2e705]:
+                - img "Google Gemini Logo" [ref=f2e706]
+                - generic [ref=f2e708]:
+                  - generic [ref=f2e709]: Frontier Low-Latency
+                  - generic [ref=f2e710]: Preview
+              - code [ref=f2e711]: gemini-3.0-flash-preview
+            - heading "Gemini 3.0 Flash" [level=3] [ref=f2e712]
+            - paragraph [ref=f2e713]: Ultra-high-speed frontier reasoning model designed for real-time autonomous enterprise tool invocation, sub-100ms streaming, and massive continuous workloads.
+            - generic [ref=f2e714]:
+              - generic [ref=f2e715]:
+                - generic [ref=f2e716]: Real-time tool calling
+                - generic [ref=f2e717]: Sub-100ms conversational loops
+              - link "Model details" [ref=f2e718] [cursor=pointer]:
+                - /url: https://ai.google.dev/gemini-api/docs/models
+          - generic [ref=f2e725]:
+            - generic [ref=f2e726]:
+              - generic [ref=f2e727]:
+                - img "Google Gemini Logo" [ref=f2e728]
+                - generic [ref=f2e730]:
+                  - generic [ref=f2e731]: Self-Verifying Reasoning
+                  - generic [ref=f2e732]: Preview
+              - code [ref=f2e733]: gemini-3.0-deepthink-preview
+            - heading "Gemini 3.0 Deep Think" [level=3] [ref=f2e734]
+            - paragraph [ref=f2e735]: Advanced recursive reasoning model engineered with deep test-time compute, autonomous formal verification, mathematical proofing, and iterative multi-step critique.
+            - generic [ref=f2e736]:
+              - generic [ref=f2e737]:
+                - generic [ref=f2e738]: Mathematical proofs
+                - generic [ref=f2e739]: Formal code verification
+              - link "Model details" [ref=f2e740] [cursor=pointer]:
+                - /url: https://ai.google.dev/gemini-api/docs/models
+      - generic [ref=f2e746]:
+        - generic [ref=f2e747]:
+          - generic [ref=f2e748]:
+            - paragraph [ref=f2e749]: Designed for enterprise reality
+            - heading "Intelligence with boundaries." [level=2] [ref=f2e750]
+          - paragraph [ref=f2e751]: Data use, control availability, and agent permissions depend on the Workspace service, edition, configuration, and applicable agreement. Follow the primary sources for your deployment.
+        - generic [ref=f2e752]:
+          - generic [ref=f2e755]:
+            - heading "Customer data stays yours." [level=3] [ref=f2e764]
+            - paragraph [ref=f2e765]: Workspace terms restrict training on customer data for Workspace Generative AI Services without prior permission or instruction.
+            - generic [ref=f2e766]:
+              - generic [ref=f2e767]: Contract terms · Workspace AI
+              - link "Read Workspace terms" [ref=f2e768] [cursor=pointer]:
+                - /url: https://workspace.google.com/terms/service-terms/
+          - generic [ref=f2e774]:
+            - heading "Ground work in the right context." [level=3] [ref=f2e784]
+            - paragraph [ref=f2e785]: Use Workspace content, connected data sources, and eligible enterprise connectors to bring relevant context into a task.
+            - generic [ref=f2e786]:
+              - generic [ref=f2e787]: Drive · Docs · approved sources
+              - link "Explore connectors" [ref=f2e788] [cursor=pointer]:
+                - /url: /enterprise/connectors
+          - generic [ref=f2e794]:
+            - heading "Controls belong in the workflow." [level=3] [ref=f2e804]
+            - paragraph [ref=f2e805]: Explore identity, access, data protection, retention, and audit controls. Specific features depend on edition and configuration.
+            - generic [ref=f2e806]:
+              - generic [ref=f2e807]: Admin controls · edition dependent
+              - link "Review security layers" [ref=f2e808] [cursor=pointer]:
+                - /url: /security
+          - generic [ref=f2e814]:
+            - heading "Keep a person in the loop." [level=3] [ref=f2e824]
+            - paragraph [ref=f2e825]: Review generated drafts, verify source material, and authorize actions before an agent changes external systems.
+            - generic [ref=f2e826]:
+              - generic [ref=f2e827]: Draft · verify · approve
+              - link "Explore agent controls" [ref=f2e828] [cursor=pointer]:
+                - /url: /enterprise/agents
+          - generic [ref=f2e834]:
+            - heading "Choose a model for the task." [level=3] [ref=f2e847]
+            - paragraph [ref=f2e848]: Compare current Gemini model families by release status and use case, then check availability for your deployment.
+            - generic [ref=f2e849]:
+              - generic [ref=f2e850]: Gemini model catalog
+              - link "Compare models" [ref=f2e851] [cursor=pointer]:
+                - /url: /models
+          - generic [ref=f2e857]:
+            - heading "Connect tools with guardrails." [level=3] [ref=f2e867]
+            - paragraph [ref=f2e868]: MCP and agent workflows can coordinate across systems when permissions, scope, and human supervision are configured.
+            - generic [ref=f2e869]:
+              - generic [ref=f2e870]: MCP · agents · approvals
+              - link "Explore orchestration" [ref=f2e871] [cursor=pointer]:
+                - /url: /enterprise/agents
+      - generic [ref=f2e876]:
+        - generic [ref=f2e877]:
+          - generic [ref=f2e878]:
+            - paragraph [ref=f2e879]: The intelligence index
+            - heading "Grounded in the details that matter." [level=2] [ref=f2e880]
+          - paragraph [ref=f2e881]: Live catalog counts, not productivity estimates. Model context applies to the cited Gemini API model, not every Workspace plan.
+        - generic [ref=f2e882]:
+          - generic [ref=f2e883]:
+            - generic [ref=f2e888]:
+              - paragraph [ref=f2e889]:
+                - generic [ref=f2e890]: 0+
+              - paragraph [ref=f2e891]: Workspace and Gemini capabilities indexed
+            - generic [ref=f2e892]: "01"
+          - generic [ref=f2e893]:
+            - generic [ref=f2e899]:
+              - paragraph [ref=f2e900]:
+                - generic [ref=f2e901]: "0"
+              - paragraph [ref=f2e902]: Plan editions mapped for comparison
+            - generic [ref=f2e903]: "02"
+          - generic [ref=f2e904]:
+            - generic [ref=f2e909]:
+              - paragraph [ref=f2e910]:
+                - generic [ref=f2e911]: "0"
+              - paragraph [ref=f2e912]: Security and governance layers catalogued
+            - generic [ref=f2e913]: "03"
+          - generic [ref=f2e914]:
+            - generic [ref=f2e920]:
+              - paragraph [ref=f2e921]:
+                - generic [ref=f2e922]: "0"
+              - paragraph [ref=f2e923]: Workspace app surfaces indexed
+            - generic [ref=f2e924]: "04"
+      - generic [ref=f2e927]:
+        - generic [ref=f2e928]:
+          - paragraph [ref=f2e929]: Enterprise Architecture
+          - 'heading "Beyond standard chat: Connectors, Agents & MCP" [level=2] [ref=f2e930]'
+          - paragraph [ref=f2e931]: Explore connected data sources, agent workflows, and governance topics. Check each feature's current edition requirements and service terms before rollout.
+        - generic [ref=f2e932]:
+          - generic [ref=f2e934]:
+            - heading "Enterprise Grounding & Connectors" [level=3] [ref=f2e940]
+            - paragraph [ref=f2e941]: Gemini Enterprise documents permission-aware search. Connector support, indexing, and permission behavior depend on your source and configuration.
+          - generic [ref=f2e943]:
+            - heading "Model Context Protocol (MCP)" [level=3] [ref=f2e950]
+            - paragraph [ref=f2e951]: Review the supported MCP options for your Gemini product and edition before connecting private APIs, databases, or custom tools.
+          - generic [ref=f2e953]:
+            - heading "Autonomous Enterprise Agents" [level=3] [ref=f2e958]
+            - paragraph [ref=f2e959]: Plan agent workflows around approved tools, source permissions, and human review. Available actions depend on edition and configuration.
+        - generic [ref=f2e960]:
+          - generic [ref=f2e961]:
+            - generic [ref=f2e962]:
+              - heading "Connector examples" [level=3] [ref=f2e963]
+              - paragraph [ref=f2e964]: Confirm current edition support, regional availability, and administrator setup for each source.
+            - link "View all connectors" [ref=f2e965] [cursor=pointer]:
+              - /url: /enterprise/connectors
+          - generic [ref=f2e968]:
+            - generic [ref=f2e969]:
+              - generic [ref=f2e970]: Jira
+              - generic [ref=f2e971]: Example
+            - generic [ref=f2e972]:
+              - generic [ref=f2e973]: Confluence
+              - generic [ref=f2e974]: Example
+            - generic [ref=f2e975]:
+              - generic [ref=f2e976]: Salesforce
+              - generic [ref=f2e977]: Example
+            - generic [ref=f2e978]:
+              - generic [ref=f2e979]: GitHub
+              - generic [ref=f2e980]: Example
+            - generic [ref=f2e981]:
+              - generic [ref=f2e982]: Slack
+              - generic [ref=f2e983]: Example
+            - generic [ref=f2e984]:
+              - generic [ref=f2e985]: BigQuery
+              - generic [ref=f2e986]: Example
+            - generic [ref=f2e987]:
+              - generic [ref=f2e988]: Notion
+              - generic [ref=f2e989]: Example
+            - generic [ref=f2e990]:
+              - generic [ref=f2e991]: SharePoint
+              - generic [ref=f2e992]: Example
+        - link "Explore the Deep Architectural Guide" [ref=f2e994] [cursor=pointer]:
+          - /url: /enterprise
+      - generic [ref=f2e999]:
+        - generic [ref=f2e1000]:
+          - generic [ref=f2e1001]:
+            - heading "Strategic Insights" [level=2] [ref=f2e1002]
+            - paragraph [ref=f2e1003]: Expert analysis on enterprise AI procurement, deployment architectures, and security governance from the MarketStar Enterprise Advisory Group.
+          - link "View all articles" [ref=f2e1004] [cursor=pointer]:
+            - /url: /articles
+        - generic [ref=f2e1007]:
+          - 'link "Enterprise AI Gemini Enterprise Deployment Checklist: Plan a Governed Pilot A practical administrator guide to edition fit, project setup, IAM, data access, quotas, safety controls, and pilot evaluation. Key Takeaways • Confirm which edition and documentation set applies before planning; Google documents Business separately from the Cloud editions. • Plan the Cloud project, billing path, app location, and any CMEK requirement before creating the app because its location cannot later be changed. Oct 16, 2026 8 min read MS MarketStar Research MarketStar" [ref=f2e1008] [cursor=pointer]':
+            - /url: /articles/gemini-enterprise-deployment-checklist
+            - generic [ref=f2e1009]:
+              - generic [ref=f2e1010]: Enterprise AI
+              - 'heading "Gemini Enterprise Deployment Checklist: Plan a Governed Pilot" [level=3] [ref=f2e1012]'
+              - paragraph [ref=f2e1013]: A practical administrator guide to edition fit, project setup, IAM, data access, quotas, safety controls, and pilot evaluation.
+              - generic [ref=f2e1014]:
+                - heading "Key Takeaways" [level=4] [ref=f2e1015]
+                - list [ref=f2e1018]:
+                  - listitem [ref=f2e1019]:
+                    - generic [ref=f2e1020]: •
+                    - generic [ref=f2e1021]: Confirm which edition and documentation set applies before planning; Google documents Business separately from the Cloud editions.
+                  - listitem [ref=f2e1022]:
+                    - generic [ref=f2e1023]: •
+                    - generic [ref=f2e1024]: Plan the Cloud project, billing path, app location, and any CMEK requirement before creating the app because its location cannot later be changed.
+              - generic [ref=f2e1025]:
+                - generic [ref=f2e1026]:
+                  - generic [ref=f2e1027]: Oct 16, 2026
+                  - generic [ref=f2e1030]: 8 min read
+                - generic [ref=f2e1034]:
+                  - generic [ref=f2e1035]: MS
+                  - generic [ref=f2e1036]:
+                    - generic [ref=f2e1037]: MarketStar Research
+                    - generic [ref=f2e1038]: MarketStar
+          - 'link "Enterprise AI Gemini 3.0 & 4.0 Neural Architecture: Autonomous Agents & Long Context How Google''s frontier model roadmap transforms enterprise workflows with multi-agent orchestration, 4M+ context windows, and deep reasoning compute. Key Takeaways • Gemini 3.0 Pro expands native multimodal context to 4M+ tokens with integrated autonomous planning and tool execution. • Gemini 3.0 Flash achieves sub-100ms response cycles, designed specifically for autonomous agent loops and continuous tool invocation. Oct 4, 2026 8 min read MS MarketStar Research MarketStar" [ref=f2e1039] [cursor=pointer]':
+            - /url: /articles/gemini-3-architecture-agentic-scale
+            - generic [ref=f2e1040]:
+              - generic [ref=f2e1041]: Enterprise AI
+              - 'heading "Gemini 3.0 & 4.0 Neural Architecture: Autonomous Agents & Long Context" [level=3] [ref=f2e1043]'
+              - paragraph [ref=f2e1044]: How Google's frontier model roadmap transforms enterprise workflows with multi-agent orchestration, 4M+ context windows, and deep reasoning compute.
+              - generic [ref=f2e1045]:
+                - heading "Key Takeaways" [level=4] [ref=f2e1046]
+                - list [ref=f2e1049]:
+                  - listitem [ref=f2e1050]:
+                    - generic [ref=f2e1051]: •
+                    - generic [ref=f2e1052]: Gemini 3.0 Pro expands native multimodal context to 4M+ tokens with integrated autonomous planning and tool execution.
+                  - listitem [ref=f2e1053]:
+                    - generic [ref=f2e1054]: •
+                    - generic [ref=f2e1055]: Gemini 3.0 Flash achieves sub-100ms response cycles, designed specifically for autonomous agent loops and continuous tool invocation.
+              - generic [ref=f2e1056]:
+                - generic [ref=f2e1057]:
+                  - generic [ref=f2e1058]: Oct 4, 2026
+                  - generic [ref=f2e1061]: 8 min read
+                - generic [ref=f2e1065]:
+                  - generic [ref=f2e1066]: MS
+                  - generic [ref=f2e1067]:
+                    - generic [ref=f2e1068]: MarketStar Research
+                    - generic [ref=f2e1069]: MarketStar
+          - 'link "Enterprise AI Deep Research in Gemini Enterprise: Autonomous Multi-Source Intelligence How automated multi-step research synthesis scours hundreds of internal and external sources to produce comprehensive executive briefings. Key Takeaways • Deep Research autonomously browses, reads, and cross-analyzes hundreds of corporate documents, databases, and web sources. • Generates comprehensive, multi-section briefings with full inline citations and provenance tracking. Oct 2, 2026 7 min read MS MarketStar Research MarketStar" [ref=f2e1070] [cursor=pointer]':
+            - /url: /articles/deep-research-gemini-enterprise
+            - generic [ref=f2e1071]:
+              - generic [ref=f2e1072]: Enterprise AI
+              - 'heading "Deep Research in Gemini Enterprise: Autonomous Multi-Source Intelligence" [level=3] [ref=f2e1074]'
+              - paragraph [ref=f2e1075]: How automated multi-step research synthesis scours hundreds of internal and external sources to produce comprehensive executive briefings.
+              - generic [ref=f2e1076]:
+                - heading "Key Takeaways" [level=4] [ref=f2e1077]
+                - list [ref=f2e1080]:
+                  - listitem [ref=f2e1081]:
+                    - generic [ref=f2e1082]: •
+                    - generic [ref=f2e1083]: Deep Research autonomously browses, reads, and cross-analyzes hundreds of corporate documents, databases, and web sources.
+                  - listitem [ref=f2e1084]:
+                    - generic [ref=f2e1085]: •
+                    - generic [ref=f2e1086]: Generates comprehensive, multi-section briefings with full inline citations and provenance tracking.
+              - generic [ref=f2e1087]:
+                - generic [ref=f2e1088]:
+                  - generic [ref=f2e1089]: Oct 2, 2026
+                  - generic [ref=f2e1092]: 7 min read
+                - generic [ref=f2e1096]:
+                  - generic [ref=f2e1097]: MS
+                  - generic [ref=f2e1098]:
+                    - generic [ref=f2e1099]: MarketStar Research
+                    - generic [ref=f2e1100]: MarketStar
+      - generic [ref=f2e1103]:
+        - heading "Ready to shape your enterprise AI workflow?" [level=2] [ref=f2e1108]
+        - paragraph [ref=f2e1109]: Explore plan availability and governance controls for Gemini in Workspace.
+        - link "Compare Workspace plans" [ref=f2e1111] [cursor=pointer]:
+          - /url: /compare
+  - contentinfo [ref=f2e1116]:
+    - generic [ref=f2e1118]:
+      - generic [ref=f2e1119]:
+        - generic [ref=f2e1123]: Workspace & Gemini Intelligence Network
+        - generic [ref=f2e1124]: · 100% Operational
+      - generic [ref=f2e1125]:
+        - generic [ref=f2e1126]: SOC 2 Type II · HIPAA · ISO 27001
+        - generic [ref=f2e1127]: Zero Model Training
+    - generic [ref=f2e1129]:
+      - generic [ref=f2e1130]:
+        - generic [ref=f2e1131]:
+          - generic [ref=f2e1132]:
+            - img "MarketStar" [ref=f2e1134]
+            - generic [ref=f2e1136]: Gemini Intelligence
+          - paragraph [ref=f2e1140]: by MarketStar
+        - paragraph [ref=f2e1141]: The definitive intelligence platform for Google Workspace & Gemini AI capabilities.
+        - generic [ref=f2e1142]:
+          - generic [ref=f2e1143]: Business ($21/mo)
+          - generic [ref=f2e1144]: Standard ($30/mo)
+          - generic [ref=f2e1145]: Plus ($30+/mo)
+        - link "Compare Plans" [ref=f2e1147] [cursor=pointer]:
+          - /url: /compare
+      - generic [ref=f2e1153]:
+        - heading "Platform" [level=4] [ref=f2e1154]
+        - list [ref=f2e1155]:
+          - listitem [ref=f2e1156]:
+            - link "All Features" [ref=f2e1157] [cursor=pointer]:
+              - /url: /features
+          - listitem [ref=f2e1158]:
+            - link "Compare Plans" [ref=f2e1159] [cursor=pointer]:
+              - /url: /compare
+          - listitem [ref=f2e1160]:
+            - link "Interactive Mind Map" [ref=f2e1161] [cursor=pointer]:
+              - /url: /mindmap
+          - listitem [ref=f2e1162]:
+            - link "models" [ref=f2e1163] [cursor=pointer]:
+              - /url: /models
+          - listitem [ref=f2e1164]:
+            - link "Pricing" [ref=f2e1165] [cursor=pointer]:
+              - /url: /pricing
+      - generic [ref=f2e1166]:
+        - heading "Enterprise" [level=4] [ref=f2e1167]
+        - list [ref=f2e1168]:
+          - listitem [ref=f2e1169]:
+            - link "Business (Workspace) Onboarding admin.google.com" [ref=f2e1170] [cursor=pointer]:
+              - /url: /enterprise/onboarding/business
+              - generic [ref=f2e1171]: Business (Workspace) Onboarding
+              - generic [ref=f2e1172]: admin.google.com
+          - listitem [ref=f2e1173]:
+            - link "Standard & Plus (Cloud) Onboarding console.cloud.google.com" [ref=f2e1174] [cursor=pointer]:
+              - /url: /enterprise/onboarding/cloud
+              - generic [ref=f2e1175]: Standard & Plus (Cloud) Onboarding
+              - generic [ref=f2e1176]: console.cloud.google.com
+          - listitem [ref=f2e1177]:
+            - link "Connectors" [ref=f2e1178] [cursor=pointer]:
+              - /url: /enterprise/connectors
+          - listitem [ref=f2e1180]:
+            - link "Agents & MCP" [ref=f2e1181] [cursor=pointer]:
+              - /url: /enterprise/agents
+          - listitem [ref=f2e1183]:
+            - link "Security & Governance" [ref=f2e1184] [cursor=pointer]:
+              - /url: /security
+      - generic [ref=f2e1186]:
+        - heading "Applications" [level=4] [ref=f2e1187]
+        - generic [ref=f2e1188]:
+          - link "Gmail" [ref=f2e1189] [cursor=pointer]:
+            - /url: /apps/gmail
+          - link "Docs" [ref=f2e1190] [cursor=pointer]:
+            - /url: /apps/docs
+          - link "Sheets" [ref=f2e1191] [cursor=pointer]:
+            - /url: /apps/sheets
+          - link "Meet" [ref=f2e1192] [cursor=pointer]:
+            - /url: /apps/meet
+          - link "Drive" [ref=f2e1193] [cursor=pointer]:
+            - /url: /apps/drive
+          - link "NotebookLM" [ref=f2e1194] [cursor=pointer]:
+            - /url: /apps/notebooklm
+          - link "Slides" [ref=f2e1195] [cursor=pointer]:
+            - /url: /apps/slides
+          - link "Vids" [ref=f2e1196] [cursor=pointer]:
+            - /url: /apps/vids
+      - generic [ref=f2e1197]:
+        - heading "Governance & Insights" [level=4] [ref=f2e1198]
+        - list [ref=f2e1199]:
+          - listitem [ref=f2e1200]:
+            - link "Articles" [ref=f2e1201] [cursor=pointer]:
+              - /url: /articles
+          - listitem [ref=f2e1203]:
+            - link "Google AI Updates Oct 2026" [ref=f2e1204] [cursor=pointer]:
+              - /url: /google-ai-updates
+              - generic [ref=f2e1205]: Google AI Updates
+              - generic [ref=f2e1206]: Oct 2026
+          - listitem [ref=f2e1207]:
+            - link "about" [ref=f2e1208] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=f2e1210]:
+            - link "Model Armor & DLP" [ref=f2e1211] [cursor=pointer]:
+              - /url: /security
+          - listitem [ref=f2e1212]:
+            - link "Readiness Assessment" [ref=f2e1213] [cursor=pointer]:
+              - /url: /enterprise/readiness
+    - generic [ref=f2e1215]:
+      - paragraph [ref=f2e1216]: © 2026 MarketStar Intelligence. Independent reference architecture. Not affiliated with Google LLC. Google Workspace & Gemini are trademarks of Google LLC.
+      - button "Scroll back to top" [ref=f2e1217] [cursor=pointer]:
+        - generic [ref=f2e1218]: Back to top

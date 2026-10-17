@@ -952,9 +952,32 @@ export const phrasesES: Record<string, string> = {
     "Adapte las instrucciones, las expectativas de cuotas y las rutas de consola a su edición.",
   "Business (Workspace)": "Business (Workspace)",
   "Standard (GCP)": "Standard (GCP)",
-  "Plus (GCP)": "Plus (GCP)",
-  "Google Workspace Domain": "Dominio de Google Workspace",
-  "Managed centrally via the Google Workspace Admin console (admin.google.com). Features 25 GiB pooled storage and data indexing per seat, up to 300 seats, native grounding across Gmail, Docs, Sheets, and Drive, plus Gemini Notebook. Requires no Google Cloud infrastructure or GCP project setup.":
-    "Gestionado de forma centralizada a través de la consola de administración de Google Workspace (admin.google.com). Ofrece 25 GiB de almacenamiento e indexación agrupados por usuario, hasta 300 usuarios, conexión nativa con Gmail, Docs, Sheets y Drive, además de Gemini Notebook. No requiere configuración de infraestructura en Google Cloud.",
+  "admin.google.com Admin Console": "Consola de administración admin.google.com",
+  "Standard & Plus (Cloud) Guide": "Guía de Standard y Plus (Cloud)",
+  "Business (Workspace) Guide": "Guía de Business (Workspace)",
+  "Standard & Plus (Cloud) Onboarding": "Incorporación de Standard y Plus (Cloud)",
+  "Business Edition (Workspace) Onboarding": "Incorporación de Business (Workspace)",
+  "Google Workspace Admin Console Guide": "Guía de la consola de administración de Google Workspace",
+  "Google Cloud Console & CLI Guide": "Guía de Google Cloud Console y gcloud CLI",
+  "Business Edition (Google Workspace Associated)": "Edición Business (asociada a Google Workspace)",
+  "Standard & Plus Editions (Google Cloud)": "Ediciones Standard y Plus (Google Cloud)",
+  "Need more than 300 seats, VPC Service Controls, or CMEK?": "¿Necesita más de 300 licencias, VPC Service Controls o CMEK?",
+  "View Standard & Plus Onboarding": "Ver incorporación de Standard y Plus",
+  "Looking for Google Workspace setup under 300 seats?": "¿Busca configuración de Google Workspace para menos de 300 licencias?",
+  "View Business Edition (Workspace) Guide": "Ver guía de Business Edition (Workspace)",
+  "Explore Gemini Enterprise Standard (30 GiB) and Plus (75 GiB) on Google Cloud Console.":
+    "Explore Gemini Enterprise Standard (30 GiB) y Plus (75 GiB) en Google Cloud Console.",
+  "Explore Gemini Enterprise – Business edition managed via admin.google.com with 25 GiB pooled storage per user.":
+    "Explore Gemini Enterprise – Business edition administrada mediante admin.google.com con 25 GiB de almacenamiento agrupado por usuario.",
+  "Multi-Agent Flow": "Flujo multi-agente",
+  "Connector Mesh": "Malla de conectores",
+  "Interactive Mind Map": "Mapa mental interactivo",
+  "Workspace Intelligence Studio": "Estudio de inteligencia de Workspace",
+  "Gmail & Docs Synthesis": "Síntesis de Gmail y Docs",
+  "Drive Grounding": "Fundamentación en Drive",
+  "Privacy Architecture": "Arquitectura de privacidad",
+  "Google Workspace & Gemini Enterprise Reference Architecture":
+    "Arquitectura de referencia de Google Workspace y Gemini Enterprise",
+  "Explore Editions Comparison": "Explorar comparativa de ediciones",
 };
 

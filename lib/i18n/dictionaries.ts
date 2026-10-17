@@ -26,6 +26,7 @@ export type UiDictionary = {
     enterprise: string;
     security: string;
     articles: string;
+    updates: string;
     apps: string;
     plans: string;
     mindmap: string;
@@ -49,7 +50,6 @@ export type UiDictionary = {
     explore: string;
     statCapabilities: string;
     statPlans: string;
-    statContext: string;
     statSecurity: string;
   };
   comparison: {
@@ -84,6 +84,7 @@ export type UiDictionary = {
     agentsMcp: string;
     securityGovernance: string;
     articles: string;
+    googleAiUpdates: string;
     pricing: string;
     by: string;
     blurb: string;
@@ -139,6 +140,7 @@ const en: UiDictionary = {
     enterprise: "Enterprise",
     security: "Security",
     articles: "Articles",
+    updates: "AI Updates",
     apps: "Apps",
     plans: "Plans",
     mindmap: "Mind Map",
@@ -162,7 +164,6 @@ const en: UiDictionary = {
     explore: "Explore",
     statCapabilities: "Capabilities indexed",
     statPlans: "Plans compared",
-    statContext: "Largest listed context window",
     statSecurity: "Security review topics",
   },
   comparison: {
@@ -233,6 +234,7 @@ const en: UiDictionary = {
     agentsMcp: "Agents & MCP",
     securityGovernance: "Security & Governance",
     articles: "Articles",
+    googleAiUpdates: "Google AI Updates",
     pricing: "Pricing",
     by: "by MarketStar",
     blurb:
@@ -264,6 +266,7 @@ const es: UiDictionary = {
     enterprise: "Empresas",
     security: "Seguridad",
     articles: "Artículos",
+    updates: "Novedades de IA",
     apps: "Apps",
     plans: "Planes",
     mindmap: "Mapa Mental",
@@ -287,7 +290,6 @@ const es: UiDictionary = {
     explore: "Explora",
     statCapabilities: "Capacidades indexadas",
     statPlans: "Planes comparados",
-    statContext: "Mayor ventana de contexto publicada",
     statSecurity: "Temas de revisión de seguridad",
   },
   comparison: {
@@ -358,6 +360,7 @@ const es: UiDictionary = {
     agentsMcp: "Agentes y MCP",
     securityGovernance: "Seguridad y gobernanza",
     articles: "Artículos",
+    googleAiUpdates: "Novedades de Google AI",
     pricing: "Precios",
     by: "de MarketStar",
     blurb:

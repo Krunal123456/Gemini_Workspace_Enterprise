@@ -489,11 +489,23 @@
 
   .liveLabel {
     font-size: 0.52rem;
+    max-width: 4.5rem;
+    white-space: normal;
+    text-align: right;
+    line-height: 1.2;
   }
 
   .scene {
     min-height: 305px;
     margin-top: 0.2rem;
+  }
+
+  .leftEdgeNode {
+    left: 23% !important;
+  }
+
+  .rightEdgeNode {
+    left: 77% !important;
   }
 
   .core {
@@ -502,7 +514,7 @@
   }
 
   .node {
-    min-width: 5.6rem;
+    min-width: 5.1rem;
     min-height: 42px;
     gap: 0.32rem;
     padding-inline: 0.5rem;

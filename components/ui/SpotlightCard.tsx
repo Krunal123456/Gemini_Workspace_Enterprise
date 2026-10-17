@@ -73,9 +73,7 @@ export function SpotlightCard({
       }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/70 p-6 shadow-sm backdrop-blur-xl transition-all duration-300 dark:border-white/10 dark:bg-slate-950/60 dark:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.5)]",
-        "hover:shadow-[0_30px_70px_-20px_rgba(99,102,241,0.18)] dark:hover:shadow-[0_30px_80px_-20px_rgba(139,92,246,0.22)]",
-        "hover:border-slate-300 dark:hover:border-white/20",
+        "liquid-glass-card group relative overflow-hidden transition-all duration-300",
         className,
       )}
       {...props}

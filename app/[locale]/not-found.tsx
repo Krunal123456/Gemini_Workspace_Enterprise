@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: "404 · Page Not Found | Google Workspace Intelligence",
   description: "The requested page could not be found. Explore Google Workspace and Gemini Enterprise models, features, and resources.",
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
 };
 

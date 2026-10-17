@@ -1,41 +1,70 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (motionPreference.matches) return;
 
-    gsap.registerPlugin(ScrollTrigger);
+    let disposed = false;
+    let cleanupSmoothScroll: (() => void) | undefined;
 
-    // High refresh rate (120Hz/144Hz) optimized Lenis instance
-    const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.0,
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
-      autoRaf: false, // We synchronize directly to gsap.ticker for true 144Hz frame lock
-    });
+    const initialize = async () => {
+      const [lenisModule, gsapModule, scrollTriggerModule] = await Promise.all([
+        import("lenis"),
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (disposed) return;
 
-    lenis.on("scroll", ScrollTrigger.update);
+      const Lenis = lenisModule.default;
+      const { gsap } = gsapModule;
+      const { ScrollTrigger } = scrollTriggerModule;
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Sync Lenis tick directly with GSAP's high-precision RAF ticker
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
+      const lenis = new Lenis({
+        lerp: 0.1,
+        duration: 1.0,
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.0,
+        autoRaf: false,
+      });
+
+      lenis.on("scroll", ScrollTrigger.update);
+      const updateTicker = (time: number) => lenis.raf(time * 1000);
+      gsap.ticker.add(updateTicker);
+      gsap.ticker.lagSmoothing(0);
+
+      cleanupSmoothScroll = () => {
+        gsap.ticker.remove(updateTicker);
+        lenis.off("scroll", ScrollTrigger.update);
+        lenis.destroy();
+      };
     };
 
-    gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0); // Disable lag smoothing so 144Hz displays never stutter or throttle
+    let idleCallbackId: number | undefined;
+    let timerId: number | undefined;
+    const idleWindow = window as Window & {
+      requestIdleCallback?: Window["requestIdleCallback"];
+      cancelIdleCallback?: Window["cancelIdleCallback"];
+    };
+    if (idleWindow.requestIdleCallback) {
+      idleCallbackId = idleWindow.requestIdleCallback.call(
+        window,
+        () => void initialize(),
+        { timeout: 2000 },
+      );
+    } else {
+      timerId = window.setTimeout(() => void initialize(), 1000);
+    }
 
     return () => {
-      gsap.ticker.remove(updateTicker);
-      lenis.off("scroll", ScrollTrigger.update);
-      lenis.destroy();
+      disposed = true;
+      if (idleCallbackId !== undefined) idleWindow.cancelIdleCallback?.call(window, idleCallbackId);
+      if (timerId !== undefined) window.clearTimeout(timerId);
+      cleanupSmoothScroll?.();
     };
   }, []);
 

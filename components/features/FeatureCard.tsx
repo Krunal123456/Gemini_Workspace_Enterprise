@@ -57,7 +57,7 @@ export function FeatureCard({ feature, onSelect, isSelected }: FeatureCardProps)
     <motion.div
       whileHover={{ y: -4 }}
       className={cn(
-        "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/50 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 text-left shadow-sm transition-all duration-300 hover:shadow-xl hover:border-violet-500/40 hover:-translate-y-1",
+        "liquid-glass-card group relative flex flex-col justify-between overflow-hidden text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
         isSelected ? "border-violet-500 ring-2 ring-violet-500/30" : "hover:border-violet-500/30"
       )}
     >

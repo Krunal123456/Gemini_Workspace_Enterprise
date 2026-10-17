@@ -46,7 +46,7 @@ export function PricingOverview() {
 
   return (
     <div className="space-y-16">
-      <section className="rounded-3xl border border-white/40 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-8 shadow-[0_20px_50px_-25px_rgba(99,102,241,0.15)] dark:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.6)]">
+      <section className="liquid-glass-card">
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="mb-2 text-xs font-bold uppercase tracking-wider text-google-blue">{t("Build your estimate")}</p>
@@ -147,7 +147,7 @@ export function PricingOverview() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-white/40 dark:border-white/10 bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl p-6 sm:p-8 shadow-[0_20px_50px_-25px_rgba(99,102,241,0.15)] dark:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.6)]">
+      <section className="liquid-glass-card">
         <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-google-blue">Gemini API reference</p>

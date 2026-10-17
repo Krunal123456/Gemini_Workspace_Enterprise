@@ -108,14 +108,14 @@ export function EnterpriseTrustBento() {
   const { locale, href } = useLocale();
   const t = createPhraseTranslator(locale);
   return (
-    <section className="relative overflow-hidden border-y border-white/10 bg-[#0b0912] py-20 text-white md:py-28">
+    <section className="relative overflow-hidden border-b border-border bg-background py-20 text-foreground dark:bg-[#08090f] dark:text-white md:py-28">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="mb-10 grid gap-6 md:grid-cols-[1fr_0.7fr] md:items-end">
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-violet-200">{t("Designed for enterprise reality")}</p>
-            <h2 className="max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{t("Intelligence with boundaries.")}</h2>
+            <p className="mb-3 text-xs font-mono font-bold uppercase tracking-[0.16em] text-violet-700 dark:text-violet-300">{t("Designed for enterprise reality")}</p>
+            <h2 className="max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl text-foreground">{t("Intelligence with boundaries.")}</h2>
           </div>
-          <p className="max-w-xl text-sm leading-7 text-white/60 md:justify-self-end">
+          <p className="max-w-xl text-sm leading-7 text-muted-foreground md:justify-self-end">
             {t("Data use, control availability, and agent permissions depend on the Workspace service, edition, configuration, and applicable agreement. Follow the primary sources for your deployment.")}
           </p>
         </div>
@@ -131,24 +131,24 @@ export function EnterpriseTrustBento() {
                 borderGlowColor={BORDER_GLOW_COLORS[accent]}
                 enableTilt
                 enableBorderBeam={false}
-                className="min-h-[260px] rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-7 backdrop-blur-2xl dark:bg-slate-900/60 dark:border-white/10 shadow-lg hover:border-white/20 transition-all duration-300"
+                className="min-h-[260px] rounded-3xl border border-border/80 bg-card p-6 sm:p-7 shadow-sm hover:border-violet-500/30 hover:shadow-md transition-all duration-300 dark:bg-white/[0.03] dark:border-white/10"
               >
                 <div className="flex h-full flex-col">
                   <div className="mb-6 flex items-center justify-between gap-4">
-                    <span className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] backdrop-blur-md ${ACCENT_CLASSES[accent]}`}>
+                    <span className={`flex h-11 w-11 items-center justify-center rounded-xl border border-border/60 bg-muted/60 dark:border-white/15 dark:bg-white/[0.06] ${ACCENT_CLASSES[accent]}`}>
                       <Icon className="h-5 w-5" />
                     </span>
-                    {id === "orchestration" ? <Bot className="h-4 w-4 text-white/40" /> : <ShieldCheck className="h-4 w-4 text-white/35" />}
+                    {id === "orchestration" ? <Bot className="h-4 w-4 text-muted-foreground" /> : <ShieldCheck className="h-4 w-4 text-muted-foreground" />}
                   </div>
-                  <h3 className="max-w-sm text-xl font-semibold leading-snug">{t(title)}</h3>
-                  <p className="mt-3 max-w-md text-sm leading-6 text-white/65">{t(body)}</p>
-                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-white/10">
-                    <span className="text-[10px] font-medium uppercase tracking-[0.11em] text-white/40">{t(meta)}</span>
+                  <h3 className="max-w-sm text-xl font-bold leading-snug text-foreground">{t(title)}</h3>
+                  <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">{t(body)}</p>
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-border/60 dark:border-white/10">
+                    <span className="text-[10px] font-mono font-medium uppercase tracking-[0.11em] text-muted-foreground">{t(meta)}</span>
                     <Link
                       href={destination}
                       target={source ? "_blank" : undefined}
                       rel={source ? "noreferrer" : undefined}
-                      className="inline-flex min-h-10 items-center gap-1.5 text-xs font-semibold text-white/85 transition-colors hover:text-violet-300"
+                      className="inline-flex min-h-10 items-center gap-1.5 text-xs font-semibold text-foreground hover:text-google-blue dark:text-white dark:hover:text-violet-300 transition-colors"
                     >
                       {t(sourceLabel)}<ArrowUpRight className="h-3.5 w-3.5" />
                     </Link>

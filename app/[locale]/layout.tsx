@@ -4,6 +4,7 @@ import "../globals.css";
 import { Header } from "@/components/navigation/Header";
 import { Footer } from "@/components/navigation/Footer";
 import { CommandPalette } from "@/components/search/CommandPalette";
+import { GuidedSiteTour } from "@/components/navigation/GuidedSiteTour";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { LenisProvider } from "@/components/ui/LenisProvider";
 import { CloudCursor } from "@/components/ui/CloudCursor";
@@ -46,7 +47,10 @@ export async function generateMetadata({
   return {
     title: {
       default: dictionary.metadata.titleDefault,
-      template: "%s | Gemini Enterprise AI Intelligence",
+      template:
+        locale === "es"
+          ? "%s | Gemini Enterprise AI Intelligence en Español"
+          : "%s | Gemini Enterprise AI Intelligence",
     },
     description: siteDescriptions[locale],
     keywords: dictionary.metadata.keywords,
@@ -157,6 +161,7 @@ export default async function RootLayout({
               </main>
               <Footer labels={dictionary.footer} locale={locale} />
               <CommandPalette />
+              <GuidedSiteTour />
             </ThemeProvider>
           </LenisProvider>
         </LocaleProvider>
