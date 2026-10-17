@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
+import { WorkspaceGeminiWordmark } from "@/components/logos/WorkspaceGeminiWordmark";
 import {
   Search,
   Menu,
@@ -127,9 +127,9 @@ export function Header({ labels }: { labels: NavLabels }) {
             <Link
               href={href("/")}
               className="group flex shrink-0 items-center rounded-xl outline-none focus-visible:ring-2 ring-primary"
-              aria-label="MarketStar — Gemini Intelligence home"
+              aria-label="Workspace Gemini Intelligence home"
             >
-              <MarketStarLogo
+              <WorkspaceGeminiWordmark
                 className="h-5 w-auto shrink-0 object-contain sm:h-6"
                 withProductLine
                 wrapperClassName="rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"

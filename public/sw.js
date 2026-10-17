@@ -1,4 +1,4 @@
-const CACHE_NAME = "marketstar-pwa-v1";
+const CACHE_NAME = "workspace-gemini-pwa-v2";
 const OFFLINE_URL = "/offline.html";
 
 self.addEventListener("install", (event) => {
@@ -6,7 +6,6 @@ self.addEventListener("install", (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll([
         OFFLINE_URL,
-        "/brand/marketstar-logo.png",
         "/icons/icon-192.png",
         "/icons/icon-512.png",
       ]))
@@ -18,7 +17,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(
-        keys.filter((key) => key.startsWith("marketstar-pwa-") && key !== CACHE_NAME)
+        keys.filter((key) => key !== CACHE_NAME)
           .map((key) => caches.delete(key))
       ))
       .then(() => self.clients.claim())

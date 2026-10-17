@@ -14,8 +14,6 @@ const pricingRows = latestGeminiModels.flatMap((model) =>
           useCase: model.summary,
           input: model.apiPricing.inputUsd,
           output: model.apiPricing.outputUsd,
-          inputAbove200k: model.apiPricing.inputAbove200kUsd,
-          outputAbove200k: model.apiPricing.outputAbove200kUsd,
           context: model.apiPricing.context,
           pricingNote: model.pricingNote,
           source: model.source,
@@ -31,13 +29,13 @@ function formatMoney(value: number) {
 export function ModelCostCalculator() {
   const { locale } = useLocale();
   const t = createPhraseTranslator(locale);
-  const [selectedModel, setSelectedModel] = useState("Gemini 2.5 Flash");
+  const [selectedModel, setSelectedModel] = useState("Gemini 3.8 Flash");
   const [inputTokens, setInputTokens] = useState(750000);
-  const [outputTokens, setOutputTokens] = useState(250000);
+  const [outputTokens, setOutputTokens] = useState(25000);
 
   const geminiBaseline = useMemo(
     () =>
-      pricingRows.find((model) => model.model === "Gemini 2.5 Flash") ??
+      pricingRows.find((model) => model.model === "Gemini 3.8 Flash") ??
       pricingRows.find((model) => model.model.includes("Flash")) ??
       pricingRows[0],
     [],
@@ -51,29 +49,11 @@ export function ModelCostCalculator() {
   );
 
   const calculateTotal = (model: (typeof pricingRows)[number]) => {
-    const usesHigherTier =
-      (model.model.includes("Pro") || model.model.includes("2.5")) && inputTokens > 128000;
-    const inputRate = usesHigherTier && model.inputAbove200k
-      ? model.inputAbove200k
-      : model.input;
-    const outputRate = usesHigherTier && model.outputAbove200k
-      ? model.outputAbove200k
-      : model.output;
-    const inputCost = (inputTokens / 1_000_000) * inputRate;
-    const outputCost = (outputTokens / 1_000_000) * outputRate;
-    return inputCost + outputCost;
+    return (inputTokens / 1_000_000) * model.input + (outputTokens / 1_000_000) * model.output;
   };
 
-  const selectedInputCost =
-    (inputTokens / 1_000_000) *
-    ((selected.model.includes("Pro") || selected.model.includes("2.5")) && inputTokens > 128000 && selected.inputAbove200k
-      ? selected.inputAbove200k
-      : selected.input);
-  const selectedOutputCost =
-    (outputTokens / 1_000_000) *
-    ((selected.model.includes("Pro") || selected.model.includes("2.5")) && inputTokens > 128000 && selected.outputAbove200k
-      ? selected.outputAbove200k
-      : selected.output);
+  const selectedInputCost = (inputTokens / 1_000_000) * selected.input;
+  const selectedOutputCost = (outputTokens / 1_000_000) * selected.output;
   const selectedCost = calculateTotal(selected);
   const geminiCost = calculateTotal(geminiBaseline);
 
@@ -126,8 +106,8 @@ export function ModelCostCalculator() {
               id="model-input-tokens"
               type="range"
               min="50000"
-              max="5000000"
-              step="50000"
+              max="1048576"
+              step="1024"
               value={inputTokens}
               onChange={(event) => setInputTokens(Number(event.target.value))}
               className="h-2 w-full accent-google-blue"
@@ -145,8 +125,8 @@ export function ModelCostCalculator() {
               id="model-output-tokens"
               type="range"
               min="10000"
-              max="2000000"
-              step="10000"
+              max="65536"
+              step="1024"
               value={outputTokens}
               onChange={(event) => setOutputTokens(Number(event.target.value))}
               className="h-2 w-full accent-google-blue"
@@ -188,7 +168,7 @@ export function ModelCostCalculator() {
             </div>
             <div className="mt-4 rounded-xl border border-border/80 bg-background/80 p-3 text-sm text-muted-foreground">
               <div className="flex items-center justify-between gap-3">
-                <span>{t("Gemini 2.5 Flash baseline")}</span>
+                <span>{t("Gemini 3.8 Flash baseline")}</span>
                 <span className="font-semibold text-foreground">
                   {formatMoney(geminiCost)}
                 </span>
@@ -198,7 +178,7 @@ export function ModelCostCalculator() {
               <TrendingDown className="h-4 w-4 text-google-green" />
               {selected.model === geminiBaseline.model
                 ? "This model is the current Flash cost baseline."
-                : `${formatMoney(Math.abs(selectedCost - geminiCost))} ${selectedCost >= geminiCost ? "above" : "below"} the Gemini 2.5 Flash estimate.`}
+                : `${formatMoney(Math.abs(selectedCost - geminiCost))} ${selectedCost >= geminiCost ? "above" : "below"} the Gemini 3.8 Flash estimate.`}
             </div>
             <p className="mt-3 text-xs leading-5 text-muted-foreground">
               API list-price estimate only. Workspace and Gemini Enterprise

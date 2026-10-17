@@ -123,7 +123,7 @@ export default async function MindMapPage({
               Context & Model Grounding
             </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Higher tiers unlock Gemini 2.5 Pro / Flash with large context windows (up to 2M tokens),
+              Gemini API model context limits vary by model and are separate from Google Workspace subscription features. Check the current model catalog before planning a deployment.
               custom fine-tuning, grounded enterprise search over Drive, and NotebookLM Enterprise grounding.
             </p>
           </div>

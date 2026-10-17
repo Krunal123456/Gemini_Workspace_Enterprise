@@ -86,7 +86,7 @@ export function PwaInstallAction({ open }: { open: boolean }) {
           </span>
           <span>
             <span className="block text-sm font-semibold text-foreground">{isSpanish ? "Instalar aplicación" : "Install app"}</span>
-            <span className="mt-0.5 block text-xs text-muted-foreground">{isSpanish ? "Añadir MarketStar a tu pantalla de inicio" : "Add MarketStar to your home screen"}</span>
+            <span className="mt-0.5 block text-xs text-muted-foreground">{isSpanish ? "Añadir Gemini Workspace a tu pantalla de inicio" : "Add Gemini Workspace to your home screen"}</span>
           </span>
         </span>
         <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />

@@ -87,7 +87,7 @@ export default async function AgentsAndMcpPage({
         </div>
       </section>
 
-      {/* ── Sundar Pichai "Gemini at Work" Coworker Agents Section ── */}
+      {/* Custom MCP server setup overview */}
       <section className="py-20 border-b border-border bg-background">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <CoworkerAgentShowcase />
@@ -122,7 +122,7 @@ export default async function AgentsAndMcpPage({
               <div className="w-10 h-10 rounded-lg bg-gemini-purple/10 text-gemini-purple flex items-center justify-center font-bold mb-4 border border-gemini-purple/20">
                 02
               </div>
-              <h3 className="font-bold text-foreground mb-2">{t("Gemini 2.5 Reasoner")}</h3>
+              <h3 className="font-bold text-foreground mb-2">{t("Gemini Enterprise agents")}</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 {t("Gemini plans the execution sequence, evaluates available MCP schemas, and generates structured tool-call arguments.")}
               </p>

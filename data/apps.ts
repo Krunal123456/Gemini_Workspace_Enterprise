@@ -13,14 +13,14 @@ export const applications: Application[] = [
     iconName: "Mail",
     featuresCount: 5,
     keyAIFeatures: [
-      "AI Inbox & Daily Digest",
+      "Email thread summaries",
       "Help me write",
       "Email summaries (side panel)",
-      "Contextual smart replies",
+      "Help me write",
       "Smart Compose",
     ],
-    overview: "Gmail AI operates across web and mobile surfaces, utilizing context from previous correspondence to organize incoming mail with proactive AI Inbox digests, draft responses, summarize multi-recipient chains, and highlight urgent action items.",
-    enterpriseValue: "Reduces repetitive email composition time by an estimated 35%, ensuring polished, brand-aligned communication with full DLP and enterprise data privacy protections.",
+    overview: "Gemini in Gmail can help summarize email threads and draft messages. Feature availability varies by account and rollout; check current Workspace release notes.",
+    enterpriseValue: "Helps people review long conversations and draft replies. Review generated text and confirm the applicable Workspace privacy terms and admin controls.",
   },
   {
     id: "docs",

@@ -3,9 +3,9 @@ import { siteUrl } from "@/lib/siteUrl";
 export const dynamic = "force-static";
 
 export function GET() {
-  const content = `# MarketStar Gemini Intelligence
+  const content = `# Workspace Gemini Intelligence
 
-> An independent guide to Google Workspace and Gemini Enterprise capabilities, plan comparisons, connectors, and security controls. This site is not affiliated with Google LLC.
+> An independent, source-led guide to Google Workspace and Gemini products, plan comparisons, connectors, and security controls. This site is not affiliated with Google LLC.
 
 ## Start here
 - [Home](${siteUrl}/): Overview of the site's research and tools.
@@ -13,12 +13,17 @@ export function GET() {
 - [Pricing](${siteUrl}/pricing): Review listed plan pricing and billing assumptions.
 - [Feature directory](${siteUrl}/features): Browse documented capabilities by product and plan.
 - [Google Workspace apps](${siteUrl}/apps): Explore Workspace applications and related capabilities.
+- [Gemini API models](${siteUrl}/articles/gemini-api-models): Model catalog, lifecycle, context limits, and pricing links.
+- [Gemini in Gmail](${siteUrl}/articles/gemini-in-gmail-ai-overviews): Gmail AI Overviews, writing help, and rollout caveats.
+- [Workspace cross-app tasks](${siteUrl}/articles/gemini-workspace-cross-app-tasks): Announced tasks, selected sources, and availability checks.
 
 ## Enterprise research
 - [Gemini Enterprise](${siteUrl}/products/gemini-enterprise): Product overview and deployment context.
 - [Connectors](${siteUrl}/enterprise/connectors): Browse data connectors and their requirements.
 - [Security and governance](${siteUrl}/security): Review security controls and governance topics.
 - [Enterprise readiness](${siteUrl}/enterprise/readiness): Assess deployment readiness.
+- [Custom MCP server setup](${siteUrl}/articles/gemini-enterprise-custom-mcp-servers): Google-documented transport, TLS, and action requirements.
+- [NotebookLM sources and Audio Overviews](${siteUrl}/articles/notebooklm-sources-audio-overviews): Source-grounded workflows and verification notes.
 - [Articles](${siteUrl}/articles): Editorial explainers and comparisons.
 
 ## Spanish

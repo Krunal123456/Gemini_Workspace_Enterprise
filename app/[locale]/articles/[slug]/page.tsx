@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     };
   }
 
-  const title = `${article.title} | MarketStar Enterprise Advisory`;
+  const title = `${article.title} | Google Workspace & Gemini Guide`;
   const description = article.excerpt;
   const articlePath = `/articles/${slug}`;
 

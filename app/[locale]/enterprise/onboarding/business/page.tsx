@@ -16,12 +16,12 @@ import { withLocalizedAlternates } from "@/lib/seo";
 
 const pageCopy: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: "Gemini Enterprise Business Edition Onboarding Guide (Google Workspace) | MarketStar Intelligence",
+    title: "Gemini Enterprise Business Edition Onboarding Guide (Google Workspace) | Gemini Enterprise Guide",
     description:
       "Step-by-step administrator onboarding blueprint for Gemini Enterprise – Business edition: Google Workspace Admin console setup (admin.google.com), Generative AI service status, OU scoping, license distribution, 25 GiB pooled indexing, and Gemini Notebook.",
   },
   es: {
-    title: "Guía de incorporación de Gemini Enterprise Business (Google Workspace) | MarketStar Intelligence",
+    title: "Guía de incorporación de Gemini Enterprise Business (Google Workspace) | Gemini Enterprise Guide",
     description:
       "Manual de incorporación para administradores de Gemini Enterprise – Business edition: configuración en la consola de Google Workspace (admin.google.com), estado del servicio de IA generativa, unidades organizativas, distribución de licencias e indexación agrupada de 25 GiB.",
   },

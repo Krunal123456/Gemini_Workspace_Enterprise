@@ -13,7 +13,7 @@ export const articlesPageUi: Record<
   }
 > = {
   en: {
-    advisory: "MarketStar Enterprise Advisory",
+    advisory: "Independent Product Research",
     titleLead: "Strategic insights on",
     titleAccent: "enterprise AI",
     intro:
@@ -22,7 +22,7 @@ export const articlesPageUi: Record<
     readArticle: "Read article",
   },
   es: {
-    advisory: "Asesor Enterprise de MarketStar",
+    advisory: "Investigación de producto independiente",
     titleLead: "Perspectivas estratégicas sobre la arquitectura de",
     titleAccent: "IA empresarial",
     intro:

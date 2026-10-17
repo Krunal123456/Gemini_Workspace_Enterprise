@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUp, ArrowRight, Sparkles } from "lucide-react";
-import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
+import { WorkspaceGeminiWordmark } from "@/components/logos/WorkspaceGeminiWordmark";
 import { localizeHref } from "@/lib/i18n/href";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -59,30 +59,14 @@ export function Footer({
 
   return (
     <footer className="w-full border-t border-border/80 bg-background/95 backdrop-blur-md">
-      {/* Top Live Operational Telemetry Bar */}
       <div className="border-b border-border/60 bg-muted/20 py-3">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            <span className="font-mono font-semibold text-foreground">
-              Workspace & Gemini Intelligence Network
-            </span>
-            <span className="hidden sm:inline font-mono text-emerald-600 dark:text-emerald-400">
-              · 100% Operational
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 font-mono text-[11px]">
-            <span className="hidden md:inline text-muted-foreground">
-              SOC 2 Type II · HIPAA · ISO 27001
-            </span>
-            <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-emerald-600 dark:text-emerald-400 font-semibold">
-              Zero Model Training
-            </span>
-          </div>
+        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-2 px-4 text-xs text-muted-foreground sm:px-6 lg:px-8">
+          <span className="font-medium text-foreground">
+            Independent Google Workspace and Gemini product research
+          </span>
+          <span>
+            Product terms change; confirm details in the linked Google sources.
+          </span>
         </div>
       </div>
 
@@ -92,7 +76,7 @@ export function Footer({
           {/* Brand Hub Column - Spans 2 on desktop */}
           <div className="sm:col-span-2 space-y-5">
             <div>
-              <MarketStarLogo className="h-5 w-auto object-contain" withProductLine />
+              <WorkspaceGeminiWordmark className="h-5 w-auto object-contain" withProductLine />
               <p className="mt-3 text-xs font-medium text-muted-foreground">{labels.by}</p>
             </div>
 
@@ -240,7 +224,7 @@ export function Footer({
       <div className="border-t border-border/60 bg-muted/10 py-6">
         <div className="mx-auto flex max-w-[1400px] flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 text-xs text-muted-foreground">
           <p className="text-center sm:text-left">
-            © {new Date().getFullYear()} MarketStar Intelligence. Independent reference architecture.
+            © {new Date().getFullYear()} Workspace Gemini Intelligence. Independent product research.
             Not affiliated with Google LLC. Google Workspace &amp; Gemini are trademarks of Google LLC.
           </p>
 

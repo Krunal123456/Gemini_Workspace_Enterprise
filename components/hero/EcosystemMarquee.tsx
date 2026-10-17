@@ -7,7 +7,6 @@ import { Database, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { GeminiLogo } from "@/components/logos/GeminiLogo";
 import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
-import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
 import { SalesforceLogo } from "@/components/logos/SalesforceLogo";
 import { JiraLogo } from "@/components/logos/JiraLogo";
 import { ConfluenceLogo } from "@/components/logos/ConfluenceLogo";
@@ -28,16 +27,15 @@ const ITEMS: MarqueeItem[] = [
   { name: "Google Workspace", type: "Native", image: "/brand/workspace-app-icons.png" },
   { name: "Gemini Enterprise", type: "Native", logo: GeminiLogo },
   { name: "Google Cloud", type: "Cloud", logo: GoogleCloudLogo },
-  { name: "MarketStar", type: "Partner", logo: MarketStarLogo },
-  { name: "Salesforce", type: "MCP Ready", logo: SalesforceLogo },
-  { name: "Jira", type: "MCP Ready", logo: JiraLogo },
-  { name: "Confluence", type: "MCP Ready", logo: ConfluenceLogo },
-  { name: "SharePoint", type: "MCP Ready", logo: SharePointLogo },
-  { name: "Slack", type: "MCP Ready", logo: SlackLogo },
-  { name: "Box", type: "MCP Ready", logo: BoxLogo },
-  { name: "GitHub", type: "MCP Ready", logo: GitHubLogo },
+  { name: "Salesforce", type: "Third-party platform", logo: SalesforceLogo },
+  { name: "Jira", type: "Third-party platform", logo: JiraLogo },
+  { name: "Confluence", type: "Third-party platform", logo: ConfluenceLogo },
+  { name: "SharePoint", type: "Third-party platform", logo: SharePointLogo },
+  { name: "Slack", type: "Third-party platform", logo: SlackLogo },
+  { name: "Box", type: "Third-party platform", logo: BoxLogo },
+  { name: "GitHub", type: "Third-party platform", logo: GitHubLogo },
   { name: "BigQuery", type: "Native", icon: Database },
-  { name: "Model Context Protocol", type: "MCP Ready", icon: Shield },
+  { name: "Model Context Protocol", type: "Open protocol", icon: Shield },
 ];
 
 // Duplicate items to ensure smooth infinite scroll

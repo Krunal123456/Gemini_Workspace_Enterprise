@@ -65,12 +65,6 @@ export default {
           gray: "#5F6368",
           light: "#F8F9FA",
         },
-        marketstar: {
-          navy: "#002B49",
-          blue: "#0072CE",
-          cyan: "#00A3E0",
-          slate: "#334155",
-        },
         gemini: {
           indigo: "#4F46E5",
           purple: "#7C3AED",

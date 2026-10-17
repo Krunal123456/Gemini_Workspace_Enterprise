@@ -365,10 +365,7 @@ export function FeatureExplorer({ viewMode = "link" }: FeatureExplorerProps) {
                   <option value="enterprise-plus">Enterprise Plus</option>
                 </optgroup>
                 <optgroup label="Add-on Subscriptions">
-                  <option value="gemini-business-addon">Gemini Business Add-on</option>
-                  <option value="gemini-enterprise-addon">Gemini Enterprise Add-on</option>
-                  <option value="ai-meetings-messaging">AI Meetings & Messaging</option>
-                  <option value="ai-security">AI Security</option>
+                  <option value="ai-expanded">Google AI expanded access</option>
                   <option value="google-voice-standard">Google Voice</option>
                   <option value="appsheet-core">AppSheet Core</option>
                 </optgroup>

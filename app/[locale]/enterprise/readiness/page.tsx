@@ -9,12 +9,12 @@ import { withLocalizedAlternates } from "@/lib/seo";
 
 const pageCopy: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: "Gemini Enterprise Readiness Planner | MarketStar Intelligence",
+    title: "Gemini Enterprise Readiness Planner | Gemini Enterprise Guide",
     description:
       "Build a Gemini Enterprise rollout recommendation from users, connectors, security requirements, and deployment goals.",
   },
   es: {
-    title: "Planificador de preparación para Gemini Enterprise | MarketStar Intelligence",
+    title: "Planificador de preparación para Gemini Enterprise | Gemini Enterprise Guide",
     description:
       "Crea una recomendación de despliegue de Gemini Enterprise a partir de usuarios, conectores, requisitos de seguridad y objetivos de despliegue.",
   },

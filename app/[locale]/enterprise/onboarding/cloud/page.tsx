@@ -15,12 +15,12 @@ import { withLocalizedAlternates } from "@/lib/seo";
 
 const pageCopy: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: "Gemini Enterprise Standard & Plus Onboarding Guide (Google Cloud) | MarketStar Intelligence",
+    title: "Gemini Enterprise Standard & Plus Onboarding Guide (Google Cloud) | Gemini Enterprise Guide",
     description:
       "Step-by-step administrator onboarding blueprint for Gemini Enterprise Standard and Plus: Google Cloud Console setup (console.cloud.google.com), organization hierarchy check, billing account linking, API activation, IAM governance, license distribution, Agent Builder apps, and Discovery Engine data stores.",
   },
   es: {
-    title: "Guía de incorporación de Gemini Enterprise Standard y Plus (Google Cloud) | MarketStar Intelligence",
+    title: "Guía de incorporación de Gemini Enterprise Standard y Plus (Google Cloud) | Gemini Enterprise Guide",
     description:
       "Manual de incorporación para administradores de Gemini Enterprise Standard y Plus: configuración en Google Cloud Console (console.cloud.google.com), jerarquía de organización, vinculación de facturación, activación de APIs, roles IAM, asignación de licencias y almacenes de Discovery Engine.",
   },

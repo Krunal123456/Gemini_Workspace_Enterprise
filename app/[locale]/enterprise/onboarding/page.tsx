@@ -18,12 +18,12 @@ import { withLocalizedAlternates } from "@/lib/seo";
 
 const pageCopy: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: "Gemini Enterprise Customer Onboarding Guide (Business, Standard & Plus) | MarketStar Intelligence",
+    title: "Gemini Enterprise Customer Onboarding Guide (Business, Standard & Plus) | Gemini Enterprise Guide",
     description:
       "Step-by-step administrator onboarding blueprint for Gemini Enterprise Business (Google Workspace), Standard, and Plus: Google Admin console setup, organization hierarchy, billing assignment, API activation, IAM governance, license distribution, app creation, and data stores.",
   },
   es: {
-    title: "Guía de incorporación de clientes de Gemini Enterprise (Business, Standard y Plus) | MarketStar Intelligence",
+    title: "Guía de incorporación de clientes de Gemini Enterprise (Business, Standard y Plus) | Gemini Enterprise Guide",
     description:
       "Plan de incorporación de administradores paso a paso para Gemini Enterprise Business (Google Workspace), Standard y Plus: consola de administración de Google, jerarquía de organización, facturación, APIs, roles IAM, licencias, aplicaciones y fuentes de datos.",
   },

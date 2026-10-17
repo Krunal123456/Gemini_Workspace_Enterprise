@@ -1,9 +1,9 @@
 import { Article } from "@/types";
 
 const editor = {
-  name: "MarketStar Research",
+  name: "Independent Product Research",
   role: "Product research",
-  company: "MarketStar",
+  company: "Independent reference",
 };
 
 export const articles: Article[] = [
@@ -70,143 +70,145 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "gemini-3-architecture-agentic-scale",
-    title: "Gemini 3.0 & 4.0 Neural Architecture: Autonomous Agents & Long Context",
-    subtitle: "How Google's frontier model roadmap transforms enterprise workflows with multi-agent orchestration, 4M+ context windows, and deep reasoning compute.",
-    excerpt: "Explore the architectural breakthroughs of Gemini 3.0 Pro, Gemini 3.0 Flash, Gemini 3.0 Deep Think, and the visionary Gemini 4 Agentic Engine for enterprise automation.",
-    date: "2026-10-04",
-    readTime: "8 min read",
-    category: "Enterprise AI",
-    author: editor,
-    keyTakeaways: [
-      "Gemini 3.0 Pro expands native multimodal context to 4M+ tokens with integrated autonomous planning and tool execution.",
-      "Gemini 3.0 Flash achieves sub-100ms response cycles, designed specifically for autonomous agent loops and continuous tool invocation.",
-      "Gemini 3.0 Deep Think introduces dynamic test-time reasoning compute and formal verification for mathematical and code accuracy.",
-      "Gemini 4 Agentic Engine lays the foundation for self-orchestrating enterprise departmental swarms and continuous organizational learning.",
+    "slug": "gemini-api-models",
+    "title": "Gemini API Models: Current Model IDs, Limits, and Pricing",
+    "subtitle": "Use Google’s live Gemini API catalog and pricing to verify model IDs, lifecycle status, token limits, and current rates.",
+    "excerpt": "Check Google’s live catalog for current model IDs, lifecycle status, and token limits. Review pricing before estimating API costs.",
+    "date": "2026-10-18",
+    "readTime": "7 min read",
+    "category": "Gemini",
+    "author": {
+      "name": "Independent Product Research",
+      "role": "Editorial research",
+      "company": "Independent reference"
+    },
+    "keyTakeaways": [
+      "Gemini API model IDs and lifecycle status are version-specific; copy the exact ID from Google’s current model catalog.",
+      "The currently listed Gemini 4 Argon and Gemini 3.8 Flash models each document a 1,048,576-token context limit, but output limits and supported features differ.",
+      "Google publishes introductory API prices with effective dates. Model API rates are not Google Workspace subscription prices."
     ],
-    content: [
-      "Google's AI model roadmap represents a generational transition from single-turn conversational assistants toward autonomous, self-orchestrating agentic systems. With Gemini 3.0 and the Gemini 4 Agentic Engine, organizations gain access to reasoning architectures designed to plan multi-step workflows, write and verify code in real time, and coordinate specialized agent swarms across enterprise applications. [1] [2]",
-      "### Gemini 3.0 Pro: Frontier Reasoning & 4M+ Multimodal Context",
-      "Building on the foundation of Gemini 2.5, Gemini 3.0 Pro expands the frontier context window to over 4 million multimodal tokens. This allows complete corporate codebases, decades of contractual records, or hundreds of hours of meeting recordings to be held in active working memory. Rather than relying solely on vector approximations, the model performs direct, high-fidelity associative lookup and synthesis across massive datasets. [1]",
-      "### Gemini 3.0 Flash: Sub-100ms Agent Execution",
-      "For high-frequency enterprise workflows, Gemini 3.0 Flash delivers unprecedented latency improvements. With response latencies under 100 milliseconds and native function calling, it acts as an ultra-fast cognitive engine for automated customer service, interactive terminal environments, and background data synchronization pipelines. [2]",
-      "### Gemini 3.0 Deep Think: Dynamic Reasoning & Formal Verification",
-      "Complex financial modeling, cryptography, and mission-critical software engineering require zero tolerance for hallucinations. Gemini 3.0 Deep Think allocates dynamic computational budgets at inference time, generating internal verification steps and mathematical proofs before presenting final recommendations. [3]",
-      "### Looking Ahead: Gemini 4 Agentic Engine",
-      "Google DeepMind's Gemini 4 research horizon explores persistent departmental memory, continuous adaptive learning, and autonomous agent coordination where multiple specialized models collaborate securely under strict enterprise governance rules. [4]",
+    "content": [
+      "Google’s Gemini API catalog changes as models launch, move from preview to general availability, or reach end of life. Use the exact model ID and status from Google’s catalog when building an integration; a family name alone is not enough to identify a production endpoint. The Gemini API is a developer product and is separate from Gemini features bundled with Google Workspace subscriptions. [1]",
+      "### Current model examples",
+      "Google’s catalog currently lists Gemini 4 Argon (`gemini-4-argon`) and Gemini 3.8 Flash (`gemini-3.8-flash`) as generally available. Gemini 3.7 Flash and Gemini 3.6 Flash are also listed as stable, while Gemini 3.1 Pro is in preview. Check the catalog before relying on these statuses because they can change. [1]",
+      "### Context and output limits",
+      "The Gemini 4 Argon and Gemini 3.8 Flash model pages each document a 1,048,576-token context limit. That figure does not mean every request can produce the same amount of output: model, endpoint, decode mode, and other request constraints affect output limits. Gemini 4 Argon’s page separately describes standard synchronous output and long-decode limits. Check the model-specific page and API behavior for your use case. [3] [4]",
+      "### Published API pricing snapshot",
+      "As of October 18, 2026, Google’s pricing page lists introductory standard-tier rates of $2 per million input tokens and $10 per million output tokens for Gemini 4 Argon through November 30, 2026. It lists $0.75 per million input tokens and $3.75 per million output tokens for Gemini 3.8 Flash through December 31, 2026. These dated rates can depend on tier, tools, and token type; revisit the live pricing page when budgeting. [2]",
+      "### A practical selection checklist",
+      "Choose a stable model when lifecycle predictability matters. Compare quality on representative prompts, latency in your deployment, maximum input and output needs, and total cost for your actual token mix. Pin the exact model ID, record the date and pricing assumptions, monitor usage, and plan a migration path for preview or retiring models. [1] [2]",
+      "### Keep API models separate from Workspace plans",
+      "Gemini API model IDs and token prices describe developer API usage. They do not identify which Gemini features are included in Business or Enterprise Workspace subscriptions. For plan eligibility, use Google Workspace’s current pricing and edition documentation rather than extrapolating from the API catalog."
     ],
-    sources: [
-      { title: "Google DeepMind: The Next Era of Gemini Intelligence", url: "https://deepmind.google/technologies/gemini/" },
-      { title: "Gemini API Models & Architecture Guide", url: "https://ai.google.dev/gemini-api/docs/models" },
-      { title: "Autonomous Reasoning and Test-Time Compute in Gemini", url: "https://ai.google.dev/gemini-api/docs/models/gemini-v2" },
-      { title: "Google Cloud Vertex AI Enterprise Model Catalog", url: "https://cloud.google.com/vertex-ai/docs/generative-ai/model-garden" },
-    ],
-    relatedFeatures: [
-      "gemini-deep-research",
-      "gemini-enterprise-platform-agents",
-      "gemini-enterprise-platform-custom-mcp-server-connectors",
-    ],
+    "sources": [
+      {
+        "title": "Gemini API models",
+        "url": "https://ai.google.dev/gemini-api/docs/models"
+      },
+      {
+        "title": "Gemini API pricing",
+        "url": "https://ai.google.dev/gemini-api/docs/pricing"
+      },
+      {
+        "title": "Gemini 4 Argon model details",
+        "url": "https://ai.google.dev/gemini-api/docs/models/gemini-4-argon"
+      },
+      {
+        "title": "Gemini 3.8 Flash model details",
+        "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash"
+      }
+    ]
   },
   {
-    slug: "deep-research-gemini-enterprise",
-    title: "Deep Research in Gemini Enterprise: Autonomous Multi-Source Intelligence",
-    subtitle: "How automated multi-step research synthesis scours hundreds of internal and external sources to produce comprehensive executive briefings.",
-    excerpt: "A deep dive into Gemini Deep Research: how it plans research graphs, retrieves grounded documentation across enterprise repositories, and compiles 20+ page executive reports with verifiable citations.",
-    date: "2026-10-02",
-    readTime: "7 min read",
-    category: "Enterprise AI",
-    author: editor,
-    keyTakeaways: [
-      "Deep Research autonomously browses, reads, and cross-analyzes hundreds of corporate documents, databases, and web sources.",
-      "Generates comprehensive, multi-section briefings with full inline citations and provenance tracking.",
-      "Respects enterprise access controls: documents outside a user's permission scope are never accessed or referenced.",
-      "Reduces complex strategic analysis workflows from days of manual reading to minutes of automated synthesis.",
+    "slug": "gemini-deep-research-workspace",
+    "title": "Gemini Deep Research: What It Does and What to Verify",
+    "subtitle": "A source-led look at Google’s announced Workspace research workflows, selected sources, and rollout caveats.",
+    "excerpt": "Google describes multi-step Gemini workflows across Workspace apps, using sources selected by the user or enabled by an administrator. Verify feature availability in your account.",
+    "date": "2026-10-18",
+    "readTime": "4 min read",
+    "category": "Enterprise AI",
+    "author": {
+      "name": "Independent Product Research",
+      "role": "Editorial research",
+      "company": "Independent reference"
+    },
+    "keyTakeaways": [
+      "Google describes multi-step Gemini workflows across Workspace apps, using sources selected by the user or enabled by an administrator. Verify feature availability in your account.",
+      "Confirm the current feature scope and availability in Google’s documentation and your account."
     ],
-    content: [
-      "Enterprise analysts and strategy leaders spend hours searching through disconnected documents, customer feedback, quarterly earnings, and competitive research. Gemini Deep Research automates this research loop by formulating multi-tier research plans, recursively querying connected knowledge repositories, and compiling synthesized reports with comprehensive citations. [1] [2]",
-      "### The Research Graph Architecture",
-      "When a user triggers a Deep Research query, Gemini doesn't simply run a single search. Instead, it generates a structured research plan: identifying sub-questions, finding relevant datasets across Google Drive, BigQuery, Salesforce, and public web sources, reading full-text documentation, and synthesizing conflicting findings into structured analysis sections. [1]",
-      "### Enterprise Grounding & Permission Boundaries",
-      "In Gemini Enterprise, Deep Research strictly adheres to identity-aware access controls. Every retrieved document passes through the user's OAuth credentials or IAM roles. If a document in SharePoint, Google Drive, or Jira is restricted, it is invisible to the Deep Research agent, preventing data leakage across organizational silos. [3]",
-      "### Verified Citations & Provenance",
-      "Every claim made in a Deep Research report is tagged with traceable numerical footnotes linking back to the original source file, slide, or row. Teams can audit assumptions with a single click, providing total transparency for compliance, audit, and leadership review. [2]",
+    "content": [
+      "Google describes multi-step Gemini workflows across Workspace apps, using sources selected by the user or enabled by an administrator. Verify feature availability in your account. [1]",
+      "### What to verify",
+      "Read the current primary documentation, confirm availability and configuration in your own account, and review generated output against original sources. Product details and rollout can change."
     ],
-    sources: [
-      { title: "Gemini Deep Research in Google Workspace and Cloud", url: "https://workspace.google.com/blog/product-announcements/less-switching-more-flow-5-new-agentic-capabilities-across-google-workspace-apps" },
-      { title: "Google Workspace AI Privacy & Security Commitments", url: "https://workspace.google.com/security/ai-privacy/" },
-      { title: "Gemini Enterprise Search and Grounding Overview", url: "https://cloud.google.com/gemini-enterprise" },
-    ],
-    relatedFeatures: [
-      "gemini-deep-research",
-      "gemini-grounded-responses",
-      "gemini-enterprise-platform-stored-organisational-knowledge",
-    ],
+    "sources": [
+      {
+        "title": "Google Workspace agentic capabilities announcement",
+        "url": "https://workspace.google.com/blog/product-announcements/less-switching-more-flow-5-new-agentic-capabilities-across-google-workspace-apps"
+      }
+    ]
   },
   {
-    slug: "notebooklm-enterprise-grounding",
-    title: "NotebookLM Enterprise: Audio Overviews, Team Knowledge & Source Grounding",
-    subtitle: "Transforming complex organizational documentation into interactive AI podcasts, source-grounded research assistants, and executive summaries.",
-    excerpt: "Discover how NotebookLM Enterprise enables team collaboration on complex PDF archives, creates synthetic dual-host Audio Overviews, and enforces zero hallucination boundaries through strict citation grounding.",
-    date: "2026-09-30",
-    readTime: "6 min read",
-    category: "Gemini",
-    author: editor,
-    keyTakeaways: [
-      "NotebookLM grounds responses exclusively in uploaded or linked enterprise source files, preventing hallucination.",
-      "Interactive Audio Overviews generate engaging, conversational podcast-style discussions between two AI hosts based on company materials.",
-      "Enterprise NotebookLM provides administrative controls, shared team notebooks, and DLP compliance.",
-      "Inline citation tags allow immediate verification of facts back to the exact page and paragraph in original PDFs.",
+    "slug": "notebooklm-sources-audio-overviews",
+    "title": "NotebookLM for Work: Sources, Audio Overviews, and Verification",
+    "subtitle": "How to use NotebookLM source-based workflows while checking important claims against original material.",
+    "excerpt": "NotebookLM can help explore supplied sources and create Audio Overviews. Citations support verification but do not guarantee error-free answers.",
+    "date": "2026-10-18",
+    "readTime": "4 min read",
+    "category": "Gemini",
+    "author": {
+      "name": "Independent Product Research",
+      "role": "Editorial research",
+      "company": "Independent reference"
+    },
+    "keyTakeaways": [
+      "NotebookLM can help explore supplied sources and create Audio Overviews. Citations support verification but do not guarantee error-free answers.",
+      "Confirm the current feature scope and availability in Google’s documentation and your account."
     ],
-    content: [
-      "NotebookLM has redefined how knowledge workers interact with complex technical manuals, legal briefs, and strategy documents. By pairing Google's Gemini 2.5 Pro architecture with strict source-only grounding, NotebookLM acts as an expert research partner that answers questions based exclusively on the provided documents. [1]",
-      "### Audio Overviews: AI Podcasts from Corporate Documents",
-      "One of the most transformative features of NotebookLM is Audio Overviews. With a single click, NotebookLM generates a natural, highly engaging audio conversation between two synthetic AI hosts who summarize key takeaways, connect disparate ideas, and explain complex topics in plain language. Corporate onboarding, technical architecture briefs, and quarterly reviews can now be consumed on the go. [2]",
-      "### Enterprise Collaboration & Security",
-      "With NotebookLM Enterprise, teams can create shared project notebooks accessible only to authorized team members. Administrative governance allows organizations to enforce corporate data retention rules, audit usage, and ensure customer data is never used to train global public AI models. [3]",
+    "content": [
+      "NotebookLM can help explore supplied sources and create Audio Overviews. Citations support verification but do not guarantee error-free answers. [1] [2]",
+      "### What to verify",
+      "Read the current primary documentation, confirm availability and configuration in your own account, and review generated output against original sources. Product details and rollout can change."
     ],
-    sources: [
-      { title: "NotebookLM: Your AI-Powered Thinking Partner", url: "https://notebooklm.google.com/" },
-      { title: "Google Workspace NotebookLM Enterprise Guide", url: "https://workspace.google.com/products/notebooklm/" },
-      { title: "Enterprise AI Security and Privacy", url: "https://workspace.google.com/security/ai-privacy/" },
-    ],
-    relatedFeatures: [
-      "notebooklm-audio-overview",
-      "notebooklm-source-citations",
-      "notebooklm-shared-notebooks",
-    ],
+    "sources": [
+      {
+        "title": "NotebookLM",
+        "url": "https://notebooklm.google.com/"
+      },
+      {
+        "title": "Google Workspace AI privacy and security",
+        "url": "https://workspace.google.com/security/ai-privacy/"
+      }
+    ]
   },
   {
-    slug: "mcp-model-context-protocol-enterprise",
-    title: "Model Context Protocol (MCP) in Gemini Enterprise: Open Tool Integration",
-    subtitle: "How the Model Context Protocol standardizes enterprise tool connectivity, private database grounding, and custom agent integrations.",
-    excerpt: "Learn how Google Gemini Enterprise leverages the open Model Context Protocol (MCP) standard to connect internal microservices, private SQL databases, GitHub, and custom SaaS tools without proprietary vendor lock-in.",
-    date: "2026-09-29",
-    readTime: "7 min read",
-    category: "Enterprise AI",
-    author: editor,
-    keyTakeaways: [
-      "MCP provides an open, universal standard for connecting LLMs to external data sources and tools.",
-      "Gemini Enterprise supports custom MCP servers to safely query internal databases, APIs, and microservices.",
-      "Enterprise security teams can inspect and enforce least-privilege permissions on all MCP tool calls.",
-      "Eliminates custom brittle connectors by standardizing schema definitions, prompts, and resources.",
+    "slug": "gemini-enterprise-custom-mcp-servers",
+    "title": "Custom MCP Servers in Gemini Enterprise: Setup Requirements",
+    "subtitle": "Review Google’s documented transport, TLS, authentication, and action limits before connecting a custom MCP server.",
+    "excerpt": "Google documents custom MCP server connections for Gemini Enterprise. The current setup guide specifies Streamable HTTP, publicly trusted TLS, and up to 100 actions per server.",
+    "date": "2026-10-18",
+    "readTime": "4 min read",
+    "category": "Enterprise AI",
+    "author": {
+      "name": "Independent Product Research",
+      "role": "Editorial research",
+      "company": "Independent reference"
+    },
+    "keyTakeaways": [
+      "Google documents custom MCP server connections for Gemini Enterprise. The current setup guide specifies Streamable HTTP, publicly trusted TLS, and up to 100 actions per server.",
+      "Confirm the current feature scope and availability in Google’s documentation and your account."
     ],
-    content: [
-      "Connecting large language models to internal enterprise software has historically required proprietary APIs, custom SDK wrappers, and complex middleware. The Model Context Protocol (MCP) solves this challenge by establishing an open, universal standard for exposing data sources, tools, and prompts to AI assistants. [1] [2]",
-      "### How Gemini Enterprise Implements MCP",
-      "In Gemini Enterprise Standard and Plus, administrators can register private MCP servers operating within the corporate VPC or on-premises infrastructure. Whether querying an internal PostgreSQL cluster, triggering CI/CD deployments in GitHub Actions, or reading telemetry from Datadog, Gemini translates natural language into structured MCP requests. [1]",
-      "### Security, Authentication & Auditability",
-      "Every MCP interaction is authenticated using corporate tokens and logged in Google Cloud Audit Logs. Administrators can define granular tool access rules: designating which teams can execute write actions versus read-only queries, and requiring human approval before destructive database operations. [3]",
+    "content": [
+      "Google documents custom MCP server connections for Gemini Enterprise. The current setup guide specifies Streamable HTTP, publicly trusted TLS, and up to 100 actions per server. [1]",
+      "### What to verify",
+      "Read the current primary documentation, confirm availability and configuration in your own account, and review generated output against original sources. Product details and rollout can change."
     ],
-    sources: [
-      { title: "Model Context Protocol Open Standard", url: "https://modelcontextprotocol.io/" },
-      { title: "Gemini Enterprise MCP Server Integration Guide", url: "https://docs.cloud.google.com/gemini/enterprise/docs/mcp-overview" },
-      { title: "Google Cloud Audit Logging for Gemini", url: "https://cloud.google.com/logging/docs/audit" },
-    ],
-    relatedFeatures: [
-      "gemini-enterprise-platform-custom-mcp-server-connectors",
-      "gemini-enterprise-platform-agents",
-      "security-cloud-audit-logging",
-    ],
+    "sources": [
+      {
+        "title": "Google custom MCP server setup guide",
+        "url": "https://docs.cloud.google.com/gemini/enterprise/docs/connectors/custom-mcp-server/set-up-custom-mcp-server"
+      }
+    ]
   },
   {
     slug: "gemini-workspace-vs-gemini-enterprise",
@@ -362,129 +364,66 @@ export const articles: Article[] = [
     relatedFeatures: ["gemini-chat", "gemini-docs", "gemini-deep-research"],
   },
   {
-    slug: "gemini-workspace-coworker-agents-individual-email",
-    title: "Gemini Workspace Coworker Agents: Dedicated Email Identities & Autonomous Enterprise Execution",
-    subtitle: "At the Gemini at Work summit, Alphabet CEO Sundar Pichai unveiled persistent AI coworker agents with their own Google Workspace accounts, company email addresses, calendars, and organizational roles.",
-    excerpt: "A comprehensive guide to Google's autonomous Workspace coworker agents: provisioning dedicated @company.com email identities, cross-app execution across Gmail, Meet, and Salesforce, key organizational archetypes, and admin governance.",
-    date: "2026-10-15",
-    readTime: "9 min read",
-    category: "Enterprise AI",
-    author: editor,
-    keyTakeaways: [
-      "Google introduced autonomous Workspace coworker agents provisioned with their own Google Workspace accounts, dedicated email addresses (e.g., agent@company.com), and company directory profiles.",
-      "Agents can be emailed directly, invited to Google Calendar meetings, tagged in Google Chat spaces, or triggered via cross-app enterprise webhooks.",
-      "Unlike single-turn prompt bots, coworker agents execute multi-step workflows across Workspace (Gmail, Docs, Sheets, Drive) and third-party tools (Salesforce, Jira, Slack, ServiceNow) autonomously.",
-      "Role-based deployment supports Project Operations, Sales RFP drafting, Customer Inbound Triage, Finance Invoice Reconciliation, and HR Onboarding.",
-      "All agent actions maintain independent audit logs with agent attribution, admin-defined human-in-the-loop approval thresholds, and enterprise DLP data protections.",
+    "slug": "gemini-workspace-cross-app-tasks",
+    "title": "Gemini Cross-App Tasks in Google Workspace: What Was Announced",
+    "subtitle": "Understand the announced cross-app workflows, user-selected sources, and rollout caveats.",
+    "excerpt": "Google describes cross-app tasks under user direction and sources selected by users or enabled by administrators. The announcement does not describe autonomous Workspace accounts with their own email identities.",
+    "date": "2026-10-18",
+    "readTime": "4 min read",
+    "category": "Enterprise AI",
+    "author": {
+      "name": "Independent Product Research",
+      "role": "Editorial research",
+      "company": "Independent reference"
+    },
+    "keyTakeaways": [
+      "Google describes cross-app tasks under user direction and sources selected by users or enabled by administrators. The announcement does not describe autonomous Workspace accounts with their own email identities.",
+      "Confirm the current feature scope and availability in Google’s documentation and your account."
     ],
-    content: [
-      "At the global Gemini at Work summit, Alphabet and Google CEO Sundar Pichai, alongside Google Cloud CEO Thomas Kurian, unveiled a transformative architectural shift for enterprise artificial intelligence: Gemini Coworker Agents. Rather than treating AI as an ephemeral chat window where users must repeatedly paste context and prompts, Google is enabling organizations to provision persistent AI agents with their own official Google Workspace accounts, company email addresses, and organizational identities. [1] [2]",
-      "### The Paradigm Shift: From Copilot Prompting to Autonomous Coworkers",
-      "Traditional enterprise AI assistants operate reactively: a human worker types a prompt, waits for a response, and manually copies text between tools. Workspace Coworker Agents invert this dynamic. An agent is treated by the system as an autonomous team member with an addressable email inbox (such as pm-agent@company.com), a dedicated Google Calendar, access to specific Shared Drives, and identity credentials governed by Google Workspace Admin. [1]",
-      "Human colleagues can simply CC the agent on an email chain, forward an inbound client query, or add the agent to a Google Meet invite. The agent autonomously parses the thread, checks relevant documentation in Google Drive, pulls real-time data from external APIs, drafts comprehensive deliverables, and schedules necessary follow-up sessions. [2]",
-      "### How Dedicated Email Identities Function in Practice",
-      "Giving an AI agent its own company email address fundamentally unlocks real-world asynchronous collaboration without requiring new proprietary messaging tools or custom browser extensions: [1]",
-      "1. Direct Inbound Communication: External vendors, prospective clients, or internal team members can email the agent directly. The agent understands conversational history, evaluates attachments (PDFs, spreadsheets, slide decks), and composes responses adhering to company brand guidelines.",
-      "2. Asynchronous Background Execution: A team member can email the agent: 'Please analyze our Q3 regional pipeline in Salesforce, flag any deals stalled over 30 days, cross-reference with our Drive proposal folder, and generate a briefing doc for tomorrow morning's leadership sync.' The agent plans the workflow, interacts with systems overnight, and delivers the finished Doc to the requester's inbox.",
-      "3. Automated Meeting Triage: When invited to a Google Calendar event, the agent can inspect the attendee list, synthesize pre-read materials from Drive, join the Meet call with 'Take notes for me' active, extract agreed action items, and email a formatted executive summary to all participants.",
-      "### Where to Deploy Workspace Coworker Agents: 5 Core Enterprise Roles",
-      "Sundar Pichai emphasized that these agents are built for specific, repeatable organizational functions where cross-tool context switching creates massive operational drag: [1] [2]",
-      "Role 1: Project Operations & Status Coordination (pm-agent@...): Monitors project threads across Gmail and Google Chat, verifies deliverable status against Jira or Asana, updates shared Google Sheets tracking matrices, and emails weekly progress digests to project leads.",
-      "Role 2: Sales RFP & Inbound Proposal Lead (rfp-agent@...): Serves as the central repository inbox for inbound RFPs. Automatically analyzes questionnaire requirements, searches approved past responses in Google Drive and NotebookLM, drafts accurate initial proposals, and routes pricing exceptions to human sales directors.",
-      "Role 3: Customer Experience & Email Triage (support-agent@...): Ingests inbound customer support emails, categorizes issue severity, resolves routine technical questions using grounded documentation, and escalates complex edge cases to human specialists with pre-drafted context.",
-      "Role 4: Finance & Expense Reconciliation (finance-agent@...): Receives vendor invoices and receipts via email, extracts line-item data into Google Sheets, cross-references purchase orders in ERP systems, and flags discrepancies for human accounting review.",
-      "Role 5: Employee Onboarding & HR Navigator (onboarding-agent@...): Welcomes new hires via email, schedules introductory 1-on-1s on Google Calendar, answers company policy questions grounded in HR Drive folders, and coordinates setup checklists across IT systems.",
-      "### Step-by-Step: How Administrators Activate Coworker Agents",
-      "To deploy coworker agents across a corporate tenant, Google Workspace administrators follow a structured 4-phase activation in the Google Workspace Admin console (admin.google.com): [3]",
-      "1. Licensing Verification: Ensure the tenant has active Google Workspace Enterprise Standard, Enterprise Plus, or Gemini Enterprise Standalone/Add-on licenses. Subscriptions are verified in Billing > Subscriptions.",
-      "2. Service Enablement: Navigate to Apps > Google Workspace > Gemini > Autonomous Agents & Studio. Toggle the service status to ON for the entire root domain or scoped to specific target Organizational Units (OUs).",
-      "3. Dedicated Organizational Unit (OU) Architecture: Best practice dictates creating a specialized OU, such as /AI-Agents/Operations. Inside this OU, administrators configure session policies, disable external user password resets, enforce service account OAuth bindings, and restrict unauthorized 3rd-party Marketplace app installations.",
-      "4. Provisioning the Corporate Email Identity: Assign the agent its official corporate email address (e.g., pm-agent@company.com or @agents.company.com) in Directory > Users. This creates the underlying Cloud Identity profile, mailbox, and directory listing.",
-      "### How to Create and Train an Agent in Workspace Studio",
-      "Once activated by IT, department leads and authorized builders create specialized agents through Workspace Agent Studio or Google Cloud Vertex AI Agent Builder: [1] [2]",
-      "Step 1 - Profile & Identity Binding: Enter the agent display name (e.g. 'Global RFP Proposal Specialist'), select an avatar badge, and bind it to the provisioned corporate email address.",
-      "Step 2 - System Instructions & Behavioral Rules: Draft the agent's core cognitive prompt. This defines its identity, operational tone, expected output schemas (Google Docs tables, Sheets formulas), and negative constraints (e.g., 'Never agree to customer custom SLA terms without legal escalation').",
-      "Step 3 - Grounding & Knowledge Scoping: Link the agent to verified corporate knowledge repositories. This includes department-specific Shared Drives, curated NotebookLM Enterprise notebooks, policy PDFs, and BigQuery data tables. The agent performs semantic retrieval strictly across these designated sources.",
-      "Step 4 - Guardrails & Human-in-the-Loop Triggers: Set policy gates for high-stakes actions. For internal reading, summarizing, and scheduling, the agent acts autonomously. For outbound customer emails, contract revisions, or financial adjustments, the agent prepares draft artifacts and requires one-click manager sign-off via email.",
-      "### Connecting Enterprise Connectors and MCP Tool Calling",
-      "To enable autonomous agents to reach beyond Google Workspace into external line-of-business software, Google supports two connection architectures: [2] [3]",
-      "Architecture A - Pre-Built Google Cloud Connectors: Administrators can enable 1-click enterprise connectors from the Google Cloud Connector Catalog. This includes certified connectors for Salesforce, HubSpot, Jira, ServiceNow, Slack, GitHub, Zendesk, SAP, and Snowflake. Authentication is managed via managed OAuth 2.0 with scoped read/write permissions.",
-      "Architecture B - Model Context Protocol (MCP) Custom Servers: For internal databases, legacy microservices, or custom VPC applications, developers deploy lightweight MCP servers in TypeScript or Python. The agent connects to the MCP server endpoint over HTTP/SSE, dynamically inspects exposed JSON-RPC tool schemas, and safely invokes backend functions using scoped identity tokens.",
-      "### End-User Playbook: How Employees and Teams Use the Agent Daily",
-      "For everyday knowledge workers, interacting with a coworker agent requires zero new software or complex prompt engineering. It operates through natural daily communication surfaces: [1] [2]",
-      "- Emailing the Agent Directly: Send an email to agent@company.com just as you would to a human teammate. Attach files (spreadsheets, slide decks, PDFs) and provide high-level objectives like: 'Analyze these three vendor bids, summarize line-item cost differences in a Google Doc, and flag any missing SOC 2 certificates.'",
-      "- CCing the Agent on Threads: When discussing a project in an ongoing email chain, CC pm-agent@company.com with: '@pm-agent please review the agreed deliverables above, create the tracking tickets in Jira, and update our sprint Sheet.'",
-      "- Google Calendar & Meet Collaboration: Invite the agent to a calendar invite. The agent reviews attendees, pulls relevant pre-reads from Drive, joins the Google Meet call with automated transcription active, captures key decisions, and emails a formatted executive briefing to all attendees immediately after the call.",
-      "- Google Chat Spaces: Add the agent into team Chat spaces. Team members tag @AgentName for real-time information retrieval, Jira ticket creation, or pipeline queries.",
-      "- One-Click Human Sign-Off: When the agent needs approval for an external action (e.g. sending a sales proposal or issuing an invoice), it delivers an interactive email card with [Approve & Send] and [Edit Draft] buttons directly to the responsible manager's inbox.",
-      "### Enterprise Data Protections",
-      "Google reiterates that enterprise data processed by Workspace Coworker Agents remains strictly confidential. Customer emails, calendar entries, and internal documents are never used to train foundational AI models without explicit customer permission, preserving HIPAA, SOC 2, and GDPR compliance commitments. [4]",
+    "content": [
+      "Google describes cross-app tasks under user direction and sources selected by users or enabled by administrators. The announcement does not describe autonomous Workspace accounts with their own email identities. [1]",
+      "### What to verify",
+      "Read the current primary documentation, confirm availability and configuration in your own account, and review generated output against original sources. Product details and rollout can change."
     ],
-    sources: [
-      { title: "Google Cloud Gemini at Work: Keynote by Sundar Pichai and Thomas Kurian", url: "https://cloud.google.com/events/gemini-at-work" },
-      { title: "Google Workspace Blog: The Evolution of Autonomous Agent Coworkers", url: "https://workspace.google.com/blog/product-announcements/autonomous-agents-google-workspace" },
-      { title: "Google Cloud Model Context Protocol (MCP) & Enterprise Tool Calling", url: "https://docs.cloud.google.com/gemini/enterprise/docs/agents-mcp" },
-      { title: "Generative AI Security, Compliance, and Data Governance in Google Workspace", url: "https://workspace.google.com/security/ai-privacy/" },
-    ],
-    relatedFeatures: [
-      "gemini-workspace-coworker-agent-email",
-      "gemini-enterprise-platform-agents",
-      "gemini-enterprise-platform-custom-mcp-server-connectors",
-      "security-audit-logs",
-    ],
+    "sources": [
+      {
+        "title": "Google Workspace agentic capabilities announcement",
+        "url": "https://workspace.google.com/blog/product-announcements/less-switching-more-flow-5-new-agentic-capabilities-across-google-workspace-apps"
+      }
+    ]
   },
   {
-    slug: "gmail-ai-inbox-proactive-intelligence",
-    title: "Gmail AI Inbox: Proactive Intelligence That Manages Your Email For You",
-    subtitle: "How Gemini's AI Inbox transforms reactive email into a proactive intelligence layer — surfacing priorities, answering questions, and drafting replies before you even open a thread.",
-    excerpt: "Gmail's AI Inbox goes beyond smart compose. Explore how Morning AI Digest, Conversational Search, Thread AI Overviews, and Contextual Smart Replies work together to slash inbox time by 60%.",
-    date: "2026-10-15",
-    readTime: "7 min read",
-    category: "Enterprise AI",
-    author: editor,
-    keyTakeaways: [
-      "Morning AI Digest delivers a prioritized briefing of overnight email — critical threads, required actions, and deadlines — before your first coffee.",
-      "Conversational Search lets you query your inbox in plain English: 'What did Sarah say about the Q4 budget?' returns grounded answers, not search results.",
-      "Thread AI Overviews compress long email chains into a 3-sentence executive summary with one-click expand to any message.",
-      "Contextual Smart Replies generate tone-matched draft responses (Professional, Concise, Friendly) with full context of the thread history.",
-      "AI Inbox is available on Gemini Business, Enterprise Standard, and Enterprise Plus plans — no additional add-on required.",
+    "slug": "gemini-in-gmail-ai-overviews",
+    "title": "Gemini in Gmail: AI Overviews, Writing Help, and Availability",
+    "subtitle": "A grounded overview of Gmail’s announced AI assistance and rollout caveats.",
+    "excerpt": "Google has announced AI Overviews for email threads and personalized Help me write. Availability depends on rollout, account, and subscription; verify current release details.",
+    "date": "2026-10-18",
+    "readTime": "4 min read",
+    "category": "Enterprise AI",
+    "author": {
+      "name": "Independent Product Research",
+      "role": "Editorial research",
+      "company": "Independent reference"
+    },
+    "keyTakeaways": [
+      "Google has announced AI Overviews for email threads and personalized Help me write. Availability depends on rollout, account, and subscription; verify current release details.",
+      "Confirm the current feature scope and availability in Google’s documentation and your account."
     ],
-    content: [
-      "For most knowledge workers, email is where productivity dies. The average enterprise employee spends 3.1 hours per day managing their inbox — triaging, context-switching, and composing responses to messages that could be handled in seconds with the right intelligence. Gmail's AI Inbox, powered by Gemini 2.5 Pro, fundamentally reframes how email works: from a reactive queue you drain, to a proactive intelligence layer that surfaces what matters and handles the rest. [1]",
-      "### Morning AI Digest: Your Inbox Intelligence Briefing",
-      "Every morning, before you open your first thread, Gmail AI Inbox generates a structured briefing summarizing overnight email activity. The digest is not a simple summary of new messages — it is an AI-generated intelligence report that: [1] [2]",
-      "- **Prioritizes critical threads** using signals like sender seniority, explicit deadlines, open action items, and calendar proximity. A message from your CEO with a budget decision needed before 10am will rank above 40 newsletter subscriptions.",
-      "- **Surfaces required actions** across all threads — flagging asks addressed to you directly, even if buried in a 20-message chain: 'You are listed as approver on the vendor contract in Sarah's 11pm email.'",
-      "- **Groups related threads** under unified topics — all messages about the Q4 launch appear as a single digest card showing the latest status and open decisions.",
-      "- **Integrates Google Calendar context** — meetings in your next 3 hours are shown alongside any unread pre-read documents shared in Gmail, so you arrive prepared.",
-      "The digest is interactive: tap any item to jump directly to the relevant message, or swipe to dismiss low-priority threads in bulk — which trains Gemini's prioritization model over time. [2]",
-      "### Conversational Search: Query Your Inbox Like a Database",
-      "Traditional Gmail search returns messages that contain keywords. AI Inbox Conversational Search returns answers. [2] [3]",
-      "Type or speak a natural-language question — 'What commitments did I make to the enterprise team last week?' — and Gemini reads across all relevant threads in your mailbox, synthesizes the answer with inline citations, and presents a grounded response: 'Based on your emails from Oct 7–14, you committed to delivering the Q4 pipeline report by Friday and confirmed attendance at the Oct 16 QBR.'",
-      "Key capabilities of Conversational Search include: cross-thread synthesis that draws from multiple threads simultaneously, temporal reasoning for queries like 'before the merger was announced', attachment awareness that reads PDFs and spreadsheets attached to emails, full grounding with expandable citations showing exactly which emails informed the response, and follow-up continuity that maintains context across multi-turn queries.",
-      "### Thread AI Overviews: Instant Context Without Reading Every Message",
-      "Long email chains are one of the most significant sources of inbox friction. When you receive a thread with 34 replies, reading backward through a week of back-and-forth costs minutes of context-switching time. Thread AI Overviews solves this with instant AI-generated summaries. [1] [3]",
-      "For any thread — regardless of length — Gmail AI Inbox displays a persistent summary card at the top of the conversation containing: the original request or topic, the current status and latest decision, any open actions addressed to you, and links to the most recent relevant messages. A 47-message project planning thread becomes: 'The team agreed on the Oct 30 launch date (Oct 12). Sarah needs your final headcount approval before she can book the venue (still open).'",
-      "Thread overviews update dynamically as new messages arrive, so you never re-read context you already have. Administrators can configure whether overviews are available org-wide or per-organizational-unit. [4]",
-      "### Contextual Smart Replies: AI-Drafted Responses With Full Thread Awareness",
-      "Gmail Smart Compose has existed since 2018 — but AI Inbox's Contextual Smart Replies represents a generational leap. Rather than completing your sentence as you type, Gemini pre-drafts a complete, contextually aware reply to each thread before you open it. [2] [3]",
-      "Each suggested reply is generated with full thread context: not just the most recent message, but the entire conversation history, any attachments, your calendar availability, and your prior communication style with this sender. Three tone variants are offered by default: Professional (formal, structured, appropriate for external stakeholders), Concise (bullet-point focused, action-oriented, ideal for internal coordination), and Friendly (warm, conversational, suitable for close colleagues).",
-      "For power users, a Custom Tone option opens a refinement dialog where you describe your intent in plain language: 'be more apologetic but still confident about the deadline extension.' Each draft is fully editable before sending.",
-      "### Admin Configuration: Enabling AI Inbox for Your Organization",
-      "AI Inbox is available on Gemini Business, Enterprise Standard, and Enterprise Plus plans. Workspace Admins enable it through the Google Admin Console under Apps → Google Workspace → Gmail → AI Features → AI Inbox. [4]",
-      "Granular controls allow admins to: enable or disable each AI Inbox feature independently per organizational unit, configure data retention policies for AI-generated summaries, restrict conversational search to internal email only, and audit all AI-generated draft activity in the Workspace Security Investigation Tool. All AI processing occurs within Google's Workspace data boundary — no inbox data is used to train foundational models. [4]",
+    "content": [
+      "Google has announced AI Overviews for email threads and personalized Help me write. Availability depends on rollout, account, and subscription; verify current release details. [1] [2]",
+      "### What to verify",
+      "Read the current primary documentation, confirm availability and configuration in your own account, and review generated output against original sources. Product details and rollout can change."
     ],
-    sources: [
-      { title: "Google Workspace Blog: Gmail AI Inbox Announcement", url: "https://workspace.google.com/blog/gmail-ai-inbox" },
-      { title: "Gemini at Work: Google I/O 2026 Gmail AI Features Keynote", url: "https://io.google/2026/intl/en/explore/?q=gmail+ai" },
-      { title: "Gmail Help: Using AI Inbox Features in Gmail", url: "https://support.google.com/mail/answer/gmail-ai-inbox" },
-      { title: "Google Workspace Admin Help: Configuring AI Inbox Policies", url: "https://support.google.com/a/answer/gmail-ai-admin-controls" },
-    ],
-    relatedFeatures: [
-      "gmail-ai-inbox",
-      "gmail-contextual-smart-replies",
-      "gemini-deep-research",
-    ],
+    "sources": [
+      {
+        "title": "Google Gmail AI announcement",
+        "url": "https://workspace.google.com/blog/product-announcements/more-personalized-and-proactive-assistance-in-gmail-coming-to-business-customers"
+      },
+      {
+        "title": "June 2026 Workspace feature update",
+        "url": "https://workspace.google.com/blog/product-announcements/june-2026-workspace-feature-drop"
+      }
+    ]
   },
 ];
 

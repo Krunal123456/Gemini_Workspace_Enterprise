@@ -10,17 +10,10 @@ import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { withLocalizedAlternates } from "@/lib/seo";
 
 const workloadRows = [
-  { workload: "Flagship GA reasoning, enterprise agentic workflows & complex multi-step tasks", model: "Gemini 4 Argon (GA)", note: "Most capable GA frontier model · 1M-token context · Adjustable thinking" },
-  { workload: "Autonomous agent swarms, 4M+ context & cross-domain synthesis", model: "Gemini 3.0 Pro (Preview)", note: "Next-gen frontier MoE foundation model" },
-  { workload: "Real-time tool calling & sub-100ms conversational loops", model: "Gemini 3.0 Flash (Preview)", note: "Frontier low-latency autonomous engine" },
-  { workload: "Dynamic reasoning compute & mathematical verification", model: "Gemini 3.0 Deep Think (Preview)", note: "Formal test-time self-verifying logic" },
-  { workload: "Interactive 3D neural avatars, live streaming & facial sync", model: "Gemini 3.8 Live Avatar (Preview)", note: "Sub-80ms photorealistic audio-visual synthesis" },
-  { workload: "Cognitive swarm architecture & departmental autonomy", model: "Gemini 4 Agentic Engine (Roadmap)", note: "Visionary DeepMind continuous intelligence" },
-  { workload: "Complex reasoning, software engineering & multimodal STEM", model: "Gemini 2.5 Pro (GA)", note: "Flagship 2M-token production reasoning model" },
-  { workload: "Long-horizon agent workflows & high-frequency coding", model: "Gemini 2.5 Flash (GA)", note: "Next-gen flagship Flash with sub-second speed" },
-  { workload: "Real-time voice agents & live video interaction", model: "Gemini Live API (GA)", note: "Low-latency bidirectional audio/video" },
-  { workload: "High-volume, cost-sensitive processing & extraction", model: "Gemini 2.0 Flash-Lite (GA)", note: "$0.075/1M input cost-efficient scale" },
-  { workload: "Step-by-step logic, math & code verification", model: "Gemini 2.0 Flash Thinking (Preview)", note: "Transparent chain-of-thought reasoning" },
+  { workload: "Complex reasoning, software engineering, and long outputs", model: "Gemini 4 Argon (GA)", note: "1,048,576-token context; long decode supports up to 1,048,576 output tokens." },
+  { workload: "Software engineering, agents, and complex enterprise tasks", model: "Gemini 3.8 Flash (GA)", note: "1,048,576-token input and 65,536-token output limits." },
+  { workload: "General multimodal and agentic workloads", model: "Gemini 3.6 Flash (Stable)", note: "Previous-generation stable Flash model; verify current prices and migration guidance." },
+  { workload: "Evaluating advanced reasoning before general availability", model: "Gemini 3.1 Pro (Preview)", note: "Preview model; availability and behavior can change." },
 ];
 
 export async function generateMetadata({

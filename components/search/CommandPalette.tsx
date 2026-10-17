@@ -48,7 +48,7 @@ const sitePages = [
   { id: "security-page", title: "Security and governance", description: "Review identity, data protection, AI safety, retention, compliance, and audit topics.", href: "/security", keywords: "privacy security model armor identity audit compliance" },
   { id: "articles-index", title: "Research and articles", description: "Read product explainers, comparisons, and current research notes.", href: "/articles", keywords: "guides reports updates research" },
   { id: "google-ai-updates", title: "Google AI updates for customer engineers", description: "Review current Gemini API, Gemini Enterprise, and Workspace releases with status, migration notes, and rollout checks.", href: "/google-ai-updates", keywords: "release notes changelog migration deprecation availability rollout updates" },
-  { id: "about-page", title: "About MarketStar research", description: "Learn about this product intelligence resource.", href: "/about", keywords: "about company contact" },
+  { id: "about-page", title: "About this research", description: "Learn about this product intelligence resource.", href: "/about", keywords: "about company contact" },
 ];
 
 type SearchType = "feature" | "app" | "plan" | "article" | "connector" | "model" | "security" | "page";
@@ -269,7 +269,7 @@ export function CommandPalette() {
         description: a.excerpt,
         href: href(`/articles/${a.slug}`),
         category: a.category,
-        icon: <FileText className="h-4 w-4 text-marketstar-navy" />,
+        icon: <FileText className="h-4 w-4 text-google-blue" />,
       }));
 
     addMatches(connectors, (c) => [

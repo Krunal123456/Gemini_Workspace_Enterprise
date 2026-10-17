@@ -49,17 +49,17 @@ export async function generateMetadata({
       default: dictionary.metadata.titleDefault,
       template:
         locale === "es"
-          ? "%s | Gemini Enterprise AI Intelligence en Español"
-          : "%s | Gemini Enterprise AI Intelligence",
+          ? "%s | Workspace Gemini Intelligence en Español"
+          : "%s | Workspace Gemini Intelligence",
     },
     description: siteDescriptions[locale],
     keywords: dictionary.metadata.keywords,
-    authors: [{ name: "MarketStar" }],
+    authors: [{ name: "Independent Product Research" }],
     creator: "Krunal Tote",
     appleWebApp: {
       capable: true,
       statusBarStyle: "black-translucent",
-      title: "MarketStar",
+      title: "Workspace Gemini",
     },
     icons: {
       icon: "/favicon.ico",
@@ -70,7 +70,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
-      siteName: "Gemini Enterprise AI Intelligence",
+      siteName: "Workspace Gemini Intelligence",
     },
     twitter: {
       card: "summary",
@@ -139,14 +139,13 @@ export default async function RootLayout({
               {
                 "@type": "Organization",
                 "@id": `${siteUrl}/#organization`,
-                name: "MarketStar",
+                name: "Workspace Gemini Intelligence",
                 url: siteUrl,
-                logo: `${siteUrl}/brand/marketstar-logo.png`,
               },
               {
                 "@type": "WebSite",
                 "@id": `${siteUrl}/#website`,
-                name: "Gemini Enterprise AI Intelligence",
+                name: "Workspace Gemini Intelligence",
                 url: siteUrl,
                 inLanguage: locales.map(htmlLang),
                 publisher: { "@id": `${siteUrl}/#organization` },

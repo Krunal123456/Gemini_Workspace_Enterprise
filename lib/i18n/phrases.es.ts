@@ -238,16 +238,16 @@ export const phrasesES: Record<string, string> = {
   "& governance.": "y la gobernanza.",
   "Seven parts of the blueprint, ordered from identity to audit.":
     "Siete partes del plano, ordenadas de la identidad a la auditoría",
-  "MarketStar is a premier global enterprise go-to-market partner. We designed this intelligence platform to give technology leaders, architects, and procurement officers total transparency into Google Workspace AI capabilities, plans, connectors, and security controls.":
-    "MarketStar es un socio global premier de go-to-market empresarial. Diseñamos esta plataforma de inteligencia para que los líderes tecnológicos, los arquitectos y los responsables de compras tengan total transparencia sobre las capacidades de IA de Google Workspace, los planes, los conectores y los controles de seguridad.",
+  "This independent guide brings together source-linked information about Google Workspace and Gemini features, plans, connectors, and security controls. It is not affiliated with Google; verify current product terms in Google's official documentation.":
+    "Esta guía independiente reúne información enlazada a fuentes sobre las funciones, los planes, los conectores y los controles de seguridad de Google Workspace y Gemini. No está afiliada a Google; consulta la documentación oficial para confirmar las condiciones vigentes.",
   "As Google continues to add AI capabilities across Workspace and Gemini Enterprise, procurement teams need clear information about which features belong to each edition and what limits apply.":
     "A medida que Google sigue añadiendo capacidades de IA en Workspace y Gemini Enterprise, los equipos de compras necesitan información clara sobre qué funciones pertenecen a cada edición y qué límites se aplican.",
   "Feature notes link to Google product and technical documentation where available. Source coverage varies by entry.":
     "Las notas de las funciones enlazan a la documentación de producto y técnica de Google cuando está disponible. La cobertura de fuentes varía según la entrada.",
   "We highlight governance and privacy controls described in Google's documentation. Contract terms and compliance scope depend on the service and subscription.":
     "Destacamos los controles de gobernanza y privacidad descritos en la documentación de Google. Las condiciones contractuales y el alcance del cumplimiento dependen del servicio y la suscripción.",
-  "MarketStar provides full-lifecycle deployment advisory, from initial pilot sizing and ROI justification to global domain rollout.":
-    "MarketStar ofrece asesoría de despliegue de ciclo completo, desde el dimensionamiento inicial del piloto y la justificación del ROI hasta el despliegue global de dominios.",
+  "Use the linked Google documentation to plan a pilot, validate product availability, and review current deployment requirements.":
+    "Usa la documentación enlazada de Google para planificar un piloto, comprobar la disponibilidad del producto y revisar los requisitos de despliegue actuales.",
   "Understand the security controls available for your setup.":
     "Comprende los controles de seguridad disponibles para tu configuración.",
   "Review the controls Google documents for Workspace with Gemini and Gemini Enterprise.":
@@ -394,8 +394,8 @@ export const phrasesES: Record<string, string> = {
     "Las capacidades de MCP y de los agentes dependen del producto, la edición y la configuración de Gemini. Verifica la documentación de Google para tu configuración concreta.",
   "Google documents product-specific data protections for Gemini Enterprise. Model Armor is available on all editions at no additional cost.":
     "Google documenta protecciones de datos específicas de producto para Gemini Enterprise. Model Armor está disponible en todas las ediciones sin coste adicional.",
-  "MarketStar helps Fortune 500 and high-growth enterprises design custom connectors, configure MCP environments, and prepare for measurable AI adoption.":
-    "MarketStar ayuda a empresas Fortune 500 y de alto crecimiento a diseñar conectores personalizados, configurar entornos MCP y prepararse para una adopción de IA medible.",
+  "Compare documented Gemini Enterprise capabilities, then follow Google’s current setup guides to confirm edition, connector, and security requirements for your environment.":
+    "Compara las capacidades documentadas de Gemini Enterprise y consulta las guías de Google para verificar los requisitos de edición, conectores y seguridad de tu entorno.",
   "See exactly which Google Workspace edition or Gemini Enterprise plan unlocks AI capabilities inside your favorite apps.":
     "Consulta exactamente qué edición de Google Workspace o plan de Gemini Enterprise desbloquea las capacidades de IA en tus aplicaciones favoritas.",
   "Check the side-by-side plan comparison tool to see how Gemini Enterprise Standard and Gemini Enterprise Plus differ in quotas and connector access.":
@@ -493,7 +493,7 @@ export const phrasesES: Record<string, string> = {
   "Common questions before rollout": "Preguntas habituales antes del despliegue",
 
   // ---- about ----
-  "MarketStar Enterprise Advisory": "Asesor Enterprise de MarketStar",
+  "Independent Product Research": "Investigación de producto independiente",
   "Empowering organizations to master": "Ayudamos a las organizaciones a dominar",
   "Premier Enterprise GTM & AI Acceleration Partner":
     "Socio premier empresarial de GTM y aceleración de IA",
@@ -658,8 +658,8 @@ export const phrasesES: Record<string, string> = {
 
   // ---- home: articles teaser ----
   "Strategic Insights": "Perspectivas estratégicas",
-  "Expert analysis on enterprise AI procurement, deployment architectures, and security governance from the MarketStar Enterprise Advisory Group.":
-    "Análisis experto sobre compras de IA empresarial, arquitecturas de despliegue y gobernanza de seguridad del Grupo Asesor Enterprise de MarketStar.",
+  "Independent, source-linked explainers on Google Workspace, Gemini products, pricing, and deployment.":
+    "Guías independientes con fuentes sobre Google Workspace, productos Gemini, precios y despliegue.",
   "View all articles": "Ver todos los artículos",
 
   // ---- comparison: availability matrix ----

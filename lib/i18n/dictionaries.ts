@@ -236,7 +236,7 @@ const en: UiDictionary = {
     articles: "Articles",
     googleAiUpdates: "Google AI Updates",
     pricing: "Pricing",
-    by: "by MarketStar",
+    by: "by Independent Research",
     blurb:
       "The definitive intelligence platform for Google Workspace & Gemini AI capabilities.",
   },
@@ -362,7 +362,7 @@ const es: UiDictionary = {
     articles: "Artículos",
     googleAiUpdates: "Novedades de Google AI",
     pricing: "Precios",
-    by: "de MarketStar",
+    by: "de Investigación Independiente",
     blurb:
       "La plataforma de inteligencia definitiva para las capacidades de Google Workspace y Gemini AI.",
   },

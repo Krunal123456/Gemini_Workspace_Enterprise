@@ -3,8 +3,8 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "MarketStar Gemini Intelligence",
-    short_name: "MarketStar",
+    name: "Workspace Gemini Intelligence",
+    short_name: "Gemini Workspace",
     description: "Explore and compare Google Workspace and Gemini Enterprise capabilities.",
     start_url: "/",
     scope: "/",

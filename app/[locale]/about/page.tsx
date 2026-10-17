@@ -15,7 +15,7 @@ import {
   ArrowRight,
   CheckCircle2,
 } from "lucide-react";
-import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
+import { WorkspaceGeminiWordmark } from "@/components/logos/WorkspaceGeminiWordmark";
 import { GoogleCloudLogo } from "@/components/logos/GoogleCloudLogo";
 
 
@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale: rawLocale } = await params;
   const locale = resolveLocale(rawLocale);
   return withLocalizedAlternates({
-    title: "About | MarketStar Gemini Enterprise AI Intelligence",
-    description: "Learn about the Gemini Enterprise Intelligence platform created by MarketStar, Google Cloud ecosystem partner guiding global enterprises in AI deployment.",
+    title: "About | Workspace Gemini Intelligence",
+    description: "Learn about this independent, source-led guide to Google Workspace and Gemini plans, features, and deployment considerations.",
   }, "/about", locale);
 }
 
@@ -44,12 +44,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-google-blue/10 text-google-blue text-xs font-semibold uppercase tracking-wider mb-4 border border-google-blue/20">
-              <Building2 className="w-3.5 h-3.5" /> {t("MarketStar Enterprise Advisory")}
+              <Building2 className="w-3.5 h-3.5" /> {t("Independent Product Research")}
             </div>
             <h1 className="fluid-h1 font-extrabold tracking-tight text-foreground mb-6">{t("Empowering organizations to master")}<span className="gradient-text">Gemini Enterprise</span>.
             </h1>
             <p className="fluid-body text-muted-foreground leading-relaxed">
-              {t("MarketStar is a premier global enterprise go-to-market partner. We designed this intelligence platform to give technology leaders, architects, and procurement officers total transparency into Google Workspace AI capabilities, plans, connectors, and security controls.")}
+              {t("This independent guide brings together source-linked information about Google Workspace and Gemini features, plans, connectors, and security controls. It is not affiliated with Google; verify current product terms in Google's official documentation.")}
             </p>
           </div>
         </div>
@@ -60,8 +60,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
             <div className="flex flex-col items-center md:items-start gap-3 p-8 rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
-              <MarketStarLogo className="h-6 w-auto object-contain" />
-              <span className="text-xs text-muted-foreground">{t("Premier Enterprise GTM & AI Acceleration Partner")}</span>
+              <WorkspaceGeminiWordmark className="h-6 w-auto object-contain" />
+              <span className="text-xs text-muted-foreground">{t("Independent product research")}</span>
             </div>
 
             <div className="flex flex-col items-center md:items-start gap-3 p-8 rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
@@ -72,12 +72,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 height={124}
                 className="h-auto w-40"
               />
-              <span className="text-xs text-muted-foreground">{t("Google Workspace Commercial Ecosystem")}</span>
+              <span className="text-xs text-muted-foreground">{t("Google Workspace product research")}</span>
             </div>
 
             <div className="flex flex-col items-center md:items-start gap-3 p-8 rounded-3xl border border-slate-200/80 bg-white/70 shadow-[0_16px_40px_-25px_rgba(0,0,0,0.06)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/60">
               <GoogleCloudLogo className="h-7 w-auto" />
-              <span className="text-xs text-muted-foreground">{t("Google Cloud Infrastructure & Model Foundation")}</span>
+              <span className="text-xs text-muted-foreground">{t("Google Cloud product documentation")}</span>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <div className="flex items-center gap-3 mb-2 font-bold text-foreground">
                   <Globe2 className="w-5 h-5 text-gemini-purple" />{t("Ecosystem Go-To-Market Expertise")}</div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  {t("MarketStar provides full-lifecycle deployment advisory, from initial pilot sizing and ROI justification to global domain rollout.")}
+                  {t("Use the linked Google documentation to plan a pilot, validate product availability, and review current deployment requirements.")}
                 </p>
               </div>
             </div>

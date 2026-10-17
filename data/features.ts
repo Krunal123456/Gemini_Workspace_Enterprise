@@ -3,14 +3,14 @@ import { Feature, PlanId, PlanAvailability } from "@/types";
 // Fill mapped feature availability for editions with reviewed catalog entries.
 //
 // Propagation hierarchy (explicit map always wins over auto-propagation):
-//   business-standard → gemini-business-addon, ai-expanded
-//   enterprise-standard/plus → gemini-enterprise-addon, gemini-enterprise-business,
+//   business-standard → ai-expanded
+//   enterprise-standard/plus → gemini-enterprise-business,
 //                              gemini-enterprise-standard, gemini-enterprise-plus,
 //                              gemini-enterprise-payg, frontline
 //   gemini-enterprise-business → gemini-enterprise-standard, gemini-enterprise-plus,
 //                                 gemini-enterprise-payg, frontline
 //   Standalone add-ons (google-voice-*, appsheet-core, workspace-additional-storage,
-//   ai-security, ai-meetings-messaging): ONLY available if explicitly mapped.
+//   ai-expanded): ONLY available if explicitly mapped.
 function makeAvailability(
   map: Partial<Record<PlanId, Partial<PlanAvailability>>>
 ): Partial<Record<PlanId, PlanAvailability>> {
@@ -20,10 +20,6 @@ function makeAvailability(
     "business-plus",
     "enterprise-standard",
     "enterprise-plus",
-    "gemini-business-addon",
-    "gemini-enterprise-addon",
-    "ai-meetings-messaging",
-    "ai-security",
     "ai-expanded",
     "gemini-enterprise-business",
     "gemini-enterprise-standard",
@@ -81,54 +77,42 @@ function makeAvailability(
       };
     }
 
-    // ② gemini-business-addon — inherits from Business Standard
-    if (pid === "gemini-business-addon" && hasWsStd) {
-      return normEntry(wsStd!, "Included with Gemini Business add-on");
-    }
-
-    // ③ gemini-enterprise-addon — inherits from Enterprise Standard/Plus
-    if (pid === "gemini-enterprise-addon" && (hasWsEnt || hasWsStd)) {
-      const src = wsEntSrc ?? wsStd!;
-      return normEntry(src, "Included with Gemini Enterprise add-on");
-    }
-
-    // ④ gemini-enterprise-business — inherits from Workspace Enterprise
+    // ② gemini-enterprise-business — inherits from Workspace Enterprise
     if (pid === "gemini-enterprise-business" && hasWsEnt) {
       return normEntry(wsEntSrc!, wsEntSrc!.note);
     }
 
-    // ⑤ gemini-enterprise-standard — inherits from GE Business or Workspace Enterprise
+    // ③ gemini-enterprise-standard — inherits from GE Business or Workspace Enterprise
     if (pid === "gemini-enterprise-standard") {
       if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
       if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
     }
 
-    // ⑥ gemini-enterprise-plus — inherits from GE Standard → GE Business → WS Enterprise
+    // ④ gemini-enterprise-plus — inherits from GE Standard → GE Business → WS Enterprise
     if (pid === "gemini-enterprise-plus") {
       if (hasGeStd)  return normEntry(geStd!, geStd!.note);
       if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
       if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
     }
 
-    // ⑦ gemini-enterprise-payg — inherits from best GE source
+    // ⑤ gemini-enterprise-payg — inherits from best GE source
     if (pid === "gemini-enterprise-payg" && (hasAnyGe || hasWsEnt) && geBestSrc) {
       return normEntry(geBestSrc, "Usage-based billing");
     }
 
-    // ⑧ frontline — inherits from GE Standard/Business if available
+    // ⑥ frontline — inherits from GE Standard/Business if available
     if (pid === "frontline" && !hasGeFront) {
       if (hasGeStd)  return normEntry(geStd!, "Frontline seat access");
       if (hasGeBiz)  return normEntry(geBiz!, "Frontline seat access");
     }
 
-    // ⑨ ai-expanded — higher limits for Workspace Standard features
+    // ⑦ ai-expanded — higher limits for Workspace Standard features
     if (pid === "ai-expanded" && hasWsStd) {
       return { available: true, status: "higher_limits", note: "Higher limits with AI Expanded Access", limit: wsStd!.limit };
     }
 
     // ⑩ Standalone plans — NEVER auto-propagated:
-    //    google-voice-*, appsheet-core, workspace-additional-storage,
-    //    ai-security, ai-meetings-messaging
+    //    google-voice-*, appsheet-core, workspace-additional-storage
     return { available: false, status: "no" };
   }
 
@@ -650,43 +634,6 @@ export const features: Feature[] = [
       "enterprise-standard": { available: true, status: "yes" },
       "enterprise-plus": { available: true, status: "yes" },
       "ai-expanded": { available: true, status: "yes" },
-    }),
-  },
-  {
-    id: "gmail-ai-inbox",
-    slug: "gmail-ai-inbox",
-    name: "Gmail AI Inbox & Proactive Daily Digest",
-    category: "gmail",
-    application: "gmail",
-    description: "Proactive Gemini AI inbox that organizes unread messages into intelligent daily briefings, prioritizes VIP threads, and powers conversational search.",
-    whatItDoes: "Transforms Gmail from a simple chronological inbox into an intelligent assistant. Generates morning executive digests, surfaces pending deadlines and unanswered questions, highlights VIP senders, and enables natural language conversational search across your entire email history.",
-    howItWorks: "Powered by Gemini 2.5 on-device and cloud reasoning. Synthesizes inbound email threads using privacy-preserving models, surfaces inline AI Overviews at the top of complex message chains, extracts commitment dates, and syncs actionable tasks with Google Calendar and Tasks.",
-    useCases: [
-      "Reviewing a morning bullet-point digest of 50+ overnight emails in 30 seconds",
-      "Conversational search: 'Find the contract revisions Jason sent last Thursday'",
-      "Surfacing urgent client inquiries with automatic VIP and priority sender tagging",
-      "Extracting action items from email chains into Google Tasks with one click",
-      "Catching up on 20+ message vendor negotiations via top-of-thread AI Overviews",
-    ],
-    capabilities: [
-      "Proactive daily email briefing card",
-      "Inline AI Overviews across complex message threads",
-      "Natural language conversational search across mail and Drive",
-      "VIP and priority sender intelligence",
-      "One-click action item to Google Tasks synchronization",
-      "Custom refinement prompts for drafting responses",
-    ],
-    enterpriseAvailability: "all",
-    plans: makeAvailability({
-      "business-standard": { available: true, status: "yes", note: "Standard AI Inbox & Daily Summaries" },
-      "business-plus": { available: true, status: "yes", note: "Full AI Inbox with Vault Retention & eDiscovery" },
-      "enterprise-standard": { available: true, status: "yes", note: "Enterprise AI Inbox with Contextual Grounding" },
-      "enterprise-plus": { available: true, status: "yes", note: "Enterprise AI Inbox with Advanced DLP & Audit Logging" },
-      "gemini-enterprise-business": { available: true, status: "yes" },
-      "gemini-enterprise-standard": { available: true, status: "yes" },
-      "gemini-enterprise-plus": { available: true, status: "yes" },
-      "gemini-enterprise-addon": { available: true, status: "yes" },
-      "frontline": { available: true, status: "yes" },
     }),
   },
   {
@@ -2488,39 +2435,6 @@ export const features: Feature[] = [
     }),
   },
   {
-    id: "gemini-workspace-coworker-agent-email",
-    slug: "gemini-workspace-coworker-agent-email",
-    name: "Gemini Workspace Coworker Agents (Dedicated Email & Identity)",
-    category: "studio",
-    application: "workspace-studio",
-    description: "Autonomous AI coworker agents provisioned with their own Google Workspace account, corporate email address (@company.com), calendar, and organizational role.",
-    whatItDoes: "Enables organizations to deploy persistent AI agents with their own inbox, Google Calendar, and Drive. Human coworkers can email the agent directly, invite it to meetings, or assign multi-step objectives across Gmail, Docs, Sheets, Salesforce, Jira, and Slack.",
-    howItWorks: "Configured via Google Workspace Admin console. Agents receive dedicated corporate email addresses (e.g. agent-pm@company.com), authenticate through organizational IAM, execute tools via Model Context Protocol (MCP), log independent audit trails, and adhere to admin-defined human-in-the-loop approval thresholds.",
-    useCases: [
-      "Project Operations: Inbound email monitoring, meeting scheduling, Docs/Sheets tracking",
-      "Sales & RFP Triage: Parsing customer RFPs received via email and drafting proposal responses",
-      "Finance & Invoicing: Ingesting receipts and vendor invoices from email and reconciling in Sheets",
-      "Customer Experience: Direct inbox triage, automated ticket routing, and contextual customer drafting",
-      "Cross-Platform Orchestration: Executing tasks across Jira, Salesforce, Slack, and Google Workspace",
-    ],
-    capabilities: [
-      "Dedicated company email identity (@company.com)",
-      "Autonomous multi-step planning and tool execution",
-      "Google Calendar and Meet automated coordination",
-      "Independent audit logging and IAM attribution",
-      "Admin-governed human-in-the-loop approvals",
-      "Cross-system MCP tool integration (Jira, Salesforce, Slack)",
-    ],
-    enterpriseAvailability: "enterprise-only",
-    plans: makeAvailability({
-      "enterprise-standard": { available: true, status: "yes", note: "Enterprise Workspace Agent Provisioning" },
-      "enterprise-plus": { available: true, status: "yes", note: "Full Agent Provisioning with Advanced DLP & Audit" },
-      "gemini-enterprise-standard": { available: true, status: "yes", note: "Dedicated Coworker Agent Identity" },
-      "gemini-enterprise-plus": { available: true, status: "yes", note: "Dedicated Coworker Agent with CMEK & Custom MCP" },
-      "gemini-enterprise-addon": { available: true, status: "yes", note: "Attachable Coworker Agent license" },
-    }),
-  },
-  {
     id: "voice-ai-voicemail-transcription",
     slug: "voice-ai-voicemail-transcription",
     name: "AI Voicemail Transcription & Summaries",
@@ -2573,37 +2487,8 @@ export const features: Feature[] = [
   },
 ];
 
-// Attach specialized add-on availability for AI Meetings & Messaging, AI Security, Voice, AppSheet, and Storage
+// Attach specialized availability for Voice, AppSheet, and Storage plans.
 for (const feature of features) {
-  // AI Meetings and Messaging add-on covers Meet and Chat AI capabilities
-  if (feature.application === "meet" || feature.application === "chat") {
-    const isAvailableInMeetings =
-      feature.plans["enterprise-standard"]?.available ||
-      feature.plans["business-standard"]?.available ||
-      feature.plans["business-plus"]?.available;
-    if (isAvailableInMeetings) {
-      feature.plans["ai-meetings-messaging"] = {
-        available: true,
-        status: "yes",
-        note: "Included in AI Meetings and Messaging add-on",
-      };
-    }
-  }
-
-  // AI Security add-on covers automated classification, DLP, and client-side encryption controls
-  if (
-    feature.id.includes("classification") ||
-    feature.id.includes("dlp") ||
-    feature.id.includes("client-side-encryption") ||
-    feature.id.includes("security-gemini-ai")
-  ) {
-    feature.plans["ai-security"] = {
-      available: true,
-      status: "yes",
-      note: "Included in Google Workspace AI Security add-on",
-    };
-  }
-
   // AppSheet Core add-on
   if (feature.application === "appsheet" || feature.id.includes("appsheet")) {
     feature.plans["appsheet-core"] = {

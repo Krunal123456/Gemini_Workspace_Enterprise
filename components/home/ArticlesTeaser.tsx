@@ -22,7 +22,7 @@ export default function ArticlesTeaser() {
               {t("Strategic Insights")}
             </h2>
             <p className="text-lg text-muted-foreground">
-              {t("Expert analysis on enterprise AI procurement, deployment architectures, and security governance from the MarketStar Enterprise Advisory Group.")}
+              {t("Independent, source-linked explainers on Google Workspace, Gemini products, pricing, and deployment.")}
             </p>
           </div>
           <Link href={href("/articles")} className="inline-flex items-center text-blue-700 font-semibold hover:text-blue-800 transition-colors dark:text-blue-300 dark:hover:text-blue-200">

@@ -227,7 +227,7 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
         </div>
       </section>
 
-      {/* MarketStar Advisory Banner */}
+      {/* Independent planning and source links */}
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white p-10 md:p-14 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
@@ -235,11 +235,11 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
             
             <div className="max-w-2xl relative z-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-semibold mb-4 border border-white/15">
-                <Building2 className="w-3.5 h-3.5" /> MarketStar Advisory
+                <Building2 className="w-3.5 h-3.5" /> Independent product research
               </div>
               <h3 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight">{t("Deploying Gemini Enterprise across your organization?")}</h3>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                MarketStar helps Fortune 500 and high-growth enterprises design custom connectors, configure MCP environments, and architect secure data governance boundaries.
+                Compare documented Gemini Enterprise capabilities, then follow Google’s current setup guides to confirm edition, connector, and security requirements for your environment.
               </p>
             </div>
 

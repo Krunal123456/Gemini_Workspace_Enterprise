@@ -18,13 +18,13 @@ import {
   CornerDownLeft,
 } from "lucide-react";
 import { GeminiLogo } from "@/components/logos/GeminiLogo";
-import { MarketStarLogo } from "@/components/logos/MarketStarLogo";
+import { WorkspaceGeminiWordmark } from "@/components/logos/WorkspaceGeminiWordmark";
 import { AmbientAuroraGlow } from "@/components/ui/AmbientAuroraGlow";
 import { useLocale } from "@/lib/i18n/locale-context";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 const quickSuggestions = [
-  { label: "Gemini 3.0 & 4.0 Models", href: "/models", icon: Cpu, color: "text-violet-600 dark:text-violet-400" },
+  { label: "Gemini API models", href: "/models", icon: Cpu, color: "text-violet-600 dark:text-violet-400" },
   { label: "Workspace Apps (Gmail, Docs, Sheets)", href: "/apps", icon: Layers, color: "text-google-blue" },
   { label: "Pricing & Editions Comparison", href: "/compare", icon: CreditCard, color: "text-google-green" },
   { label: "Security & Enterprise Governance", href: "/security", icon: ShieldCheck, color: "text-google-yellow" },
@@ -72,10 +72,10 @@ export function GoogleDesigner404() {
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="relative z-10 w-full max-w-3xl rounded-[36px] border border-white/60 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 p-8 sm:p-12 shadow-[0_30px_100px_-30px_rgba(66,133,244,0.3)] dark:shadow-[0_30px_100px_-30px_rgba(0,0,0,0.8)] backdrop-blur-3xl"
       >
-        {/* Top Google & MarketStar Header */}
+        {/* Product wordmark */}
         <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/10 pb-6">
           <div className="flex items-center gap-3">
-            <MarketStarLogo className="h-5 w-auto shrink-0" />
+            <WorkspaceGeminiWordmark className="h-5 w-auto shrink-0" />
             <div className="h-4 w-px bg-slate-300 dark:bg-slate-700" />
             <div className="flex items-center gap-1.5">
               <GeminiLogo className="h-5 w-5" />
@@ -101,7 +101,7 @@ export function GoogleDesigner404() {
           </div>
 
           <h1 className="mt-4 text-5xl font-black tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            <span className="bg-gradient-to-r from-google-blue via-violet-600 to-gemini-purple bg-clip-text text-transparent">
+            <span className="text-google-blue">
               404.
             </span>{" "}
             <span className="text-foreground">{t("That’s an error.")}</span>
