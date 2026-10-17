@@ -178,7 +178,7 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                             <td className="px-4 py-3 font-medium">{plan.name}</td>
                             <td className="px-4 py-3">
                               <div className="flex items-center gap-2">
-                                {!availability ? (
+                                {!availability || availability.status === "unverified" ? (
                                   <AlertCircle className="h-4 w-4 text-amber-500" />
                                 ) : availability.available ? (
                                   availability.status === "limited" ? (
@@ -193,7 +193,7 @@ export function FeatureModal({ feature, onClose }: FeatureModalProps) {
                                   "capitalize",
                                   availability && !availability.available && "text-muted-foreground/70"
                                 )}>
-                                  {availability ? t(availability.status.replace("_", " ")) : t("not mapped")}
+                                  {availability?.status === "unverified" ? t("Not verified") : availability ? t(availability.status.replace("_", " ")) : t("not mapped")}
                                 </span>
                               </div>
                             </td>

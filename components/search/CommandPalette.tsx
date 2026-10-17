@@ -34,6 +34,7 @@ const sitePages = [
   { id: "workspace-studio-product", title: "Workspace Studio", description: "Workspace automation and agent workflow overview.", href: "/products/workspace-studio", keywords: "flows automation agents workspace studio" },
   { id: "google-labs-product", title: "Google Labs", description: "Experimental Google AI tools and product experiences.", href: "/products/google-labs", keywords: "experiments labs prototypes" },
   { id: "developer-tools-product", title: "Gemini developer tools", description: "Developer-oriented Google AI products, models, and tools.", href: "/products/developer-tools", keywords: "developers api code antigravity android studio" },
+  { id: "migration-guide", title: "Move from Claude to Gemini", description: "Prepare a skill ZIP locally and follow a sourced migration checklist.", href: "/migration", keywords: "claude migration skills skill.md zip import move assistant" },
   { id: "models-index", title: "Gemini models and API estimator", description: "Compare model families, release status, use cases, and API price estimates.", href: "/models", keywords: "model pricing tokens api flash pro live" },
   { id: "plans-index", title: "Plans and editions", description: "Browse Google Workspace, add-on, and Gemini Enterprise plans.", href: "/plans", keywords: "subscription edition license" },
   { id: "pricing-page", title: "Pricing overview", description: "Review published Workspace and Gemini Enterprise pricing information.", href: "/pricing", keywords: "cost price billing procurement" },

@@ -14,7 +14,7 @@ export function FeaturesExportButton({ features, label }: FeaturesExportButtonPr
     const headers = ["Name", "Application", "Category", "Enterprise Availability", "Supported Plans"];
     const rows = features.map((f) => {
       const supportedPlans = Object.entries(f.plans)
-        .filter(([_, availability]) => availability.available)
+        .filter((entry) => entry[1].available && entry[1].status !== "unverified")
         .map(([planId]) => planId)
         .join(", ");
 

@@ -42,6 +42,13 @@ export const featuresES: Record<string, FeatureTranslation> = {
     name: "Registro de auditoría en Cloud",
   },
   "gemini-enterprise-platform-agents": { name: "Agentes" },
+  "gemini-enterprise-custom-skills": { name: "Crear y subir habilidades personalizadas" },
+  "gemini-enterprise-shared-skills": { name: "Usar habilidades de Google y compartidas" },
+  "gemini-enterprise-data-insights": { name: "Data Insights (de Google)" },
+  "gemini-enterprise-agent-marketplace": { name: "Marketplace de agentes" },
+  "gemini-enterprise-custom-no-code-agents": { name: "Crear agentes personalizados sin código" },
+  "gemini-enterprise-use-custom-no-code-agents": { name: "Usar agentes publicados sin código" },
+  "gemini-enterprise-use-full-code-agents": { name: "Usar agentes programados externamente" },
 
   "gmail-help-me-write": { name: "Ayúdame a escribir (Gmail)" },
   "gmail-email-summaries-side-panel": { name: "Resúmenes de correo (panel lateral)" },
@@ -143,7 +150,7 @@ export const featuresES: Record<string, FeatureTranslation> = {
   "notebooklm-model-armor": { name: "Model Armor (NotebookLM)" },
 
   "workspace-studio-flow-executions-per-month": {
-    name: "Ejecuciones de flujo al mes",
+    name: "Límites de Workspace Studio",
   },
   "google-labs-flow-credits-per-month": {
     name: "Créditos de flujo al mes",

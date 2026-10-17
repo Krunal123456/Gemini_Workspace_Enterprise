@@ -24,12 +24,12 @@ export function AvailabilityMatrix() {
       const matchesApp = selectedApp === 'All' || f.application === selectedApp || f.application.toLowerCase() === selectedApp.toLowerCase();
       return matchesSearch && matchesApp;
     });
-  }, [search, selectedApp]);
+  }, [features, search, selectedApp]);
 
   const filteredPlans = useMemo(() => {
     const grouped = selectedPlanGroup === 'All' ? plans : plans.filter((p) => p.category === selectedPlanGroup);
     return selectedPlanIds.length > 0 ? grouped.filter((plan) => selectedPlanIds.includes(plan.id)) : grouped;
-  }, [selectedPlanGroup, selectedPlanIds]);
+  }, [plans, selectedPlanGroup, selectedPlanIds]);
 
   const visibleFeatures = useMemo(() => filteredFeatures.filter((feature) => {
     if (!differencesOnly || filteredPlans.length < 2) return true;
@@ -59,7 +59,9 @@ export function AvailabilityMatrix() {
         `"${f.category.replace(/"/g, '""')}"`,
         ...exportPlans.map((p) => {
           const availability = f.plans[p.id];
-          if (!availability || !availability.available) return '"-"';
+          if (!availability) return '"Not mapped"';
+          if (availability.status === "unverified") return '"Not verified"';
+          if (!availability.available) return '"Not included"';
           if (availability.limit) return `"${availability.status} (${availability.limit})"`;
           return `"${availability.status}"`;
         }),
@@ -178,8 +180,8 @@ export function AvailabilityMatrix() {
                   return (
                     <td key={plan.id} className={cn("px-6 py-4 text-center", selectedPlanIds.includes(plan.id) && "bg-google-blue/5")}>
                       <div className="group relative flex justify-center items-center">
-                        {!availability ? (
-                          <span title={t("This feature is not mapped to this plan in the catalog. Confirm in Google's current edition guide.")}><CircleHelp className="h-4 w-4 text-amber-600" aria-label={t("Not mapped")} /></span>
+                        {!availability || availability.status === "unverified" ? (
+                          <span title={t(availability ? "No plan-specific source has been reviewed for this edition yet." : "This feature has no plan mapping in the catalog.")}><CircleHelp className="h-4 w-4 text-amber-600" aria-label={t(availability ? "Not verified" : "Not mapped")} /></span>
                         ) : !availability.available ? (
                           <Minus className="w-5 h-5 text-muted-foreground/30" />
                         ) : availability.status === 'yes' ? (
@@ -217,7 +219,7 @@ export function AvailabilityMatrix() {
 
       <div className="space-y-3 md:hidden">
         <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Mobile comparison view")}</p>
-        {visibleFeatures.map((feature) => <div key={feature.slug} className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl p-5 shadow-xs"><Link href={href(`/features/${feature.slug}`)} className="font-semibold text-foreground hover:text-google-blue">{feature.name}</Link><p className="mt-1 text-xs text-muted-foreground">{appMap[feature.application] || feature.application}</p><div className="mt-3 space-y-2">{filteredPlans.map((plan) => { const availability = feature.plans[plan.id]; return <div key={plan.id} className="flex items-center justify-between border-t border-border/60 pt-2 text-sm"><span className="text-muted-foreground">{plan.shortName}</span><span className={availability?.available ? "font-semibold text-google-green" : "text-muted-foreground/70"}>{availability ? (availability.available ? availability.limit || availability.note || t("Included") : t("Not included")) : t("Not mapped")}</span></div>; })}</div></div>)}
+        {visibleFeatures.map((feature) => <div key={feature.slug} className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl p-5 shadow-xs"><Link href={href(`/features/${feature.slug}`)} className="font-semibold text-foreground hover:text-google-blue">{feature.name}</Link><p className="mt-1 text-xs text-muted-foreground">{appMap[feature.application] || feature.application}</p><div className="mt-3 space-y-2">{filteredPlans.map((plan) => { const availability = feature.plans[plan.id]; const unverified = availability?.status === "unverified"; return <div key={plan.id} className="flex items-center justify-between border-t border-border/60 pt-2 text-sm"><span className="text-muted-foreground">{plan.shortName}</span><span className={availability?.available ? "font-semibold text-google-green" : unverified ? "font-medium text-amber-700 dark:text-amber-300" : "text-muted-foreground/70"}>{unverified ? t("Not verified") : availability ? (availability.available ? availability.limit || availability.note || t("Included") : t("Not included")) : t("Not mapped")}</span></div>; })}</div></div>)}
       </div>
     </div>
   );

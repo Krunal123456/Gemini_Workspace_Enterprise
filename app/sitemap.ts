@@ -19,6 +19,7 @@ const staticRoutes = [
   "/products/developer-tools",
   "/plans",
   "/pricing",
+  "/affiliate-disclosure",
   "/models",
   "/compare",
   "/mindmap",
@@ -32,6 +33,7 @@ const staticRoutes = [
   "/enterprise/agents",
   "/security",
   "/articles",
+  "/migration",
   "/google-ai-updates",
   "/about",
 ];

@@ -60,6 +60,7 @@ export function GeminiProductExplorer() {
               {group.items.map((feature) => {
                 const availability = feature.plans[selectedPlan.id];
                 const included = availability?.available;
+                const unverified = availability?.status === "unverified";
                 const isLimited = availability?.status === "limited" || availability?.status === "higher_limits";
                 return (
                   <Link
@@ -70,7 +71,7 @@ export function GeminiProductExplorer() {
                     <div className="mb-4 flex items-start justify-between gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-google-blue/10 text-google-blue"><Sparkles className="h-5 w-5" /></div>
                       <span className={included ? "rounded-full bg-google-green/10 border border-google-green/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-google-green" : "rounded-full bg-slate-100/80 dark:bg-white/5 border border-slate-200/60 dark:border-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground"}>
-                        {included ? (isLimited ? t("Limited") : t("Included")) : availability ? t("Not included") : t("Not mapped")}
+                        {unverified ? t("Not verified") : included ? (isLimited ? t("Limited") : t("Included")) : availability ? t("Not included") : t("Not mapped")}
                       </span>
                     </div>
                     <h4 className="text-base font-bold text-foreground group-hover:text-google-blue transition-colors">{feature.name}</h4>

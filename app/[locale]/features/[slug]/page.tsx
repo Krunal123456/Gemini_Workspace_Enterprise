@@ -32,7 +32,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { slug, locale: rawLocale } = await params;
   const locale = resolveLocale(rawLocale);
-  const t = createPhraseTranslator(locale);
   const feature = getFeatureBySlug(slug, locale);
   
   if (!feature) {
@@ -130,7 +129,7 @@ export default async function FeatureDetailPage({ params }: Props) {
           <section className="grid gap-4 rounded-2xl border border-border bg-muted/20 p-5 sm:grid-cols-2">
             <div className="flex items-start gap-3">
               <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-google-green" />
-              <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Source coverage")}</p><p className="mt-1 text-sm font-semibold text-foreground">{evidence.sourceCoverage}</p><p className="mt-1 text-xs text-muted-foreground">{evidence.sourceNote}</p></div>
+              <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Source coverage")}</p><p className="mt-1 text-sm font-semibold text-foreground">{t(evidence.sourceCoverage)}</p><p className="mt-1 text-xs text-muted-foreground">{t(evidence.sourceNote)}</p>{evidence.sourceReviewedAt && <p className="mt-2 text-xs text-muted-foreground">{t("Source checked")}: <time dateTime={evidence.sourceReviewedAt}>{evidence.sourceReviewedAt}</time></p>}</div>
             </div>
             <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Availability notes")}</p>{evidence.availabilityNotes.length ? <ul className="mt-2 space-y-1 text-xs text-muted-foreground">{evidence.availabilityNotes.map((note) => <li key={note}>• {note}</li>)}</ul> : <p className="mt-1 text-sm text-muted-foreground">{t("See the plan matrix for edition-specific limits.")}</p>}</div>
             {evidence.restrictions.length > 0 && <div><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Restrictions")}</p><p className="mt-1 text-sm text-muted-foreground">{evidence.restrictions.join(" · ")}</p></div>}
@@ -285,6 +284,7 @@ export default async function FeatureDetailPage({ params }: Props) {
                     <tbody className="divide-y divide-border/50">
                       {getPlans(locale).map(plan => {
                         const planAvailability = feature.plans[plan.id as PlanId];
+                        const isUnverified = planAvailability?.status === "unverified";
                         const isAvailable = planAvailability?.available ?? false;
                         const statusType = planAvailability?.status || (isAvailable ? "yes" : "no");
                         
@@ -297,7 +297,9 @@ export default async function FeatureDetailPage({ params }: Props) {
                               {plan.category}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              {isAvailable ? (
+                              {isUnverified ? (
+                                <span className="text-xs font-medium text-amber-700 dark:text-amber-300">{t("Not verified")}</span>
+                              ) : isAvailable ? (
                                 <div className="flex items-center gap-2 text-green-600 dark:text-green-500 font-medium">
                                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
                                     <Check className="h-3 w-3" />
@@ -312,7 +314,7 @@ export default async function FeatureDetailPage({ params }: Props) {
                               )}
                             </td>
                             <td className="px-6 py-4">
-                              {!planAvailability ? (
+                              {!planAvailability || isUnverified ? (
                                 <span className="text-xs text-muted-foreground">{t("Confirm with Google")}</span>
                               ) : statusType === "limited" || planAvailability?.limit ? (
                                 <div className="flex items-center gap-2">

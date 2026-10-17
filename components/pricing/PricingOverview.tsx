@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Minus, Plus, Sparkles } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
+import { googleWorkspaceReferralUrl, officialWorkspacePricingUrl } from "@/lib/affiliate";
 
 type PricingMode = "workspace" | "addons" | "standalone";
 
@@ -145,6 +146,27 @@ export function PricingOverview() {
             );
           })}
         </div>
+        {mode === "workspace" && (
+          <div className="mt-7 flex flex-col gap-4 rounded-2xl border border-border bg-muted/25 p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="font-semibold text-foreground">Ready to check Google Workspace plans?</h3>
+              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                {googleWorkspaceReferralUrl
+                  ? "This site may earn a referral commission if you purchase through this link. It does not change our plan comparisons."
+                  : "Opens Google's official pricing page. Referral tracking is not active on this site yet."}
+              </p>
+            </div>
+            <a
+              href={googleWorkspaceReferralUrl || officialWorkspacePricingUrl}
+              target="_blank"
+              rel={googleWorkspaceReferralUrl ? "sponsored nofollow noreferrer" : "noreferrer"}
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-2.5 text-sm font-semibold text-background hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-google-blue"
+            >
+              {googleWorkspaceReferralUrl ? "View Workspace plans" : "Open Google pricing"}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        )}
       </section>
 
       <section className="liquid-glass-card">

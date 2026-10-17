@@ -3,8 +3,9 @@ import { Feature } from "@/types";
 export type FeatureEvidence = {
   sourceUrl?: string;
   sourceLabel: string;
-  sourceCoverage: "Feature-specific link" | "General product links";
+  sourceCoverage: "Feature-specific source" | "Product-level source";
   sourceNote: string;
+  sourceReviewedAt?: string;
   availabilityNotes: string[];
   restrictions: string[];
   officialSources: Array<{ label: string; url: string }>;
@@ -15,9 +16,36 @@ const WORKSPACE_HOME_URL = "https://workspace.google.com/";
 const NOTEBOOKLM_URL = "https://notebooklm.google.com/";
 const WORKSPACE_PRICING_URL = "https://workspace.google.com/pricing";
 
+const appDocumentation: Record<string, { label: string; url: string }> = {
+  gmail: { label: "Gmail Help Center", url: "https://support.google.com/mail/?hl=en" },
+  docs: { label: "Google Docs Editors Help", url: "https://support.google.com/docs/?hl=en" },
+  sheets: { label: "Google Sheets Help", url: "https://support.google.com/docs/?hl=en" },
+  slides: { label: "Google Slides Help", url: "https://support.google.com/docs/?hl=en" },
+  drive: { label: "Google Drive Help", url: "https://support.google.com/drive/?hl=en" },
+  meet: { label: "Google Meet Help", url: "https://support.google.com/meet/?hl=en" },
+  chat: { label: "Google Chat Help", url: "https://support.google.com/chat/?hl=en" },
+  calendar: { label: "Google Calendar Help", url: "https://support.google.com/calendar/?hl=en" },
+  forms: { label: "Google Forms Help", url: "https://support.google.com/docs/?hl=en" },
+  keep: { label: "Google Keep Help", url: "https://support.google.com/keep/?hl=en" },
+  tasks: { label: "Google Tasks Help", url: "https://support.google.com/tasks/?hl=en" },
+  voice: { label: "Google Voice Help", url: "https://support.google.com/voice/?hl=en" },
+  notebooklm: { label: "NotebookLM Help Center", url: "https://support.google.com/notebooklm/?hl=en" },
+  studio: { label: "Google Workspace Studio Help", url: "https://support.google.com/workspace-studio/?hl=en" },
+  appsheet: { label: "AppSheet Help Center", url: "https://support.google.com/appsheet/?hl=en" },
+  "developer-tools": { label: "Google AI for Developers", url: "https://ai.google.dev/gemini-api/docs" },
+};
+
 const defaultGoogleSources = (feature: Feature) => {
   const app = feature.application.toLowerCase();
   const slug = feature.slug.toLowerCase();
+
+  const appSource = appDocumentation[app];
+  const workspaceEditionSources = [
+    { label: "Google Workspace Business edition comparison", url: "https://knowledge.workspace.google.com/admin/getting-started/editions/compare-business-editions" },
+    { label: "Google Workspace Enterprise edition comparison", url: "https://knowledge.workspace.google.com/admin/getting-started/editions/compare-enterprise-editions" },
+    { label: "Google Workspace AI Expanded Access and limits", url: "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini/ai-expanded-access" },
+  ];
+  const geminiEnterpriseEditionSource = { label: "Gemini Enterprise edition comparison", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" };
 
   const slugSpecificSources: Record<string, Array<{ label: string; url: string }>> = {
     "gemini-chat": [
@@ -77,13 +105,19 @@ const defaultGoogleSources = (feature: Feature) => {
   };
 
   if (slugSpecificSources[slug]) {
-    return slugSpecificSources[slug];
+    return [...slugSpecificSources[slug], ...workspaceEditionSources, geminiEnterpriseEditionSource];
+  }
+
+  if (appSource) {
+    return [appSource, ...workspaceEditionSources, geminiEnterpriseEditionSource, { label: "Google Workspace plan pricing", url: WORKSPACE_PRICING_URL }];
   }
 
   if (app.includes("notebook") || feature.category === "notebooklm") {
     return [
       { label: "NotebookLM", url: NOTEBOOKLM_URL },
+      { label: "NotebookLM Help Center", url: "https://support.google.com/notebooklm/?hl=en" },
       { label: "Google Gemini product overview", url: GEMINI_PRODUCT_URL },
+      ...workspaceEditionSources,
     ];
   }
 
@@ -97,6 +131,8 @@ const defaultGoogleSources = (feature: Feature) => {
   if (app.includes("gemini") || feature.category === "gemini") {
     return [
       { label: "Google Gemini product overview", url: GEMINI_PRODUCT_URL },
+      geminiEnterpriseEditionSource,
+      ...workspaceEditionSources,
       { label: "Google Workspace", url: WORKSPACE_HOME_URL },
     ];
   }
@@ -109,6 +145,7 @@ const defaultGoogleSources = (feature: Feature) => {
 
 export function getFeatureEvidence(feature: Feature): FeatureEvidence {
   const availabilityNotes = Object.values(feature.plans)
+    .filter((availability) => availability.status !== "unverified")
     .map((availability) => availability.note || availability.limit)
     .filter((note): note is string => Boolean(note));
   const restrictions = [
@@ -117,20 +154,24 @@ export function getFeatureEvidence(feature: Feature): FeatureEvidence {
     feature.enterpriseAvailability === "add-on" ? "Requires an AI add-on or eligible base plan" : null,
   ].filter((restriction): restriction is string => Boolean(restriction));
 
-  const officialSources = feature.officialSources?.length
+  const suppliedSources = feature.officialSources?.length
     ? feature.officialSources
     : feature.documentationUrl
       ? [{ label: "Official Google documentation", url: feature.documentationUrl }]
-      : defaultGoogleSources(feature);
-  const hasFeatureSpecificSource = Boolean(feature.officialSources?.length || feature.documentationUrl);
+      : [];
+  const officialSources = [...new Map(
+    [...suppliedSources, ...defaultGoogleSources(feature)].map((source) => [source.url, source]),
+  ).values()];
+  const hasFeatureSpecificSource = feature.sourceSpecificity === "feature";
 
   return {
     sourceUrl: officialSources[0]?.url,
     sourceLabel: officialSources[0]?.label ?? "Google official source",
-    sourceCoverage: hasFeatureSpecificSource ? "Feature-specific link" : "General product links",
+    sourceCoverage: hasFeatureSpecificSource ? "Feature-specific source" : "Product-level source",
     sourceNote: hasFeatureSpecificSource
-      ? "A Google documentation link is associated with this feature. Confirm edition-specific limits in the source."
-      : "These links cover the broader product; they do not verify every detail of this catalog entry.",
+      ? "The linked Google page documents this capability. Edition eligibility is mapped only where the edition comparison lists it."
+      : "These official links cover the broader product; they do not verify every detail of this catalog entry.",
+    sourceReviewedAt: feature.sourceReviewedAt,
     availabilityNotes: [...new Set(availabilityNotes)].slice(0, 4),
     restrictions,
     officialSources,

@@ -208,6 +208,7 @@ function StatusBadge({ status }: { status: string }) {
     custom: "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-800",
     enterprise: "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800",
     no: "bg-slate-100 text-slate-500 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700",
+    unverified: "bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/60 dark:text-amber-200 dark:border-amber-800",
   };
   const labels: Record<string, string> = {
     yes: "Available",
@@ -216,6 +217,7 @@ function StatusBadge({ status }: { status: string }) {
     custom: "Custom Entitlement",
     enterprise: "Enterprise Core",
     no: "Not Included",
+    unverified: "Not Verified",
   };
 
   return (

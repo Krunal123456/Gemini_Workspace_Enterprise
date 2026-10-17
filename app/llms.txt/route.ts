@@ -11,6 +11,7 @@ export function GET() {
 - [Home](${siteUrl}/): Overview of the site's research and tools.
 - [Plan comparison](${siteUrl}/compare): Compare Workspace and Gemini Enterprise plans.
 - [Pricing](${siteUrl}/pricing): Review listed plan pricing and billing assumptions.
+- [Affiliate disclosure](${siteUrl}/affiliate-disclosure): See whether links are affiliate-tracked and how commissions are handled.
 - [Feature directory](${siteUrl}/features): Browse documented capabilities by product and plan.
 - [Google Workspace apps](${siteUrl}/apps): Explore Workspace applications and related capabilities.
 - [Gemini API models](${siteUrl}/articles/gemini-api-models): Model catalog, lifecycle, context limits, and pricing links.
@@ -22,6 +23,7 @@ export function GET() {
 - [Connectors](${siteUrl}/enterprise/connectors): Browse data connectors and their requirements.
 - [Security and governance](${siteUrl}/security): Review security controls and governance topics.
 - [Enterprise readiness](${siteUrl}/enterprise/readiness): Assess deployment readiness.
+- [Claude to Gemini migration guide](${siteUrl}/migration): Browser-only SKILL.md ZIP packager, migration checklist, and official Google references.
 - [Custom MCP server setup](${siteUrl}/articles/gemini-enterprise-custom-mcp-servers): Google-documented transport, TLS, and action requirements.
 - [NotebookLM sources and Audio Overviews](${siteUrl}/articles/notebooklm-sources-audio-overviews): Source-grounded workflows and verification notes.
 - [Articles](${siteUrl}/articles): Editorial explainers and comparisons.

@@ -1,16 +1,8 @@
 import { Feature, PlanId, PlanAvailability } from "@/types";
 
-// Fill mapped feature availability for editions with reviewed catalog entries.
-//
-// Propagation hierarchy (explicit map always wins over auto-propagation):
-//   business-standard → ai-expanded
-//   enterprise-standard/plus → gemini-enterprise-business,
-//                              gemini-enterprise-standard, gemini-enterprise-plus,
-//                              gemini-enterprise-payg, frontline
-//   gemini-enterprise-business → gemini-enterprise-standard, gemini-enterprise-plus,
-//                                 gemini-enterprise-payg, frontline
-//   Standalone add-ons (google-voice-*, appsheet-core, workspace-additional-storage,
-//   ai-expanded): ONLY available if explicitly mapped.
+// Every plan cell is explicit about whether the catalog has evidence for it.
+// Product entitlements are never copied across separate editions; an unmapped
+// cell remains unverified rather than being presented as a confirmed exclusion.
 function makeAvailability(
   map: Partial<Record<PlanId, Partial<PlanAvailability>>>
 ): Partial<Record<PlanId, PlanAvailability>> {
@@ -33,100 +25,29 @@ function makeAvailability(
     "frontline",
   ];
 
-  const result: Partial<Record<PlanId, PlanAvailability>> = {};
-
-  // ── Source helpers ─────────────────────────────────────────────────────────
-  const wsStd    = map["business-standard"];
-  const wsEntStd = map["enterprise-standard"];
-  const wsEntPls = map["enterprise-plus"];
-  const wsEntSrc = wsEntStd ?? wsEntPls;
-  const geBiz    = map["gemini-enterprise-business"];
-  const geStd    = map["gemini-enterprise-standard"];
-  const gePls    = map["gemini-enterprise-plus"];
-  const geFront  = map["frontline"];
-
-  const hasWsStd   = Boolean(wsStd?.available);
-  const hasWsEnt   = Boolean(wsEntSrc?.available);
-  const hasGeBiz   = Boolean(geBiz?.available);
-  const hasGeStd   = Boolean(geStd?.available);
-  const hasGePls   = Boolean(gePls?.available);
-  const hasGeFront = Boolean(geFront?.available);
-
-  // Best GE source for PayGo / Frontline fallback
-  const geBestSrc = geStd ?? gePls ?? geBiz ?? wsEntSrc;
-  const hasAnyGe  = hasGeBiz || hasGeStd || hasGePls;
-
-  function normEntry(src: Partial<PlanAvailability>, defaultNote?: string): PlanAvailability {
-    return {
-      available: src.available ?? true,
-      status:    src.status ?? "yes",
-      note:      src.note ?? defaultNote,
-      limit:     src.limit,
-    };
-  }
-
-  function resolve(pid: PlanId): PlanAvailability {
-    // ① Explicit mapping always wins
-    if (map[pid] !== undefined) {
-      const m = map[pid]!;
-      return {
-        available: m.available ?? true,
-        status:    m.status ?? (m.available === false ? "no" : "yes"),
-        note:      m.note,
-        limit:     m.limit,
-      };
+  return Object.fromEntries(mappedPlanIds.map((pid) => {
+    const entry = map[pid];
+    if (entry) {
+      const available = entry.available ?? true;
+      return [pid, {
+        available,
+        status: entry.status ?? (available ? "yes" : "no"),
+        note: entry.note,
+        limit: entry.limit,
+      } satisfies PlanAvailability];
     }
-
-    // ② gemini-enterprise-business — inherits from Workspace Enterprise
-    if (pid === "gemini-enterprise-business" && hasWsEnt) {
-      return normEntry(wsEntSrc!, wsEntSrc!.note);
-    }
-
-    // ③ gemini-enterprise-standard — inherits from GE Business or Workspace Enterprise
-    if (pid === "gemini-enterprise-standard") {
-      if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
-      if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
-    }
-
-    // ④ gemini-enterprise-plus — inherits from GE Standard → GE Business → WS Enterprise
-    if (pid === "gemini-enterprise-plus") {
-      if (hasGeStd)  return normEntry(geStd!, geStd!.note);
-      if (hasGeBiz)  return normEntry(geBiz!, geBiz!.note);
-      if (hasWsEnt)  return normEntry(wsEntSrc!, wsEntSrc!.note);
-    }
-
-    // ⑤ gemini-enterprise-payg — inherits from best GE source
-    if (pid === "gemini-enterprise-payg" && (hasAnyGe || hasWsEnt) && geBestSrc) {
-      return normEntry(geBestSrc, "Usage-based billing");
-    }
-
-    // ⑥ frontline — inherits from GE Standard/Business if available
-    if (pid === "frontline" && !hasGeFront) {
-      if (hasGeStd)  return normEntry(geStd!, "Frontline seat access");
-      if (hasGeBiz)  return normEntry(geBiz!, "Frontline seat access");
-    }
-
-    // ⑦ ai-expanded — higher limits for Workspace Standard features
-    if (pid === "ai-expanded" && hasWsStd) {
-      return { available: true, status: "higher_limits", note: "Higher limits with AI Expanded Access", limit: wsStd!.limit };
-    }
-
-    // ⑩ Standalone plans — NEVER auto-propagated:
-    //    google-voice-*, appsheet-core, workspace-additional-storage
-    return { available: false, status: "no" };
-  }
-
-  for (const pid of mappedPlanIds) {
-    result[pid] = resolve(pid);
-  }
-
-  return result;
+    return [pid, {
+      available: false,
+      status: "unverified",
+      note: "No plan-specific source has been reviewed for this edition yet.",
+    } satisfies PlanAvailability];
+  })) as Partial<Record<PlanId, PlanAvailability>>;
 }
 
 
 export const features: Feature[] = [
   // ==========================================
-  // 1. CHAT APP (GEMINI / GEMINI ENTERPRISE) - 15 FEATURES
+  // 1. CHAT APP (GEMINI / GEMINI ENTERPRISE) - 22 FEATURES
   // ==========================================
   {
     id: "gemini-chat",
@@ -323,10 +244,10 @@ export const features: Feature[] = [
     category: "gemini",
     application: "gemini",
     description: "Use Google Search grounding in Gemini and supported Gemini Enterprise editions.",
-    whatItDoes: "Applies Google Search's organic web index to verify claims and enrich model responses with cited Google search results.",
-    howItWorks: "Leverages Google's proprietary search ranking infrastructure to select the highest-authority web sources.",
+    whatItDoes: "Uses Google Search grounding to bring current web information into supported Gemini responses, with source links where available.",
+    howItWorks: "Gemini can use Google Search results as grounding context for a response. The exact experience and availability depend on the product and edition.",
     useCases: ["Fact-checking claims", "Academic references", "Regulatory monitoring"],
-    capabilities: ["Google Search Index integration", "Citation links", "Confidence scoring"],
+    capabilities: ["Google Search grounding", "Links to web sources where available", "Current web context"],
     enterpriseAvailability: "all",
     plans: makeAvailability({
       "business-starter": { available: true, status: "yes" },
@@ -347,10 +268,10 @@ export const features: Feature[] = [
     category: "gemini",
     application: "gemini",
     description: "Get higher-priority access to the latest Gemini models through AI add-ons or Gemini Enterprise Standard and Plus.",
-    whatItDoes: "Ensures low-latency inference and priority compute queue placement even during peak international traffic hours.",
-    howItWorks: "Routes requests through dedicated enterprise compute clusters with provisioned throughput SLAs.",
+    whatItDoes: "Provides priority access to the latest Gemini models on editions where Google lists this entitlement.",
+    howItWorks: "Edition eligibility is documented by Google. This entry does not imply a latency guarantee, dedicated compute, or a provisioned-throughput SLA.",
     useCases: ["Executive mission-critical research", "Time-sensitive technical analysis", "High-throughput data generation"],
-    capabilities: ["Frontier model access", "Low latency guarantee", "High compute reservation"],
+    capabilities: ["Priority access to latest Gemini models on eligible editions"],
     enterpriseAvailability: "standard",
     plans: makeAvailability({
       "ai-expanded": { available: true, status: "higher_limits", note: "Higher priority" },
@@ -525,8 +446,8 @@ export const features: Feature[] = [
     category: "gemini",
     application: "gemini",
     description: "Build, use, govern, and source agents in Gemini Enterprise.",
-    whatItDoes: "Enables teams to deploy specialized autonomous AI agents that chain thoughts, query corporate APIs, and complete complex operational workflows.",
-    howItWorks: "Agents leverage system prompts, attached MCP tools, and Stored Organisational Knowledge to act autonomously under strict admin permissions.",
+    whatItDoes: "Lets eligible users work with Google-provided, organization-created, and supported custom agents, subject to edition and administrator configuration.",
+    howItWorks: "Agent creation, access, connected data, actions, and administration depend on agent type, edition, and settings configured by an administrator.",
     useCaseSummary: "Gemini Agents help enterprise teams automate repeatable operational work by connecting approved tools, internal knowledge, and governed workflows into a single execution layer.",
     whereUsed: [
       "Customer onboarding and internal service orchestration",
@@ -539,13 +460,8 @@ export const features: Feature[] = [
       "Trigger the agent in a governed workflow and review audit logging for each action.",
     ],
     useCases: ["Automated customer onboarding agent", "HR policy advisor", "Financial reconciliation analyst"],
-    capabilities: ["Multi-step reasoning", "Tool chaining", "Admin lifecycle governance"],
-    includedCapabilities: [
-      "Autonomous workflow execution",
-      "MCP and API connector chaining",
-      "Enterprise tooling and admin governance",
-      "Audit-ready operational history",
-    ],
+    capabilities: ["Google-provided agents", "Organization-created agents", "Edition-dependent administration"],
+    includedCapabilities: ["Agent access varies by edition", "Some agent actions require administrator setup", "See linked Google edition guide"],
     enterpriseAvailability: "enterprise-only",
     isPopular: true,
     plans: makeAvailability({
@@ -553,6 +469,174 @@ export const features: Feature[] = [
       "gemini-enterprise-standard": { available: true, status: "enterprise" },
       "gemini-enterprise-plus": { available: true, status: "enterprise" },
       "frontline": { available: true, status: "enterprise" },
+    }),
+  },
+  {
+    id: "gemini-enterprise-custom-skills",
+    slug: "gemini-enterprise-custom-skills",
+    name: "Create and upload custom skills",
+    category: "gemini",
+    application: "gemini",
+    description: "Create reusable SKILL.md instruction packages and upload them to Gemini Enterprise on eligible editions.",
+    whatItDoes: "Lets teams package recurring instructions and supporting files into reusable skills for the Gemini Enterprise assistant.",
+    howItWorks: "An administrator enables skills. Eligible users can create a skill in the app or upload Markdown/ZIP packages; Frontline users can use shared skills but cannot create or upload them.",
+    useCases: ["Standardize policy review", "Apply a brand voice", "Reuse team research workflows"],
+    capabilities: ["Create skills in the app", "Upload SKILL.md or ZIP packages", "Share skills with organization users"],
+    enterpriseAvailability: "enterprise-only",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://docs.cloud.google.com/gemini/enterprise/docs/skills",
+    officialSources: [{ label: "Google: Create and manage skills", url: "https://docs.cloud.google.com/gemini/enterprise/docs/skills" }, { label: "Google: Compare Gemini Enterprise editions", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" }],
+    plans: makeAvailability({
+      "gemini-enterprise-business": { available: true, status: "yes" },
+      "gemini-enterprise-standard": { available: true, status: "yes" },
+      "gemini-enterprise-plus": { available: true, status: "yes" },
+      "gemini-enterprise-payg": { available: true, status: "yes" },
+      "frontline": { available: false, status: "no", note: "Frontline users can use shared skills, but cannot create or upload custom skills." },
+    }),
+  },
+  {
+    id: "gemini-enterprise-shared-skills",
+    slug: "gemini-enterprise-shared-skills",
+    name: "Use Google and shared skills",
+    category: "gemini",
+    application: "gemini",
+    description: "Use Google-managed skills and user-created skills shared with you, subject to edition and administrator settings.",
+    whatItDoes: "Provides reusable task instructions that can be invoked or selected in Gemini Enterprise conversations.",
+    howItWorks: "Google-managed and shared user-created skills are available across listed editions. Administrators control skill access and sharing settings.",
+    useCases: ["Use team-approved workflows", "Install Google-provided skills", "Apply shared task instructions"],
+    capabilities: ["Browse available skills", "Install or invoke eligible skills", "Use skills shared by colleagues"],
+    enterpriseAvailability: "enterprise-only",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://docs.cloud.google.com/gemini/enterprise/docs/skills",
+    officialSources: [{ label: "Google: Create and manage skills", url: "https://docs.cloud.google.com/gemini/enterprise/docs/skills" }, { label: "Google: Compare Gemini Enterprise editions", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" }],
+    plans: makeAvailability({
+      "gemini-enterprise-business": { available: true, status: "yes" },
+      "gemini-enterprise-standard": { available: true, status: "yes" },
+      "gemini-enterprise-plus": { available: true, status: "yes" },
+      "gemini-enterprise-payg": { available: true, status: "yes" },
+      "frontline": { available: true, status: "limited", note: "Frontline can install/use shared skills; creating or uploading custom skills is unavailable." },
+    }),
+  },
+  {
+    id: "gemini-enterprise-data-insights",
+    slug: "gemini-enterprise-data-insights",
+    name: "Data Insights (Made by Google)",
+    category: "gemini",
+    application: "gemini",
+    description: "Use the Google-provided Data Insights capability for supported analytical questions over connected enterprise data.",
+    whatItDoes: "Helps users explore and understand organizational data with natural-language questions and generated insights.",
+    howItWorks: "Availability is edition-specific. Supported data sources, setup, and quotas should be checked in Google's current documentation.",
+    useCases: ["Explore connected business data", "Ask follow-up questions about datasets", "Summarize analytical findings"],
+    capabilities: ["Google-provided data analysis capability", "Edition-specific access", "Connected-data context where supported"],
+    enterpriseAvailability: "enterprise-only",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://docs.cloud.google.com/gemini/enterprise/docs/editions",
+    officialSources: [{ label: "Google: Compare Gemini Enterprise editions", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" }],
+    plans: makeAvailability({
+      "gemini-enterprise-business": { available: false, status: "no" },
+      "gemini-enterprise-standard": { available: true, status: "yes" },
+      "gemini-enterprise-plus": { available: true, status: "yes" },
+      "gemini-enterprise-payg": { available: true, status: "yes" },
+      "frontline": { available: false, status: "no" },
+    }),
+  },
+  {
+    id: "gemini-enterprise-agent-marketplace",
+    slug: "gemini-enterprise-agent-marketplace",
+    name: "Agent Marketplace",
+    category: "gemini",
+    application: "gemini",
+    description: "Browse and use agents available through the Gemini Enterprise Agent Marketplace, subject to edition and administrator settings.",
+    whatItDoes: "Provides a place to discover agents that can help with supported work tasks.",
+    howItWorks: "Google's edition comparison lists Marketplace access by edition. Specific agents and actions can have additional access or configuration requirements.",
+    useCases: ["Discover available agents", "Find task-specific assistance", "Review available Google and organization agents"],
+    capabilities: ["Browse the Agent Marketplace", "Discover listed agents", "Edition-dependent availability"],
+    enterpriseAvailability: "enterprise-only",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://docs.cloud.google.com/gemini/enterprise/docs/editions",
+    officialSources: [{ label: "Google: Compare Gemini Enterprise editions", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" }, { label: "Google: Gemini Enterprise overview", url: "https://docs.cloud.google.com/gemini/enterprise/docs" }],
+    plans: makeAvailability({
+      "gemini-enterprise-business": { available: false, status: "no" },
+      "gemini-enterprise-standard": { available: true, status: "yes" },
+      "gemini-enterprise-plus": { available: true, status: "yes" },
+      "gemini-enterprise-payg": { available: true, status: "yes" },
+      "frontline": { available: true, status: "yes" },
+    }),
+  },
+  {
+    id: "gemini-enterprise-custom-no-code-agents",
+    slug: "gemini-enterprise-custom-no-code-agents",
+    name: "Build custom no-code agents",
+    category: "gemini",
+    application: "gemini",
+    description: "Build and publish custom no-code agents using Gemini Enterprise no-code tools (preview).",
+    whatItDoes: "Lets eligible users create and publish custom agents with Google's no-code tools.",
+    howItWorks: "The capability is a preview and appears in Google's edition comparison. Administrator enablement, preview terms, and product limits apply.",
+    useCases: ["Prototype a team assistant", "Automate repeatable request flows", "Publish a task-specific no-code agent"],
+    capabilities: ["No-code agent creation", "Publish custom agents", "Preview feature"],
+    enterpriseAvailability: "enterprise-only",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://docs.cloud.google.com/gemini/enterprise/docs/editions",
+    officialSources: [{ label: "Google: Compare Gemini Enterprise editions", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" }],
+    plans: makeAvailability({
+      "gemini-enterprise-business": { available: true, status: "limited", note: "Preview; check administrator availability and current terms." },
+      "gemini-enterprise-standard": { available: true, status: "limited", note: "Preview; check administrator availability and current terms." },
+      "gemini-enterprise-plus": { available: true, status: "limited", note: "Preview; check administrator availability and current terms." },
+      "gemini-enterprise-payg": { available: true, status: "limited", note: "Preview; check administrator availability and current terms." },
+      "frontline": { available: false, status: "no" },
+    }),
+  },
+  {
+    id: "gemini-enterprise-use-custom-no-code-agents",
+    slug: "gemini-enterprise-use-custom-no-code-agents",
+    name: "Use published custom no-code agents",
+    category: "gemini",
+    application: "gemini",
+    description: "Use custom no-code agents built with Gemini Enterprise no-code tools, where an administrator or organization makes them available.",
+    whatItDoes: "Allows users to run custom agents created and published by eligible teammates or administrators.",
+    howItWorks: "Google lists agent use across editions, including Frontline. The agent must be available to the user and enabled for the organization.",
+    useCases: ["Run organization-published agents", "Use team automation without building it", "Access provisioned workflows"],
+    capabilities: ["Use published agents", "Organization-controlled availability", "Edition-dependent setup"],
+    enterpriseAvailability: "enterprise-only",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://docs.cloud.google.com/gemini/enterprise/docs/editions",
+    officialSources: [{ label: "Google: Compare Gemini Enterprise editions", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" }],
+    plans: makeAvailability({
+      "gemini-enterprise-business": { available: true, status: "yes" },
+      "gemini-enterprise-standard": { available: true, status: "yes" },
+      "gemini-enterprise-plus": { available: true, status: "yes" },
+      "gemini-enterprise-payg": { available: true, status: "yes" },
+      "frontline": { available: true, status: "yes" },
+    }),
+  },
+  {
+    id: "gemini-enterprise-use-full-code-agents",
+    slug: "gemini-enterprise-use-full-code-agents",
+    name: "Use full-code agents built outside Gemini Enterprise",
+    category: "gemini",
+    application: "gemini",
+    description: "Access eligible full-code agents built outside Gemini Enterprise and made available through supported deployment paths.",
+    whatItDoes: "Lets users work with supported externally built agents surfaced in Gemini Enterprise.",
+    howItWorks: "Google lists this for Standard, Plus, and Pay-as-you-go. Frontline users can access agents provisioned by an administrator; Business is not listed for this capability.",
+    useCases: ["Use an organization-built specialist agent", "Access approved custom applications", "Bring supported external agents into the work surface"],
+    capabilities: ["Use supported externally built agents", "Administrator provisioning", "Edition-specific access"],
+    enterpriseAvailability: "enterprise-only",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://docs.cloud.google.com/gemini/enterprise/docs/editions",
+    officialSources: [{ label: "Google: Compare Gemini Enterprise editions", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" }, { label: "Google: Agent overview", url: "https://docs.cloud.google.com/gemini/enterprise/docs/agents-overview" }],
+    plans: makeAvailability({
+      "gemini-enterprise-business": { available: false, status: "no" },
+      "gemini-enterprise-standard": { available: true, status: "yes" },
+      "gemini-enterprise-plus": { available: true, status: "yes" },
+      "gemini-enterprise-payg": { available: true, status: "yes" },
+      "frontline": { available: true, status: "limited", note: "Users can access agents provisioned for them by an administrator." },
     }),
   },
 
@@ -1986,20 +2070,26 @@ export const features: Feature[] = [
   {
     id: "workspace-studio-flow-executions-per-month",
     slug: "workspace-studio-flow-executions-per-month",
-    name: "Flow executions per month",
+    name: "Workspace Studio limits",
     category: "studio",
     application: "studio",
-    description: "Automated generative multi-step AI workflow orchestration and monthly execution quotas.",
-    whatItDoes: "Builds and triggers multi-app autonomous workflows (e.g. 'When a client emails an RFP in Gmail, summarize in Docs, alert Slack, and log in Sheets').",
-    howItWorks: "Visual drag-and-drop workflow canvas running serverless workflow logic connected to Workspace APIs.",
-    useCases: ["Automating customer support triage", "Daily competitive briefing pipeline", "Multi-app sales lead enrichment"],
-    capabilities: ["Visual workflow builder", "Scheduled triggers", "Multi-app integration"],
+    description: "Current Google-documented Workspace Studio caps for flow count, flow steps, and daily runs.",
+    whatItDoes: "Workspace Studio lets eligible users create flows that automate tasks across Workspace apps. Google currently documents a maximum of 25 flows and 20 steps per flow.",
+    howItWorks: "A shared daily run limit applies across a user's flows. Google's current help page does not list monthly execution quotas by edition.",
+    useCases: ["Check whether a proposed automation fits current flow caps", "Plan Workspace Studio usage", "Review limits before enabling flows"],
+    capabilities: ["Up to 25 created flows", "Up to 20 steps per flow", "Daily run limit; no monthly quota published on the linked help page"],
     enterpriseAvailability: "standard",
+    sourceSpecificity: "feature",
+    sourceReviewedAt: "2026-10-18",
+    documentationUrl: "https://support.google.com/workspace-studio/answer/16765942?hl=en",
+    officialSources: [{ label: "Google Workspace Studio limits", url: "https://support.google.com/workspace-studio/answer/16765942?hl=en" }, { label: "Get started with Google Workspace Studio", url: "https://support.google.com/workspace-studio/answer/16444479?hl=en" }],
     plans: makeAvailability({
-      "enterprise-standard": { available: true, status: "yes", limit: "1,000 flows / mo" },
-      "enterprise-plus": { available: true, status: "yes", limit: "5,000 flows / mo" },
-      "gemini-enterprise-standard": { available: true, status: "yes", limit: "10,000 flows / mo" },
-      "gemini-enterprise-plus": { available: true, status: "yes", limit: "50,000 flows / mo" },
+      "business-starter": { available: true, status: "yes", note: "Eligible edition; 25-flow maximum and daily run limit. Google does not publish a monthly run count here." },
+      "business-standard": { available: true, status: "yes", note: "Eligible edition; 25-flow maximum and daily run limit. Google does not publish a monthly run count here." },
+      "business-plus": { available: true, status: "yes", note: "Eligible edition; 25-flow maximum and daily run limit. Google does not publish a monthly run count here." },
+      "enterprise-standard": { available: true, status: "yes", note: "Eligible edition; 25-flow maximum and daily run limit. Google does not publish a monthly run count here." },
+      "enterprise-plus": { available: true, status: "yes", note: "Eligible edition; 25-flow maximum and daily run limit. Google does not publish a monthly run count here." },
+      "ai-expanded": { available: true, status: "yes", note: "The Google Studio guide lists the AI expansion add-on as eligible. Daily run limits apply." },
     }),
   },
 

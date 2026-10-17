@@ -116,11 +116,11 @@ export const featureProseES6: Record<string, FeatureTranslation> = {
   },
   "workspace-studio-flow-executions-per-month": {
     description:
-      "Orquestación automatizada de flujos de trabajo generativos de IA en varios pasos y cuotas mensuales de ejecución.",
+      "Límites documentados por Google para el número de flujos, pasos por flujo y ejecuciones diarias de Workspace Studio.",
     whatItDoes:
-      "Construye y activa flujos de trabajo autónomos entre varias apps (por ejemplo, «Cuando un cliente envíe un RFP por Gmail, resúmelo en Docs, avisa a Slack y regístralo en Sheets»).",
+      "Workspace Studio permite crear flujos que automatizan tareas entre aplicaciones de Workspace. Google documenta un máximo de 25 flujos y 20 pasos por flujo.",
     howItWorks:
-      "Lienzo visual de flujo de trabajo con arrastrar y soltar que ejecuta lógica sin servidor conectada a las API de Workspace.",
+      "Se aplica un límite diario de ejecuciones a todos los flujos del usuario. La ayuda actual de Google no publica cuotas mensuales por edición.",
   },
   "google-labs-flow-credits-per-month": {
     description:

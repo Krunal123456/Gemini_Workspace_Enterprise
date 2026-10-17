@@ -20,6 +20,7 @@ const platformLinks: FooterLink[] = [
 ];
 
 const enterpriseLinks: FooterLink[] = [
+  { name: "migrationGuide", href: "/migration" },
   { name: "Business (Workspace) Onboarding", href: "/enterprise/onboarding/business", badge: "admin.google.com" },
   { name: "Standard & Plus (Cloud) Onboarding", href: "/enterprise/onboarding/cloud", badge: "console.cloud.google.com" },
   { name: "connectors", href: "/enterprise/connectors" },
@@ -42,6 +43,7 @@ const resourceLinks: FooterLink[] = [
   { name: "articles", href: "/articles" },
   { name: "googleAiUpdates", href: "/google-ai-updates", badge: "Oct 2026" },
   { name: "about", href: "/about" },
+  { name: "affiliateDisclosure", href: "/affiliate-disclosure" },
 ];
 
 export function Footer({
@@ -145,7 +147,13 @@ export function Footer({
                     className="group inline-flex flex-col text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <span>
-                      {item.name in labels ? labels[item.name as keyof FooterLabels] : item.name}
+                      {item.name in labels
+                        ? labels[item.name as keyof FooterLabels]
+                        : item.name === "migrationGuide"
+                        ? locale === "es" ? "Migrar de Claude a Gemini" : "Claude to Gemini migration"
+                        : item.name === "affiliateDisclosure"
+                        ? locale === "es" ? "Divulgación de afiliados" : "Affiliate disclosure"
+                        : item.name}
                     </span>
                     {item.badge && (
                       <span className="font-mono text-[9px] text-google-blue/80">
@@ -189,7 +197,11 @@ export function Footer({
                     className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <span>
-                      {item.name in labels ? labels[item.name as keyof FooterLabels] : item.name}
+                      {item.name in labels
+                        ? labels[item.name as keyof FooterLabels]
+                        : item.name === "affiliateDisclosure"
+                        ? locale === "es" ? "Divulgación de afiliados" : "Affiliate disclosure"
+                        : item.name}
                     </span>
                     {item.badge && (
                       <span className="rounded-full bg-google-blue/10 border border-google-blue/20 px-1.5 py-0.2 text-[9px] text-google-blue font-semibold">

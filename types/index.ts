@@ -1,4 +1,4 @@
-export type AvailabilityType = "yes" | "no" | "limited" | "higher_limits" | "custom" | "enterprise";
+export type AvailabilityType = "yes" | "no" | "limited" | "higher_limits" | "custom" | "enterprise" | "unverified";
 
 export interface PlanAvailability {
   available: boolean;
@@ -51,6 +51,10 @@ export interface Feature {
   securityConsiderations?: string;
   documentationUrl?: string;
   officialSources?: FeatureCitation[];
+  /** `feature` only when the linked source documents this capability directly. */
+  sourceSpecificity?: "feature" | "product";
+  /** Date the linked product/feature claim was last checked against the source. */
+  sourceReviewedAt?: string;
   relatedFeatures?: string[];
   isNew?: boolean;
   isPopular?: boolean;

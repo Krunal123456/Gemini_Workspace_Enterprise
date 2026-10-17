@@ -61,7 +61,7 @@ export function Header({ labels }: { labels: NavLabels }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [appsDropdownOpen, setAppsDropdownOpen] = useState(false);
   const pathname = usePathname();
-  const { href } = useLocale();
+  const { href, tp } = useLocale();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -257,6 +257,9 @@ export function Header({ labels }: { labels: NavLabels }) {
                         <Link href={href("/enterprise")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
                           {labels.enterprise}
                         </Link>
+                        <Link href={href("/migration")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
+                          {tp("Migration guide")}
+                        </Link>
                         <Link href={href("/articles")} className="hover:text-violet-600 dark:hover:text-white transition-colors">
                           {labels.articles}
                         </Link>
@@ -404,6 +407,13 @@ export function Header({ labels }: { labels: NavLabels }) {
                 className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-muted/60 text-foreground"
               >
                 <span>{labels.enterprise}</span>
+                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+              </Link>
+              <Link
+                href={href("/migration")}
+                className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-muted/60 text-foreground"
+              >
+                <span>{tp("Claude to Gemini migration")}</span>
                 <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
               </Link>
               <Link
