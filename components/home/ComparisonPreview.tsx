@@ -10,6 +10,7 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 const previewPlanIds = [
+  "business-starter",
   "business-standard",
   "business-plus",
   "gemini-enterprise-business",
@@ -48,7 +49,7 @@ export default function ComparisonPreview() {
           </Link>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
           {previewPlans.map((plan) => (
             <article key={plan.id} className="flex min-h-[300px] flex-col rounded-2xl border border-border bg-card p-5 transition-colors hover:border-google-blue/35 sm:p-6">
               <p className="text-xs font-medium text-google-blue-text">{plan.category}</p>

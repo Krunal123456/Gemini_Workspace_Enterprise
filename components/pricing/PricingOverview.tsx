@@ -13,7 +13,7 @@ import { googleWorkspaceReferralUrl, officialWorkspacePricingUrl } from "@/lib/a
 type PricingMode = "workspace" | "addons" | "standalone";
 
 const modePlans: Record<PricingMode, string[]> = {
-  workspace: ["business-standard", "business-plus", "enterprise-standard"],
+  workspace: ["business-starter", "business-standard", "business-plus", "enterprise-standard"],
   addons: [
     "google-voice-standard",
     "gemini-enterprise-addon",

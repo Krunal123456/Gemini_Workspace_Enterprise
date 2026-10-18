@@ -12,7 +12,7 @@ import { Check, Minus, Plus, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
-const DEFAULT_SELECTED = ['business-standard', 'ai-expanded', 'gemini-enterprise-standard'];
+const DEFAULT_SELECTED = ['business-starter', 'business-standard', 'ai-expanded', 'gemini-enterprise-standard'];
 
 function PlanComparatorInner() {
   const { plans } = useLocalizedData();
@@ -24,8 +24,6 @@ function PlanComparatorInner() {
   const searchParams = useSearchParams();
   const reduceMotion = useReducedMotion();
 
-  const defaultSelected = DEFAULT_SELECTED;
-
   const [selectedPlanIds, setSelectedPlanIds] = useState<string[]>([]);
   const [showDiffOnly, setShowDiffOnly] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -36,7 +34,7 @@ function PlanComparatorInner() {
     if (plansParam) {
       setSelectedPlanIds(plansParam.split(','));
     } else {
-      setSelectedPlanIds(defaultSelected);
+      setSelectedPlanIds(DEFAULT_SELECTED);
     }
   }, [searchParams]);
 

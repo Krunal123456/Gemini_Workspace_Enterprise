@@ -63,6 +63,10 @@ const sourceLinks = {
   workspaceDrop: "https://workspace.google.com/blog/product-announcements/september-2026-workspace-feature-drop",
   workspaceAgents: "https://workspace.google.com/blog/product-announcements/less-switching-more-flow-5-new-agentic-capabilities-across-google-workspace-apps",
   workspaceSkills: "https://workspace.google.com/blog/product-announcements/teach-gemini-your-teams-know-hows-with-skills-in-google-workspace",
+  gmailAiInbox: "https://workspaceupdates.googleblog.com/2026/10/gmails-ai-inbox-is-rolling-out-to-paid-Workspace-users.html",
+  gmailLive: "https://workspaceupdates.googleblog.com/2026/10/gmail-live-is-rolling-out-to-paid-Workspace-users.html",
+  meetNextSteps: "https://workspaceupdates.googleblog.com/2026/10/find-your-routine-next-steps-on-post-meeting-screen-in-Google-Meet.html",
+  skillsRollout: "https://workspaceupdates.googleblog.com/2026/10/an-update-on-launch-of-skills-in-gemini-app-and-workspace.html",
 };
 
 const copy: Record<Locale, PageCopy> = {
@@ -70,7 +74,7 @@ const copy: Record<Locale, PageCopy> = {
     title: "Google AI Release Updates for Customer Engineers",
     description:
       "A source-led engineering brief on current Gemini API, Gemini Enterprise, and Google Workspace updates, availability, migration impact, and rollout checks.",
-    eyebrow: "Customer engineering brief · 17 October 2026",
+    eyebrow: "Customer engineering brief · 18 October 2026",
     heading: "Google AI updates, translated into engineering actions.",
     intro:
       "A practical digest of recent official Google announcements for teams evaluating, deploying, or supporting Gemini. Each item includes the operational detail to verify before you promise availability or change a production integration.",
@@ -85,7 +89,7 @@ const copy: Record<Locale, PageCopy> = {
       "Treat app availability, AI developer tools, Workflow Builder, connectors, and regional processing as separate capabilities. Several recent launches require an administrator to enable a control.",
     workspaceHeading: "Google Workspace and Gemini",
     workspaceIntro:
-      "The recent Workspace announcements expand cross-app workflows, shared team skills, image and video creation, and data experiences. Validate the rollout and data-source controls in the customer tenant.",
+      "Recent announcements expand Gmail’s Gemini assistance, automate Meet follow-ups, and update the rollout timeline for Workspace skills. Validate edition eligibility, language and region limits, and tenant rollout before promising availability.",
     checklistHeading: "Customer rollout checklist",
     checklistIntro:
       "Before a demo, pilot, migration, or production change, capture these facts for the customer’s exact setup.",
@@ -242,6 +246,55 @@ const copy: Record<Locale, PageCopy> = {
       ],
       workspace: [
         {
+          date: "Oct 15, 2026",
+          status: "Rolling out · US English only · Starter rollout later",
+          title: "Gmail AI Inbox expands to paid Workspace users",
+          summary:
+            "AI Inbox highlights suggested to-dos and summarizes priority work updates across email conversations. Google lists Business Starter, Standard, and Plus, Enterprise Starter, Standard, and Plus, AI Pro for Education, and Frontline Plus; the initial rollout is limited to users in the US with English (US). Google says the Starter-edition rollout will follow in the coming months.",
+          engineerNote:
+            "Check the user’s edition, US location, and English (US) language setting. Do not assume immediate Business Starter access during the staged rollout; Google says Starter users are scheduled for a later rollout.",
+          sources: [
+            { label: "Google Workspace Updates announcement", href: sourceLinks.gmailAiInbox },
+          ],
+        },
+        {
+          date: "Oct 15, 2026",
+          status: "Rolling out · mobile · US English only",
+          title: "Gmail Live brings inbox-aware voice search to Workspace mobile",
+          summary:
+            "Gmail Live lets eligible users ask spoken questions about their inbox and hear synthesized answers, with an email source card at each conversational turn and selectable voices. Google lists Business Starter, Standard, and Plus, Enterprise Starter, Standard, and Plus, Frontline Plus, Nonprofits, and several Gemini or AI add-ons. Availability is currently limited to the US with English (US).",
+          engineerNote:
+            "Verify the user has Gemini in Workspace access, a supported Android or iOS device, US availability, and English (US). Microphone permission is required; existing smart features and personalization settings apply.",
+          sources: [
+            { label: "Google Workspace Updates announcement", href: sourceLinks.gmailLive },
+          ],
+        },
+        {
+          date: "Oct 13, 2026",
+          status: "Gemini app rollout underway · Workspace rollout delayed",
+          title: "Google updates the rollout timeline for Gemini Skills",
+          summary:
+            "Skills in the Gemini app have started rolling out, with completion expected by mid-November; skill sharing and Google Drive integration are planned for later. The previously announced Workspace Skills rollout dates are delayed while Google works on a safe and reliable launch, and a new timeline has not been confirmed.",
+          engineerNote:
+            "Treat Gemini app Skills and Workspace Skills as separate rollouts. Do not plan a Workspace deployment against the old October 12 or October 19 dates; check Google’s announcement for a revised schedule.",
+          sources: [
+            { label: "Google Workspace Updates announcement", href: sourceLinks.skillsRollout },
+            { label: "Original Skills announcement", href: "https://workspaceupdates.googleblog.com/2026/09/skills-gemini-app-workspace.html" },
+          ],
+        },
+        {
+          date: "Oct 12, 2026",
+          status: "Rolling out · Business Standard/Plus and Enterprise Standard/Plus",
+          title: "Google Meet adds Gemini-powered post-meeting routines",
+          summary:
+            "When “Take notes for me” is enabled during a meeting, users can run follow-up routines from the post-meeting screen, initially drafting a Gmail follow-up or adding action items to Google Tasks. Google says the feature is on by default for eligible organizations and can be disabled by admins at the domain, OU, or group level through Workspace Studio Admin settings or the Take Notes for Me setting.",
+          engineerNote:
+            "Confirm the edition is Business Standard/Plus, Enterprise Standard/Plus, or AI Pro for Education. Test the Notes setting and the domain/OU/group policy; the current routines require notes to be enabled in the meeting.",
+          sources: [
+            { label: "Google Workspace Updates announcement", href: sourceLinks.meetNextSteps },
+          ],
+        },
+        {
           date: "Oct 2, 2026",
           status: "Rolling out · tenant availability varies",
           title: "Workspace Drop: image editing, Sheets canvas, Vids summaries, and Drive classification",
@@ -287,7 +340,7 @@ const copy: Record<Locale, PageCopy> = {
     title: "Actualizaciones de Google AI para ingenieros de clientes",
     description:
       "Resumen técnico, basado en fuentes oficiales, de las novedades de Gemini API, Gemini Enterprise y Google Workspace, con disponibilidad, migración y verificaciones de despliegue.",
-    eyebrow: "Informe para ingeniería de clientes · 17 de octubre de 2026",
+    eyebrow: "Informe para ingeniería de clientes · 18 de octubre de 2026",
     heading: "Novedades de Google AI, convertidas en acciones de ingeniería.",
     intro:
       "Resumen práctico de anuncios oficiales recientes de Google para equipos que evalúan, implementan o dan soporte a Gemini. Cada elemento incluye detalles operativos que conviene verificar antes de prometer disponibilidad o cambiar una integración en producción.",
@@ -302,7 +355,7 @@ const copy: Record<Locale, PageCopy> = {
       "Considere por separado la disponibilidad en la aplicación, las herramientas para desarrolladores de IA, Workflow Builder, los conectores y el procesamiento regional. Varios lanzamientos recientes requieren que un administrador habilite un control.",
     workspaceHeading: "Google Workspace y Gemini",
     workspaceIntro:
-      "Los anuncios recientes de Workspace amplían los flujos entre aplicaciones, las habilidades compartidas del equipo, la creación de imágenes y vídeos y el trabajo con datos. Valide el despliegue y los controles de fuentes de datos en el entorno del cliente.",
+      "Los anuncios recientes amplían la asistencia de Gemini en Gmail, automatizan el seguimiento de reuniones y actualizan el calendario de lanzamiento de las habilidades de Workspace. Valide la edición, el idioma, la región y el despliegue en la organización.",
     checklistHeading: "Lista de verificación para el despliegue",
     checklistIntro:
       "Antes de una demostración, piloto, migración o cambio en producción, registre estos datos para la configuración exacta del cliente.",
@@ -458,6 +511,55 @@ const copy: Record<Locale, PageCopy> = {
         },
       ],
       workspace: [
+        {
+          date: "15 oct 2026",
+          status: "Despliegue gradual · solo EE. UU. e inglés · Starter más adelante",
+          title: "AI Inbox de Gmail se amplía a usuarios de pago de Workspace",
+          summary:
+            "AI Inbox destaca tareas sugeridas y resume las actualizaciones de trabajo prioritarias en las conversaciones de correo. Google enumera Business Starter, Standard y Plus, Enterprise Starter, Standard y Plus, AI Pro for Education y Frontline Plus; el despliegue inicial se limita a usuarios de EE. UU. con inglés (EE. UU.). Google indica que el lanzamiento para Starter será en los próximos meses.",
+          engineerNote:
+            "Compruebe la edición, la ubicación en EE. UU. y el idioma inglés (EE. UU.). No presuponga acceso inmediato para Business Starter durante el despliegue gradual; Google indica que llegará más adelante.",
+          sources: [
+            { label: "Anuncio de Google Workspace Updates", href: sourceLinks.gmailAiInbox },
+          ],
+        },
+        {
+          date: "15 oct 2026",
+          status: "Despliegue gradual · móviles · solo EE. UU. e inglés",
+          title: "Gmail Live incorpora búsqueda por voz contextual en Workspace móvil",
+          summary:
+            "Gmail Live permite hacer preguntas habladas sobre la bandeja de entrada y escuchar respuestas sintetizadas; muestra una tarjeta con el correo fuente en cada turno y permite elegir la voz. Google enumera Business Starter, Standard y Plus, Enterprise Starter, Standard y Plus, Frontline Plus, organizaciones sin ánimo de lucro y varios complementos Gemini o AI. Por ahora, solo está disponible en EE. UU. y en inglés (EE. UU.).",
+          engineerNote:
+            "Verifique el acceso del usuario a Gemini en Workspace, un dispositivo Android o iOS compatible, la disponibilidad en EE. UU. y el idioma inglés (EE. UU.). Se requiere permiso para el micrófono; se aplican los ajustes de funciones inteligentes y personalización.",
+          sources: [
+            { label: "Anuncio de Google Workspace Updates", href: sourceLinks.gmailLive },
+          ],
+        },
+        {
+          date: "13 oct 2026",
+          status: "Despliegue de Gemini app iniciado · despliegue de Workspace retrasado",
+          title: "Google actualiza el calendario de lanzamiento de Gemini Skills",
+          summary:
+            "Las habilidades de Gemini app han comenzado a desplegarse y se espera que el lanzamiento termine a mediados de noviembre; compartir habilidades e integrarlas con Google Drive llegarán más adelante. Las fechas anunciadas anteriormente para Workspace Skills se retrasan mientras Google trabaja en un lanzamiento seguro y fiable, y todavía no hay un nuevo calendario confirmado.",
+          engineerNote:
+            "Trate Gemini app Skills y Workspace Skills como despliegues distintos. No planifique Workspace usando las antiguas fechas del 12 o 19 de octubre; consulte el anuncio de Google para conocer el nuevo calendario.",
+          sources: [
+            { label: "Anuncio de Google Workspace Updates", href: sourceLinks.skillsRollout },
+            { label: "Anuncio original de Skills", href: "https://workspaceupdates.googleblog.com/2026/09/skills-gemini-app-workspace.html" },
+          ],
+        },
+        {
+          date: "12 oct 2026",
+          status: "Despliegue gradual · Business Standard/Plus y Enterprise Standard/Plus",
+          title: "Google Meet añade rutinas Gemini después de las reuniones",
+          summary:
+            "Cuando se habilita “Tomar notas por mí” durante una reunión, los usuarios pueden ejecutar rutinas de seguimiento desde la pantalla posterior: redactar un correo de Gmail o añadir tareas de acción a Google Tasks. Google indica que la función está activada por defecto en las organizaciones elegibles y que los administradores pueden desactivarla por dominio, unidad organizativa o grupo desde la configuración de administración de Workspace Studio o “Tomar notas por mí”.",
+          engineerNote:
+            "Confirme que la edición sea Business Standard/Plus, Enterprise Standard/Plus o AI Pro for Education. Pruebe el ajuste de notas y la política de dominio, unidad organizativa o grupo; las rutinas actuales requieren que las notas estén habilitadas durante la reunión.",
+          sources: [
+            { label: "Anuncio de Google Workspace Updates", href: sourceLinks.meetNextSteps },
+          ],
+        },
         {
           date: "2 oct 2026",
           status: "Despliegue gradual · disponibilidad variable por organización",
