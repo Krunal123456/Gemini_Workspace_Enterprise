@@ -9,7 +9,6 @@ import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Check, Minus, Plus, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 const DEFAULT_SELECTED = ['business-starter', 'business-standard', 'ai-expanded', 'gemini-enterprise-standard'];

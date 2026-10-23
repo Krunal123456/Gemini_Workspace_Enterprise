@@ -1,6 +1,5 @@
 import {
   getPlans,
-  getSecurityLayers,
 } from "@/lib/i18n/data";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import React from "react";
@@ -29,6 +28,12 @@ const governanceControls = (t: PhraseTranslator) => [
     icon: Database,
     description: t("Google Workspace Enterprise Data Regions can apply policy settings to supported services."),
     detail: t("Confirm which data, services, and regions are covered by your selected edition and configuration."),
+  },
+  {
+    title: t("Assured Controls data regions add-on"),
+    icon: Database,
+    description: t("Google's Enterprise edition comparison says Enterprise data regions require a separately purchased Assured Controls add-on."),
+    detail: t("Confirm the eligible editions and users, add-on purchase, and documented service and data coverage."),
   },
   {
     title: t("DLP"),
@@ -76,6 +81,7 @@ const governanceControls = (t: PhraseTranslator) => [
 
 const complianceMatrix = (t: PhraseTranslator) => [
   { control: t("Data residency"), requirement: t("Which services and data are covered by the selected region policy?") },
+  { control: t("Assured Controls data regions add-on"), requirement: t("Has the add-on been purchased, and are the users, services, and data types eligible for Enterprise data regions?") },
   { control: t("DLP"), requirement: t("Which AI surfaces and content types are covered by the configured policies?") },
   { control: t("CMEK / client-side encryption"), requirement: t("Which editions, services, and data types support the required key controls?") },
   { control: t("VPC Service Controls"), requirement: t("Is the exact Gemini service integration supported inside the perimeter?") },
@@ -104,7 +110,6 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
   const t = createPhraseTranslator(locale);
-  const securityLayers = getSecurityLayers(locale);
   const plans = getPlans(locale);
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">
@@ -207,7 +212,7 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h3 className="text-2xl font-bold text-foreground mb-4">{t("Check Google's compliance documentation")}</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Certification and regulatory coverage applies to specific Google services and use cases. Confirm the scope in Google's current documentation and your contract.
+              Certification and regulatory coverage applies to specific Google services and use cases. Confirm the scope in Google&apos;s current documentation and your contract.
             </p>
           </div>
 

@@ -94,8 +94,28 @@ export const featureProseES3: Record<string, FeatureTranslation> = {
     description:
       "Preguntas y respuestas conversacionales fundamentadas estrictamente en las fuentes de tu cuaderno.",
     whatItDoes:
-      "Permite explorar de forma conversacional los materiales subidos, sin alucinaciones sin fundamentar.",
+      "Permite explorar de forma conversacional los materiales subidos y ofrece citas para ayudar a verificar las respuestas basadas en las fuentes.",
     howItWorks:
-      "Aplica restricciones estrictas de temperatura y recuperación para que las respuestas deriven exclusivamente del texto citado de las fuentes.",
+      "Utiliza el contenido recuperado de las fuentes para formular respuestas, pero las citas y la fundamentación no eliminan la posibilidad de errores o interpretaciones incorrectas.",
+    useCases: [
+      "Consultar documentos financieros complejos",
+      "Aclarar cláusulas legales ambiguas",
+      "Contrastar hipótesis de investigación",
+    ],
+    capabilities: [
+      "Citas vinculadas a las páginas",
+      "Verificación de citas textuales",
+      "Historial de chats guardado",
+    ],
+    whereUsed: [
+      "Chats dentro de cada cuaderno",
+      "Citas vinculadas a las fuentes",
+      "Historial de conversaciones del cuaderno",
+    ],
+    howToUse: [
+      "Abre un cuaderno existente o crea uno nuevo.",
+      "Añade fuentes compatibles y comprueba que se hayan importado correctamente.",
+      "Haz una pregunta y revisa las citas para verificar la respuesta.",
+    ],
   },
 };

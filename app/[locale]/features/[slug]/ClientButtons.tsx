@@ -6,10 +6,8 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export function ActionButtons({ 
-  featureName, 
   documentationUrl 
 }: { 
-  featureName: string;
   documentationUrl?: string; 
 }) {
   const [copied, setCopied] = useState(false);

@@ -10,19 +10,9 @@ import { Metadata } from "next";
 import { 
   Building2, 
   Database, 
-  Network, 
-  Cpu, 
   ShieldCheck, 
   ArrowRight, 
-  Sparkles, 
-  Boxes, 
   Terminal, 
-  Workflow, 
-  CheckCircle2, 
-  Lock,
-  Server,
-  Layers,
-  FileCheck,
   Search,
   Route,
   FileCheck2,
@@ -156,7 +146,7 @@ export default async function EnterprisePage({ params }: { params: Promise<{ loc
                   Model Context Protocol (MCP)
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  MCP and agent capabilities depend on the Gemini product, edition, and configuration. Verify Google's current supported options and test integrations with least-privilege credentials.
+                  MCP and agent capabilities depend on the Gemini product, edition, and configuration. Verify Google&apos;s current supported options and test integrations with least-privilege credentials.
                 </p>
               </div>
               <Link

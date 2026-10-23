@@ -187,22 +187,40 @@ export const plansES: PlanTranslations = {
   },
   "gemini-enterprise-business": {
     tagline:
-      "IA empresarial con búsqueda consciente de permisos y 25 GiB de indexación agrupada por usuario.",
+      "IA empresarial con búsqueda consciente de permisos y almacenamiento e indexación compartidos.",
     description:
-      "Gemini Enterprise Business ofrece búsqueda empresarial, fundamentación en fuentes de la organización y gobernanza básica de agentes, con 25 GiB de almacenamiento e indexación de datos agrupados por usuario.",
+      "Gemini Enterprise Business ofrece búsqueda empresarial, fundamentación en fuentes de la organización y gobernanza básica de agentes, con 25 GiB de almacenamiento e indexación de datos por licencia de pago, compartidos con el equipo.",
     idealFor:
       "Organizaciones que buscan búsqueda empresarial consciente de permisos e IA sobre fuentes de datos empresariales aprobadas.",
     pricingNote:
       "Desde 21 USD por usuario/mes. Confirma los precios regionales y contractuales actuales con Google Cloud.",
-    storage: "25 GiB por usuario, agrupados para almacenamiento e indexación de datos",
+    storage: "25 GiB por licencia de pago, compartidos con el equipo",
     highlightedFeatures: [
-      "25 GiB de almacenamiento e indexación de datos agrupados por usuario",
+      "25 GiB de almacenamiento e indexación por licencia de pago, compartidos con el equipo",
       "Búsqueda empresarial consciente de permisos",
       "Fundamentación en fuentes de Google y de terceros",
       "Acceso a conectores seleccionados relevantes para el segmento",
       "Gobernanza y administración básicas de agentes",
       "Hasta 300 puestos en la oferta pública Business",
     ],
+    usageLimits: [
+      { feature: "Almacenamiento e indexación", limit: "25 GiB por licencia de pago; cuota compartida por el equipo" },
+      { feature: "Modelos Gemini", limit: "Gemini 3 Pro (Preview), Gemini 2.5 Flash y Gemini 2.5 Pro" },
+      { feature: "Generación combinada de contenido (texto)", limit: "120 consultas por licencia de pago al día; cuota compartida por el equipo" },
+      { feature: "Generación multimedia (imagen)", limit: "2 imágenes por licencia de pago al día; cuota compartida por el equipo" },
+      { feature: "Generación multimedia (vídeo)", limit: "1 vídeo por licencia de pago al día; cuota compartida por el equipo" },
+      { feature: "Fundamentación con Google Search", limit: "120 consultas por licencia de pago al día; cuota compartida por el equipo" },
+      { feature: "Crear agentes (herramientas sin código)", limit: "1 al día; cuota compartida por el equipo" },
+      { feature: "Deep Research", limit: "3 consultas por licencia de pago al día; cuota compartida por el equipo" },
+      { feature: "Resúmenes de audio de Notebook", limit: "20 al día" },
+      { feature: "Resúmenes de vídeo de Notebook", limit: "20 al día" },
+      { feature: "Fuentes de Notebook", limit: "300 por cuaderno" },
+      { feature: "Cuadernos", limit: "500 por usuario" },
+      { feature: "Presentaciones de Notebook", limit: "15 por usuario" },
+      { feature: "Infografías de Notebook", limit: "15 por usuario" },
+    ],
+    usageLimitNote:
+      "Las cuotas diarias de Business se comparten con todo el equipo. Las asignaciones por licencia se multiplican por las licencias de pago; las pruebas gratuitas reciben una cuota equivalente a cinco licencias. Los límites de Notebook anteriores son los publicados para Business; la fuente no indica una cuota diaria independiente para las consultas de chat de Notebook. No se pueden comprar cuotas individuales más altas: añade licencias o considera Standard o Plus. Consulta la guía de cuotas de Google para conocer las reglas vigentes.",
   },
   "gemini-enterprise-standard": {
     tagline:

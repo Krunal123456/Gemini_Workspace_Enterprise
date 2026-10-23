@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useId } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import {
   Building2,
@@ -34,8 +34,6 @@ export function EnterpriseOnboardingGuide({
 }: EnterpriseOnboardingGuideProps = {}) {
   const { locale, href } = useLocale();
   const t = createPhraseTranslator(locale);
-  const checklistId = useId();
-
   // Edition selection: 'business' | 'standard' | 'plus'
   const [selectedEdition, setSelectedEdition] = useState<"business" | "standard" | "plus">(
     allowedModes === "cloud-only" && initialEdition === "business" ? "standard" : initialEdition
@@ -374,7 +372,7 @@ export function EnterpriseOnboardingGuide({
                 Gemini Enterprise Business edition: {" "}
               </span>
               {t(
-                "This is a Gemini Enterprise app subscription, not a Google Workspace Business plan. Direct subscribers manage the team in the Business product; sales/partner subscriptions also use Admin Console for service and licensing. The edition lists 25 GiB pooled storage and indexing per user. Confirm current eligibility and included features with Google."
+                "This is a Gemini Enterprise app subscription, not a Google Workspace Business plan. Direct subscribers manage the team in the Business product; sales/partner subscriptions also use Admin Console for service and licensing. The edition lists 25 GiB of storage and indexing per paid seat, pooled across the team. Confirm current eligibility and included features with Google."
               )}
             </div>
           </div>

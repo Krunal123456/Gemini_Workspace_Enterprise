@@ -3,23 +3,264 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0b0f19">
-    <title>You're offline · Gemini Workspace</title>
+    <meta name="theme-color" content="#f3f7fc">
+    <title>You're offline | Workspace Gemini</title>
     <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        --page: #f3f7fc;
+        --surface: #fff;
+        --ink: #172033;
+        --muted: #596579;
+        --line: #dce4ef;
+        --blue: #1a73e8;
+        --blue-deep: #1558b0;
+        --green: #188038;
+      }
+
       * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #f8fafc; color: #111827; font: 16px/1.6 system-ui, sans-serif; }
-      main { width: min(100%, 440px); padding: 32px; border: 1px solid #e2e8f0; border-radius: 24px; background: white; box-shadow: 0 18px 60px -36px #0f172a66; }
-      h1 { margin: 28px 0 8px; font-size: 26px; line-height: 1.2; letter-spacing: -0.04em; }
-      p { margin: 0; color: #64748b; }
-      button { margin-top: 24px; min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #111827; color: white; font: inherit; font-weight: 650; cursor: pointer; }
+
+      body {
+        display: grid;
+        min-height: 100vh;
+        min-height: 100dvh;
+        place-items: center;
+        margin: 0;
+        padding: clamp(20px, 5vw, 64px);
+        color: var(--ink);
+        background:
+          radial-gradient(ellipse at 18% 15%, rgb(26 115 232 / 10%), transparent 35%),
+          radial-gradient(ellipse at 88% 85%, rgb(52 168 83 / 9%), transparent 32%),
+          var(--page);
+      }
+
+      main {
+        width: min(100%, 920px);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--surface);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 24px clamp(24px, 5vw, 48px);
+        border-bottom: 1px solid var(--line);
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 650;
+        letter-spacing: -0.01em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border-radius: 12px;
+        color: var(--blue);
+        background: #eaf2fe;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(240px, 0.95fr);
+        align-items: center;
+        gap: clamp(24px, 5vw, 64px);
+        padding: clamp(28px, 6vw, 64px) clamp(24px, 5vw, 56px);
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 22px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d93025;
+        box-shadow: 0 0 0 4px #fce8e6;
+      }
+
+      h1 {
+        max-width: 11ch;
+        margin: 0;
+        font-size: clamp(34px, 5vw, 52px);
+        line-height: 1.06;
+        letter-spacing: -0.055em;
+      }
+
+      .description {
+        max-width: 43ch;
+        margin: 20px 0 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        margin-top: 30px;
+      }
+
+      button {
+        min-height: 48px;
+        padding: 0 22px;
+        border: 0;
+        border-radius: 999px;
+        color: #fff;
+        background: var(--blue);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 650;
+        cursor: pointer;
+        transition: background-color 160ms ease, transform 160ms ease;
+      }
+
+      button:hover { background: var(--blue-deep); }
+      button:active { transform: translateY(1px); }
+      button:focus-visible { outline: 3px solid #8ab4f8; outline-offset: 3px; }
+
+      .hint {
+        max-width: 38ch;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .illustration {
+        display: grid;
+        min-height: 280px;
+        place-items: center;
+        border-radius: 24px;
+        background:
+          radial-gradient(circle at 50% 48%, #e8f0fe 0 34%, transparent 34.5%),
+          linear-gradient(145deg, #f7faff, #eef6f2);
+      }
+
+      .illustration svg {
+        width: min(100%, 300px);
+        height: auto;
+      }
+
+      footer {
+        padding: 18px clamp(24px, 5vw, 48px);
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 680px) {
+        body { padding: 16px; }
+        main { border-radius: 22px; }
+        .brand { padding-block: 18px; }
+        .content { grid-template-columns: 1fr; }
+        .illustration { min-height: 210px; grid-row: 1; }
+        .illustration svg { width: 220px; }
+        h1 { max-width: 14ch; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --page: #101722;
+          --surface: #172231;
+          --ink: #edf3fb;
+          --muted: #b0bdce;
+          --line: #334155;
+          --blue: #8ab4f8;
+          --blue-deep: #aecbfa;
+        }
+
+        .brand-mark { color: #a8c7fa; background: #233b59; }
+        .status-dot { background: #f28b82; box-shadow: 0 0 0 4px #482b31; }
+        button { color: #102039; }
+        .illustration {
+          background:
+            radial-gradient(circle at 50% 48%, #263e5b 0 34%, transparent 34.5%),
+            linear-gradient(145deg, #1c2938, #1d332d);
+        }
+      }
     </style>
   </head>
   <body>
-    <main>
-      <h1>Workspace Gemini is offline</h1>
-      <p>Reconnect to continue exploring Workspace and Gemini capabilities.</p>
-      <button onclick="location.reload()">Try again · Intentar de nuevo</button>
-      <p lang="es" style="margin-top:16px;font-size:14px">Sin conexión. Vuelve a conectarte para seguir explorando las funciones de Workspace y Gemini.</p>
+    <main aria-labelledby="offline-title">
+      <header class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none">
+            <path d="M7.1 18.2h9.7a4.2 4.2 0 0 0 .4-8.4A5.5 5.5 0 0 0 6.7 9a4.6 4.6 0 0 0 .4 9.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Workspace Gemini</span>
+      </header>
+
+      <div class="content">
+        <section>
+          <p class="status" id="connection-state" role="status" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            Connection status: offline
+          </p>
+          <h1 id="offline-title">You're offline right now.</h1>
+          <p class="description">
+            We couldn't load this page because your device isn't connected to the internet.
+            Your Workspace Gemini experience will be here when you're back online.
+          </p>
+          <div class="actions">
+            <button id="retry-button" type="button">Try again</button>
+          </div>
+          <p class="hint">Check your Wi-Fi or mobile data, then try again.</p>
+        </section>
+
+        <div class="illustration" aria-hidden="true">
+          <svg viewBox="0 0 320 260" fill="none">
+            <path d="M55 195h210M77 214h166" stroke="#9ab4d3" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 8"/>
+            <circle cx="160" cy="126" r="78" fill="#fff" fill-opacity=".72"/>
+            <path d="M107 148h105a26 26 0 0 0 0-52 39 39 0 0 0-73-10 32 32 0 0 0-32 31 32 32 0 0 0 0 31Z" fill="#fff" stroke="#8ab4f8" stroke-width="3"/>
+            <path d="m139 122 13 13m0-13-13 13" stroke="#d93025" stroke-width="4" stroke-linecap="round"/>
+            <path d="M188 115a22 22 0 0 1 0 31m-10-22a9 9 0 0 1 0 13" stroke="#4285f4" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="83" cy="91" r="6" fill="#34a853"/>
+            <circle cx="237" cy="169" r="5" fill="#fbbc04"/>
+            <path d="M84 94 107 105m126 57 15 7" stroke="#9ab4d3" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 6"/>
+            <path d="M229 61v17m-8.5-8.5h17" stroke="#1a73e8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <footer>This offline page is saved on your device. Other Workspace Gemini content may need an internet connection.</footer>
     </main>
+    <script>
+      document.getElementById("retry-button").addEventListener("click", () => {
+        window.location.reload();
+      });
+      window.addEventListener("online", () => {
+        document.getElementById("connection-state").textContent = "Connection restored. Reloading…";
+        window.setTimeout(() => window.location.reload(), 350);
+      });
+    </script>
   </body>
 </html>

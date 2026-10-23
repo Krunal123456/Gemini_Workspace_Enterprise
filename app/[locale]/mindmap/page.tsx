@@ -9,9 +9,6 @@ import {
   Sparkles,
   Layers,
   ShieldCheck,
-  CheckCircle2,
-  HardDrive,
-  Users,
 } from "lucide-react";
 import { getPlans } from "@/lib/i18n/data";
 import { getFeatures } from "@/lib/i18n/features";
@@ -22,10 +19,13 @@ import { withLocalizedAlternates } from "@/lib/seo";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale = resolveLocale(rawLocale);
+  const plans = getPlans(locale);
+  const groupCount = new Set(plans.map((plan) => plan.category)).size;
   return withLocalizedAlternates({
     title: "Plan Mind Map | Gemini Enterprise AI Intelligence",
-    description:
-      "Explore the comprehensive visual architecture of all 20 Google Workspace and Gemini Enterprise plans. Discover plan connections, capabilities, and feature entitlements.",
+    description: locale === "es"
+      ? `Explora el mapa visual de ${plans.length} planes de Google Workspace y Gemini Enterprise en ${groupCount} grupos.`
+      : `Explore the visual architecture of ${plans.length} Google Workspace and Gemini Enterprise plans across ${groupCount} groups.`,
   }, "/mindmap", locale);
 }
 
@@ -38,6 +38,7 @@ export default async function MindMapPage({
   const locale: Locale = resolveLocale(rawLocale);
   const plans = getPlans(locale);
   const features = getFeatures(locale);
+  const groupCount = new Set(plans.map((plan) => plan.category)).size;
 
   return (
     <main className="min-h-screen bg-background text-foreground pb-24 pt-28 sm:pt-32">
@@ -63,7 +64,11 @@ export default async function MindMapPage({
           <div className="max-w-3xl">
             <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
               <GitBranch className="h-3.5 w-3.5" />
-              <span>Interactive Architecture • 20 Plans Across 4 Tiers</span>
+              <span>
+                {locale === "es"
+                  ? `Arquitectura interactiva • ${plans.length} planes en ${groupCount} grupos`
+                  : `Interactive Architecture • ${plans.length} Plans Across ${groupCount} Groups`}
+              </span>
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl fluid-h1 mb-4">
               Google Workspace & Gemini{" "}
@@ -123,8 +128,9 @@ export default async function MindMapPage({
               Context & Model Grounding
             </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Gemini API model context limits vary by model and are separate from Google Workspace subscription features. Check the current model catalog before planning a deployment.
-              custom fine-tuning, grounded enterprise search over Drive, and NotebookLM Enterprise grounding.
+              {locale === "es"
+                ? "Las ventanas de contexto de la API de Gemini varían según el modelo y son independientes de las funciones de suscripción de Google Workspace o Gemini Enterprise. Consulta la documentación vigente de modelos antes de planificar un despliegue."
+                : "Gemini API model context windows vary by model and are separate from Google Workspace or Gemini Enterprise subscription features. Check the current model documentation before planning a deployment."}
             </p>
           </div>
 
@@ -136,8 +142,9 @@ export default async function MindMapPage({
               Enterprise Data Governance
             </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Customer data is never used to train foundational AI models without consent. Enterprise Plus
-              and Gemini Enterprise include advanced DLP, audit logging exports, and customer-managed keys (CMEK).
+              {locale === "es"
+                ? "Las opciones de seguridad dependen del producto, la edición, el servicio y la configuración. La cobertura de DLP, los registros de auditoría y las claves administradas por el cliente (CMEK) varían; verifica los requisitos en la documentación oficial de cada servicio."
+                : "Security options depend on the product, edition, service, and configuration. DLP coverage, audit logs, and customer-managed encryption keys (CMEK) vary; verify each service's requirements in its official documentation."}
             </p>
           </div>
         </div>

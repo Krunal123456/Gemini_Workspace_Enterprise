@@ -6,7 +6,7 @@ import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Download, TrendingUp, Users, BriefcaseBusiness, ArrowRight } from 'lucide-react';
+import { Download, TrendingUp } from 'lucide-react';
 import { cn, formatCurrency } from '@/lib/utils';
 
 import confetti from 'canvas-confetti';
@@ -88,24 +88,6 @@ function PricingCalculatorInner() {
     : roi > 150
       ? t("Under these editable assumptions, modeled value is higher than the listed software rate. Validate actual adoption and time saved in a pilot.")
       : t("Use this scenario as a starting point, then validate adoption and measured time saved before estimating organization-wide value.");
-
-  const handleSeatMixChange = (key: 'knowledgeWorkers' | 'managers' | 'executives', value: number) => {
-    const next = { ...seatMix, [key]: value };
-    const total = next.knowledgeWorkers + next.managers + next.executives;
-    if (total === 0) return;
-
-    const normalized = {
-      knowledgeWorkers: next.knowledgeWorkers / total,
-      managers: next.managers / total,
-      executives: next.executives / total,
-    };
-
-    setSeatMix({
-      knowledgeWorkers: Math.round(normalized.knowledgeWorkers * 100),
-      managers: Math.round(normalized.managers * 100),
-      executives: 100 - Math.round(normalized.knowledgeWorkers * 100) - Math.round(normalized.managers * 100),
-    });
-  };
 
   const handleExport = () => {
     try {

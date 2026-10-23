@@ -269,7 +269,7 @@ export const articles: Article[] = [
     content: [
       "Gemini Enterprise cost planning needs more than multiplying a public price by headcount. Editions differ in included functionality and pooled quotas, and billing rules can depend on region, contract, and eligibility. Google's product page lists Business starting at $21 USD per seat per month and Standard / Plus starting at $30; request a current quote for the edition, currency, and terms you intend to buy. [1]",
       "### Seat-based editions and indexed-data quotas",
-      "Google's edition documentation lists Business at 25 GiB per user, Standard at 30 GiB, Plus at 75 GiB, and Frontline at 2 GiB for storage and data indexing. These capacities are pooled per project and location across users regardless of edition. This is a Gemini Enterprise indexing quota, not Google Drive storage. [2] [3]",
+      "Google's edition documentation lists Business at 25 GiB, Standard at 30 GiB, Plus at 75 GiB, and Frontline at 2 GiB of storage and data indexing per seat. These allocations are pooled per project and location across users regardless of edition. This is a Gemini Enterprise indexing quota, not Google Drive storage. [2] [3]",
       "Other feature quotas are pooled separately within each edition in a project and location. For example, Google documents separate Standard and Plus assistant query pools; actual limits depend on the current quota table and licensed seats. Avoid treating an individual seat's allowance as a personal hard cap. [3]",
       "Google's marketing page currently describes the Business offer as up to 300 seats, while the edition comparison documentation lists 1–500 Business users. These official pages do not match. Use the sales quote and subscription terms to establish the actual cap for your purchase. [1] [2]",
       "### Pay-as-you-go: usage-based charges and eligibility",
@@ -426,4 +426,3 @@ export const articles: Article[] = [
     ]
   },
 ];
-

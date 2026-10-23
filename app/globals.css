@@ -1104,7 +1104,7 @@
 .atlas-center-dot { width:7px; height:7px; border-radius:50%; background:#34a853; box-shadow:0 0 0 4px rgba(52,168,83,.12); }
 .cursor-root { width:24px; height:24px; filter:drop-shadow(0 2px 4px rgba(35,83,137,.32)); will-change:transform; }
 
-@media (pointer: fine) and (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+@media (pointer: fine) {
   html,
   body,
   body * {

@@ -65,6 +65,13 @@ export const securityLayersES: SecurityLayerTranslations = {
           "¿Quedan dentro del alcance las entradas, las salidas y los archivos de origen de IA?",
       },
       {
+        name: "Complemento de regiones de datos de Assured Controls",
+        description:
+          "Las regiones de datos empresariales requieren un complemento de Assured Controls adquirido por separado para los usuarios aptos; comprueba la cobertura documentada de servicios y datos.",
+        reviewQuestion:
+          "¿Has confirmado la compra del complemento, los usuarios aptos y la cobertura de cada servicio y tipo de dato?",
+      },
+      {
         name: "DLP y cifrado",
         description:
           "Confirma los tipos de datos, los flujos de trabajo y los requisitos administrativos admitidos por los controles que vas a usar.",

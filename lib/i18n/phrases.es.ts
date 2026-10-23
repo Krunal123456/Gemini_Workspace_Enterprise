@@ -130,6 +130,8 @@ export const phrasesES: Record<string, string> = {
   "Starting at": "Desde",
   "Target Audience:": "Público objetivo:",
   "Highlighted Entitlements": "Préstamos destacados",
+  "Usage limits & quotas": "Límites de uso y cuotas",
+  "Usage limit": "Límite de uso",
   "Core AI & Platform Capabilities": "Capacidades principales de IA y plataforma",
   "Technical Architecture": "Arquitectura técnica",
   "Generative AI Integration": "Integración de IA generativa",
@@ -196,6 +198,14 @@ export const phrasesES: Record<string, string> = {
     "Relaciona las herramientas que usa tu equipo con los conectores de Gemini Enterprise para una comprobación instantánea de preparación.",
   // ---- security review table ----
   "Data residency": "Residencia de datos",
+  "Assured Controls data regions add-on":
+    "Complemento de regiones de datos de Assured Controls",
+  "Google's Enterprise edition comparison says Enterprise data regions require a separately purchased Assured Controls add-on.":
+    "La comparación de ediciones Enterprise de Google indica que las regiones de datos empresariales requieren adquirir por separado el complemento Assured Controls.",
+  "Confirm the eligible editions and users, add-on purchase, and documented service and data coverage.":
+    "Confirma las ediciones y los usuarios aptos, la compra del complemento y la cobertura documentada de servicios y datos.",
+  "Has the add-on been purchased, and are the users, services, and data types eligible for Enterprise data regions?":
+    "¿Se compró el complemento y son aptos los usuarios, servicios y tipos de datos para las regiones de datos empresariales?",
   "Google Workspace Enterprise Data Regions can apply policy settings to supported services.":
     "Google Workspace Enterprise Data Regions puede aplicar la configuración de políticas a los servicios admitidos.",
   "Confirm which data, services, and regions are covered by your selected edition and configuration.":
@@ -796,6 +806,15 @@ export const phrasesES: Record<string, string> = {
     "Usa este escenario como punto de partida y después valida la adopción y el tiempo ahorrado medido antes de estimar el valor para toda la organización.",
 
   // ---- features explorer ----
+  "Search features by keyword, tool, action, or capability": "Buscar funciones por palabra clave, herramienta, acción o capacidad",
+  "Workspace search": "Búsqueda de Workspace",
+  "Admin setup": "Configuración de administración",
+  "Business operations": "Operaciones empresariales",
+  "Review the connector requirements in the admin console.": "Revisa los requisitos del conector en la consola de administración.",
+  "Approve permissions and source access for the target system.": "Aprueba los permisos y el acceso a las fuentes del sistema de destino.",
+  "Ask Gemini for a grounded answer using the connected app context.": "Pide a Gemini una respuesta fundamentada en el contexto de la aplicación conectada.",
+  "Grounded business workflows across internal and approved external data sources.": "Flujos de trabajo empresariales fundamentados en fuentes de datos internas y externas aprobadas.",
+  "All plans": "Todos los planes",
   "Search features, capabilities, use cases...": "Busca funciones, capacidades o casos de uso...",
   "Popular Only": "Solo populares",
   "New Capabilities": "Capacidades nuevas",
@@ -1006,4 +1025,3 @@ export const phrasesES: Record<string, string> = {
     "Arquitectura de referencia de Google Workspace y Gemini Enterprise",
   "Explore Editions Comparison": "Explorar comparativa de ediciones",
 };
-

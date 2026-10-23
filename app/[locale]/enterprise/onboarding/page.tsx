@@ -3,10 +3,7 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Building2,
-  CheckCircle2,
   FileCheck2,
-  HelpCircle,
-  Route,
   ShieldCheck,
   Terminal,
 } from "lucide-react";

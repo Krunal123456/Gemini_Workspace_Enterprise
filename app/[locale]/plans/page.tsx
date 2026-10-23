@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
-import { getPlans, getCategories } from "@/lib/i18n/data";
+import { getPlans } from "@/lib/i18n/data";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatCurrency } from "@/lib/utils";
@@ -10,12 +10,8 @@ import {
   CreditCard,
   CheckCircle2,
   ArrowRight,
-  Sparkles,
-  Building2,
-  Layers,
   HardDrive,
   Users,
-  ChevronRight,
   GitBranch,
 } from "lucide-react";
 
@@ -49,7 +45,6 @@ export default async function PlansPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  const plans = getPlans(locale);
   const t = getDictionary(locale).pages.plans;
   // `name` stays the English grouping key so plan filtering keeps working.
   const planGroups = [

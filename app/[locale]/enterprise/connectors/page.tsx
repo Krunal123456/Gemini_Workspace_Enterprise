@@ -1,7 +1,4 @@
-import {
-  getConnectors,
-} from "@/lib/i18n/data";
-import { defaultLocale, isLocale, resolveLocale, type Locale } from "@/lib/i18n/config";
+import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { Metadata } from "next";

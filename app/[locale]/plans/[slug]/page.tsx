@@ -11,15 +11,7 @@ import {
   ArrowRight,
   CheckCircle2,
   ExternalLink,
-  Sparkles,
-  HardDrive,
-  Users,
   CreditCard,
-  ShieldCheck,
-  Building2,
-  Terminal,
-  Database,
-  Cpu
 } from "lucide-react";
 
 import { createPhraseTranslator } from "@/lib/i18n/translate";
@@ -40,7 +32,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PlanDetailPageProps): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  const t = createPhraseTranslator(locale);
   const plan = getPlanBySlug(slug, resolveLocale(rawLocale));
 
   if (!plan) {
@@ -219,6 +210,44 @@ export default async function PlanDetailPage({ params }: PlanDetailPageProps) {
             </div>
           </div>
         </div>
+
+        {plan.usageLimits && plan.usageLimits.length > 0 && (
+          <section className="space-y-4" aria-labelledby="usage-limits-heading">
+            <header>
+              <h2 id="usage-limits-heading" className="text-xl font-bold text-foreground">
+                {t("Usage limits & quotas")}
+              </h2>
+              {plan.usageLimitNote && (
+                <p className="mt-2 max-w-4xl text-sm leading-relaxed text-muted-foreground">
+                  {plan.usageLimitNote}
+                </p>
+              )}
+            </header>
+
+            <div className="overflow-hidden rounded-xl border border-border">
+              <table className="w-full table-fixed text-left text-sm">
+                <thead className="bg-muted/40 text-xs font-semibold uppercase text-muted-foreground">
+                  <tr>
+                    <th scope="col" className="w-[40%] px-4 py-3 sm:px-5">{t("Feature")}</th>
+                    <th scope="col" className="px-4 py-3 sm:px-5">{t("Usage limit")}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {plan.usageLimits.map(({ feature, limit }) => (
+                    <tr key={feature}>
+                      <th scope="row" className="break-words px-4 py-3 align-top font-medium text-foreground sm:px-5">
+                        {feature}
+                      </th>
+                      <td className="break-words px-4 py-3 align-top leading-relaxed text-muted-foreground sm:px-5">
+                        {limit}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
 
         {/* Feature Summary */}
         <div className="rounded-3xl border border-border bg-card p-8 sm:p-10 shadow-sm">

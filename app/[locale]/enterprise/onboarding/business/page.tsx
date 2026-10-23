@@ -91,7 +91,7 @@ export default async function BusinessOnboardingPage({
 
             <p className="fluid-body mt-6 max-w-3xl leading-relaxed text-muted-foreground">
               {t(
-                "Gemini Enterprise Business is a separate app subscription from Google Workspace Business plans. This guide distinguishes direct signup from sales or partner provisioning, then covers team access, approved data connections, Agent Designer, safe sharing, and schedules. The edition lists 25 GiB pooled storage and indexing per user; verify current terms with Google."
+                "Gemini Enterprise Business is a separate app subscription from Google Workspace Business plans. This guide distinguishes direct signup from sales or partner provisioning, then covers team access, approved data connections, Agent Designer, safe sharing, and schedules. The edition lists 25 GiB of storage and indexing per paid seat, pooled across the team; verify current terms with Google."
               )}
             </p>
 
@@ -106,7 +106,7 @@ export default async function BusinessOnboardingPage({
               </span>
               <span className="rounded-lg border border-border bg-card/80 px-3 py-1.5 text-xs font-semibold text-foreground">
                 <ShieldCheck className="inline mr-1.5 h-3.5 w-3.5 text-gemini-purple" />
-                25 GiB pooled storage/indexing per user
+                25 GiB per paid seat, pooled across the team
               </span>
             </div>
           </div>

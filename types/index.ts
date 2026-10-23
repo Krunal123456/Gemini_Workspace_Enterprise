@@ -79,6 +79,8 @@ export interface Plan {
   currency: string;
   storage: string;
   participantLimit?: number;
+  usageLimits?: PlanUsageLimit[];
+  usageLimitNote?: string;
   highlightedFeatures: string[];
   officialSources?: FeatureCitation[];
   coreCapabilities: {
@@ -144,6 +146,11 @@ export interface SecurityLayer {
     description: string;
     reviewQuestion: string;
   }[];
+}
+
+export interface PlanUsageLimit {
+  feature: string;
+  limit: string;
 }
 
 export interface Article {

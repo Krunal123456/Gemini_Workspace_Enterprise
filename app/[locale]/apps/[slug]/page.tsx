@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getFeatureBySlug, getFeatures } from "@/lib/i18n/features";
+import { getFeatures } from "@/lib/i18n/features";
 import { getApplicationBySlug, getApplications, getPlans } from "@/lib/i18n/data";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import {
@@ -19,10 +19,8 @@ import {
   ArrowLeft,
   ArrowRight,
   Sparkles,
-  CheckCircle2,
   ShieldCheck,
   Building2,
-  ExternalLink,
   Layers,
 } from "lucide-react";
 
@@ -58,7 +56,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: AppDetailPageProps): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  const t = createPhraseTranslator(locale);
   const app = getApplicationBySlug(slug, resolveLocale(rawLocale));
 
   if (!app) {

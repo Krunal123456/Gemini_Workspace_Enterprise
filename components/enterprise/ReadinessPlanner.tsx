@@ -2,11 +2,10 @@
 
 import { useLocalizedData } from "@/lib/i18n/use-localized-data";
 import { useLocale } from "@/lib/i18n/locale-context";
-import { createPhraseTranslator } from "@/lib/i18n/translate";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Download, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Download } from "lucide-react";
 import jsPDF from "jspdf";
 
 const securityOptions = [
@@ -16,9 +15,8 @@ const securityOptions = [
 ] as const;
 
 export function ReadinessPlanner() {
-  const { locale, href } = useLocale();
-  const t = createPhraseTranslator(locale);
-  const { features, plans, connectors } = useLocalizedData();
+  const { href } = useLocale();
+  const { plans, connectors } = useLocalizedData();
   const [seats, setSeats] = useState(250);
   const [companyName, setCompanyName] = useState("");
   const [companyDomain, setCompanyDomain] = useState("");
@@ -51,7 +49,7 @@ export function ReadinessPlanner() {
           ? "gemini-enterprise-business"
           : "gemini-enterprise-standard";
     return plans.find((plan) => plan.id === planId) || plans[0];
-  }, [connectorNeed, deployment, security]);
+  }, [connectorNeed, deployment, plans, security]);
 
   const monthlyEstimate = typeof recommendation.monthlyPriceUSD === "number"
     ? recommendation.monthlyPriceUSD * seats

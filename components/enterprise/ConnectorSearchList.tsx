@@ -43,7 +43,7 @@ function ConnectorSearchListInner() {
 
       return haystack.includes(normalizedQuery);
     });
-  }, [query]);
+  }, [connectors, query]);
 
   return (
     <section className="py-20">

@@ -9,7 +9,16 @@ const compat = new FlatCompat({
 const config = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    ignores: [".agents/**", ".next/**", "node_modules/**", "out/**", "build/**", "next-env.d.ts"],
+    ignores: [
+      ".agents/**",
+      ".next/**",
+      "node_modules/**",
+      "out/**",
+      "build/**",
+      "playwright-report/**",
+      "test-results/**",
+      "next-env.d.ts",
+    ],
   },
   {
     rules: {

@@ -597,7 +597,7 @@ export const workspaceBusinessSteps: OnboardingStep[] = [
         id: "business-1-2-confirm-edition",
         title: "Confirm edition and current subscription terms",
         description:
-          "Gemini Enterprise Business currently lists 25 GiB pooled storage and data indexing per user. Confirm seat count, current price, contract, eligibility, and the included feature set with the current Google edition page or your seller before planning rollout.",
+          "Gemini Enterprise Business currently lists 25 GiB of storage and data indexing per paid seat, pooled across the team. Confirm seat count, current price, contract, eligibility, and the included feature set with the current Google edition page or your seller before planning rollout.",
         consolePath: "Google Cloud documentation > Gemini Enterprise > Compare editions",
       },
     ],

@@ -3,18 +3,13 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { getArticles } from "@/lib/i18n/data";
 import { resolveLocale, type Locale } from "@/lib/i18n/config";
-import { createPhraseTranslator } from "@/lib/i18n/translate";
 import { articlesPageUi } from "@/lib/i18n/page-copy/articles";
 import { withLocalizedAlternates } from "@/lib/seo";
 import {
   BookOpen,
   Clock,
-  Calendar,
   ArrowRight,
-  Sparkles,
-  Building2,
   CheckCircle2,
-  ChevronRight
 } from "lucide-react";
 
 const articlesPageMeta: Record<string, { title: string; description: string }> = {
@@ -47,8 +42,6 @@ export default async function ArticlesPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = resolveLocale(rawLocale);
-  const t = createPhraseTranslator(locale);
-  const articles = getArticles(locale);
   const ui = articlesPageUi[locale];
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">

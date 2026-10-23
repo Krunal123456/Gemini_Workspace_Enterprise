@@ -4,25 +4,54 @@ const businessSources = [
   { label: "Google Workspace Business edition comparison", url: "https://knowledge.workspace.google.com/admin/getting-started/editions/compare-business-editions" },
   { label: "Google Workspace plan pricing", url: "https://workspace.google.com/pricing?hl=en" },
   { label: "Google Meet limits by Workspace edition", url: "https://knowledge.workspace.google.com/admin/meet/compare-meet-features-across-google-workspace-editions" },
+  { label: "Google Workspace with Gemini admin guide", url: "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini" },
+  { label: "Google Workspace AI privacy and data protections", url: "https://workspace.google.com/security/ai-privacy/" },
 ];
 
 const enterpriseSources = [
   { label: "Google Workspace Enterprise edition comparison", url: "https://knowledge.workspace.google.com/admin/getting-started/editions/compare-enterprise-editions" },
   { label: "Google Workspace plan pricing", url: "https://workspace.google.com/pricing?hl=en" },
   { label: "Google Meet limits by Workspace edition", url: "https://knowledge.workspace.google.com/admin/meet/compare-meet-features-across-google-workspace-editions" },
+  { label: "Google Workspace with Gemini admin guide", url: "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini" },
+  { label: "Google Workspace AI privacy and data protections", url: "https://workspace.google.com/security/ai-privacy/" },
 ];
 
 const geminiEnterpriseSources = [
   { label: "Gemini Enterprise public pricing and editions", url: "https://cloud.google.com/gemini-enterprise" },
   { label: "Gemini Enterprise edition comparison", url: "https://docs.cloud.google.com/gemini/enterprise/docs/editions" },
   { label: "Gemini Enterprise quotas and overages", url: "https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages" },
+  { label: "Gemini Notebook Enterprise overview and usage limits", url: "https://docs.cloud.google.com/gemini/enterprise/notebooklm-enterprise/docs/overview#usage-limits" },
+  { label: "Workflow Builder quotas and limits", url: "https://docs.cloud.google.com/gemini/enterprise/docs/workflow-builder/quotas-and-limits" },
 ];
 
-const addonSources = [
-  { label: "Google Workspace plan pricing", url: "https://workspace.google.com/pricing?hl=en" },
-  { label: "Google Workspace Gemini overview", url: "https://workspace.google.com/products/gemini/" },
-  { label: "Google Workspace Admin Gemini add-on guide", url: "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini" },
-  { label: "Google Meet limits by Workspace edition", url: "https://knowledge.workspace.google.com/admin/meet/compare-meet-features-across-google-workspace-editions" },
+const geminiEnterpriseBusinessSources = [
+  ...geminiEnterpriseSources,
+  { label: "Gemini Enterprise Business getting started and support", url: "https://support.google.com/g/answer/16628842?hl=en" },
+  { label: "Gemini Enterprise Business usage limits and quotas", url: "https://support.google.com/g/answer/16626091?hl=en" },
+  { label: "Connectors for Gemini Enterprise Business", url: "https://support.google.com/g/answer/16550932?hl=en" },
+  { label: "Invite users to Gemini Enterprise Business", url: "https://support.google.com/g/answer/16547030?hl=en" },
+  { label: "Chat sharing in Gemini Enterprise Business", url: "https://support.google.com/g/answer/16630420?hl=en" },
+];
+
+const geminiNotebookEnterpriseLimits = [
+  { feature: "Notebook queries", limit: "500 per user per day" },
+  { feature: "Notebook audio overviews", limit: "20 per user per day" },
+  { feature: "Notebook video overviews", limit: "20 per user per day" },
+  { feature: "Notebook mind maps and reports", limit: "20 of each per user per day" },
+  { feature: "Notebook slide decks and infographics", limit: "15 of each per user per day" },
+  { feature: "Notebook quizzes and flashcards", limit: "100 of each per user per day" },
+  { feature: "Notebook sources", limit: "300 per notebook" },
+  { feature: "Notebooks", limit: "500 per user" },
+  { feature: "Notebook source size", limit: "500 MB or 500,000 words per source" },
+];
+
+const geminiEnterpriseBusinessNotebookLimits = [
+  { feature: "Notebook audio overviews", limit: "20 per day" },
+  { feature: "Notebook video overviews", limit: "20 per day" },
+  { feature: "Notebook sources", limit: "300 per notebook" },
+  { feature: "Notebooks", limit: "500 per user" },
+  { feature: "Notebook slide decks", limit: "15 per user" },
+  { feature: "Notebook infographics", limit: "15 per user" },
 ];
 
 const voiceSources = [
@@ -447,16 +476,16 @@ export const plans: Plan[] = [
     shortName: "GE Business",
     type: "gemini-enterprise",
     category: "Gemini Enterprise",
-    tagline: "Enterprise AI with permission-aware search and 25 GiB pooled indexing per user.",
-    description: "Gemini Enterprise Business provides enterprise search, grounding across organizational sources, and basic agent governance, with 25 GiB of pooled storage and data indexing per user.",
+    tagline: "Enterprise AI with permission-aware search and pooled storage + indexing.",
+    description: "Gemini Enterprise Business provides enterprise search, grounding across organizational sources, and basic agent governance, with 25 GiB of storage and data indexing per paid seat pooled across the team.",
     idealFor: "Organizations seeking permission-aware enterprise search and AI across approved business data sources.",
     startingPriceUSD: 21.00,
     pricingNote: "Starts at $21 USD per seat/month. Confirm current regional and contract pricing with Google Cloud.",
     pricingUrl: "https://cloud.google.com/gemini-enterprise",
     currency: "USD",
-    storage: "25 GiB per user, pooled for storage and data indexing",
+    storage: "25 GiB per paid seat, pooled across the team",
     highlightedFeatures: [
-      "25 GiB pooled storage and data indexing per user",
+      "25 GiB storage and data indexing per paid seat, pooled across the team",
       "Permission-aware enterprise search",
       "Grounding across Google and third-party sources",
       "Access to select, segment-relevant connectors",
@@ -467,14 +496,26 @@ export const plans: Plan[] = [
       generativeAI: "Gemini Enterprise assistant and agent platform",
       modelAccess: "Gemini model access; priority access is listed for higher editions",
       grounding: "Google and third-party organizational data",
-      deepResearch: "Check current edition documentation for feature-specific limits",
-      notebookLMAccess: "Check current Gemini Notebook availability for this edition",
+      deepResearch: "3 queries per licensed seat per day, pooled across the team",
+      notebookLMAccess: "Gemini Notebook Enterprise; feature-specific daily and per-user limits apply",
       connectors: "Select, segment-relevant connectors",
       agentsAndMCP: "Basic agent governance and administration",
       securityLevel: "See the current edition comparison for included controls",
       auditLogging: "See current Gemini Enterprise documentation for logging details",
     },
-    officialSources: geminiEnterpriseSources,
+    usageLimits: [
+      { feature: "Storage + indexing", limit: "25 GiB per paid seat; pooled across the team" },
+      { feature: "Gemini models", limit: "Gemini 3 Pro (Preview), Gemini 2.5 Flash, and Gemini 2.5 Pro" },
+      { feature: "Blended Content Gen (text)", limit: "120 queries per paid seat per day; pooled across the team" },
+      { feature: "Media Generation (image)", limit: "2 images per paid seat per day; pooled across the team" },
+      { feature: "Media Generation (video)", limit: "1 video per paid seat per day; pooled across the team" },
+      { feature: "Grounding with Google Search", limit: "120 queries per paid seat per day; pooled across the team" },
+      { feature: "Build agents (No-Code Agent Building Tools)", limit: "1 per day; pooled across the team" },
+      { feature: "Deep Research", limit: "3 queries per paid seat per day; pooled across the team" },
+      ...geminiEnterpriseBusinessNotebookLimits,
+    ],
+    usageLimitNote: "Business daily quotas are pooled across the team. Per-seat allowances scale with paid seats; free trials receive a five-seat-equivalent allowance, while paid quotas follow purchased seats. Notebook limits above are the limits published for Business; the source does not list a separate daily Notebook chat-query quota. Higher individual feature quotas cannot be purchased; add paid seats or consider Gemini Enterprise Standard or Plus. See Google's quota guide for current rules.",
+    officialSources: geminiEnterpriseBusinessSources,
   },
   {
     id: "gemini-enterprise-standard",
@@ -503,13 +544,24 @@ export const plans: Plan[] = [
       generativeAI: "Gemini Enterprise assistant and agent platform",
       modelAccess: "Priority access to the latest Gemini models",
       grounding: "Google and third-party organizational data",
-      deepResearch: "Check current edition documentation for feature-specific limits",
-      notebookLMAccess: "Check current Gemini Notebook availability for this edition",
+      deepResearch: "3 queries per licensed seat per day, pooled by edition",
+      notebookLMAccess: "Gemini Notebook Enterprise; see its usage-limit documentation",
       connectors: "Full data connector ecosystem",
       agentsAndMCP: "Agent Marketplace and developer tools",
       securityLevel: "Enterprise-grade security and compliance controls",
       auditLogging: "See current Gemini Enterprise documentation for logging details",
     },
+    usageLimits: [
+      { feature: "Assistant queries", limit: "160 per licensed seat per day; pooled by edition, project, and location" },
+      { feature: "No-code agent creation", limit: "1 per licensed seat per day; pooled by edition, project, and location" },
+      { feature: "Image generation", limit: "5 images per licensed seat per day; pooled by edition" },
+      { feature: "Video generation", limit: "2 requests per licensed seat per day; pooled by edition" },
+      { feature: "Deep Research", limit: "3 per licensed seat per day; pooled by edition" },
+      { feature: "AI developer-tool credits", limit: "$10 per user per month; enforced as a shared rolling seven-day pool" },
+      { feature: "Storage and data indexing", limit: "30 GiB per seat; shared across editions in the project and location" },
+      ...geminiNotebookEnterpriseLimits,
+    ],
+    usageLimitNote: "Except for storage and data indexing, feature quotas are pooled within the same edition, project, and location. Storage is pooled across editions. Daily quotas reset at midnight Pacific Time; AI developer-tool credits use a rolling seven-day pool. No individual cap applies unless an administrator configures one.",
     officialSources: geminiEnterpriseSources,
   },
   {
@@ -539,13 +591,24 @@ export const plans: Plan[] = [
       generativeAI: "Gemini Enterprise assistant and agent platform",
       modelAccess: "Priority access to the latest Gemini models",
       grounding: "Google and third-party organizational data",
-      deepResearch: "Check current edition documentation for feature-specific limits",
-      notebookLMAccess: "Check current Gemini Notebook availability for this edition",
+      deepResearch: "10 queries per licensed seat per day, pooled by edition",
+      notebookLMAccess: "Gemini Notebook Enterprise; see its usage-limit documentation",
       connectors: "Full data connector ecosystem",
       agentsAndMCP: "Agent Marketplace and developer tools",
       securityLevel: "Enterprise-grade security and compliance controls",
       auditLogging: "See current Gemini Enterprise documentation for logging details",
     },
+    usageLimits: [
+      { feature: "Assistant queries", limit: "200 per licensed seat per day; pooled by edition, project, and location" },
+      { feature: "No-code agent creation", limit: "10 per licensed seat per day; pooled by edition, project, and location" },
+      { feature: "Image generation", limit: "10 images per licensed seat per day; pooled by edition" },
+      { feature: "Video generation", limit: "3 requests per licensed seat per day; pooled by edition" },
+      { feature: "Deep Research", limit: "10 per licensed seat per day; pooled by edition" },
+      { feature: "AI developer-tool credits", limit: "$15 per user per month; enforced as a shared rolling seven-day pool" },
+      { feature: "Storage and data indexing", limit: "75 GiB per seat; shared across editions in the project and location" },
+      ...geminiNotebookEnterpriseLimits,
+    ],
+    usageLimitNote: "Except for storage and data indexing, feature quotas are pooled within the same edition, project, and location. Storage is pooled across editions. Daily quotas reset at midnight Pacific Time; AI developer-tool credits use a rolling seven-day pool. No individual cap applies unless an administrator configures one.",
     officialSources: geminiEnterpriseSources,
   },
   {
@@ -584,6 +647,8 @@ export const plans: Plan[] = [
     officialSources: [
       ...geminiEnterpriseSources,
       { label: "Gemini Enterprise release notes", url: "https://docs.cloud.google.com/gemini/enterprise/docs/release-notes" },
+      { label: "Google Cloud billing account types", url: "https://cloud.google.com/billing/docs/concepts#billing_account_types" },
+      { label: "Get Gemini Enterprise subscriptions and assign licenses", url: "https://docs.cloud.google.com/gemini/enterprise/docs/licenses#about-subscriptions" },
     ],
   },
   {

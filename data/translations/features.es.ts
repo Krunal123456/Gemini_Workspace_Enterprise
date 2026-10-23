@@ -177,6 +177,9 @@ export const featuresES: Record<string, FeatureTranslation> = {
   "security-enterprise-data-regions-per-ou-policies": {
     name: "Regiones de datos empresariales (políticas por OU)",
   },
+  "security-assured-controls-data-regions-addon": {
+    name: "Complemento de regiones de datos de Assured Controls",
+  },
   "security-client-side-encryption": {
     name: "Cifrado del lado del cliente (CSE)",
   },

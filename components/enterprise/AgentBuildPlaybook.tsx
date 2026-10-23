@@ -31,7 +31,7 @@ const routeCards = [
   {
     title: "Gemini Enterprise app: Business edition",
     label: "Agent Designer",
-    description: "This is a separate Gemini Enterprise app subscription, not the Workspace Business Standard/Plus productivity plan. Business includes 25 GiB pooled storage and indexing per user and supports custom no-code agents, subject to app controls and current availability.",
+    description: "This is a separate Gemini Enterprise app subscription, not the Workspace Business Standard/Plus productivity plan. Business includes 25 GiB of storage and indexing per paid seat, pooled across the team, and supports custom no-code agents subject to app controls and current availability.",
     details: "Build in business.gemini.google → Agents → Create agent → Manage your data → prompt → Preview → Create. For multi-step setup choose Proceed to Builder. Direct signups manage the team in the product; sales/partner customers also use Admin Console for service and licensing. Verify current connectors in the tenant.",
     href: "https://cloud.google.com/gemini-enterprise/business",
     action: "See Business edition",
@@ -139,7 +139,7 @@ export function AgentBuildPlaybook({ href }: { href: (path: string) => string })
             <div className="rounded-2xl border border-border bg-card p-5"><h3 className="font-semibold text-foreground">Use Agent Studio when</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">You need a visual developer workflow for building, testing, deploying, and managing agents on Agent Platform.</p></div>
             <div className="rounded-2xl border border-border bg-card p-5"><h3 className="font-semibold text-foreground">Use ADK or another framework when</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">You need version-controlled code, custom tools, application logic, framework choice, or deeper control over runtime and deployment.</p></div>
           </div>
-          <p className="mt-5 text-xs leading-5 text-muted-foreground">Standard and Plus list AI developer tools and access to externally built agents in Google's edition comparison. Billing, enabled APIs, IAM, region, quotas, and exact runtime costs still need to be checked for your Cloud project.</p>
+          <p className="mt-5 text-xs leading-5 text-muted-foreground">Standard and Plus list AI developer tools and access to externally built agents in Google&apos;s edition comparison. Billing, enabled APIs, IAM, region, quotas, and exact runtime costs still need to be checked for your Cloud project.</p>
           <a className="mt-4 inline-flex text-sm font-semibold text-google-blue hover:underline" href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build" target="_blank" rel="noreferrer">Open Agent Platform build documentation ↗</a>
         </div>
       </section>

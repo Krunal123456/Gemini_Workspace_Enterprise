@@ -11,8 +11,6 @@ import {
   ExternalLink,
   ChevronRight,
   Sparkles,
-  HardDrive,
-  Users,
   CreditCard,
   Zap,
   Search,
@@ -27,7 +25,6 @@ import {
   Shield,
   Briefcase,
   Bot,
-  Filter,
 } from "lucide-react";
 import type { Plan, Feature, PlanId } from "@/types";
 
@@ -951,8 +948,6 @@ export function PlanMindMap({
                 const style = CATEGORY_STYLES[catNode.key];
                 const isSelected = selectedCategory === "all" || selectedCategory === catNode.key;
                 const isHovered = hoveredNodeId === catNode.key;
-                const IconComponent = style.icon;
-
                 return (
                   <g
                     key={catNode.key}

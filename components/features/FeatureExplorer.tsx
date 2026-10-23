@@ -21,14 +21,11 @@ import {
   BookOpen,
   Bot,
   ShieldCheck,
-  CheckCircle2,
   ChevronDown,
   RotateCcw,
-  SlidersHorizontal,
 } from "lucide-react";
 import { Feature, PlanId } from "@/types";
 import { cn } from "@/lib/utils";
-import { formatEnterpriseAvailability } from "@/lib/i18n/featureLabels";
 
 import { FeatureCard } from "./FeatureCard";
 import { FeatureModal } from "./FeatureModal";
@@ -53,8 +50,8 @@ const goalProfiles: { id: GoalCategory; label: string; icon: React.ElementType; 
 ];
 
 export function FeatureExplorer({ viewMode = "link" }: FeatureExplorerProps) {
-  const { categories, plans, features, applications } = useLocalizedData();
-  const { locale, href, tp } = useLocale();
+  const { plans, features, applications } = useLocalizedData();
+  const { locale, href } = useLocale();
   const t = createPhraseTranslator(locale);
 
   // Filter States
@@ -310,17 +307,19 @@ export function FeatureExplorer({ viewMode = "link" }: FeatureExplorerProps) {
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
+              id="feature-search"
               type="text"
+              aria-label={t("Search features by keyword, tool, action, or capability")}
               placeholder={t("Search by keyword, tool, action, or capability...")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-10 py-3 bg-background/80 backdrop-blur border border-border/80 rounded-2xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-google-blue focus:border-transparent transition-all shadow-xs"
+              className="w-full pl-11 pr-12 py-3 bg-background/80 backdrop-blur border border-border/80 rounded-2xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-google-blue focus:border-transparent transition-all shadow-xs"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
                 aria-label="Clear search"
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition"
+                className="absolute right-2 top-1/2 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -356,22 +355,12 @@ export function FeatureExplorer({ viewMode = "link" }: FeatureExplorerProps) {
                 onChange={(e) => setSelectedPlan(e.target.value)}
                 className="w-full appearance-none px-4 py-3 pr-9 bg-background/80 backdrop-blur border border-border/80 rounded-2xl text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-google-blue transition shadow-xs"
               >
-                <option value="all">💳 {t("All Workspace Plans")}</option>
-                <optgroup label="Core Editions">
-                  <option value="business-starter">Business Starter</option>
-                  <option value="business-standard">Business Standard</option>
-                  <option value="business-plus">Business Plus</option>
-                  <option value="enterprise-standard">Enterprise Standard</option>
-                  <option value="enterprise-plus">Enterprise Plus</option>
-                </optgroup>
-                <optgroup label="Add-on Subscriptions">
-                  <option value="ai-expanded">Google AI expanded access</option>
-                  <option value="google-voice-standard">Google Voice</option>
-                  <option value="appsheet-core">AppSheet Core</option>
-                </optgroup>
-                <optgroup label="Gemini Enterprise Platform">
-                  <option value="gemini-enterprise-standard">Gemini Enterprise</option>
-                </optgroup>
+                <option value="all">💳 {t("All plans")}</option>
+                {plans.map((plan) => (
+                  <option key={plan.id} value={plan.id}>
+                    {plan.name}
+                  </option>
+                ))}
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             </div>
@@ -398,7 +387,7 @@ export function FeatureExplorer({ viewMode = "link" }: FeatureExplorerProps) {
                 onClick={() => setViewLayout("grid")}
                 aria-label="Grid view"
                 className={cn(
-                  "p-2 rounded-xl transition-all",
+                  "flex min-h-11 min-w-11 items-center justify-center rounded-xl transition-all",
                   viewLayout === "grid"
                     ? "bg-google-blue text-white shadow-xs"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -411,7 +400,7 @@ export function FeatureExplorer({ viewMode = "link" }: FeatureExplorerProps) {
                 onClick={() => setViewLayout("table")}
                 aria-label="Table view"
                 className={cn(
-                  "p-2 rounded-xl transition-all",
+                  "flex min-h-11 min-w-11 items-center justify-center rounded-xl transition-all",
                   viewLayout === "table"
                     ? "bg-google-blue text-white shadow-xs"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -441,7 +430,7 @@ export function FeatureExplorer({ viewMode = "link" }: FeatureExplorerProps) {
                 key={toggle.id}
                 onClick={() => setQuickToggle(toggle.id)}
                 className={cn(
-                  "rounded-full px-3.5 py-1 text-xs font-medium transition-all border",
+                  "min-h-11 rounded-full px-3.5 py-2 text-xs font-medium transition-all border",
                   quickToggle === toggle.id
                     ? "bg-foreground text-background border-foreground shadow-xs font-semibold"
                     : "bg-background/60 text-muted-foreground border-border/80 hover:bg-muted hover:text-foreground"

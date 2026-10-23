@@ -1,6 +1,5 @@
 "use client";
 
-import { useLocalizedData } from "@/lib/i18n/use-localized-data";
 import { useLocale } from "@/lib/i18n/locale-context";
 import { createPhraseTranslator } from "@/lib/i18n/translate";
 
@@ -11,7 +10,6 @@ import { googleCloudConnectors, GoogleCloudConnectorGroup } from "@/data/googleC
 const groups: (GoogleCloudConnectorGroup | "All")[] = ["All", "Google services", "Other applications"];
 
 export function GoogleCloudConnectorCatalog() {
-  const { connectors } = useLocalizedData();
   const { locale } = useLocale();
   const t = createPhraseTranslator(locale);
   const [query, setQuery] = useState("");

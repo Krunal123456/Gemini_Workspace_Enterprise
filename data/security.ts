@@ -31,6 +31,7 @@ export const securityLayers: SecurityLayer[] = [
     description: "Encryption, data regions, and DLP do not automatically cover every product surface or data type. Use product documentation to confirm supported services and editions.",
     capabilities: [
       { name: "Data regions", description: "Review which stored data and services are covered by any configured data-region policy.", reviewQuestion: "Are the AI inputs, outputs, and source files in scope?" },
+      { name: "Assured Controls data regions add-on", description: "Enterprise data regions require a separately purchased Assured Controls add-on for eligible users; check the documented service and data coverage.", reviewQuestion: "Have you confirmed add-on purchase, eligible users, and coverage for each service and data type?" },
       { name: "DLP and encryption", description: "Confirm the supported data types, workflows, and administrative prerequisites for the controls you plan to use.", reviewQuestion: "Which AI surfaces and file types are included in the policy?" },
     ],
   },

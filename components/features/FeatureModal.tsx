@@ -14,12 +14,11 @@ import {
   AlertCircle,
   ShieldAlert,
   ArrowRight,
-  ExternalLink,
   Sparkles,
   Flame,
   Check
 } from "lucide-react";
-import { Feature, PlanId } from "@/types";
+import { Feature } from "@/types";
 import { cn } from "@/lib/utils";
 
 interface FeatureModalProps {
@@ -28,7 +27,7 @@ interface FeatureModalProps {
 }
 
 export function FeatureModal({ feature, onClose }: FeatureModalProps) {
-  const { features, plans, categories, applications } = useLocalizedData();
+  const { plans, categories, applications } = useLocalizedData();
   const { locale, href } = useLocale();
   const t = createPhraseTranslator(locale);
 

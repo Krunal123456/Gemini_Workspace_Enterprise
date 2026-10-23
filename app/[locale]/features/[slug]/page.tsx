@@ -2,7 +2,7 @@ import {
   getApplications,
   getPlans,
 } from "@/lib/i18n/data";
-import { defaultLocale, isLocale, resolveLocale, type Locale } from "@/lib/i18n/config";
+import { resolveLocale, type Locale } from "@/lib/i18n/config";
 import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -12,7 +12,6 @@ import { featureCategoryLabels } from "@/data/translations/features.es";
 import { formatEnterpriseAvailability } from "@/lib/i18n/featureLabels";
 
 
-import { cn } from "@/lib/utils";
 import { ActionButtons } from "./ClientButtons";
 import { PlanId } from "@/types";
 import { getFeatureEvidence } from "@/lib/featureEvidence";
@@ -164,7 +163,6 @@ export default async function FeatureDetailPage({ params }: Props) {
           </div>
 
           <ActionButtons 
-            featureName={feature.name} 
             documentationUrl={feature.documentationUrl} 
           />
         </div>
@@ -173,14 +171,18 @@ export default async function FeatureDetailPage({ params }: Props) {
           <div className="rounded-2xl border border-border bg-card p-5">
             <p className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Use case")}</p>
             <p className="text-sm leading-6 text-foreground">
-              {feature.useCaseSummary || feature.useCases[0] || "Grounded business workflows across internal and approved external data sources."}
+              {feature.useCaseSummary || feature.useCases[0] || t("Grounded business workflows across internal and approved external data sources.")}
             </p>
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-5">
             <p className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("Where it is used")}</p>
             <ul className="space-y-2 text-sm leading-6 text-foreground">
-              {(feature.whereUsed || ["Workspace search", "Admin setup", "Business operations"])
+              {(feature.whereUsed || [
+                t("Workspace search"),
+                t("Admin setup"),
+                t("Business operations"),
+              ])
                 .slice(0, 3)
                 .map((item) => (
                   <li key={item} className="flex items-start gap-2">
@@ -195,9 +197,9 @@ export default async function FeatureDetailPage({ params }: Props) {
             <p className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("How to use it")}</p>
             <ol className="space-y-2 text-sm leading-6 text-foreground">
               {(feature.howToUse || [
-                "Review the connector requirements in the admin console.",
-                "Approve permissions and source access for the target system.",
-                "Ask Gemini for a grounded answer using the connected app context.",
+                t("Review the connector requirements in the admin console."),
+                t("Approve permissions and source access for the target system."),
+                t("Ask Gemini for a grounded answer using the connected app context."),
               ]).map((step, index) => (
                 <li key={step} className="flex items-start gap-2">
                   <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[11px] font-bold text-foreground">{index + 1}</span>

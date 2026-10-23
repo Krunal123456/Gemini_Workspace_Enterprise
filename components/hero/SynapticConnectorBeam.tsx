@@ -10,12 +10,9 @@ import {
   Sparkles, 
   Workflow, 
   CheckCircle2, 
-  Cpu, 
   ShieldCheck,
-  Server,
   Terminal,
   Activity,
-  ArrowRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +36,7 @@ const OUTCOMES = [
   { id: "synthesis", label: "Executive Briefings & Strategy", icon: Sparkles, color: "#8B5CF6" },
   { id: "code", label: "Autonomous Code & Migrations", icon: Workflow, color: "#3B82F6" },
   { id: "translation", label: "Real-time Meet Cross-lingual", icon: Activity, color: "#10B981" },
-  { id: "audit", label: "Immutable Security Audit SIEM", icon: ShieldCheck, color: "#F59E0B" },
+  { id: "audit", label: "Cloud Audit Logs and SIEM", icon: ShieldCheck, color: "#F59E0B" },
 ];
 
 export function SynapticConnectorBeam() {

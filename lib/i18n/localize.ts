@@ -45,6 +45,8 @@ export type PlanTranslation = DeepPartial<
     | "idealFor"
     | "storage"
     | "pricingNote"
+    | "usageLimits"
+    | "usageLimitNote"
   > & { highlightedFeatures: string[] }
 >;
 
@@ -80,6 +82,11 @@ export type FeatureTranslation = {
   whatItDoes?: string;
   howItWorks?: string;
   useCaseSummary?: string;
+  useCases?: string[];
+  capabilities?: string[];
+  includedCapabilities?: string[];
+  whereUsed?: string[];
+  howToUse?: string[];
 };
 
 export type AppTranslations = Record<string, AppTranslation>;

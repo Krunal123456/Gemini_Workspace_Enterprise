@@ -301,7 +301,7 @@ export function Header({ labels }: { labels: NavLabels }) {
                 aria-haspopup="dialog"
                 aria-keyshortcuts="Control+K Meta+K"
                 title={`${labels.search} (⌘K)`}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
               >
                 <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
@@ -310,7 +310,7 @@ export function Header({ labels }: { labels: NavLabels }) {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-expanded={mobileMenuOpen}
                 aria-label={labels.toggleMenu}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-slate-700 transition hover:bg-slate-200/60 dark:text-slate-200 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
               >
                 {mobileMenuOpen ? (
                   <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
